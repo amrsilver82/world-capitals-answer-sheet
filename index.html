@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light">
-<title>World Flags — Test 1 — Batch 8 (Q71–80)</title>
+<title>World Flags — Test 1 — Batch 9 (Q81–90)</title>
 <meta name="description" content="Look at each flag and type the country name. Build a clean reply you can copy.">
 <style>
 :root{--bg:#fff;--fg:#0f172a;--card:#fff;--muted:#64748b;--soft:#f1f5f9;--border:#e2e8f0;--input:#cbd5e1;--blue:#2563eb;--blue2:#1d4ed8;--done-bg:#dcfce7;--done-fg:#166534;--todo-bg:#f1f5f9;--todo-fg:#475569}
@@ -21,7 +21,7 @@ input{margin-top:8px;width:100%;border:1px solid var(--input);border-radius:7px;
 <body>
 <div class="page"><main>
 <header>
-<h1>World Flags — Test 1 — Batch 8 (Q71–80)</h1>
+<h1>World Flags — Test 1 — Batch 9 (Q81–90)</h1>
 <p class="subtitle">Look at each flag and type the country name. Leave unknown ones blank.</p>
 <p id="counter" class="counter" aria-live="polite">0 answered · 10 left</p>
 </header>
@@ -36,7 +36,7 @@ input{margin-top:8px;width:100%;border:1px solid var(--input);border-radius:7px;
 </main></div>
 <script>
 (()=>{"use strict";
-const START=71,VERSION="b8-20260927",KEY="world-flags-test1-batch-8";
+const START=81,VERSION="b9-20260927",KEY="world-flags-test1-batch-9";
 const questions=Array.from({length:10},(_,i)=>({n:START+i,file:"flags/"+String(i+1).padStart(2,"0")+".svg?v="+VERSION}));
 const grid=document.getElementById("grid"),counter=document.getElementById("counter"),result=document.getElementById("result"),replyEl=document.getElementById("reply"),blankNote=document.getElementById("blankNote"),copyBtn=document.getElementById("copyBtn");
 let saved={};try{saved=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch{saved={}}
