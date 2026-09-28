@@ -1,8 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="f04_1" viewBox="0 0 640 480">
-  <path fill="#3f9c35" d="M.1 0h640v480H.1z"/>
-  <path fill="#ed2939" d="M.1 0h640v320H.1z"/>
-  <path fill="#00b9e4" d="M.1 0h640v160H.1z"/>
-  <circle cx="304" cy="240" r="72" fill="#fff"/>
-  <circle cx="320" cy="240" r="60" fill="#ed2939"/>
-  <path fill="#fff" d="m384 200 7.7 21.5 20.6-9.8-9.8 20.7L424 240l-21.5 7.7 9.8 20.6-20.6-9.8L384 280l-7.7-21.5-20.6 9.8 9.8-20.6L344 240l21.5-7.7-9.8-20.6 20.6 9.8z"/>
+  <defs>
+    <clipPath id="f04_2">
+      <path fill-opacity=".7" d="M-117.8 0h682.6v512h-682.6z"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#f04_2)" transform="translate(110.5)scale(.9375)">
+    <g fill-rule="evenodd" stroke-width="1pt">
+      <path fill="#000001" d="M-117.8 0h1024v170.7h-1024z"/>
+      <path fill="#fff" d="M-117.8 170.7h1024v170.6h-1024z"/>
+      <path fill="#090" d="M-117.8 341.3h1024V512h-1024z"/>
+      <path fill="red" d="m-117.8 512 512-256-512-256z"/>
+      <path fill="#fff" d="m24.5 289 5.7-24.9H4.7l23-11-15.9-19.9 23 11 5.6-24.8 5.7 24.9L69 233.2l-16 19.9 23 11H50.6l5.7 24.9-15.9-20z"/>
+    </g>
+  </g>
 </svg>
