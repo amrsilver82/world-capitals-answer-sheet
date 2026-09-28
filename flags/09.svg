@@ -1,12 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="f09_1" viewBox="0 0 640 480">
-  <defs>
-    <clipPath id="f09_2">
-      <path fill-opacity=".7" d="M0 0h640v480H0z"/>
-    </clipPath>
-  </defs>
-  <g fill-rule="evenodd" clip-path="url(#f09_2)">
-    <path fill="#ce1126" d="M-40 0h720v480H-40z"/>
-    <path fill="#002868" d="M-40 119.3h720v241.4H-40z"/>
-    <path fill="#fff" d="M423.4 240a103.4 103.4 0 1 1-206.8 0 103.4 103.4 0 1 1 206.8 0"/>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="f09_1" viewBox="0 0 640 480">
+  <path fill="#18c3df" d="M0 0h640v480H0z"/>
+  <path fill="#fff" d="M0 160h640v160H0z"/>
+  <g id="f09_2" fill="#18c3df" transform="translate(320 240)scale(26.66665)">
+    <g id="f09_3">
+      <path id="f09_4" d="m-.3 0 .5.1L0-1z"/>
+      <use xlink:href="#f09_4" width="100%" height="100%" transform="scale(-1 1)"/>
+    </g>
+    <use xlink:href="#f09_3" width="100%" height="100%" transform="rotate(72)"/>
+    <use xlink:href="#f09_3" width="100%" height="100%" transform="rotate(-72)"/>
+    <use xlink:href="#f09_3" width="100%" height="100%" transform="rotate(144)"/>
+    <use xlink:href="#f09_3" width="100%" height="100%" transform="rotate(-144)"/>
   </g>
+  <use xlink:href="#f09_2" width="100%" height="100%" transform="translate(133.3 -42.7)"/>
+  <use xlink:href="#f09_2" width="100%" height="100%" transform="translate(133.3 37.3)"/>
+  <use xlink:href="#f09_2" width="100%" height="100%" transform="translate(-133.3 -42.7)"/>
+  <use xlink:href="#f09_2" width="100%" height="100%" transform="translate(-133.3 37.3)"/>
 </svg>
