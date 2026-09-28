@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Flag Comparison — Côte d’Ivoire / Ireland / Monaco / Indonesia</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#f6f7f9;color:#111827}
+.wrap{max-width:1100px;margin:auto;padding:28px 16px 44px}
+h1{margin:0 0 8px;text-align:center;font-size:30px}
+.sub{text-align:center;color:#6b7280;margin:0 0 26px}
+.pair{background:#fff;border:1px solid #d1d5db;border-radius:16px;padding:20px;margin:0 0 22px;box-shadow:0 2px 8px #0000000d}
+.pair h2{margin:0 0 6px}
+.rule{font-weight:800;margin:0 0 18px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{border:1px solid #e5e7eb;border-radius:14px;padding:16px;background:#fafafa}
+.name{font-size:22px;font-weight:800;margin:0 0 12px}
+.flagbox{display:flex;align-items:center;justify-content:center;min-height:260px;background:#eef0f2;border:1px solid #cbd5e1;border-radius:10px;padding:18px}
+.flag{box-shadow:0 1px 5px #0003}
+.ratio{margin-top:11px;font-weight:700}
+.note{margin-top:8px;line-height:1.5;color:#374151}
+.tip{margin-top:16px;padding:12px 14px;border-radius:10px;background:#eff6ff;border:1px solid #bfdbfe;font-weight:700}
+.legend{font-size:14px;color:#6b7280;text-align:center;margin-top:20px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.flagbox{min-height:210px}h1{font-size:24px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<h1>Temporary Flag Comparison Study Page</h1>
+<p class="sub">Côte d’Ivoire vs Ireland · Monaco vs Indonesia</p>
+
+<section class="pair">
+<h2>1) Côte d’Ivoire vs Ireland</h2>
+<p class="rule">Same three colours, opposite order.</p>
+<div class="grid">
+<article class="card">
+<p class="name">Côte d’Ivoire 🇨🇮</p>
+<div class="flagbox">
+<svg class="flag" width="420" height="280" viewBox="0 0 3 2" aria-label="Côte d’Ivoire flag">
+<rect width="1" height="2" x="0" fill="#F77F00"/>
+<rect width="1" height="2" x="1" fill="#fff"/>
+<rect width="1" height="2" x="2" fill="#009E60"/>
+</svg>
+</div>
+<div class="ratio">Left → right: ORANGE · WHITE · GREEN</div>
+<p class="note">Orange is at the flagpole/left side. Green is on the right.</p>
+</article>
+
+<article class="card">
+<p class="name">Ireland 🇮🇪</p>
+<div class="flagbox">
+<svg class="flag" width="420" height="280" viewBox="0 0 3 2" aria-label="Ireland flag">
+<rect width="1" height="2" x="0" fill="#009A49"/>
+<rect width="1" height="2" x="1" fill="#fff"/>
+<rect width="1" height="2" x="2" fill="#FF7900"/>
+</svg>
+</div>
+<div class="ratio">Left → right: GREEN · WHITE · ORANGE</div>
+<p class="note">Green is at the flagpole/left side. Orange is on the right.</p>
+</article>
+</div>
+<div class="tip">Memory trick: Côte d’Ivoire starts with ORANGE; Ireland starts with GREEN.</div>
+</section>
+
+<section class="pair">
+<h2>2) Monaco vs Indonesia</h2>
+<p class="rule">The colour pattern is the same. The reliable visual difference is the flag proportion.</p>
+<div class="grid">
+<article class="card">
+<p class="name">Monaco 🇲🇨</p>
+<div class="flagbox">
+<svg class="flag" width="350" height="280" viewBox="0 0 5 4" aria-label="Monaco flag">
+<rect width="5" height="2" fill="#CE1126"/>
+<rect y="2" width="5" height="2" fill="#fff"/>
+</svg>
+</div>
+<div class="ratio">Official proportion: 5:4 (width:height)</div>
+<p class="note">Monaco is more square/compact.</p>
+</article>
+
+<article class="card">
+<p class="name">Indonesia 🇮🇩</p>
+<div class="flagbox">
+<svg class="flag" width="420" height="280" viewBox="0 0 3 2" aria-label="Indonesia flag">
+<rect width="3" height="1" fill="#FF0000"/>
+<rect y="1" width="3" height="1" fill="#fff"/>
+</svg>
+</div>
+<div class="ratio">Official proportion: 3:2 (width:height)</div>
+<p class="note">Indonesia is wider/longer.</p>
+</article>
+</div>
+<div class="tip">Memory trick: Monaco = squarer. Indonesia = wider. Do not rely on the shade of red because displays and image sources can vary.</div>
+</section>
+
+<p class="legend">Temporary study page for World Flags Test 1 · Created from the quiz confusion cases in Batch 18.</p>
+</main>
+</body>
+</html>
