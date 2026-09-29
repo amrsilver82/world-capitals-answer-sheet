@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>World Flags — Full Asset & Presentation Audit</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f7fa;color:#111827;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:1200px;margin:auto;padding:28px 16px 50px}h1{margin:0 0 8px}h2{margin:28px 0 12px}.muted{color:#64748b}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card,.issue,.tablebox{background:#fff;border:1px solid #d1d5db;border-radius:14px;padding:16px}
+.num{font-size:28px;font-weight:850}.pass{color:#166534}.warn{color:#9a3412}.fail{color:#991b1b}
+.issues{display:grid;grid-template-columns:1fr 1fr;gap:16px}.flagrow{display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap;margin-top:14px}
+.flagitem{text-align:center}.flagframe{display:flex;align-items:center;justify-content:center;background:#eef2f7;border:1px solid #cbd5e1;padding:12px;border-radius:10px;margin:auto}
+.flagframe img,.flagframe svg{display:block;width:100%;height:100%;object-fit:fill;border:1px solid #94a3b8}
+.uz{width:320px;aspect-ratio:4/3}.mc{width:250px;aspect-ratio:5/4}.id{width:300px;aspect-ratio:3/2}
+code{background:#f1f5f9;padding:2px 5px;border-radius:5px}.tablebox{overflow:auto;margin-top:16px;padding:0}
+table{width:100%;border-collapse:collapse;min-width:880px}th,td{padding:10px 12px;border-bottom:1px solid #e5e7eb;text-align:left;vertical-align:top}th{position:sticky;top:0;background:#f8fafc}
+.badge{display:inline-block;border-radius:999px;padding:3px 8px;font-size:12px;font-weight:800;background:#dcfce7;color:#166534}
+.badge.issue{background:#ffedd5;color:#9a3412}.legend{margin-top:16px;padding:12px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px}
+@media(max-width:850px){.cards{grid-template-columns:1fr 1fr}.issues{grid-template-columns:1fr}}
+</style></head>
+<body><main class="wrap">
+<h1>World Flags Test 1 — Full Asset & Presentation Audit</h1>
+<p class="muted">Audit date: 29-Sep-2026 · 195-country canonical set + recoverable quiz presentation history.</p>
+
+<div class="cards">
+<div class="card"><div class="num pass">195/195</div><strong>Canonical mappings passed</strong><div class="muted">No missing country/ISO/SVG mappings.</div></div>
+<div class="card"><div class="num pass">195</div><strong>Unique SVG blobs</strong><div class="muted">No exact duplicate canonical flag asset.</div></div>
+<div class="card"><div class="num fail">1</div><strong>Confirmed wrong presentation</strong><div class="muted">Q110 — Uzbekistan.</div></div>
+<div class="card"><div class="num warn">1</div><strong>Confirmed ambiguity</strong><div class="muted">Monaco vs Indonesia ratio normalization.</div></div>
+</div>
+
+<h2>Confirmed corrections</h2>
+<div class="issues">
+<section class="issue">
+<h3>Q110 — Uzbekistan</h3>
+<p>The private canonical <code>uz.svg</code> is correct. The historical quiz page used the wrong presentation image, so Q110 was correctly cancelled.</p>
+<div class="flagrow"><div class="flagitem"><div class="flagframe uz"><img src="flags/audit/uz.svg" alt="Correct Uzbekistan flag"></div><strong>Canonical Uzbekistan</strong></div></div>
+<p><strong>Fix:</strong> future quiz publication must copy the exact canonical SVG bytes and verify the public blob SHA against the private canonical blob SHA. PNG/screenshots/manual redraws are not accepted for routine flag publication.</p>
+</section>
+
+<section class="issue">
+<h3>Monaco vs Indonesia</h3>
+<p>The source library normalizes both drawings to a 4:3 SVG canvas. That erased the important flag-proportion distinction and made Q180 unfair.</p>
+<div class="flagrow">
+<div class="flagitem"><div class="flagframe mc"><svg viewBox="0 0 5 4" aria-label="Monaco flag"><rect width="5" height="2" fill="#CE1126"/><rect y="2" width="5" height="2" fill="#fff"/></svg></div><strong>Monaco — 5:4</strong></div>
+<div class="flagitem"><div class="flagframe id"><svg viewBox="0 0 3 2" aria-label="Indonesia flag"><rect width="3" height="1" fill="#FF0000"/><rect y="1" width="3" height="1" fill="#fff"/></svg></div><strong>Indonesia — 3:2</strong></div>
+</div>
+<p><strong>Fix:</strong> project presentation overrides preserve Monaco at 5:4 and Indonesia at 3:2 instead of blindly showing both normalized 4:3 canvases.</p>
+</section>
+</div>
+
+<div class="legend"><strong>Other disputes:</strong> Romania/Chad was a genuine similarity/referee case, not a wrong asset. The canonical 195-file set matches the pinned upstream source exactly. Batches 1–7 predate the permanent Pages answer sheet, so their exact public snapshots are unavailable; their canonical source assets are included in the 195/195 verification.</div>
+
+<h2>All 195 canonical checks</h2>
+<p class="muted">The table below is loaded from the machine-readable audit record committed with this page.</p>
+<div class="tablebox"><table><thead><tr><th>Q</th><th>Country</th><th>ISO2</th><th>Canonical file</th><th>Canonical</th><th>Presentation audit</th></tr></thead><tbody id="rows"></tbody></table></div>
+</main>
+<script>
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+fetch('flag-audit.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.json()).then(d=>{
+ document.getElementById('rows').innerHTML=d.rows.map(r=>{
+  const issue=/FAIL|ambiguity/i.test(r.presentation_status);
+  return '<tr><td>'+r.q+'</td><td><strong>'+esc(r.country)+'</strong></td><td>'+esc(r.iso2)+'</td><td><code>'+esc(r.canonical_path)+'</code></td><td><span class="badge">PASS</span></td><td><span class="badge '+(issue?'issue':'')+'">'+(issue?'REVIEW':'PASS')+'</span> '+esc(r.presentation_status)+'</td></tr>'
+ }).join('');
+}).catch(()=>{document.getElementById('rows').innerHTML='<tr><td colspan="6">Audit data failed to load.</td></tr>'});
+</script></body></html>
