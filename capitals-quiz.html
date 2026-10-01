@@ -1,1 +1,76 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>World Capitals</title><style>*{box-sizing:border-box}body{font-family:system-ui,-apple-system,sans-serif;margin:0;background:#f8fafc;color:#111827}.wrap{max-width:1050px;margin:auto;padding:28px 16px 45px}header{text-align:center}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}.card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:18px}.country{font-size:22px;font-weight:800;margin:6px 0 12px}.st{font-size:12px}.done{color:#166534}input{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:17px}.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:24px}button{padding:10px 18px}.out{display:none;margin-top:20px;background:#fff;padding:15px}.show{display:block}@media(max-width:760px){.grid{grid-template-columns:1fr}}</style></head><body><main class="wrap"><header><h1 id="title">World Capitals</h1><p>Type the capital for each country. Leave unknown ones blank for clues.</p><p id="count">Loading...</p></header><section id="grid" class="grid"></section><section class="actions"><button id="build">Build my reply</button><button id="copy" disabled>Copy reply</button><button id="clear">Clear all</button><button id="reload">Reload latest batch</button></section><section id="out" class="out"><pre id="reply"></pre><p id="note"></p></section></main><script>let m,qs=[],key="",saved={},loadSeq=0;const G=document.getElementById("grid"),C=document.getElementById("count"),O=document.getElementById("out"),R=document.getElementById("reply"),N=document.getElementById("note"),P=document.getElementById("copy");function esc(s){return String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[m]))}async function load(){const seq=++loadSeq;const next=await fetch("capitals-batch.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.json());if(seq!==loadSeq)return;m=next;document.getElementById("title").textContent=m.title+" — Batch "+m.batch+" (Q"+m.start_question+"–"+m.end_question+")";key=m.test_id+"-b"+m.batch;try{saved=JSON.parse(localStorage.getItem(key)||"{}")}catch{saved={}};qs=m.questions;G.innerHTML="";qs.forEach(q=>{const d=document.createElement("div");d.className="card";d.innerHTML="<div>Question "+q.n+"</div><div class=\"country\">"+esc(q.country)+"</div><input id=\"q"+q.n+"\" placeholder=\"Capital\"><div class=\"st\" id=\"s"+q.n+"\">Not answered</div>";G.appendChild(d);const x=document.getElementById("q"+q.n);x.value=saved[q.n]||"";x.oninput=()=>{saved[q.n]=x.value;localStorage.setItem(key,JSON.stringify(saved));status();hide()}});status();hide()}function val(n){const el=document.getElementById("q"+n);return el?el.value.trim():""}function status(){let a=0;qs.forEach(q=>{const y=!!val(q.n),s=document.getElementById("s"+q.n);if(y)a++;s.textContent=y?"Done":"Not answered";s.className="st"+(y?" done":"")});C.textContent=a+" answered · "+(qs.length-a)+" left"}function hide(){O.className="out";R.textContent="";N.textContent="";P.disabled=true}function buildReply(){let l=[],b=[];qs.forEach(q=>{const a=val(q.n);a?l.push(q.n+". "+a):b.push(q.n)});const reply=l.join("\n");R.textContent=reply;N.textContent=b.length?"Left blank for clues: "+b.join(", "):"All answered.";O.className="out show";P.disabled=!l.length;return reply}async function copyText(text){if(!text)return false;try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text);return true}}catch(e){}const ta=document.createElement("textarea");ta.value=text;ta.setAttribute("readonly","");ta.style.position="fixed";ta.style.opacity="0";ta.style.pointerEvents="none";document.body.appendChild(ta);ta.focus();ta.select();ta.setSelectionRange(0,ta.value.length);let ok=false;try{ok=document.execCommand("copy")}catch(e){}document.body.removeChild(ta);return ok}document.getElementById("build").onclick=()=>{buildReply()};P.onclick=async()=>{const text=buildReply();const ok=await copyText(text);N.textContent=(ok?"Copied current Batch "+m.batch+" reply. ":"Copy failed — select the reply text manually. ")+(qs.filter(q=>!val(q.n)).length?"Left blank for clues: "+qs.filter(q=>!val(q.n)).map(q=>q.n).join(", "):"All answered.")};document.getElementById("clear").onclick=()=>{qs.forEach(q=>{const el=document.getElementById("q"+q.n);if(el)el.value=""});localStorage.removeItem(key);saved={};status();hide()};document.getElementById("reload").onclick=load;addEventListener("pageshow",e=>{if(e.persisted)load()});load();</script></body></html>
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>World Capitals</title><style>*{box-sizing:border-box}body{font-family:system-ui,-apple-system,sans-serif;margin:0;background:#f8fafc;color:#111827}.wrap{max-width:1050px;margin:auto;padding:28px 16px 45px}header{text-align:center}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}.card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:18px}.country{font-size:22px;font-weight:800;margin:6px 0 12px}.st{font-size:12px}.done{color:#166534}input{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:17px}.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:24px}button{padding:10px 18px}.out{display:none;margin-top:20px;background:#fff;padding:15px}.show{display:block}@media(max-width:760px){.grid{grid-template-columns:1fr}}</style></head><body><main class="wrap"><header><h1 id="title">World Capitals</h1><p>Type the capital for each country. Leave unknown ones blank for clues.</p><p id="count">Loading...</p></header><section id="grid" class="grid"></section><section class="actions"><button id="build">Build my reply</button><button id="copy" disabled>Copy reply</button><button id="clear">Clear all</button><button id="reload">Reload latest batch</button></section><section id="out" class="out"><pre id="reply"></pre><p id="note"></p></section></main><script>
+let m,qs=[],key="",saved={},loadSeq=0;
+const G=document.getElementById("grid"),C=document.getElementById("count"),O=document.getElementById("out"),R=document.getElementById("reply"),N=document.getElementById("note"),P=document.getElementById("copy");
+function esc(s){return String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[m]))}
+async function fetchLatest(){const r=await fetch("capitals-batch.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error("batch fetch failed");return r.json()}
+function sameBatch(a,b){return !!(a&&b&&a.test_id===b.test_id&&a.batch===b.batch&&a.start_question===b.start_question&&a.end_question===b.end_question&&String(a.version||"")===String(b.version||""))}
+function render(next){
+  m=next;
+  document.getElementById("title").textContent=m.title+" — Batch "+m.batch+" (Q"+m.start_question+"–"+m.end_question+")";
+  key=m.test_id+"-b"+m.batch+"-v"+String(m.version||"noversion");
+  try{saved=JSON.parse(localStorage.getItem(key)||"{}")}catch{saved={}}
+  qs=m.questions;
+  G.innerHTML="";
+  qs.forEach(q=>{
+    const d=document.createElement("div");
+    d.className="card";
+    d.innerHTML="<div>Question "+q.n+"</div><div class=\"country\">"+esc(q.country)+"</div><input id=\"q"+q.n+"\" placeholder=\"Capital\"><div class=\"st\" id=\"s"+q.n+"\">Not answered</div>";
+    G.appendChild(d);
+    const x=document.getElementById("q"+q.n);
+    x.value=saved[q.n]||"";
+    x.oninput=()=>{saved[q.n]=x.value;localStorage.setItem(key,JSON.stringify(saved));status();hide()}
+  });
+  status();
+  hide();
+}
+async function load(){
+  const seq=++loadSeq;
+  try{
+    const next=await fetchLatest();
+    if(seq!==loadSeq)return false;
+    render(next);
+    return true
+  }catch(e){
+    if(seq===loadSeq){C.textContent="Could not load latest batch. Tap Reload latest batch."}
+    return false
+  }
+}
+async function ensureCurrentBatch(showNotice=true){
+  try{
+    const next=await fetchLatest();
+    if(!sameBatch(m,next)){
+      const oldBatch=m&&m.batch;
+      render(next);
+      if(showNotice){
+        O.className="out show";
+        R.textContent="";
+        P.disabled=true;
+        N.textContent=oldBatch?"A newer batch was published. Loaded Batch "+next.batch+" instead of copying stale Batch "+oldBatch+" answers. Enter the current answers, then Build/Copy again.":"Loaded the latest batch."
+      }
+      return false
+    }
+    return true
+  }catch(e){
+    if(showNotice){
+      O.className="out show";
+      R.textContent="";
+      P.disabled=true;
+      N.textContent="Could not verify the latest batch, so copying was blocked. Tap Reload latest batch and try again."
+    }
+    return false
+  }
+}
+function val(n){const el=document.getElementById("q"+n);return el?el.value.trim():""}
+function status(){let a=0;qs.forEach(q=>{const y=!!val(q.n),s=document.getElementById("s"+q.n);if(y)a++;s.textContent=y?"Done":"Not answered";s.className="st"+(y?" done":"")});C.textContent=a+" answered · "+(qs.length-a)+" left"}
+function hide(){O.className="out";R.textContent="";N.textContent="";P.disabled=true}
+function buildReply(){let l=[],b=[];qs.forEach(q=>{const a=val(q.n);a?l.push(q.n+". "+a):b.push(q.n)});const reply=l.join("\n");R.textContent=reply;N.textContent=b.length?"Left blank for clues: "+b.join(", "):"All answered.";O.className="out show";P.disabled=!l.length;return reply}
+async function copyText(text){if(!text)return false;try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text);return true}}catch(e){}const ta=document.createElement("textarea");ta.value=text;ta.setAttribute("readonly","");ta.style.position="fixed";ta.style.opacity="0";ta.style.pointerEvents="none";document.body.appendChild(ta);ta.focus();ta.select();ta.setSelectionRange(0,ta.value.length);let ok=false;try{ok=document.execCommand("copy")}catch(e){}document.body.removeChild(ta);return ok}
+document.getElementById("build").onclick=async()=>{if(!(await ensureCurrentBatch(true)))return;buildReply()};
+P.onclick=async()=>{if(!(await ensureCurrentBatch(true)))return;const text=buildReply();const ok=await copyText(text);N.textContent=(ok?"Copied verified current Batch "+m.batch+" reply. ":"Copy failed — select the reply text manually. ")+(qs.filter(q=>!val(q.n)).length?"Left blank for clues: "+qs.filter(q=>!val(q.n)).map(q=>q.n).join(", "):"All answered.")};
+document.getElementById("clear").onclick=()=>{qs.forEach(q=>{const el=document.getElementById("q"+q.n);if(el)el.value=""});localStorage.removeItem(key);saved={};status();hide()};
+document.getElementById("reload").onclick=load;
+addEventListener("pageshow",()=>{load()});
+addEventListener("focus",()=>{ensureCurrentBatch(false)});
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")ensureCurrentBatch(false)});
+load();
+</script></body></html>
