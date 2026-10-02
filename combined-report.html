@@ -1,0 +1,31 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Combined Flags + Capitals Report</title>
+<style>
+*{box-sizing:border-box}body{font-family:system-ui,-apple-system,sans-serif;margin:0;background:#f8fafc;color:#0f172a}.wrap{max-width:1180px;margin:auto;padding:26px 14px 48px}header{text-align:center}h1{margin:0 0 7px}.sub{color:#64748b}.scorebox{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}.score{background:#fff;border:1px solid #dbe3ee;border-radius:14px;padding:15px}.score h2{margin:0 0 10px;font-size:19px}.pills{display:flex;flex-wrap:wrap;gap:7px}.pill{background:#f1f5f9;border-radius:999px;padding:7px 10px;font-weight:750;font-size:13px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{background:#fff;border:1px solid #dbe3ee;border-radius:14px;padding:15px}.q{font-size:18px;font-weight:850;margin-bottom:10px}.flag{display:flex;justify-content:center;align-items:center;min-height:150px;background:#f1f5f9;border:1px solid #cbd5e1;border-radius:10px;padding:12px}.flag img{width:min(440px,100%);max-height:280px;object-fit:contain;border:1px solid #94a3b8;background:#fff}.section{margin-top:13px;border-top:1px solid #e2e8f0;padding-top:11px}.section h3{margin:0 0 8px;font-size:15px}.row{display:grid;grid-template-columns:120px 1fr;gap:7px 10px;margin:5px 0}.label{font-weight:800;color:#475569}.result{display:inline-block;padding:4px 8px;border-radius:999px;font-weight:800;font-size:12px}.I{background:#dcfce7;color:#166534}.A{background:#fef3c7;color:#92400e}.W{background:#fee2e2;color:#991b1b}.C{background:#e2e8f0;color:#475569}.nav{text-align:center;margin:16px 0}.nav input{width:90px;padding:8px}.nav button{padding:8px 12px;margin-left:5px}.err{text-align:center;color:#991b1b;margin-top:20px}@media(max-width:800px){.grid,.scorebox{grid-template-columns:1fr}.row{grid-template-columns:105px 1fr}}
+</style></head>
+<body><main class="wrap">
+<header><h1 id="title">Combined Report</h1><p class="sub" id="sub">Loading…</p></header>
+<div class="nav"><input id="batch" type="number" min="1" placeholder="Batch"><button id="go">Open batch</button></div>
+<section id="scores" class="scorebox"></section>
+<section id="grid" class="grid"></section>
+<div id="err" class="err"></div>
+</main>
+<script>
+const p=new URLSearchParams(location.search),b=p.get("batch");
+const src=b?"combined-reports/batch"+String(b).padStart(2,"0")+".json":"combined-report.json";
+const labels={I:"Independent",A:"Assisted",W:"Wrong",C:"Cancelled"};
+const esc=s=>String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[m]));
+fetch(src+"?t="+Date.now(),{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("Report not found");return r.json()}).then(d=>{
+ document.getElementById("title").textContent=d.title+" — Batch "+d.batch+" Report";
+ document.getElementById("sub").textContent="Questions "+d.questions+" · Flags and Capitals scored independently";
+ const fs=d.flag_score,cs=d.capital_score;
+ document.getElementById("scores").innerHTML=
+ '<div class="score"><h2>Flag score</h2><div class="pills"><span class="pill">Pure '+esc(fs.pure_display)+'</span><span class="pill">Pure + Assisted '+esc(fs.pa_display)+'</span><span class="pill">Independent '+fs.independent+'</span><span class="pill">Assisted '+fs.assisted+'</span><span class="pill">Wrong '+fs.wrong+'</span></div></div>'+
+ '<div class="score"><h2>Capital score</h2><div class="pills"><span class="pill">Pure '+esc(cs.pure_display)+'</span><span class="pill">Pure + Assisted '+esc(cs.pa_display)+'</span><span class="pill">Independent '+cs.independent+'</span><span class="pill">Assisted '+cs.assisted+'</span><span class="pill">Wrong '+cs.wrong+'</span><span class="pill">Cancelled '+cs.cancelled+'</span></div></div>';
+ document.getElementById("grid").innerHTML=d.records.map(r=>'<article class="card"><div class="q">Question '+r.q+'</div><div class="flag"><img src="'+esc(r.asset)+'?v='+encodeURIComponent(d.version)+'" alt="Flag for question '+r.q+'"></div>'+
+ '<div class="section"><h3>Flag / Country</h3><div class="row"><div class="label">Your answer</div><div>'+esc((r.country_attempts||[]).join(" → ")||"—")+'</div><div class="label">Country</div><div><strong>'+esc(r.country_display)+'</strong></div><div class="label">Result</div><div><span class="result '+r.flag_result+'">'+labels[r.flag_result]+'</span></div></div></div>'+
+ '<div class="section"><h3>Capital</h3><div class="row"><div class="label">Your answer</div><div>'+esc((r.capital_attempts||[]).join(" → ")||"—")+'</div><div class="label">Capital</div><div><strong>'+esc(r.capital_display)+'</strong></div><div class="label">Result</div><div><span class="result '+r.capital_result+'">'+labels[r.capital_result]+'</span></div></div></div></article>').join("");
+}).catch(e=>document.getElementById("err").textContent=e.message);
+document.getElementById("go").onclick=()=>{const n=document.getElementById("batch").value;if(n)location.href="combined-report.html?batch="+encodeURIComponent(n)};
+</script></body></html>
