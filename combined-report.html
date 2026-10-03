@@ -2,9 +2,40 @@
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Combined Flags + Capitals Report</title>
 <style>
-*{box-sizing:border-box}body{font-family:system-ui,-apple-system,sans-serif;margin:0;background:#f8fafc;color:#0f172a}.wrap{max-width:1180px;margin:auto;padding:26px 14px 48px}header{text-align:center}h1{margin:0 0 7px}.sub{color:#64748b}
-.scorewrap{margin:20px 0;background:#fff;border:1px solid #dbe3ee;border-radius:14px;overflow-x:auto}.scoretable{width:100%;min-width:980px;border-collapse:collapse}.scoretable th,.scoretable td{padding:13px 14px;border-bottom:1px solid #e2e8f0;text-align:left;vertical-align:middle}.scoretable tr:last-child th,.scoretable tr:last-child td{border-bottom:0}.scope{width:120px;font-size:15px;font-weight:850;white-space:nowrap}.head{font-size:13px;color:#475569;font-weight:850}.scoreline{white-space:nowrap;font-size:13px;font-weight:750}.scoreline strong{color:#0f172a}.sep{color:#94a3b8;padding:0 5px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{background:#fff;border:1px solid #dbe3ee;border-radius:14px;padding:15px}.q{font-size:18px;font-weight:850;margin-bottom:10px}.flag{display:flex;justify-content:center;align-items:center;min-height:150px;background:#f1f5f9;border:1px solid #cbd5e1;border-radius:10px;padding:12px}.flag img{width:min(440px,100%);max-height:280px;object-fit:contain;border:1px solid #94a3b8;background:#fff}.section{margin-top:13px;border-top:1px solid #e2e8f0;padding-top:11px}.section h3{margin:0 0 8px;font-size:15px}.row{display:grid;grid-template-columns:120px 1fr;gap:7px 10px;margin:5px 0}.label{font-weight:800;color:#475569}.result{display:inline-block;padding:4px 8px;border-radius:999px;font-weight:800;font-size:12px}.I{background:#dcfce7;color:#166534}.A{background:#fef3c7;color:#92400e}.W{background:#fee2e2;color:#991b1b}.C{background:#e2e8f0;color:#475569}.nav{text-align:center;margin:16px 0}.nav input{width:90px;padding:8px}.nav button{padding:8px 12px;margin-left:5px}.err{text-align:center;color:#991b1b;margin-top:20px}@media(max-width:800px){.grid{grid-template-columns:1fr}.row{grid-template-columns:105px 1fr}}
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;background:#f8fafc;color:#0f172a}
+.wrap{max-width:1180px;margin:auto;padding:28px 14px 48px}
+header{text-align:center}h1{margin:0 0 7px}.sub{color:#64748b;margin:0}
+.nav{text-align:center;margin:18px 0 22px}.nav input{width:96px;padding:9px 10px;border:1px solid #cbd5e1;border-radius:8px}.nav button{padding:9px 13px;margin-left:6px;border:1px solid #94a3b8;border-radius:8px;background:#fff;cursor:pointer}
+.scorewrap{display:grid;gap:14px;margin:0 0 24px}
+.score-row{display:grid;grid-template-columns:150px minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:stretch}
+.scope-card{display:flex;align-items:center;justify-content:center;text-align:center;background:#0f172a;color:#fff;border-radius:14px;padding:18px 12px;font-weight:850;font-size:17px;line-height:1.2}
+.score-card{background:#fff;border:1px solid #dbe3ee;border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.score-card-head{padding:13px 16px;background:#f8fafc;border-bottom:1px solid #e2e8f0;font-size:14px;font-weight:850;letter-spacing:.02em;color:#334155}
+.metrics{padding:8px 16px 12px}
+.metric{display:flex;justify-content:space-between;gap:18px;padding:9px 0;border-bottom:1px solid #eef2f7;align-items:baseline}
+.metric:last-child{border-bottom:0}
+.metric-label{color:#64748b;font-size:14px;font-weight:700}
+.metric-value{font-size:15px;font-weight:850;text-align:right;color:#0f172a}
+.metric-primary .metric-label,.metric-primary .metric-value{font-size:15px;color:#0f172a}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{background:#fff;border:1px solid #dbe3ee;border-radius:14px;padding:15px}
+.q{font-size:18px;font-weight:850;margin-bottom:10px}
+.flag{display:flex;justify-content:center;align-items:center;min-height:150px;background:#f1f5f9;border:1px solid #cbd5e1;border-radius:10px;padding:12px}
+.flag img{width:min(440px,100%);max-height:280px;object-fit:contain;border:1px solid #94a3b8;background:#fff}
+.section{margin-top:13px;border-top:1px solid #e2e8f0;padding-top:11px}
+.section h3{margin:0 0 8px;font-size:15px}
+.row{display:grid;grid-template-columns:120px 1fr;gap:7px 10px;margin:5px 0}
+.label{font-weight:800;color:#475569}
+.result{display:inline-block;padding:4px 8px;border-radius:999px;font-weight:800;font-size:12px}
+.I{background:#dcfce7;color:#166534}.A{background:#fef3c7;color:#92400e}.W{background:#fee2e2;color:#991b1b}.C{background:#e2e8f0;color:#475569}
+.err{text-align:center;color:#991b1b;margin-top:20px}
+@media(max-width:850px){
+  .score-row{grid-template-columns:1fr}
+  .scope-card{justify-content:flex-start;text-align:left;padding:12px 16px}
+  .grid{grid-template-columns:1fr}
+  .row{grid-template-columns:105px 1fr}
+}
 </style></head>
 <body><main class="wrap">
 <header><h1 id="title">Combined Report</h1><p class="sub" id="sub">Loading…</p></header>
@@ -17,14 +48,21 @@ const p=new URLSearchParams(location.search),b=p.get("batch");
 const src=b?"combined-reports/batch"+String(b).padStart(2,"0")+".json":"combined-report.json";
 const labels={I:"Independent",A:"Assisted",W:"Wrong",C:"Cancelled"};
 const esc=s=>String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[m]));
-const line=(s,capital)=>'<span class="scoreline"><strong>Pure</strong> '+esc(s.pure_display)+'<span class="sep">·</span><strong>P+A</strong> '+esc(s.pa_display)+'<span class="sep">·</span><strong>I</strong> '+s.independent+'<span class="sep">·</span><strong>A</strong> '+s.assisted+'<span class="sep">·</span><strong>W</strong> '+s.wrong+(capital?'<span class="sep">·</span><strong>C</strong> '+s.cancelled:'')+'</span>';
+const metric=(label,value,primary=false)=>'<div class="metric'+(primary?' metric-primary':'')+'"><span class="metric-label">'+esc(label)+'</span><span class="metric-value">'+esc(value)+'</span></div>';
+const scoreCard=(title,s,capital)=>'<section class="score-card"><div class="score-card-head">'+esc(title)+'</div><div class="metrics">'+
+ metric("Pure",s.pure_display,true)+
+ metric("Pure + Assisted",s.pa_display,true)+
+ metric("Independent",s.independent)+
+ metric("Assisted",s.assisted)+
+ metric("Wrong",s.wrong)+
+ (capital?metric("Cancelled",s.cancelled):'')+
+ '</div></section>';
+const scoreRow=(scope,flag,capital)=>'<div class="score-row"><div class="scope-card">'+esc(scope)+'</div>'+scoreCard("Flag Score",flag,false)+scoreCard("Capital Score",capital,true)+'</div>';
 fetch(src+"?t="+Date.now(),{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("Report not found");return r.json()}).then(d=>{
  document.getElementById("title").textContent=d.title+" — Batch "+d.batch+" Report";
  document.getElementById("sub").textContent="Questions "+d.questions+" · Flags and Capitals scored independently";
  const bs=d.batch_score||{flag:d.flag_score,capital:d.capital_score}, cu=d.cumulative||bs;
- document.getElementById("scores").innerHTML='<table class="scoretable"><thead><tr><th class="scope"></th><th class="head">FLAG SCORE</th><th class="head">CAPITAL SCORE</th></tr></thead><tbody>'+
- '<tr><th class="scope">This Batch</th><td>'+line(bs.flag,false)+'</td><td>'+line(bs.capital,true)+'</td></tr>'+
- '<tr><th class="scope">Overall Test</th><td>'+line(cu.flag,false)+'</td><td>'+line(cu.capital,true)+'</td></tr></tbody></table>';
+ document.getElementById("scores").innerHTML=scoreRow("This Batch",bs.flag,bs.capital)+scoreRow("Overall Test",cu.flag,cu.capital);
  document.getElementById("grid").innerHTML=d.records.map(r=>'<article class="card"><div class="q">Question '+r.q+'</div><div class="flag"><img src="'+esc(r.asset)+'?v='+encodeURIComponent(d.version)+'" alt="Flag for question '+r.q+'"></div>'+
  '<div class="section"><h3>Flag / Country</h3><div class="row"><div class="label">Your answer</div><div>'+esc((r.country_attempts||[]).join(" → ")||"—")+'</div><div class="label">Country</div><div><strong>'+esc(r.country_display)+'</strong></div><div class="label">Result</div><div><span class="result '+r.flag_result+'">'+labels[r.flag_result]+'</span></div></div></div>'+
  '<div class="section"><h3>Capital</h3><div class="row"><div class="label">Your answer</div><div>'+esc((r.capital_attempts||[]).join(" → ")||"—")+'</div><div class="label">Capital</div><div><strong>'+esc(r.capital_display)+'</strong></div><div class="label">Result</div><div><span class="result '+r.capital_result+'">'+labels[r.capital_result]+'</span></div></div></div></article>').join("");
