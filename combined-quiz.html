@@ -22,7 +22,7 @@ async function fetchLatestWithRetry(){let err=null;for(let i=0;i<3;i++){try{retu
 function markVerified(next){lastVerifiedStage={test_id:next.test_id,batch:next.batch,stage:next.stage,version:String(next.version||"")};lastVerifiedAt=Date.now()}
 function recentlyVerified(){return !!(m&&lastVerifiedStage&&sameStage(m,lastVerifiedStage)&&(Date.now()-lastVerifiedAt)<=30*60*1000)}
 function sameStage(a,b){return !!(a&&b&&a.test_id===b.test_id&&a.batch===b.batch&&a.stage===b.stage&&String(a.version||"")===String(b.version||""))}
-function editable(comp){return comp&&comp.mode==="input"}
+function editable(comp){return !comp||comp.mode==="input"}
 function fieldId(kind,n){return (kind==="country"?"country-":"capital-")+n}
 function renderField(q,kind){
  const comp=q[kind]||{mode:"input"}, id=fieldId(kind,q.n), label=kind==="country"?"Country":"Capital";
