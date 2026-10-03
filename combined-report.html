@@ -18,6 +18,14 @@ header{text-align:center}h1{margin:0 0 7px}.sub{color:#64748b;margin:0}
 .metric-label{color:#64748b;font-size:14px;font-weight:700}
 .metric-value{font-size:15px;font-weight:850;text-align:right;color:#0f172a}
 .metric-primary .metric-label,.metric-primary .metric-value{font-size:15px;color:#0f172a}
+.metric-independent{background:#f0fdf4;border-radius:8px;padding-left:10px;padding-right:10px}
+.metric-independent .metric-label,.metric-independent .metric-value{color:#166534}
+.metric-assisted{background:#fffbeb;border-radius:8px;padding-left:10px;padding-right:10px}
+.metric-assisted .metric-label,.metric-assisted .metric-value{color:#92400e}
+.metric-wrong{background:#fef2f2;border-radius:8px;padding-left:10px;padding-right:10px}
+.metric-wrong .metric-label,.metric-wrong .metric-value{color:#991b1b}
+.metric-cancelled{background:#f1f5f9;border-radius:8px;padding-left:10px;padding-right:10px}
+.metric-cancelled .metric-label,.metric-cancelled .metric-value{color:#475569}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .card{background:#fff;border:1px solid #dbe3ee;border-radius:14px;padding:15px}
 .q{font-size:18px;font-weight:850;margin-bottom:10px}
@@ -48,14 +56,14 @@ const p=new URLSearchParams(location.search),b=p.get("batch");
 const src=b?"combined-reports/batch"+String(b).padStart(2,"0")+".json":"combined-report.json";
 const labels={I:"Independent",A:"Assisted",W:"Wrong",C:"Cancelled"};
 const esc=s=>String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[m]));
-const metric=(label,value,primary=false)=>'<div class="metric'+(primary?' metric-primary':'')+'"><span class="metric-label">'+esc(label)+'</span><span class="metric-value">'+esc(value)+'</span></div>';
+const metric=(label,value,primary=false,tone="")=>'<div class="metric'+(primary?' metric-primary':'')+(tone?' metric-'+tone:'')+'"><span class="metric-label">'+esc(label)+'</span><span class="metric-value">'+esc(value)+'</span></div>';
 const scoreCard=(title,s,capital)=>'<section class="score-card"><div class="score-card-head">'+esc(title)+'</div><div class="metrics">'+
  metric("Pure",s.pure_display,true)+
  metric("Pure + Assisted",s.pa_display,true)+
- metric("Independent",s.independent)+
- metric("Assisted",s.assisted)+
- metric("Wrong",s.wrong)+
- (capital?metric("Cancelled",s.cancelled):'')+
+ metric("Independent",s.independent,false,"independent")+
+ metric("Assisted",s.assisted,false,"assisted")+
+ metric("Wrong",s.wrong,false,"wrong")+
+ (capital?metric("Cancelled",s.cancelled,false,"cancelled"):'')+
  '</div></section>';
 const scoreRow=(scope,flag,capital)=>'<div class="score-row"><div class="scope-card">'+esc(scope)+'</div>'+scoreCard("Flag Score",flag,false)+scoreCard("Capital Score",capital,true)+'</div>';
 fetch(src+"?t="+Date.now(),{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("Report not found");return r.json()}).then(d=>{
