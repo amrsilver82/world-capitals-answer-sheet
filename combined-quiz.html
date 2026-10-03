@@ -14,10 +14,13 @@
 <section id="out" class="out"><pre id="reply"></pre><p id="note"></p></section>
 </main>
 <script>
-let m=null,qs=[],key="",saved={},loadSeq=0;
+let m=null,qs=[],key="",saved={},loadSeq=0,lastVerifiedStage=null,lastVerifiedAt=0,lastEnsureFallback=false;
 const G=document.getElementById("grid"),C=document.getElementById("count"),O=document.getElementById("out"),R=document.getElementById("reply"),N=document.getElementById("note"),P=document.getElementById("copy"),SP=document.getElementById("stagePill");
 function esc(s){return String(s??"").replace(/[&<>"]/g,x=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[x]))}
 async function fetchLatest(){const r=await fetch("combined-batch.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error("combined batch fetch failed");return r.json()}
+async function fetchLatestWithRetry(){let err=null;for(let i=0;i<3;i++){try{return await fetchLatest()}catch(e){err=e;if(i<2)await new Promise(resolve=>setTimeout(resolve,250*(i+1)))}}throw err}
+function markVerified(next){lastVerifiedStage={test_id:next.test_id,batch:next.batch,stage:next.stage,version:String(next.version||"")};lastVerifiedAt=Date.now()}
+function recentlyVerified(){return !!(m&&lastVerifiedStage&&sameStage(m,lastVerifiedStage)&&(Date.now()-lastVerifiedAt)<=30*60*1000)}
 function sameStage(a,b){return !!(a&&b&&a.test_id===b.test_id&&a.batch===b.batch&&a.stage===b.stage&&String(a.version||"")===String(b.version||""))}
 function editable(comp){return comp&&comp.mode==="input"}
 function fieldId(kind,n){return (kind==="country"?"country-":"capital-")+n}
@@ -69,8 +72,27 @@ function status(){
  C.textContent=answered+" answered · "+(editableCount-answered)+" current fields left";
 }
 function hide(){O.className="out";R.textContent="";N.textContent="";P.disabled=true}
-async function load(){const seq=++loadSeq;try{const next=await fetchLatest();if(seq!==loadSeq)return;render(next)}catch(e){if(seq===loadSeq){C.textContent="Could not load latest stage. Tap Reload latest stage."}}}
-async function ensureCurrent(showNotice=true){try{const next=await fetchLatest();if(!sameStage(m,next)){const old=m?("Batch "+m.batch+" Stage "+m.stage):"older stage";render(next);if(showNotice){O.className="out show";R.textContent="";P.disabled=true;N.textContent="A newer Combined stage was published. Loaded it instead of copying stale "+old+" answers."}return false}return true}catch(e){if(showNotice){O.className="out show";R.textContent="";P.disabled=true;N.textContent="Could not verify the latest stage, so copying was blocked. Reload and try again."}return false}}
+async function load(){const seq=++loadSeq;try{const next=await fetchLatestWithRetry();if(seq!==loadSeq)return;markVerified(next);lastEnsureFallback=false;render(next)}catch(e){if(seq===loadSeq){C.textContent="Could not load latest stage. Tap Reload latest stage."}}}
+async function ensureCurrent(showNotice=true){
+ lastEnsureFallback=false;
+ try{
+   const next=await fetchLatestWithRetry();
+   markVerified(next);
+   if(!sameStage(m,next)){
+     const old=m?("Batch "+m.batch+" Stage "+m.stage):"older stage";
+     render(next);
+     if(showNotice){O.className="out show";R.textContent="";P.disabled=true;N.textContent="A newer Combined stage was published. Loaded it instead of copying stale "+old+" answers."}
+     return false;
+   }
+   return true;
+ }catch(e){
+   if(recentlyVerified()){
+     lastEnsureFallback=true;
+     return true;
+   }
+   if(showNotice){O.className="out show";R.textContent="";P.disabled=true;N.textContent="Could not verify the latest stage and this page has no recent verified stage. Tap Reload latest stage and try again."}
+   return false;
+ }}
 function buildReply(){
  let lines=[],blanks=[];
  qs.forEach(q=>{
@@ -80,7 +102,7 @@ function buildReply(){
    if(parts.length)lines.push(q.n+". "+parts.join(" | "));
  });
  R.textContent=lines.join("\n");
- N.textContent=blanks.length?"Left blank: "+blanks.join(", "):"All current editable fields answered.";
+ N.textContent=(blanks.length?"Left blank: "+blanks.join(", "):"All current editable fields answered.")+(lastEnsureFallback?" Latest-stage recheck was temporarily unavailable, but this exact stage was verified when the page loaded, so copying is allowed.":"");
  O.className="out show";P.disabled=!lines.length;return R.textContent;
 }
 async function copyText(text){if(!text)return false;try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text);return true}}catch(e){}const ta=document.createElement("textarea");ta.value=text;ta.setAttribute("readonly","");ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.focus();ta.select();let ok=false;try{ok=document.execCommand("copy")}catch(e){}document.body.removeChild(ta);return ok}
