@@ -52,8 +52,11 @@ header{text-align:center}h1{margin:0 0 7px}.sub{color:#64748b;margin:0}
 <section id="grid" class="grid"></section><div id="err" class="err"></div>
 </main>
 <script>
-const p=new URLSearchParams(location.search),b=p.get("batch");
-const src=b?"combined-reports/batch"+String(b).padStart(2,"0")+".json":"combined-report.json";
+const OWNER="amrsilver82",REPO="world-capitals-answer-sheet";
+const p=new URLSearchParams(location.search),b=p.get("batch"),PIN=p.get("sha")||"",REPORT=p.get("report")||"";
+const validPin=/^[0-9a-f]{40}$/i.test(PIN),validReport=/^(combined-reports\/batch\d+\.json|combined-report\.json)$/.test(REPORT);
+const raw=(ref,path)=>"https://raw.githubusercontent.com/"+OWNER+"/"+REPO+"/"+encodeURIComponent(ref)+"/"+path.split("/").map(encodeURIComponent).join("/");
+const src=validPin&&validReport?raw(PIN,REPORT):(b?"combined-reports/batch"+String(b).padStart(2,"0")+".json":"combined-report.json");
 const labels={I:"Independent",A:"Assisted",W:"Wrong",C:"Cancelled"};
 const esc=s=>String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[m]));
 const metric=(label,value,primary=false,tone="")=>'<div class="metric'+(primary?' metric-primary':'')+(tone?' metric-'+tone:'')+'"><span class="metric-label">'+esc(label)+'</span><span class="metric-value">'+esc(value)+'</span></div>';
@@ -66,7 +69,7 @@ const scoreCard=(title,s,capital)=>'<section class="score-card"><div class="scor
  (capital?metric("Cancelled",s.cancelled,false,"cancelled"):'')+
  '</div></section>';
 const scoreRow=(scope,flag,capital)=>'<div class="score-row"><div class="scope-card">'+esc(scope)+'</div>'+scoreCard("Flag Score",flag,false)+scoreCard("Capital Score",capital,true)+'</div>';
-fetch(src+"?t="+Date.now(),{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("Report not found");return r.json()}).then(d=>{
+fetch(src+(src.includes("?")?"&":"?")+"t="+Date.now(),{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("Report not found");return r.json()}).then(d=>{
  document.getElementById("title").textContent=d.title+" — Batch "+d.batch+" Report";
  document.getElementById("sub").textContent="Questions "+d.questions+" · Flags and Capitals scored independently";
  const bs=d.batch_score||{flag:d.flag_score,capital:d.capital_score}, cu=d.cumulative||bs;
