@@ -1,0 +1,135 @@
+{
+  "schema_version": 3,
+  "engine": "combined_v2",
+  "edition": 2,
+  "round_id": "world_flags_capitals_edition_2",
+  "title": "World Flags + Capitals — Edition 2",
+  "batch": 10,
+  "stage": 2,
+  "stage_kind": "retry",
+  "stage_label": "Free retry — no clue",
+  "start_question": 91,
+  "end_question": 100,
+  "question_count": 10,
+  "version": "ed2-b10-s02-20261005-1657",
+  "questions": [
+    {
+      "n": 91,
+      "asset": "./flags/canonical/e53e54a2c6bc.svg",
+      "country": {
+        "mode": "locked",
+        "value": "Egypt"
+      },
+      "capital": {
+        "mode": "locked",
+        "value": "Cairo"
+      }
+    },
+    {
+      "n": 92,
+      "asset": "./flags/canonical/10450f984585.svg",
+      "country": {
+        "mode": "locked",
+        "value": "Maldives"
+      },
+      "capital": {
+        "mode": "locked",
+        "value": "Malé"
+      }
+    },
+    {
+      "n": 93,
+      "asset": "./flags/canonical/650426774651.svg",
+      "country": {
+        "mode": "locked",
+        "value": "Venezuela"
+      },
+      "capital": {
+        "mode": "locked",
+        "value": "Caracas"
+      }
+    },
+    {
+      "n": 94,
+      "asset": "./flags/canonical/5e71c400262b.svg",
+      "country": {
+        "mode": "locked",
+        "value": "Suriname"
+      },
+      "capital": {
+        "mode": "locked",
+        "value": "Paramaribo"
+      }
+    },
+    {
+      "n": 95,
+      "asset": "./flags/canonical/81b765b7b5a6.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 96,
+      "asset": "./flags/canonical/d563adb90c0c.svg",
+      "country": {
+        "mode": "locked",
+        "value": "South Africa"
+      },
+      "capital": {
+        "mode": "locked",
+        "value": "Cape Town"
+      }
+    },
+    {
+      "n": 97,
+      "asset": "./flags/canonical/7913de3895e8.svg",
+      "country": {
+        "mode": "locked",
+        "value": "Czechia"
+      },
+      "capital": {
+        "mode": "locked",
+        "value": "Prague"
+      }
+    },
+    {
+      "n": 98,
+      "asset": "./flags/canonical/6066f94cd117.svg",
+      "country": {
+        "mode": "locked",
+        "value": "Solomon Islands"
+      },
+      "capital": {
+        "mode": "locked",
+        "value": "Honiara"
+      }
+    },
+    {
+      "n": 99,
+      "asset": "./flags/canonical/b9cf52894137.svg",
+      "country": {
+        "mode": "locked",
+        "value": "DR Congo"
+      },
+      "capital": {
+        "mode": "locked",
+        "value": "Kinshasa"
+      }
+    },
+    {
+      "n": 100,
+      "asset": "./flags/canonical/5735c1984de3.svg",
+      "country": {
+        "mode": "locked",
+        "value": "Tunisia"
+      },
+      "capital": {
+        "mode": "locked",
+        "value": "Tunis"
+      }
+    }
+  ]
+}
