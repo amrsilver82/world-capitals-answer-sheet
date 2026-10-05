@@ -1,0 +1,39 @@
+{
+  "schema_version": 3,
+  "engine": "combined_v2",
+  "edition": 2,
+  "round_id": "world_flags_capitals_edition_2",
+  "title": "World Flags + Capitals — Edition 2",
+  "batch": 12,
+  "stage": 2,
+  "stage_kind": "mixed_retry_capital_clue",
+  "stage_label": "Free retry + Capital clue",
+  "start_question": 113,
+  "end_question": 118,
+  "question_count": 2,
+  "version": "ed2-b12-s02-20261005-2237",
+  "questions": [
+    {
+      "n": 113,
+      "asset": "./flags/canonical/a4e3d879843f.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 118,
+      "asset": "./flags/canonical/5aa9cea5f519.svg",
+      "country": {
+        "mode": "locked",
+        "value": "Dominca"
+      },
+      "capital": {
+        "mode": "input",
+        "clue": "Ros…"
+      }
+    }
+  ]
+}
