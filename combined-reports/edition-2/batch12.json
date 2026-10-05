@@ -1,0 +1,191 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_2",
+  "title": "World Flags + Capitals — Edition 2",
+  "batch": 12,
+  "questions": "111–120",
+  "version": "combo-report-ed2-b12-20261005-2237",
+  "test_complete": false,
+  "batch_score": {
+    "flag": {
+      "pure_display": "9/10 = 90.0%",
+      "pa_display": "9.5/10 = 95.0%",
+      "independent": 9,
+      "assisted": 1,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "113/119 = 95.0%",
+      "pa_display": "116/119 = 97.5%",
+      "independent": 113,
+      "assisted": 6,
+      "wrong": 0,
+      "cancelled": 1
+    },
+    "capital": {
+      "pure_display": "116/119 = 97.5%",
+      "pa_display": "117.5/119 = 98.7%",
+      "independent": 116,
+      "assisted": 3,
+      "wrong": 0,
+      "cancelled": 1
+    }
+  },
+  "records": [
+    {
+      "q": 111,
+      "asset": "./flags/canonical/99fa4dc5979a.svg",
+      "country_attempts": [
+        "Armenia"
+      ],
+      "country_display": "Armenia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Yeravan"
+      ],
+      "capital_display": "Yerevan",
+      "capital_result": "I"
+    },
+    {
+      "q": 112,
+      "asset": "./flags/canonical/e7904fead6bf.svg",
+      "country_attempts": [
+        "Lichtenshtain"
+      ],
+      "country_display": "Liechtenstein",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Vaduz"
+      ],
+      "capital_display": "Vaduz",
+      "capital_result": "I"
+    },
+    {
+      "q": 113,
+      "asset": "./flags/canonical/a4e3d879843f.svg",
+      "country_attempts": [
+        "Guinea-bissau",
+        "Madgascar",
+        "Benin"
+      ],
+      "country_display": "Benin",
+      "flag_result": "A",
+      "capital_attempts": [
+        "Bissau",
+        "Antnarrivio",
+        "Porto novo"
+      ],
+      "capital_display": "Porto-Novo",
+      "capital_result": "I"
+    },
+    {
+      "q": 114,
+      "asset": "./flags/canonical/cbd660a54ac6.svg",
+      "country_attempts": [
+        "Sri lanka"
+      ],
+      "country_display": "Sri Lanka",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Colombo"
+      ],
+      "capital_display": "Sri Jayawardenepura Kotte / Colombo",
+      "capital_result": "I"
+    },
+    {
+      "q": 115,
+      "asset": "./flags/canonical/a07baf75b40f.svg",
+      "country_attempts": [
+        "Sierra lione"
+      ],
+      "country_display": "Sierra Leone",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Free town"
+      ],
+      "capital_display": "Freetown",
+      "capital_result": "I"
+    },
+    {
+      "q": 116,
+      "asset": "./flags/canonical/2830bde5b4a0.svg",
+      "country_attempts": [
+        "Iceland"
+      ],
+      "country_display": "Iceland",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Rejkayvyk"
+      ],
+      "capital_display": "Reykjavík",
+      "capital_result": "I"
+    },
+    {
+      "q": 117,
+      "asset": "./flags/canonical/a296ebf7e186.svg",
+      "country_attempts": [
+        "Spain"
+      ],
+      "country_display": "Spain",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Madrid"
+      ],
+      "capital_display": "Madrid",
+      "capital_result": "I"
+    },
+    {
+      "q": 118,
+      "asset": "./flags/canonical/5aa9cea5f519.svg",
+      "country_attempts": [
+        "Dominca"
+      ],
+      "country_display": "Dominica",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Rossesu"
+      ],
+      "capital_display": "Roseau",
+      "capital_result": "I"
+    },
+    {
+      "q": 119,
+      "asset": "./flags/canonical/b96da21f0e98.svg",
+      "country_attempts": [
+        "Turkey"
+      ],
+      "country_display": "Turkey",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Ankara"
+      ],
+      "capital_display": "Ankara",
+      "capital_result": "I"
+    },
+    {
+      "q": 120,
+      "asset": "./flags/canonical/6947eab2b390.svg",
+      "country_attempts": [
+        "South korea"
+      ],
+      "country_display": "South Korea",
+      "flag_result": "I",
+      "capital_attempts": [
+        "seoul"
+      ],
+      "capital_display": "Seoul",
+      "capital_result": "I"
+    }
+  ]
+}
