@@ -1,0 +1,187 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_2",
+  "title": "World Flags + Capitals — Edition 2",
+  "batch": 11,
+  "questions": "101–110",
+  "version": "combo-report-ed2-b11-20261005-2237",
+  "test_complete": false,
+  "batch_score": {
+    "flag": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "104/109 = 95.4%",
+      "pa_display": "106.5/109 = 97.7%",
+      "independent": 104,
+      "assisted": 5,
+      "wrong": 0,
+      "cancelled": 1
+    },
+    "capital": {
+      "pure_display": "106/109 = 97.2%",
+      "pa_display": "107.5/109 = 98.6%",
+      "independent": 106,
+      "assisted": 3,
+      "wrong": 0,
+      "cancelled": 1
+    }
+  },
+  "records": [
+    {
+      "q": 101,
+      "asset": "./flags/canonical/3d0701a2c8c8.svg",
+      "country_attempts": [
+        "Timor liste"
+      ],
+      "country_display": "Timor-Leste",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Dilli"
+      ],
+      "capital_display": "Dili",
+      "capital_result": "I"
+    },
+    {
+      "q": 102,
+      "asset": "./flags/canonical/bc47d74911bb.svg",
+      "country_attempts": [
+        "India"
+      ],
+      "country_display": "India",
+      "flag_result": "I",
+      "capital_attempts": [
+        "New delhi"
+      ],
+      "capital_display": "New Delhi",
+      "capital_result": "I"
+    },
+    {
+      "q": 103,
+      "asset": "./flags/canonical/115f864d8acf.svg",
+      "country_attempts": [
+        "Malysua"
+      ],
+      "country_display": "Malaysia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Kula lumpur"
+      ],
+      "capital_display": "Kuala Lumpur",
+      "capital_result": "I"
+    },
+    {
+      "q": 104,
+      "asset": "./flags/canonical/7e343123400e.svg",
+      "country_attempts": [
+        "Senegal"
+      ],
+      "country_display": "Senegal",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Dakar"
+      ],
+      "capital_display": "Dakar",
+      "capital_result": "I"
+    },
+    {
+      "q": 105,
+      "asset": "./flags/canonical/e41d2f776cc9.svg",
+      "country_attempts": [
+        "San marino"
+      ],
+      "country_display": "San Marino",
+      "flag_result": "I",
+      "capital_attempts": [
+        "San marino"
+      ],
+      "capital_display": "San Marino",
+      "capital_result": "I"
+    },
+    {
+      "q": 106,
+      "asset": "./flags/canonical/948784ff1707.svg",
+      "country_attempts": [
+        "Belarus"
+      ],
+      "country_display": "Belarus",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Minsk"
+      ],
+      "capital_display": "Minsk",
+      "capital_result": "I"
+    },
+    {
+      "q": 107,
+      "asset": "./flags/canonical/b257aa0b3e50.svg",
+      "country_attempts": [
+        "South sudan"
+      ],
+      "country_display": "South Sudan",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Juba"
+      ],
+      "capital_display": "Juba",
+      "capital_result": "I"
+    },
+    {
+      "q": 108,
+      "asset": "./flags/canonical/eaa1c14736f2.svg",
+      "country_attempts": [
+        "Tajikistan"
+      ],
+      "country_display": "Tajikistan",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Dushanbe"
+      ],
+      "capital_display": "Dushanbe",
+      "capital_result": "I"
+    },
+    {
+      "q": 109,
+      "asset": "./flags/canonical/0f94c3a1aaa2.svg",
+      "country_attempts": [
+        "Mozambique"
+      ],
+      "country_display": "Mozambique",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Mboto"
+      ],
+      "capital_display": "Maputo",
+      "capital_result": "I"
+    },
+    {
+      "q": 110,
+      "asset": "./flags/canonical/73adde8d98dd.svg",
+      "country_attempts": [
+        "Syria"
+      ],
+      "country_display": "Syria",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Damascus"
+      ],
+      "capital_display": "Damascus",
+      "capital_result": "I"
+    }
+  ]
+}

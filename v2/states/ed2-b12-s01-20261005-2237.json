@@ -1,0 +1,117 @@
+{
+  "schema_version": 3,
+  "engine": "combined_v2",
+  "edition": 2,
+  "round_id": "world_flags_capitals_edition_2",
+  "title": "World Flags + Capitals — Edition 2",
+  "batch": 12,
+  "stage": 1,
+  "stage_kind": "initial",
+  "stage_label": "Initial answers",
+  "start_question": 111,
+  "end_question": 120,
+  "question_count": 10,
+  "version": "ed2-b12-s01-20261005-2237",
+  "questions": [
+    {
+      "n": 111,
+      "asset": "./flags/canonical/99fa4dc5979a.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 112,
+      "asset": "./flags/canonical/e7904fead6bf.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 113,
+      "asset": "./flags/canonical/a4e3d879843f.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 114,
+      "asset": "./flags/canonical/cbd660a54ac6.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 115,
+      "asset": "./flags/canonical/a07baf75b40f.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 116,
+      "asset": "./flags/canonical/2830bde5b4a0.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 117,
+      "asset": "./flags/canonical/a296ebf7e186.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 118,
+      "asset": "./flags/canonical/5aa9cea5f519.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 119,
+      "asset": "./flags/canonical/b96da21f0e98.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 120,
+      "asset": "./flags/canonical/6947eab2b390.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    }
+  ]
+}
