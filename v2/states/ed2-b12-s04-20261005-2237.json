@@ -1,0 +1,16 @@
+{
+  "schema_version": 3,
+  "engine": "combined_v2",
+  "edition": 2,
+  "round_id": "world_flags_capitals_edition_2",
+  "title": "World Flags + Capitals — Edition 2",
+  "batch": 12,
+  "stage": 4,
+  "stage_kind": "country_clue",
+  "stage_label": "Country clue",
+  "start_question": 113,
+  "end_question": 113,
+  "question_count": 1,
+  "version": "ed2-b12-s04-20261005-2237",
+  "questions": [{"n":113,"asset":"./flags/canonical/a4e3d879843f.svg","country":{"mode":"input","clue":"Be…"},"capital":{"mode":"input"}}]
+}
