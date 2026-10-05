@@ -54,7 +54,7 @@ header{text-align:center}h1{margin:0 0 7px}.sub{color:#64748b;margin:0}
 <script>
 const OWNER="amrsilver82",REPO="world-capitals-answer-sheet";
 const p=new URLSearchParams(location.search),b=p.get("batch"),PIN=p.get("sha")||"",REPORT=p.get("report")||"";
-const validPin=/^[0-9a-f]{40}$/i.test(PIN),validReport=/^(combined-reports\/batch\d+\.json|combined-report\.json)$/.test(REPORT);
+const validPin=/^[0-9a-f]{40}$/i.test(PIN),validReport=/^(combined-reports\/(?:edition-\d+\/)?batch\d+\.json|combined-report\.json)$/.test(REPORT);
 const raw=(ref,path)=>"https://raw.githubusercontent.com/"+OWNER+"/"+REPO+"/"+encodeURIComponent(ref)+"/"+path.split("/").map(encodeURIComponent).join("/");
 const src=validPin&&validReport?raw(PIN,REPORT):(b?"combined-reports/batch"+String(b).padStart(2,"0")+".json":"combined-report.json");
 const labels={I:"Independent",A:"Assisted",W:"Wrong",C:"Cancelled"};
