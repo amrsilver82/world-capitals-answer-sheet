@@ -1,1 +1,185 @@
-{"title":"World Flags + Capitals — Edition 2","batch":8,"questions":"71–80","version":"ed2b8-1429","batch_score":{"flag":{"pure_display":"10/10 = 100.0%","pa_display":"10/10 = 100.0%","independent":10,"assisted":0,"wrong":0},"capital":{"pure_display":"10/10 = 100.0%","pa_display":"10/10 = 100.0%","independent":10,"assisted":0,"wrong":0,"cancelled":0}},"cumulative":{"flag":{"pure_display":"78/80 = 97.5%","pa_display":"79/80 = 98.8%","independent":78,"assisted":2,"wrong":0},"capital":{"pure_display":"79/80 = 98.8%","pa_display":"79.5/80 = 99.4%","independent":79,"assisted":1,"wrong":0,"cancelled":0}},"records":[{"q":71,"asset":"flags/canonical/d5c6e04c5cd7.svg","country_attempts":["singapore"],"country_display":"Singapore","flag_result":"I","capital_attempts":["singapore"],"capital_display":"Singapore","capital_result":"I"},{"q":72,"asset":"flags/canonical/d0723370668d.svg","country_attempts":["tonga"],"country_display":"Tonga","flag_result":"I","capital_attempts":["nukofala"],"capital_display":"Nuku'alofa","capital_result":"I"},{"q":73,"asset":"flags/canonical/f88caa5c666c.svg","country_attempts":["fiji"],"country_display":"Fiji","flag_result":"I","capital_attempts":["suva"],"capital_display":"Suva","capital_result":"I"},{"q":74,"asset":"flags/canonical/aec8994902cc.svg","country_attempts":["cabo verde"],"country_display":"Cabo Verde","flag_result":"I","capital_attempts":["praia"],"capital_display":"Praia","capital_result":"I"},{"q":75,"asset":"flags/canonical/6e65fbdaf78e.svg","country_attempts":["russia"],"country_display":"Russia","flag_result":"I","capital_attempts":["moscow"],"capital_display":"Moscow","capital_result":"I"},{"q":76,"asset":"flags/canonical/6a38a71fcf6c.svg","country_attempts":["mangolia"],"country_display":"Mongolia","flag_result":"I","capital_attempts":["ulanbatar"],"capital_display":"Ulaanbaatar","capital_result":"I"},{"q":77,"asset":"flags/canonical/5d5d7c80af64.svg","country_attempts":["malta"],"country_display":"Malta","flag_result":"I","capital_attempts":["valleta"],"capital_display":"Valletta","capital_result":"I"},{"q":78,"asset":"flags/canonical/a4434a955fbc.svg","country_attempts":["burundi"],"country_display":"Burundi","flag_result":"I","capital_attempts":["bujumbura"],"capital_display":"Gitega / Bujumbura","capital_result":"I"},{"q":79,"asset":"flags/canonical/b750f072f16c.svg","country_attempts":["qatar"],"country_display":"Qatar","flag_result":"I","capital_attempts":["doha"],"capital_display":"Doha","capital_result":"I"},{"q":80,"asset":"flags/canonical/93aac4f6cf2d.svg","country_attempts":["zimbabwe"],"country_display":"Zimbabwe","flag_result":"I","capital_attempts":["harrari"],"capital_display":"Harare","capital_result":"I"}]}
+{
+  "title": "World Flags + Capitals — Edition 2",
+  "batch": 8,
+  "questions": "71–80",
+  "version": "ed2b8-integrity-corrected-20261005-1759",
+  "batch_score": {
+    "flag": {
+      "pure_display": "9/9 = 100.0%",
+      "pa_display": "9/9 = 100.0%",
+      "independent": 9,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 1
+    },
+    "capital": {
+      "pure_display": "9/9 = 100.0%",
+      "pa_display": "9/9 = 100.0%",
+      "independent": 9,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 1
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "77/79 = 97.5%",
+      "pa_display": "78/79 = 98.7%",
+      "independent": 77,
+      "assisted": 2,
+      "wrong": 0,
+      "cancelled": 1
+    },
+    "capital": {
+      "pure_display": "78/79 = 98.7%",
+      "pa_display": "78.5/79 = 99.4%",
+      "independent": 78,
+      "assisted": 1,
+      "wrong": 0,
+      "cancelled": 1
+    }
+  },
+  "records": [
+    {
+      "q": 71,
+      "asset": "flags/canonical/d5c6e04c5cd7.svg",
+      "country_attempts": [
+        "singapore"
+      ],
+      "country_display": "Singapore",
+      "flag_result": "I",
+      "capital_attempts": [
+        "singapore"
+      ],
+      "capital_display": "Singapore",
+      "capital_result": "I"
+    },
+    {
+      "q": 72,
+      "asset": "flags/canonical/d0723370668d.svg",
+      "country_attempts": [
+        "tonga"
+      ],
+      "country_display": "Tonga",
+      "flag_result": "I",
+      "capital_attempts": [
+        "nukofala"
+      ],
+      "capital_display": "Nuku'alofa",
+      "capital_result": "I"
+    },
+    {
+      "q": 73,
+      "asset": "flags/canonical/f88caa5c666c.svg",
+      "country_attempts": [
+        "fiji"
+      ],
+      "country_display": "Tuvalu",
+      "flag_result": "C",
+      "capital_attempts": [
+        "suva"
+      ],
+      "capital_display": "Funafuti",
+      "capital_result": "C",
+      "integrity_note": "Cancelled by user referee ruling after audit proved the displayed asset was Tuvalu while the historical scorer incorrectly recorded Fiji/Suva."
+    },
+    {
+      "q": 74,
+      "asset": "flags/canonical/aec8994902cc.svg",
+      "country_attempts": [
+        "cabo verde"
+      ],
+      "country_display": "Cabo Verde",
+      "flag_result": "I",
+      "capital_attempts": [
+        "praia"
+      ],
+      "capital_display": "Praia",
+      "capital_result": "I"
+    },
+    {
+      "q": 75,
+      "asset": "flags/canonical/6e65fbdaf78e.svg",
+      "country_attempts": [
+        "russia"
+      ],
+      "country_display": "Russia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "moscow"
+      ],
+      "capital_display": "Moscow",
+      "capital_result": "I"
+    },
+    {
+      "q": 76,
+      "asset": "flags/canonical/6a38a71fcf6c.svg",
+      "country_attempts": [
+        "mangolia"
+      ],
+      "country_display": "Mongolia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "ulanbatar"
+      ],
+      "capital_display": "Ulaanbaatar",
+      "capital_result": "I"
+    },
+    {
+      "q": 77,
+      "asset": "flags/canonical/5d5d7c80af64.svg",
+      "country_attempts": [
+        "malta"
+      ],
+      "country_display": "Malta",
+      "flag_result": "I",
+      "capital_attempts": [
+        "valleta"
+      ],
+      "capital_display": "Valletta",
+      "capital_result": "I"
+    },
+    {
+      "q": 78,
+      "asset": "flags/canonical/a4434a955fbc.svg",
+      "country_attempts": [
+        "burundi"
+      ],
+      "country_display": "Burundi",
+      "flag_result": "I",
+      "capital_attempts": [
+        "bujumbura"
+      ],
+      "capital_display": "Gitega / Bujumbura",
+      "capital_result": "I"
+    },
+    {
+      "q": 79,
+      "asset": "flags/canonical/b750f072f16c.svg",
+      "country_attempts": [
+        "qatar"
+      ],
+      "country_display": "Qatar",
+      "flag_result": "I",
+      "capital_attempts": [
+        "doha"
+      ],
+      "capital_display": "Doha",
+      "capital_result": "I"
+    },
+    {
+      "q": 80,
+      "asset": "flags/canonical/93aac4f6cf2d.svg",
+      "country_attempts": [
+        "zimbabwe"
+      ],
+      "country_display": "Zimbabwe",
+      "flag_result": "I",
+      "capital_attempts": [
+        "harrari"
+      ],
+      "capital_display": "Harare",
+      "capital_result": "I"
+    }
+  ]
+}

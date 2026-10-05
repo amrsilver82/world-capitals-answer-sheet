@@ -1,0 +1,188 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_2",
+  "title": "World Flags + Capitals — Edition 2",
+  "batch": 10,
+  "questions": "91–100",
+  "version": "combo-report-ed2-b10-20261005-1759",
+  "test_complete": false,
+  "batch_score": {
+    "flag": {
+      "pure_display": "9/10 = 90.0%",
+      "pa_display": "9.5/10 = 95.0%",
+      "independent": 9,
+      "assisted": 1,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "9/10 = 90.0%",
+      "pa_display": "9.5/10 = 95.0%",
+      "independent": 9,
+      "assisted": 1,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "94/99 = 94.9%",
+      "pa_display": "96.5/99 = 97.5%",
+      "independent": 94,
+      "assisted": 5,
+      "wrong": 0,
+      "cancelled": 1
+    },
+    "capital": {
+      "pure_display": "96/99 = 97.0%",
+      "pa_display": "97.5/99 = 98.5%",
+      "independent": 96,
+      "assisted": 3,
+      "wrong": 0,
+      "cancelled": 1
+    }
+  },
+  "records": [
+    {
+      "q": 91,
+      "asset": "./flags/canonical/e53e54a2c6bc.svg",
+      "country_attempts": [
+        "egypt"
+      ],
+      "country_display": "Egypt",
+      "flag_result": "I",
+      "capital_attempts": [
+        "cairo"
+      ],
+      "capital_display": "Cairo",
+      "capital_result": "I"
+    },
+    {
+      "q": 92,
+      "asset": "./flags/canonical/10450f984585.svg",
+      "country_attempts": [
+        "maldives"
+      ],
+      "country_display": "Maldives",
+      "flag_result": "I",
+      "capital_attempts": [
+        "malai"
+      ],
+      "capital_display": "Malé",
+      "capital_result": "I"
+    },
+    {
+      "q": 93,
+      "asset": "./flags/canonical/650426774651.svg",
+      "country_attempts": [
+        "venzuela"
+      ],
+      "country_display": "Venezuela",
+      "flag_result": "I",
+      "capital_attempts": [
+        "caracus"
+      ],
+      "capital_display": "Caracas",
+      "capital_result": "I"
+    },
+    {
+      "q": 94,
+      "asset": "./flags/canonical/5e71c400262b.svg",
+      "country_attempts": [
+        "suriname"
+      ],
+      "country_display": "Suriname",
+      "flag_result": "I",
+      "capital_attempts": [
+        "paramribo"
+      ],
+      "capital_display": "Paramaribo",
+      "capital_result": "I"
+    },
+    {
+      "q": 95,
+      "asset": "./flags/canonical/81b765b7b5a6.svg",
+      "country_attempts": [
+        "(blank)",
+        "Fiji"
+      ],
+      "country_display": "Fiji",
+      "flag_result": "A",
+      "capital_attempts": [
+        "Suva"
+      ],
+      "capital_display": "Suva",
+      "capital_result": "A"
+    },
+    {
+      "q": 96,
+      "asset": "./flags/canonical/d563adb90c0c.svg",
+      "country_attempts": [
+        "south africa"
+      ],
+      "country_display": "South Africa",
+      "flag_result": "I",
+      "capital_attempts": [
+        "cape town"
+      ],
+      "capital_display": "Cape Town",
+      "capital_result": "I"
+    },
+    {
+      "q": 97,
+      "asset": "./flags/canonical/7913de3895e8.svg",
+      "country_attempts": [
+        "czechia"
+      ],
+      "country_display": "Czech Republic",
+      "flag_result": "I",
+      "capital_attempts": [
+        "prague"
+      ],
+      "capital_display": "Prague",
+      "capital_result": "I"
+    },
+    {
+      "q": 98,
+      "asset": "./flags/canonical/6066f94cd117.svg",
+      "country_attempts": [
+        "solmon island"
+      ],
+      "country_display": "Solomon Islands",
+      "flag_result": "I",
+      "capital_attempts": [
+        "honaria"
+      ],
+      "capital_display": "Honiara",
+      "capital_result": "I"
+    },
+    {
+      "q": 99,
+      "asset": "./flags/canonical/b9cf52894137.svg",
+      "country_attempts": [
+        "dr congo"
+      ],
+      "country_display": "Democratic Republic of the Congo",
+      "flag_result": "I",
+      "capital_attempts": [
+        "kisnshasa"
+      ],
+      "capital_display": "Kinshasa",
+      "capital_result": "I"
+    },
+    {
+      "q": 100,
+      "asset": "./flags/canonical/5735c1984de3.svg",
+      "country_attempts": [
+        "tunisia"
+      ],
+      "country_display": "Tunisia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "tunis"
+      ],
+      "capital_display": "Tunis",
+      "capital_result": "I"
+    }
+  ]
+}

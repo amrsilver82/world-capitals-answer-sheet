@@ -4,7 +4,7 @@
   "title": "World Flags + Capitals — Edition 2",
   "batch": 9,
   "questions": "81–90",
-  "version": "combo-report-ed2-b09-20261005-1533",
+  "version": "combo-report-ed2-b09-integrity-corrected-20261005-1759",
   "test_complete": false,
   "batch_score": {
     "flag": {
@@ -26,20 +26,20 @@
   },
   "cumulative": {
     "flag": {
-      "pure_display": "86/90 = 95.6%",
-      "pa_display": "88/90 = 97.8%",
-      "independent": 86,
+      "pure_display": "85/89 = 95.5%",
+      "pa_display": "87/89 = 97.8%",
+      "independent": 85,
       "assisted": 4,
       "wrong": 0,
-      "cancelled": 0
+      "cancelled": 1
     },
     "capital": {
-      "pure_display": "88/90 = 97.8%",
-      "pa_display": "89/90 = 98.9%",
-      "independent": 88,
+      "pure_display": "87/89 = 97.8%",
+      "pa_display": "88/89 = 98.9%",
+      "independent": 87,
       "assisted": 2,
       "wrong": 0,
-      "cancelled": 0
+      "cancelled": 1
     }
   },
   "records": [
