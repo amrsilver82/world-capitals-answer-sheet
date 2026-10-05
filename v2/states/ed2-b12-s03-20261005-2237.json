@@ -1,0 +1,27 @@
+{
+  "schema_version": 3,
+  "engine": "combined_v2",
+  "edition": 2,
+  "round_id": "world_flags_capitals_edition_2",
+  "title": "World Flags + Capitals — Edition 2",
+  "batch": 12,
+  "stage": 3,
+  "stage_kind": "country_retry",
+  "stage_label": "Country retry — no clue",
+  "start_question": 113,
+  "end_question": 113,
+  "question_count": 1,
+  "version": "ed2-b12-s03-20261005-2237",
+  "questions": [
+    {
+      "n": 113,
+      "asset": "./flags/canonical/a4e3d879843f.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    }
+  ]
+}
