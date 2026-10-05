@@ -1,0 +1,28 @@
+{
+  "schema_version": 3,
+  "engine": "combined_v2",
+  "edition": 2,
+  "round_id": "world_flags_capitals_edition_2",
+  "title": "World Flags + Capitals — Edition 2",
+  "batch": 10,
+  "stage": 3,
+  "stage_kind": "country_clue",
+  "stage_label": "Country clue",
+  "start_question": 95,
+  "end_question": 95,
+  "question_count": 1,
+  "version": "ed2-b10-s03-20261005-1657",
+  "questions": [
+    {
+      "n": 95,
+      "asset": "./flags/canonical/81b765b7b5a6.svg",
+      "country": {
+        "mode": "input",
+        "clue": "Fi…"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    }
+  ]
+}
