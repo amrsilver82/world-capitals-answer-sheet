@@ -1,0 +1,192 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_2",
+  "title": "World Flags + Capitals — Edition 2",
+  "batch": 9,
+  "questions": "81–90",
+  "version": "combo-report-ed2-b09-20261005-1533",
+  "test_complete": false,
+  "batch_score": {
+    "flag": {
+      "pure_display": "8/10 = 80.0%",
+      "pa_display": "9/10 = 90.0%",
+      "independent": 8,
+      "assisted": 2,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "9/10 = 90.0%",
+      "pa_display": "9.5/10 = 95.0%",
+      "independent": 9,
+      "assisted": 1,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "86/90 = 95.6%",
+      "pa_display": "88/90 = 97.8%",
+      "independent": 86,
+      "assisted": 4,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "88/90 = 97.8%",
+      "pa_display": "89/90 = 98.9%",
+      "independent": 88,
+      "assisted": 2,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "records": [
+    {
+      "q": 81,
+      "asset": "./flags/canonical/802482d37cfd.svg",
+      "country_attempts": [
+        "Palau"
+      ],
+      "country_display": "Palau",
+      "flag_result": "A",
+      "capital_attempts": [
+        "Paramaribo",
+        "Ngermuland"
+      ],
+      "capital_display": "Ngerulmud",
+      "capital_result": "A"
+    },
+    {
+      "q": 82,
+      "asset": "./flags/canonical/dc56428085f9.svg",
+      "country_attempts": [
+        "Croatia"
+      ],
+      "country_display": "Croatia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Zagreb"
+      ],
+      "capital_display": "Zagreb",
+      "capital_result": "I"
+    },
+    {
+      "q": 83,
+      "asset": "./flags/canonical/bab7eb4d0b64.svg",
+      "country_attempts": [
+        "Australia"
+      ],
+      "country_display": "Australia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Canbirra"
+      ],
+      "capital_display": "Canberra",
+      "capital_result": "I"
+    },
+    {
+      "q": 84,
+      "asset": "./flags/canonical/f4d781d264b6.svg",
+      "country_attempts": [
+        "Moldova"
+      ],
+      "country_display": "Moldova",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Cisnau"
+      ],
+      "capital_display": "Chișinău",
+      "capital_result": "I"
+    },
+    {
+      "q": 85,
+      "asset": "./flags/canonical/47fe64d617ab.svg",
+      "country_attempts": [
+        "Solmon island",
+        "Saint vincent",
+        "Saint kitts"
+      ],
+      "country_display": "Saint Kitts and Nevis",
+      "flag_result": "A",
+      "capital_attempts": [
+        "Honaria",
+        "Kingstown",
+        "passetried"
+      ],
+      "capital_display": "Basseterre",
+      "capital_result": "I"
+    },
+    {
+      "q": 86,
+      "asset": "./flags/canonical/20aef3a63b4d.svg",
+      "country_attempts": [
+        "Bhutan"
+      ],
+      "country_display": "Bhutan",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Thimpu"
+      ],
+      "capital_display": "Thimphu",
+      "capital_result": "I"
+    },
+    {
+      "q": 87,
+      "asset": "./flags/canonical/9b00a8205662.svg",
+      "country_attempts": [
+        "Djibouti"
+      ],
+      "country_display": "Djibouti",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Djibouti"
+      ],
+      "capital_display": "Djibouti",
+      "capital_result": "I"
+    },
+    {
+      "q": 88,
+      "asset": "./flags/canonical/69120a68be04.svg",
+      "country_attempts": [
+        "Norway"
+      ],
+      "country_display": "Norway",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Oslo"
+      ],
+      "capital_display": "Oslo",
+      "capital_result": "I"
+    },
+    {
+      "q": 89,
+      "asset": "./flags/canonical/39a82b827744.svg",
+      "country_attempts": [
+        "Niger"
+      ],
+      "country_display": "Niger",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Niamy"
+      ],
+      "capital_display": "Niamey",
+      "capital_result": "I"
+    },
+    {
+      "q": 90,
+      "asset": "./flags/canonical/9d6ea6c5d488.svg",
+      "country_attempts": [
+        "Togo"
+      ],
+      "country_display": "Togo",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Lomi"
+      ],
+      "capital_display": "Lomé",
+      "capital_result": "I"
+    }
+  ]
+}
