@@ -4,8 +4,8 @@
   "edition": 2,
   "round_id": "world_flags_capitals_edition_2",
   "batch": 9,
-  "stage": 2,
+  "stage": 3,
   "status": "active",
-  "version": "ed2-b09-s02-20261005-1533",
-  "state_path": "v2/states/ed2-b09-s02-20261005-1533.json"
+  "version": "ed2-b09-s03-20261005-1533",
+  "state_path": "v2/states/ed2-b09-s03-20261005-1533.json"
 }
