@@ -3,8 +3,8 @@
   "round_id": "world_flags_capitals_edition_2",
   "title": "World Flags + Capitals — Edition 2",
   "batch": "Study",
-  "questions": "11 non-Independent countries from Edition 2 · Q73 cancellation excluded",
-  "version": "combo-report-ed2-study-non-independent-20261006-2311",
+  "questions": "12 study countries · 11 non-Independent + Tuvalu historical cancellation",
+  "version": "combo-report-ed2-study-non-independent-plus-tuvalu-20261006-2328",
   "test_complete": true,
   "batch_score": {
     "flag": {
@@ -13,7 +13,7 @@
       "independent": 4,
       "assisted": 7,
       "wrong": 0,
-      "cancelled": 0
+      "cancelled": 1
     },
     "capital": {
       "pure_display": "5/11 = 45.5%",
@@ -21,7 +21,7 @@
       "independent": 5,
       "assisted": 4,
       "wrong": 2,
-      "cancelled": 0
+      "cancelled": 1
     }
   },
   "cumulative": {
@@ -71,6 +71,21 @@
       ],
       "capital_display": "Tarawa",
       "capital_result": "I"
+    },
+    {
+      "q": 73,
+      "asset": "./flags/canonical/675210ec5524.svg",
+      "country_attempts": [
+        "fiji"
+      ],
+      "country_display": "Tuvalu",
+      "flag_result": "C",
+      "capital_attempts": [
+        "suva"
+      ],
+      "capital_display": "Funafuti",
+      "capital_result": "C",
+      "note": "User-added study item. Historical Q73 integrity cancellation; correct study pairing is Tuvalu → Funafuti."
     },
     {
       "q": 52,
