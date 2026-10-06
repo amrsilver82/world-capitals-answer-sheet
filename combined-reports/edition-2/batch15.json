@@ -1,0 +1,191 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_2",
+  "title": "World Flags + Capitals — Edition 2",
+  "batch": 15,
+  "questions": "141–150",
+  "version": "combo-report-ed2-b15-20261006-1348",
+  "test_complete": false,
+  "batch_score": {
+    "flag": {
+      "pure_display": "9/10 = 90.0%",
+      "pa_display": "9.5/10 = 95.0%",
+      "independent": 9,
+      "assisted": 1,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "142/149 = 95.3%",
+      "pa_display": "145.5/149 = 97.7%",
+      "independent": 142,
+      "assisted": 7,
+      "wrong": 0,
+      "cancelled": 1
+    },
+    "capital": {
+      "pure_display": "146/149 = 98.0%",
+      "pa_display": "147.5/149 = 99.0%",
+      "independent": 146,
+      "assisted": 3,
+      "wrong": 0,
+      "cancelled": 1
+    }
+  },
+  "records": [
+    {
+      "q": 141,
+      "asset": "./flags/canonical/7b9f49075518.svg",
+      "country_attempts": [
+        "Micronesia",
+        "Saint vincent",
+        "Marshall island"
+      ],
+      "country_display": "Marshall Islands",
+      "flag_result": "A",
+      "capital_attempts": [
+        "Palikir",
+        "Kingstown",
+        "majoreau"
+      ],
+      "capital_display": "Majuro",
+      "capital_result": "I"
+    },
+    {
+      "q": 142,
+      "asset": "./flags/canonical/7ce56eff707c.svg",
+      "country_attempts": [
+        "Morocco"
+      ],
+      "country_display": "Morocco",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Rabat"
+      ],
+      "capital_display": "Rabat",
+      "capital_result": "I"
+    },
+    {
+      "q": 143,
+      "asset": "./flags/canonical/018c46216c93.svg",
+      "country_attempts": [
+        "Mexico"
+      ],
+      "country_display": "Mexico",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Mexico city"
+      ],
+      "capital_display": "Mexico City",
+      "capital_result": "I"
+    },
+    {
+      "q": 144,
+      "asset": "./flags/canonical/295e2ad14f74.svg",
+      "country_attempts": [
+        "Austria"
+      ],
+      "country_display": "Austria",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Vienna"
+      ],
+      "capital_display": "Vienna",
+      "capital_result": "I"
+    },
+    {
+      "q": 145,
+      "asset": "./flags/canonical/8fb20cf5e948.svg",
+      "country_attempts": [
+        "Haiti"
+      ],
+      "country_display": "Haiti",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Port au prince"
+      ],
+      "capital_display": "Port-au-Prince",
+      "capital_result": "I"
+    },
+    {
+      "q": 146,
+      "asset": "./flags/canonical/0e758a7a95c0.svg",
+      "country_attempts": [
+        "Samoa"
+      ],
+      "country_display": "Samoa",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Apia"
+      ],
+      "capital_display": "Apia",
+      "capital_result": "I"
+    },
+    {
+      "q": 147,
+      "asset": "./flags/canonical/5cc918e5ad40.svg",
+      "country_attempts": [
+        "Bahamas"
+      ],
+      "country_display": "Bahamas",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Nassau"
+      ],
+      "capital_display": "Nassau",
+      "capital_result": "I"
+    },
+    {
+      "q": 148,
+      "asset": "./flags/canonical/87b44f380b62.svg",
+      "country_attempts": [
+        "Nigeria"
+      ],
+      "country_display": "Nigeria",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Abuja"
+      ],
+      "capital_display": "Abuja",
+      "capital_result": "I"
+    },
+    {
+      "q": 149,
+      "asset": "./flags/canonical/ae58c504d0f8.svg",
+      "country_attempts": [
+        "Denmark"
+      ],
+      "country_display": "Denmark",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Copenhagen"
+      ],
+      "capital_display": "Copenhagen",
+      "capital_result": "I"
+    },
+    {
+      "q": 150,
+      "asset": "./flags/canonical/b910e24cd229.svg",
+      "country_attempts": [
+        "Philippins"
+      ],
+      "country_display": "Philippines",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Manilla"
+      ],
+      "capital_display": "Manila",
+      "capital_result": "I"
+    }
+  ]
+}
