@@ -1,0 +1,190 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_2",
+  "title": "World Flags + Capitals — Edition 2",
+  "batch": 18,
+  "questions": "171–180",
+  "version": "combo-report-ed2-b18-20261006-2001",
+  "test_complete": false,
+  "batch_score": {
+    "flag": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "172/179 = 96.1%",
+      "pa_display": "175.5/179 = 98.0%",
+      "independent": 172,
+      "assisted": 7,
+      "wrong": 0,
+      "cancelled": 1
+    },
+    "capital": {
+      "pure_display": "175/179 = 97.8%",
+      "pa_display": "176.5/179 = 98.6%",
+      "independent": 175,
+      "assisted": 3,
+      "wrong": 1,
+      "cancelled": 1
+    }
+  },
+  "records": [
+    {
+      "q": 171,
+      "asset": "./flags/canonical/2767cd4e9faa.svg",
+      "country_attempts": [
+        "Portugal"
+      ],
+      "country_display": "Portugal",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Lisbon"
+      ],
+      "capital_display": "Lisbon",
+      "capital_result": "I"
+    },
+    {
+      "q": 172,
+      "asset": "./flags/canonical/8c90cc94ac31.svg",
+      "country_attempts": [
+        "Ireland"
+      ],
+      "country_display": "Ireland",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Dublin"
+      ],
+      "capital_display": "Dublin",
+      "capital_result": "I"
+    },
+    {
+      "q": 173,
+      "asset": "./flags/canonical/6cb2061f43d4.svg",
+      "country_attempts": [
+        "Colombia"
+      ],
+      "country_display": "Colombia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Bogota"
+      ],
+      "capital_display": "Bogotá",
+      "capital_result": "I"
+    },
+    {
+      "q": 174,
+      "asset": "./flags/canonical/abfdec798c03.svg",
+      "country_attempts": [
+        "Myanmar"
+      ],
+      "country_display": "Myanmar",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Rangoon"
+      ],
+      "capital_display": "Rangoon",
+      "capital_result": "I"
+    },
+    {
+      "q": 175,
+      "asset": "./flags/canonical/dadcc9be41ad.svg",
+      "country_attempts": [
+        "Monaco",
+        "Indonesia"
+      ],
+      "country_display": "Indonesia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Monaco",
+        "jakarta"
+      ],
+      "capital_display": "Jakarta",
+      "capital_result": "I"
+    },
+    {
+      "q": 176,
+      "asset": "./flags/canonical/f806fcbe1ee9.svg",
+      "country_attempts": [
+        "Iraq"
+      ],
+      "country_display": "Iraq",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Baghdad"
+      ],
+      "capital_display": "Baghdad",
+      "capital_result": "I"
+    },
+    {
+      "q": 177,
+      "asset": "./flags/canonical/655ac4f422ac.svg",
+      "country_attempts": [
+        "Latvia"
+      ],
+      "country_display": "Latvia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Riga"
+      ],
+      "capital_display": "Riga",
+      "capital_result": "I"
+    },
+    {
+      "q": 178,
+      "asset": "./flags/canonical/70142ba819bb.svg",
+      "country_attempts": [
+        "Slovakia"
+      ],
+      "country_display": "Slovakia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Bratislava"
+      ],
+      "capital_display": "Bratislava",
+      "capital_result": "I"
+    },
+    {
+      "q": 179,
+      "asset": "./flags/canonical/ff394c411211.svg",
+      "country_attempts": [
+        "Nairu"
+      ],
+      "country_display": "Nauru",
+      "flag_result": "I",
+      "capital_attempts": [
+        "No capital"
+      ],
+      "capital_display": "No official capital",
+      "capital_result": "I",
+      "note": "Full-point user-referee ruling for this question."
+    },
+    {
+      "q": 180,
+      "asset": "./flags/canonical/01d061d7a220.svg",
+      "country_attempts": [
+        "Finland"
+      ],
+      "country_display": "Finland",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Helsinki"
+      ],
+      "capital_display": "Helsinki",
+      "capital_result": "I"
+    }
+  ]
+}
