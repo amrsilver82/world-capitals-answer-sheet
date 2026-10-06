@@ -1,0 +1,187 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_2",
+  "title": "World Flags + Capitals — Edition 2",
+  "batch": 16,
+  "questions": "151–160",
+  "version": "combo-report-ed2-b16-20261006-1536",
+  "test_complete": false,
+  "batch_score": {
+    "flag": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "152/159 = 95.6%",
+      "pa_display": "155.5/159 = 97.8%",
+      "independent": 152,
+      "assisted": 7,
+      "wrong": 0,
+      "cancelled": 1
+    },
+    "capital": {
+      "pure_display": "156/159 = 98.1%",
+      "pa_display": "157.5/159 = 99.1%",
+      "independent": 156,
+      "assisted": 3,
+      "wrong": 0,
+      "cancelled": 1
+    }
+  },
+  "records": [
+    {
+      "q": 151,
+      "asset": "./flags/canonical/93bd9cf93784.svg",
+      "country_attempts": [
+        "bosnia herzaghovina"
+      ],
+      "country_display": "Bosnia and Herzegovina",
+      "flag_result": "I",
+      "capital_attempts": [
+        "serijivo"
+      ],
+      "capital_display": "Sarajevo",
+      "capital_result": "I"
+    },
+    {
+      "q": 152,
+      "asset": "./flags/canonical/3e297d638a94.svg",
+      "country_attempts": [
+        "vatican"
+      ],
+      "country_display": "Vatican City",
+      "flag_result": "I",
+      "capital_attempts": [
+        "vatican"
+      ],
+      "capital_display": "Vatican City",
+      "capital_result": "I"
+    },
+    {
+      "q": 153,
+      "asset": "./flags/canonical/d470bac9f71b.svg",
+      "country_attempts": [
+        "guinea-bissau"
+      ],
+      "country_display": "Guinea-Bissau",
+      "flag_result": "I",
+      "capital_attempts": [
+        "bissau"
+      ],
+      "capital_display": "Bissau",
+      "capital_result": "I"
+    },
+    {
+      "q": 154,
+      "asset": "./flags/canonical/c9b23b4988b3.svg",
+      "country_attempts": [
+        "canada"
+      ],
+      "country_display": "Canada",
+      "flag_result": "I",
+      "capital_attempts": [
+        "ottawa"
+      ],
+      "capital_display": "Ottawa",
+      "capital_result": "I"
+    },
+    {
+      "q": 155,
+      "asset": "./flags/canonical/6299e73272ef.svg",
+      "country_attempts": [
+        "japan"
+      ],
+      "country_display": "Japan",
+      "flag_result": "I",
+      "capital_attempts": [
+        "tokyo"
+      ],
+      "capital_display": "Tokyo",
+      "capital_result": "I"
+    },
+    {
+      "q": 156,
+      "asset": "./flags/canonical/c753da103f3c.svg",
+      "country_attempts": [
+        "argentina"
+      ],
+      "country_display": "Argentina",
+      "flag_result": "I",
+      "capital_attempts": [
+        "buenos airos"
+      ],
+      "capital_display": "Buenos Aires",
+      "capital_result": "I"
+    },
+    {
+      "q": 157,
+      "asset": "./flags/canonical/2fac45bda64a.svg",
+      "country_attempts": [
+        "kazakhistan"
+      ],
+      "country_display": "Kazakhstan",
+      "flag_result": "I",
+      "capital_attempts": [
+        "astana"
+      ],
+      "capital_display": "Astana",
+      "capital_result": "I"
+    },
+    {
+      "q": 158,
+      "asset": "./flags/canonical/c539a5528d9a.svg",
+      "country_attempts": [
+        "bahrain"
+      ],
+      "country_display": "Bahrain",
+      "flag_result": "I",
+      "capital_attempts": [
+        "manama"
+      ],
+      "capital_display": "Manama",
+      "capital_result": "I"
+    },
+    {
+      "q": 159,
+      "asset": "./flags/canonical/db87a7f5108a.svg",
+      "country_attempts": [
+        "new zeland"
+      ],
+      "country_display": "New Zealand",
+      "flag_result": "I",
+      "capital_attempts": [
+        "wellington"
+      ],
+      "capital_display": "Wellington",
+      "capital_result": "I"
+    },
+    {
+      "q": 160,
+      "asset": "./flags/canonical/4dbe4556e12f.svg",
+      "country_attempts": [
+        "afghanistan"
+      ],
+      "country_display": "Afghanistan",
+      "flag_result": "I",
+      "capital_attempts": [
+        "kaboul"
+      ],
+      "capital_display": "Kabul",
+      "capital_result": "I"
+    }
+  ]
+}
