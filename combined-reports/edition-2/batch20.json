@@ -1,0 +1,121 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_2",
+  "title": "World Flags + Capitals — Edition 2",
+  "batch": 20,
+  "questions": "191–195",
+  "version": "combo-report-ed2-b20-20261006-2155",
+  "test_complete": true,
+  "batch_score": {
+    "flag": {
+      "pure_display": "5/5 = 100.0%",
+      "pa_display": "5/5 = 100.0%",
+      "independent": 5,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "4/5 = 80.0%",
+      "pa_display": "4.5/5 = 90.0%",
+      "independent": 4,
+      "assisted": 1,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "187/194 = 96.4%",
+      "pa_display": "190.5/194 = 98.2%",
+      "independent": 187,
+      "assisted": 7,
+      "wrong": 0,
+      "cancelled": 1
+    },
+    "capital": {
+      "pure_display": "188/194 = 96.9%",
+      "pa_display": "190/194 = 97.9%",
+      "independent": 188,
+      "assisted": 4,
+      "wrong": 2,
+      "cancelled": 1
+    }
+  },
+  "records": [
+    {
+      "q": 191,
+      "asset": "./flags/canonical/cf475c971398.svg",
+      "country_attempts": [
+        "Guatemala"
+      ],
+      "country_display": "Guatemala",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Guatemala"
+      ],
+      "capital_display": "Guatemala City",
+      "capital_result": "I"
+    },
+    {
+      "q": 192,
+      "asset": "./flags/canonical/cecd5cc33439.svg",
+      "country_attempts": [
+        "Barbados"
+      ],
+      "country_display": "Barbados",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Saint jones",
+        "Saint george",
+        "Georetown",
+        "Bridgetwon"
+      ],
+      "capital_display": "Bridgetown",
+      "capital_result": "A",
+      "note": "User-referee extra no-clue attempt after the normal free retry; clue Bri… then Bridgetwon = Assisted."
+    },
+    {
+      "q": 193,
+      "asset": "./flags/canonical/48a13b47fe6a.svg",
+      "country_attempts": [
+        "Eritria"
+      ],
+      "country_display": "Eritrea",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Asmara"
+      ],
+      "capital_display": "Asmara",
+      "capital_result": "I"
+    },
+    {
+      "q": 194,
+      "asset": "./flags/canonical/1294bcb70e87.svg",
+      "country_attempts": [
+        "Sao tome pricipe"
+      ],
+      "country_display": "Sao Tome and Principe",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Sao tome"
+      ],
+      "capital_display": "Sao Tome",
+      "capital_result": "I"
+    },
+    {
+      "q": 195,
+      "asset": "./flags/canonical/ab08a9ab4234.svg",
+      "country_attempts": [
+        "Georgia"
+      ],
+      "country_display": "Georgia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Tblisi"
+      ],
+      "capital_display": "Tbilisi",
+      "capital_result": "I"
+    }
+  ]
+}

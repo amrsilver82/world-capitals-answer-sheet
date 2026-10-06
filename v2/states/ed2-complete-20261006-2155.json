@@ -1,0 +1,26 @@
+{
+  "schema_version": 3,
+  "engine": "combined_v2",
+  "edition": 2,
+  "title": "World Flags + Capitals — Edition 2 — COMPLETE",
+  "batch": 20,
+  "stage": 2,
+  "stage_kind": "complete",
+  "stage_label": "Edition complete",
+  "start_question": 191,
+  "end_question": 195,
+  "question_count": 0,
+  "version": "ed2-complete-20261006-2155",
+  "test_complete": true,
+  "final_score": {
+    "flag": {
+      "pure": "187/194 = 96.4%",
+      "pure_plus_assisted": "190.5/194 = 98.2%"
+    },
+    "capital": {
+      "pure": "188/194 = 96.9%",
+      "pure_plus_assisted": "190/194 = 97.9%"
+    }
+  },
+  "questions": []
+}
