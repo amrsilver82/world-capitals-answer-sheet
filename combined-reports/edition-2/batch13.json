@@ -1,0 +1,188 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_2",
+  "title": "World Flags + Capitals — Edition 2",
+  "batch": 13,
+  "questions": "121–130",
+  "version": "combo-report-ed2-b13-20261006-1242",
+  "test_complete": false,
+  "batch_score": {
+    "flag": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "123/129 = 95.3%",
+      "pa_display": "126/129 = 97.7%",
+      "independent": 123,
+      "assisted": 6,
+      "wrong": 0,
+      "cancelled": 1
+    },
+    "capital": {
+      "pure_display": "126/129 = 97.7%",
+      "pa_display": "127.5/129 = 98.8%",
+      "independent": 126,
+      "assisted": 3,
+      "wrong": 0,
+      "cancelled": 1
+    }
+  },
+  "records": [
+    {
+      "q": 121,
+      "asset": "./flags/canonical/8169149028ef.svg",
+      "country_attempts": [
+        "Bangladish"
+      ],
+      "country_display": "Bangladesh",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Dhaka"
+      ],
+      "capital_display": "Dhaka",
+      "capital_result": "I"
+    },
+    {
+      "q": 122,
+      "asset": "./flags/canonical/71aa2d2c30f5.svg",
+      "country_attempts": [
+        "Germany"
+      ],
+      "country_display": "Germany",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Berlin"
+      ],
+      "capital_display": "Berlin",
+      "capital_result": "I"
+    },
+    {
+      "q": 123,
+      "asset": "./flags/canonical/1eaa51e468b7.svg",
+      "country_attempts": [
+        "Libya"
+      ],
+      "country_display": "Libya",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Tripoli"
+      ],
+      "capital_display": "Tripoli",
+      "capital_result": "I"
+    },
+    {
+      "q": 124,
+      "asset": "./flags/canonical/03daa196837a.svg",
+      "country_attempts": [
+        "Ukraine"
+      ],
+      "country_display": "Ukraine",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Kyiv"
+      ],
+      "capital_display": "Kyiv",
+      "capital_result": "I"
+    },
+    {
+      "q": 125,
+      "asset": "./flags/canonical/4f5cae77ed60.svg",
+      "country_attempts": [
+        "Macedonia"
+      ],
+      "country_display": "North Macedonia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Skjope"
+      ],
+      "capital_display": "Skopje",
+      "capital_result": "I"
+    },
+    {
+      "q": 126,
+      "asset": "./flags/canonical/360f37aa19db.svg",
+      "country_attempts": [
+        "Zambia"
+      ],
+      "country_display": "Zambia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Like saka"
+      ],
+      "capital_display": "Lusaka",
+      "capital_result": "I"
+    },
+    {
+      "q": 127,
+      "asset": "./flags/canonical/3ff4c819880a.svg",
+      "country_attempts": [
+        "Hungary"
+      ],
+      "country_display": "Hungary",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Budapest"
+      ],
+      "capital_display": "Budapest",
+      "capital_result": "I"
+    },
+    {
+      "q": 128,
+      "asset": "./flags/canonical/690ae4688994.svg",
+      "country_attempts": [
+        "Lithuania"
+      ],
+      "country_display": "Lithuania",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Vilnius"
+      ],
+      "capital_display": "Vilnius",
+      "capital_result": "I"
+    },
+    {
+      "q": 129,
+      "asset": "./flags/canonical/b3d250db99cf.svg",
+      "country_attempts": [
+        "Grenada"
+      ],
+      "country_display": "Grenada",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Geroregtown",
+        "Saint george"
+      ],
+      "capital_display": "St. George's",
+      "capital_result": "I"
+    },
+    {
+      "q": 130,
+      "asset": "./flags/canonical/64bc2bd6d9ae.svg",
+      "country_attempts": [
+        "Uae"
+      ],
+      "country_display": "United Arab Emirates",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Abu dhabi"
+      ],
+      "capital_display": "Abu Dhabi",
+      "capital_result": "I"
+    }
+  ]
+}
