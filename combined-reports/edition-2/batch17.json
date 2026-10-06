@@ -1,0 +1,190 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_2",
+  "title": "World Flags + Capitals — Edition 2",
+  "batch": 17,
+  "questions": "161–170",
+  "version": "combo-report-ed2-b17-20261006-1757",
+  "test_complete": false,
+  "batch_score": {
+    "flag": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "9/10 = 90.0%",
+      "pa_display": "9/10 = 90.0%",
+      "independent": 9,
+      "assisted": 0,
+      "wrong": 1,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "162/169 = 95.9%",
+      "pa_display": "165.5/169 = 97.9%",
+      "independent": 162,
+      "assisted": 7,
+      "wrong": 0,
+      "cancelled": 1
+    },
+    "capital": {
+      "pure_display": "165/169 = 97.6%",
+      "pa_display": "166.5/169 = 98.5%",
+      "independent": 165,
+      "assisted": 3,
+      "wrong": 1,
+      "cancelled": 1
+    }
+  },
+  "records": [
+    {
+      "q": 161,
+      "asset": "./flags/canonical/45f3dd25a46b.svg",
+      "country_attempts": [
+        "Guinea",
+        "Mali"
+      ],
+      "country_display": "Mali",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Konakry",
+        "bamako"
+      ],
+      "capital_display": "Bamako",
+      "capital_result": "I"
+    },
+    {
+      "q": 162,
+      "asset": "./flags/canonical/f9d35b8c6570.svg",
+      "country_attempts": [
+        "Italy"
+      ],
+      "country_display": "Italy",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Rome"
+      ],
+      "capital_display": "Rome",
+      "capital_result": "I"
+    },
+    {
+      "q": 163,
+      "asset": "./flags/canonical/f26c2d8da992.svg",
+      "country_attempts": [
+        "Saint vincent"
+      ],
+      "country_display": "Saint Vincent and the Grenadines",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Kings town"
+      ],
+      "capital_display": "Kingstown",
+      "capital_result": "I"
+    },
+    {
+      "q": 164,
+      "asset": "./flags/canonical/d81b16c23d44.svg",
+      "country_attempts": [
+        "Belize"
+      ],
+      "country_display": "Belize",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Balompan"
+      ],
+      "capital_display": "Belmopan",
+      "capital_result": "I"
+    },
+    {
+      "q": 165,
+      "asset": "./flags/canonical/a9c9781b3d90.svg",
+      "country_attempts": [
+        "Ethiopia"
+      ],
+      "country_display": "Ethiopia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Adis ababa"
+      ],
+      "capital_display": "Addis Ababa",
+      "capital_result": "I"
+    },
+    {
+      "q": 166,
+      "asset": "./flags/canonical/c38e9546912e.svg",
+      "country_attempts": [
+        "Burkina faso"
+      ],
+      "country_display": "Burkina Faso",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Ougadogou"
+      ],
+      "capital_display": "Ouagadougou",
+      "capital_result": "I"
+    },
+    {
+      "q": 167,
+      "asset": "./flags/canonical/a7193e760b3c.svg",
+      "country_attempts": [
+        "Sudan"
+      ],
+      "country_display": "Sudan",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Khortoum"
+      ],
+      "capital_display": "Khartoum",
+      "capital_result": "I"
+    },
+    {
+      "q": 168,
+      "asset": "./flags/canonical/f5a0e42d4595.svg",
+      "country_attempts": [
+        "Congo"
+      ],
+      "country_display": "Republic of the Congo",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Brazaville"
+      ],
+      "capital_display": "Brazzaville",
+      "capital_result": "I"
+    },
+    {
+      "q": 169,
+      "asset": "./flags/canonical/326d29e9dc94.svg",
+      "country_attempts": [
+        "Vanutu"
+      ],
+      "country_display": "Vanuatu",
+      "flag_result": "I",
+      "capital_attempts": [
+        "",
+        "i don’t know"
+      ],
+      "capital_display": "Port Vila",
+      "capital_result": "W"
+    },
+    {
+      "q": 170,
+      "asset": "./flags/canonical/4ddc19f8eaa8.svg",
+      "country_attempts": [
+        "Pakistan"
+      ],
+      "country_display": "Pakistan",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Islamabad"
+      ],
+      "capital_display": "Islamabad",
+      "capital_result": "I"
+    }
+  ]
+}
