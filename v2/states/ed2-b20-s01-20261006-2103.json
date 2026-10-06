@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "engine": "combined_v2",
+  "edition": 2,
+  "batch": 20,
+  "start_question": 191,
+  "end_question": 195,
+  "question_count": 5,
+  "validator_path": "v2/validators/ed2-b20.json",
+  "questions": [
+    {
+      "n": 191,
+      "asset": "./flags/canonical/cf475c971398.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 192,
+      "asset": "./flags/canonical/cecd5cc33439.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 193,
+      "asset": "./flags/canonical/48a13b47fe6a.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 194,
+      "asset": "./flags/canonical/1294bcb70e87.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 195,
+      "asset": "./flags/canonical/ab08a9ab4234.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    }
+  ],
+  "round_id": "world_flags_capitals_edition_2",
+  "title": "World Flags + Capitals — Edition 2",
+  "stage": 1,
+  "stage_kind": "initial",
+  "stage_label": "Initial answers",
+  "version": "ed2-b20-s01-20261006-2103"
+}
