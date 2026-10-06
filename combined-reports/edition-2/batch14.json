@@ -1,0 +1,188 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_2",
+  "title": "World Flags + Capitals — Edition 2",
+  "batch": 14,
+  "questions": "131–140",
+  "version": "combo-report-ed2-b14-20261006-1242",
+  "test_complete": false,
+  "batch_score": {
+    "flag": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "133/139 = 95.7%",
+      "pa_display": "136/139 = 97.8%",
+      "independent": 133,
+      "assisted": 6,
+      "wrong": 0,
+      "cancelled": 1
+    },
+    "capital": {
+      "pure_display": "136/139 = 97.8%",
+      "pa_display": "137.5/139 = 98.9%",
+      "independent": 136,
+      "assisted": 3,
+      "wrong": 0,
+      "cancelled": 1
+    }
+  },
+  "records": [
+    {
+      "q": 131,
+      "asset": "./flags/canonical/b673e6e1ec68.svg",
+      "country_attempts": [
+        "Ecuador"
+      ],
+      "country_display": "Ecuador",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Quito"
+      ],
+      "capital_display": "Quito",
+      "capital_result": "I"
+    },
+    {
+      "q": 132,
+      "asset": "./flags/canonical/624285684531.svg",
+      "country_attempts": [
+        "Nepal"
+      ],
+      "country_display": "Nepal",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Karhmandiu"
+      ],
+      "capital_display": "Kathmandu",
+      "capital_result": "I"
+    },
+    {
+      "q": 133,
+      "asset": "./flags/canonical/9a46b369b3ff.svg",
+      "country_attempts": [
+        "Sychelles"
+      ],
+      "country_display": "Seychelles",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Victoria"
+      ],
+      "capital_display": "Victoria",
+      "capital_result": "I"
+    },
+    {
+      "q": 134,
+      "asset": "./flags/canonical/a2cfbca42aa2.svg",
+      "country_attempts": [
+        "Tanzania"
+      ],
+      "country_display": "Tanzania",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Dar el salam"
+      ],
+      "capital_display": "Dar es Salaam",
+      "capital_result": "I"
+    },
+    {
+      "q": 135,
+      "asset": "./flags/canonical/9ab733f4b548.svg",
+      "country_attempts": [
+        "Panama"
+      ],
+      "country_display": "Panama",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Panama"
+      ],
+      "capital_display": "Panama City",
+      "capital_result": "I"
+    },
+    {
+      "q": 136,
+      "asset": "./flags/canonical/520eee5c7c1f.svg",
+      "country_attempts": [
+        "Ughanda"
+      ],
+      "country_display": "Uganda",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Kampala"
+      ],
+      "capital_display": "Kampala",
+      "capital_result": "I"
+    },
+    {
+      "q": 137,
+      "asset": "./flags/canonical/f43be7e8ed7a.svg",
+      "country_attempts": [
+        "Occupied palestine ( not a single word)"
+      ],
+      "country_display": "Occupied Palestine",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Israel",
+        "Tel aviv"
+      ],
+      "capital_display": "Tel Aviv",
+      "capital_result": "I"
+    },
+    {
+      "q": 138,
+      "asset": "./flags/canonical/a7c01a98ffc7.svg",
+      "country_attempts": [
+        "Leshoto"
+      ],
+      "country_display": "Lesotho",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Masreau"
+      ],
+      "capital_display": "Maseru",
+      "capital_result": "I"
+    },
+    {
+      "q": 139,
+      "asset": "./flags/canonical/ee4b0c78c285.svg",
+      "country_attempts": [
+        "Cybrus"
+      ],
+      "country_display": "Cyprus",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Nicosia"
+      ],
+      "capital_display": "Nicosia",
+      "capital_result": "I"
+    },
+    {
+      "q": 140,
+      "asset": "./flags/canonical/06e26ae44e4e.svg",
+      "country_attempts": [
+        "Rwanda"
+      ],
+      "country_display": "Rwanda",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Kigali"
+      ],
+      "capital_display": "Kigali",
+      "capital_result": "I"
+    }
+  ]
+}
