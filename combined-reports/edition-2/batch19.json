@@ -1,0 +1,189 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_2",
+  "title": "World Flags + Capitals — Edition 2",
+  "batch": 19,
+  "questions": "181–190",
+  "version": "combo-report-ed2-b19-20261006-2103",
+  "test_complete": false,
+  "batch_score": {
+    "flag": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "9/10 = 90.0%",
+      "pa_display": "9/10 = 90.0%",
+      "independent": 9,
+      "assisted": 0,
+      "wrong": 1,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "182/189 = 96.3%",
+      "pa_display": "185.5/189 = 98.1%",
+      "independent": 182,
+      "assisted": 7,
+      "wrong": 0,
+      "cancelled": 1
+    },
+    "capital": {
+      "pure_display": "184/189 = 97.4%",
+      "pa_display": "185.5/189 = 98.1%",
+      "independent": 184,
+      "assisted": 3,
+      "wrong": 2,
+      "cancelled": 1
+    }
+  },
+  "records": [
+    {
+      "q": 181,
+      "asset": "./flags/canonical/36cb8695c032.svg",
+      "country_attempts": [
+        "El salvador"
+      ],
+      "country_display": "El Salvador",
+      "flag_result": "I",
+      "capital_attempts": [
+        "San salvador"
+      ],
+      "capital_display": "San Salvador",
+      "capital_result": "I"
+    },
+    {
+      "q": 182,
+      "asset": "./flags/canonical/35b9f783e155.svg",
+      "country_attempts": [
+        "Namibia"
+      ],
+      "country_display": "Namibia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Windhok"
+      ],
+      "capital_display": "Windhoek",
+      "capital_result": "I"
+    },
+    {
+      "q": 183,
+      "asset": "./flags/canonical/5b3c72fa7c26.svg",
+      "country_attempts": [
+        "Chile"
+      ],
+      "country_display": "Chile",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Santiago"
+      ],
+      "capital_display": "Santiago",
+      "capital_result": "I"
+    },
+    {
+      "q": 184,
+      "asset": "./flags/canonical/64c8eb220a30.svg",
+      "country_attempts": [
+        "Equatorial guinea"
+      ],
+      "country_display": "Equatorial Guinea",
+      "flag_result": "I",
+      "capital_attempts": [
+        "[blank]",
+        "I dont know"
+      ],
+      "capital_display": "Malabo",
+      "capital_result": "W",
+      "note": "Initial capital omitted → clue Ma… → final 'I dont know' = Wrong."
+    },
+    {
+      "q": 185,
+      "asset": "./flags/canonical/82d7a3bec553.svg",
+      "country_attempts": [
+        "Mairitius"
+      ],
+      "country_display": "Mauritius",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Port louis"
+      ],
+      "capital_display": "Port Louis",
+      "capital_result": "I"
+    },
+    {
+      "q": 186,
+      "asset": "./flags/canonical/596cf48bb7b6.svg",
+      "country_attempts": [
+        "Ksa"
+      ],
+      "country_display": "Saudi Arabia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Riyadh"
+      ],
+      "capital_display": "Riyadh",
+      "capital_result": "I"
+    },
+    {
+      "q": 187,
+      "asset": "./flags/canonical/5fa2d2440d5b.svg",
+      "country_attempts": [
+        "Madgascar"
+      ],
+      "country_display": "Madagascar",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Antnnarivo"
+      ],
+      "capital_display": "Antananarivo",
+      "capital_result": "I"
+    },
+    {
+      "q": 188,
+      "asset": "./flags/canonical/9223d14cbc72.svg",
+      "country_attempts": [
+        "Sweden"
+      ],
+      "country_display": "Sweden",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Stokholm"
+      ],
+      "capital_display": "Stockholm",
+      "capital_result": "I"
+    },
+    {
+      "q": 189,
+      "asset": "./flags/canonical/98009e8c0391.svg",
+      "country_attempts": [
+        "Micronesia"
+      ],
+      "country_display": "Micronesia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Palikir"
+      ],
+      "capital_display": "Palikir",
+      "capital_result": "I"
+    },
+    {
+      "q": 190,
+      "asset": "./flags/canonical/8fe9d669204c.svg",
+      "country_attempts": [
+        "Gambia"
+      ],
+      "country_display": "Gambia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Banjul"
+      ],
+      "capital_display": "Banjul",
+      "capital_result": "I"
+    }
+  ]
+}
