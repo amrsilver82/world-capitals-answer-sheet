@@ -1,0 +1,28 @@
+{
+  "schema_version": 3,
+  "engine": "combined_v2",
+  "edition": 2,
+  "round_id": "world_flags_capitals_edition_2",
+  "title": "World Flags + Capitals — Edition 2",
+  "batch": 13,
+  "stage": 2,
+  "stage_kind": "capital_retry",
+  "stage_label": "Capital retry — no clue",
+  "start_question": 129,
+  "end_question": 129,
+  "question_count": 1,
+  "version": "ed2-b13-s02-20261006-1242",
+  "questions": [
+    {
+      "n": 129,
+      "asset": "./flags/canonical/b3d250db99cf.svg",
+      "country": {
+        "mode": "locked",
+        "value": "Grenada"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    }
+  ]
+}
