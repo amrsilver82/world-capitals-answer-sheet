@@ -1,0 +1,263 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_master_study",
+  "title": "World Flags + Capitals — Master Study Report",
+  "batch": "Study",
+  "questions": "14 unique countries · recurring mistakes and flag confusions",
+  "version": "master-study-14-20261007-1152",
+  "test_complete": false,
+  "batch_score": {
+    "flag": {
+      "pure_display": "Study reference",
+      "pa_display": "Study reference",
+      "independent": 0,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "Study reference",
+      "pa_display": "Study reference",
+      "independent": 0,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "Study reference",
+      "pa_display": "Study reference",
+      "independent": 0,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "Study reference",
+      "pa_display": "Study reference",
+      "independent": 0,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "records": [
+    {
+      "q": 1,
+      "asset": "./flags/canonical/fa3bd927c158.svg",
+      "country_attempts": [
+        "romania",
+        "chad"
+      ],
+      "country_display": "Chad",
+      "flag_result": "A",
+      "capital_attempts": [
+        "ndjamina"
+      ],
+      "capital_display": "N'Djamena",
+      "capital_result": "I"
+    },
+    {
+      "q": 2,
+      "asset": "./flags/canonical/fda0f7bec91d.svg",
+      "country_attempts": [
+        "Romania"
+      ],
+      "country_display": "Romania",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Bucharest"
+      ],
+      "capital_display": "Bucharest",
+      "capital_result": "I"
+    },
+    {
+      "q": 3,
+      "asset": "./flags/canonical/9cb6c9e8a0ea.svg",
+      "country_attempts": [
+        "Monaco"
+      ],
+      "country_display": "Monaco",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Monaco"
+      ],
+      "capital_display": "Monaco",
+      "capital_result": "I"
+    },
+    {
+      "q": 4,
+      "asset": "./flags/canonical/3b7c8fcfd965.svg",
+      "country_attempts": [
+        "Indonesia"
+      ],
+      "country_display": "Indonesia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Jakarta"
+      ],
+      "capital_display": "Jakarta",
+      "capital_result": "I"
+    },
+    {
+      "q": 5,
+      "asset": "./flags/canonical/fda03f37beec.svg",
+      "country_attempts": [
+        "kirbati"
+      ],
+      "country_display": "Kiribati",
+      "flag_result": "A",
+      "capital_attempts": [
+        "tarawa"
+      ],
+      "capital_display": "Tarawa",
+      "capital_result": "I"
+    },
+    {
+      "q": 6,
+      "asset": "./flags/canonical/243c3d8f9e78.svg",
+      "country_attempts": [
+        "antigua"
+      ],
+      "country_display": "Antigua and Barbuda",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Saint jones"
+      ],
+      "capital_display": "Saint John's",
+      "capital_result": "A"
+    },
+    {
+      "q": 7,
+      "asset": "./flags/canonical/802482d37cfd.svg",
+      "country_attempts": [
+        "Palau"
+      ],
+      "country_display": "Palau",
+      "flag_result": "A",
+      "capital_attempts": [
+        "Paramaribo",
+        "Ngermuland"
+      ],
+      "capital_display": "Ngerulmud",
+      "capital_result": "A"
+    },
+    {
+      "q": 8,
+      "asset": "./flags/canonical/47fe64d617ab.svg",
+      "country_attempts": [
+        "Solmon island",
+        "Saint vincent",
+        "Saint kitts"
+      ],
+      "country_display": "Saint Kitts and Nevis",
+      "flag_result": "A",
+      "capital_attempts": [
+        "Honaria",
+        "Kingstown",
+        "passetried"
+      ],
+      "capital_display": "Basseterre",
+      "capital_result": "I"
+    },
+    {
+      "q": 9,
+      "asset": "./flags/canonical/81b765b7b5a6.svg",
+      "country_attempts": [
+        "(blank)",
+        "Fiji"
+      ],
+      "country_display": "Fiji",
+      "flag_result": "A",
+      "capital_attempts": [
+        "Suva"
+      ],
+      "capital_display": "Suva",
+      "capital_result": "A"
+    },
+    {
+      "q": 10,
+      "asset": "./flags/canonical/a4e3d879843f.svg",
+      "country_attempts": [
+        "Guinea-bissau",
+        "Madgascar",
+        "Benin"
+      ],
+      "country_display": "Benin",
+      "flag_result": "A",
+      "capital_attempts": [
+        "Bissau",
+        "Antnarrivio",
+        "Porto novo"
+      ],
+      "capital_display": "Porto-Novo",
+      "capital_result": "I"
+    },
+    {
+      "q": 11,
+      "asset": "./flags/canonical/7b9f49075518.svg",
+      "country_attempts": [
+        "Micronesia",
+        "Saint vincent",
+        "Marshall island"
+      ],
+      "country_display": "Marshall Islands",
+      "flag_result": "A",
+      "capital_attempts": [
+        "Palikir",
+        "Kingstown",
+        "majoreau"
+      ],
+      "capital_display": "Majuro",
+      "capital_result": "I"
+    },
+    {
+      "q": 12,
+      "asset": "./flags/canonical/326d29e9dc94.svg",
+      "country_attempts": [
+        "Vanutu"
+      ],
+      "country_display": "Vanuatu",
+      "flag_result": "I",
+      "capital_attempts": [
+        "",
+        "i don’t know"
+      ],
+      "capital_display": "Port Vila",
+      "capital_result": "W"
+    },
+    {
+      "q": 13,
+      "asset": "./flags/canonical/64c8eb220a30.svg",
+      "country_attempts": [
+        "Equatorial guinea"
+      ],
+      "country_display": "Equatorial Guinea",
+      "flag_result": "I",
+      "capital_attempts": [
+        "[blank]",
+        "I dont know"
+      ],
+      "capital_display": "Malabo",
+      "capital_result": "W"
+    },
+    {
+      "q": 14,
+      "asset": "./flags/canonical/cecd5cc33439.svg",
+      "country_attempts": [
+        "Barbados"
+      ],
+      "country_display": "Barbados",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Saint jones",
+        "Saint george",
+        "Georetown",
+        "Bridgetwon"
+      ],
+      "capital_display": "Bridgetown",
+      "capital_result": "A"
+    }
+  ]
+}
