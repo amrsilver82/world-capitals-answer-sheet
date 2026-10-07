@@ -1,0 +1,187 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_3",
+  "title": "World Flags + Capitals — Edition 3",
+  "batch": 5,
+  "questions": "41–50",
+  "version": "combo-report-ed3-b05-20261007-1904",
+  "test_complete": false,
+  "batch_score": {
+    "flag": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "50/50 = 100.0%",
+      "pa_display": "50/50 = 100.0%",
+      "independent": 50,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "50/50 = 100.0%",
+      "pa_display": "50/50 = 100.0%",
+      "independent": 50,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "records": [
+    {
+      "q": 41,
+      "asset": "./flags/canonical/314e7f5f7f53.svg",
+      "country_attempts": [
+        "Venzuela"
+      ],
+      "country_display": "Venezuela",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Caracas"
+      ],
+      "capital_display": "Caracas",
+      "capital_result": "I"
+    },
+    {
+      "q": 42,
+      "asset": "./flags/canonical/7e4bac8f4acf.svg",
+      "country_attempts": [
+        "Vitenam"
+      ],
+      "country_display": "Vietnam",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Hanoi"
+      ],
+      "capital_display": "Hanoi",
+      "capital_result": "I"
+    },
+    {
+      "q": 43,
+      "asset": "./flags/canonical/a6588afaefd0.svg",
+      "country_attempts": [
+        "Iceland"
+      ],
+      "country_display": "Iceland",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Rejkayvyk"
+      ],
+      "capital_display": "Reykjavík",
+      "capital_result": "I"
+    },
+    {
+      "q": 44,
+      "asset": "./flags/canonical/48a13b47fe6a.svg",
+      "country_attempts": [
+        "Eritria"
+      ],
+      "country_display": "Eritrea",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Asmara"
+      ],
+      "capital_display": "Asmara",
+      "capital_result": "I"
+    },
+    {
+      "q": 45,
+      "asset": "./flags/canonical/4f5cae77ed60.svg",
+      "country_attempts": [
+        "Macedonia"
+      ],
+      "country_display": "North Macedonia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Skjope"
+      ],
+      "capital_display": "Skopje",
+      "capital_result": "I"
+    },
+    {
+      "q": 46,
+      "asset": "./flags/canonical/8ba745acaf22.svg",
+      "country_attempts": [
+        "Sweden"
+      ],
+      "country_display": "Sweden",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Stokholm"
+      ],
+      "capital_display": "Stockholm",
+      "capital_result": "I"
+    },
+    {
+      "q": 47,
+      "asset": "./flags/canonical/a296ebf7e186.svg",
+      "country_attempts": [
+        "Spain"
+      ],
+      "country_display": "Spain",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Madrid"
+      ],
+      "capital_display": "Madrid",
+      "capital_result": "I"
+    },
+    {
+      "q": 48,
+      "asset": "./flags/canonical/1294bcb70e87.svg",
+      "country_attempts": [
+        "Sao tome pricipe"
+      ],
+      "country_display": "Sao Tome and Principe",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Sao tome"
+      ],
+      "capital_display": "São Tomé",
+      "capital_result": "I"
+    },
+    {
+      "q": 49,
+      "asset": "./flags/canonical/71aa2d2c30f5.svg",
+      "country_attempts": [
+        "Germany"
+      ],
+      "country_display": "Germany",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Berlin"
+      ],
+      "capital_display": "Berlin",
+      "capital_result": "I"
+    },
+    {
+      "q": 50,
+      "asset": "./flags/canonical/935d8a749d94.svg",
+      "country_attempts": [
+        "New zeland"
+      ],
+      "country_display": "New Zealand",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Wellington"
+      ],
+      "capital_display": "Wellington",
+      "capital_result": "I"
+    }
+  ]
+}
