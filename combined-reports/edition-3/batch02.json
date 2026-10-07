@@ -1,0 +1,189 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_3",
+  "title": "World Flags + Capitals — Edition 3",
+  "batch": 2,
+  "questions": "11–20",
+  "version": "combo-report-ed3-b02-20261007-1530",
+  "test_complete": false,
+  "batch_score": {
+    "flag": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "20/20 = 100.0%",
+      "pa_display": "20/20 = 100.0%",
+      "independent": 20,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "20/20 = 100.0%",
+      "pa_display": "20/20 = 100.0%",
+      "independent": 20,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "records": [
+    {
+      "q": 11,
+      "asset": "./flags/canonical/11fde67db930.svg",
+      "country_attempts": [
+        "salvador",
+        "honduras"
+      ],
+      "country_display": "Honduras",
+      "flag_result": "I",
+      "capital_attempts": [
+        "san salvador",
+        "taglipaca"
+      ],
+      "capital_display": "Tegucigalpa",
+      "capital_result": "I"
+    },
+    {
+      "q": 12,
+      "asset": "./flags/canonical/360f37aa19db.svg",
+      "country_attempts": [
+        "zambia"
+      ],
+      "country_display": "Zambia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "lusaka"
+      ],
+      "capital_display": "Lusaka",
+      "capital_result": "I"
+    },
+    {
+      "q": 13,
+      "asset": "./flags/canonical/abccd87994c0.svg",
+      "country_attempts": [
+        "parguay"
+      ],
+      "country_display": "Paraguay",
+      "flag_result": "I",
+      "capital_attempts": [
+        "asoncion"
+      ],
+      "capital_display": "Asunción",
+      "capital_result": "I"
+    },
+    {
+      "q": 14,
+      "asset": "./flags/canonical/7b9f49075518.svg",
+      "country_attempts": [
+        "marshall islands"
+      ],
+      "country_display": "Marshall Islands",
+      "flag_result": "I",
+      "capital_attempts": [
+        "majerou"
+      ],
+      "capital_display": "Majuro",
+      "capital_result": "I"
+    },
+    {
+      "q": 15,
+      "asset": "./flags/canonical/70adc8b6818f.svg",
+      "country_attempts": [
+        "cameroon"
+      ],
+      "country_display": "Cameroon",
+      "flag_result": "I",
+      "capital_attempts": [
+        "yaounde"
+      ],
+      "capital_display": "Yaoundé",
+      "capital_result": "I"
+    },
+    {
+      "q": 16,
+      "asset": "./flags/canonical/cf243011ae99.svg",
+      "country_attempts": [
+        "russia"
+      ],
+      "country_display": "Russia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "moscow"
+      ],
+      "capital_display": "Moscow",
+      "capital_result": "I"
+    },
+    {
+      "q": 17,
+      "asset": "./flags/canonical/10d3489a0e60.svg",
+      "country_attempts": [
+        "china"
+      ],
+      "country_display": "China",
+      "flag_result": "I",
+      "capital_attempts": [
+        "beijing"
+      ],
+      "capital_display": "Beijing",
+      "capital_result": "I"
+    },
+    {
+      "q": 18,
+      "asset": "./flags/canonical/e9ba506a2ba8.svg",
+      "country_attempts": [
+        "moldova"
+      ],
+      "country_display": "Moldova",
+      "flag_result": "I",
+      "capital_attempts": [
+        "cisnau"
+      ],
+      "capital_display": "Chișinău",
+      "capital_result": "I"
+    },
+    {
+      "q": 19,
+      "asset": "./flags/canonical/8fe9d669204c.svg",
+      "country_attempts": [
+        "gambia"
+      ],
+      "country_display": "Gambia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "banjul"
+      ],
+      "capital_display": "Banjul",
+      "capital_result": "I"
+    },
+    {
+      "q": 20,
+      "asset": "./flags/canonical/ee4b0c78c285.svg",
+      "country_attempts": [
+        "cybrus"
+      ],
+      "country_display": "Cyprus",
+      "flag_result": "I",
+      "capital_attempts": [
+        "nicosia"
+      ],
+      "capital_display": "Nicosia",
+      "capital_result": "I"
+    }
+  ]
+}
