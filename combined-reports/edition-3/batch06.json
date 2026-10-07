@@ -1,0 +1,187 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_3",
+  "title": "World Flags + Capitals — Edition 3",
+  "batch": 6,
+  "questions": "51–60",
+  "version": "combo-report-ed3-b06-20261007-2316",
+  "test_complete": false,
+  "batch_score": {
+    "flag": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "60/60 = 100.0%",
+      "pa_display": "60/60 = 100.0%",
+      "independent": 60,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "60/60 = 100.0%",
+      "pa_display": "60/60 = 100.0%",
+      "independent": 60,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "records": [
+    {
+      "q": 51,
+      "asset": "./flags/canonical/76edab429c29.svg",
+      "country_attempts": [
+        "Gabon"
+      ],
+      "country_display": "Gabon",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Libreville"
+      ],
+      "capital_display": "Libreville",
+      "capital_result": "I"
+    },
+    {
+      "q": 52,
+      "asset": "./flags/canonical/0e758a7a95c0.svg",
+      "country_attempts": [
+        "Samoa"
+      ],
+      "country_display": "Samoa",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Apia"
+      ],
+      "capital_display": "Apia",
+      "capital_result": "I"
+    },
+    {
+      "q": 53,
+      "asset": "./flags/canonical/e682b9002021.svg",
+      "country_attempts": [
+        "France"
+      ],
+      "country_display": "France",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Paris"
+      ],
+      "capital_display": "Paris",
+      "capital_result": "I"
+    },
+    {
+      "q": 54,
+      "asset": "./flags/canonical/563277f81d90.svg",
+      "country_attempts": [
+        "Denmark"
+      ],
+      "country_display": "Denmark",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Copenhagen"
+      ],
+      "capital_display": "Copenhagen",
+      "capital_result": "I"
+    },
+    {
+      "q": 55,
+      "asset": "./flags/canonical/1eaa51e468b7.svg",
+      "country_attempts": [
+        "Libya"
+      ],
+      "country_display": "Libya",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Tripoli"
+      ],
+      "capital_display": "Tripoli",
+      "capital_result": "I"
+    },
+    {
+      "q": 56,
+      "asset": "./flags/canonical/f26c2d8da992.svg",
+      "country_attempts": [
+        "Saint vincent"
+      ],
+      "country_display": "Saint Vincent and the Grenadines",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Kings town"
+      ],
+      "capital_display": "Kingstown",
+      "capital_result": "I"
+    },
+    {
+      "q": 57,
+      "asset": "./flags/canonical/7a4d183245c9.svg",
+      "country_attempts": [
+        "Lichtenchtein"
+      ],
+      "country_display": "Liechtenstein",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Vaduz"
+      ],
+      "capital_display": "Vaduz",
+      "capital_result": "I"
+    },
+    {
+      "q": 58,
+      "asset": "./flags/canonical/4ddc19f8eaa8.svg",
+      "country_attempts": [
+        "Pakistan"
+      ],
+      "country_display": "Pakistan",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Islamabad"
+      ],
+      "capital_display": "Islamabad",
+      "capital_result": "I"
+    },
+    {
+      "q": 59,
+      "asset": "./flags/canonical/81eb35f78eb1.svg",
+      "country_attempts": [
+        "Nigeria"
+      ],
+      "country_display": "Nigeria",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Abuja"
+      ],
+      "capital_display": "Abuja",
+      "capital_result": "I"
+    },
+    {
+      "q": 60,
+      "asset": "./flags/canonical/b96da21f0e98.svg",
+      "country_attempts": [
+        "Turkey"
+      ],
+      "country_display": "Turkey",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Ankara"
+      ],
+      "capital_display": "Ankara",
+      "capital_result": "I"
+    }
+  ]
+}
