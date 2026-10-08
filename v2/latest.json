@@ -3,9 +3,9 @@
   "engine": "combined_v2",
   "edition": 3,
   "round_id": "world_flags_capitals_edition_3",
-  "batch": 12,
+  "batch": 13,
   "stage": 1,
   "status": "active",
-  "version": "ed3-b12-s01-20261008-1210",
-  "state_path": "v2/states/ed3-b12-s01-20261008-1210.json"
+  "version": "ed3-b13-s01-20261008-1218",
+  "state_path": "v2/states/ed3-b13-s01-20261008-1218.json"
 }

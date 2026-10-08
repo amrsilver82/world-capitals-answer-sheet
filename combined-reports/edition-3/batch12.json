@@ -1,0 +1,187 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_3",
+  "title": "World Flags + Capitals — Edition 3",
+  "batch": 12,
+  "questions": "111–120",
+  "version": "combo-report-ed3-b12-20261008-1218",
+  "test_complete": false,
+  "batch_score": {
+    "flag": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "120/120 = 100.0%",
+      "pa_display": "120/120 = 100.0%",
+      "independent": 120,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "120/120 = 100.0%",
+      "pa_display": "120/120 = 100.0%",
+      "independent": 120,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "records": [
+    {
+      "q": 111,
+      "asset": "./flags/canonical/fda0f7bec91d.svg",
+      "country_attempts": [
+        "romania"
+      ],
+      "country_display": "Romania",
+      "flag_result": "I",
+      "capital_attempts": [
+        "bucharest"
+      ],
+      "capital_display": "Bucharest",
+      "capital_result": "I"
+    },
+    {
+      "q": 112,
+      "asset": "./flags/canonical/fa3bd927c158.svg",
+      "country_attempts": [
+        "chad"
+      ],
+      "country_display": "Chad",
+      "flag_result": "I",
+      "capital_attempts": [
+        "ndjamina"
+      ],
+      "capital_display": "N'Djamena",
+      "capital_result": "I"
+    },
+    {
+      "q": 113,
+      "asset": "./flags/canonical/a7d52f2cb41c.svg",
+      "country_attempts": [
+        "cambodia"
+      ],
+      "country_display": "Cambodia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "bnom bnah"
+      ],
+      "capital_display": "Phnom Penh",
+      "capital_result": "I"
+    },
+    {
+      "q": 114,
+      "asset": "./flags/canonical/b9cf52894137.svg",
+      "country_attempts": [
+        "dr congo"
+      ],
+      "country_display": "Democratic Republic of the Congo",
+      "flag_result": "I",
+      "capital_attempts": [
+        "khinshasa"
+      ],
+      "capital_display": "Kinshasa",
+      "capital_result": "I"
+    },
+    {
+      "q": 115,
+      "asset": "./flags/canonical/35575221104f.svg",
+      "country_attempts": [
+        "azrbaijan"
+      ],
+      "country_display": "Azerbaijan",
+      "flag_result": "I",
+      "capital_attempts": [
+        "baku"
+      ],
+      "capital_display": "Baku",
+      "capital_result": "I"
+    },
+    {
+      "q": 116,
+      "asset": "./flags/canonical/049be14de14f.svg",
+      "country_attempts": [
+        "ireland"
+      ],
+      "country_display": "Ireland",
+      "flag_result": "I",
+      "capital_attempts": [
+        "dublin"
+      ],
+      "capital_display": "Dublin",
+      "capital_result": "I"
+    },
+    {
+      "q": 117,
+      "asset": "./flags/canonical/a07baf75b40f.svg",
+      "country_attempts": [
+        "sierraleone"
+      ],
+      "country_display": "Sierra Leone",
+      "flag_result": "I",
+      "capital_attempts": [
+        "feetown"
+      ],
+      "capital_display": "Freetown",
+      "capital_result": "I"
+    },
+    {
+      "q": 118,
+      "asset": "./flags/canonical/8c6d51621699.svg",
+      "country_attempts": [
+        "iran"
+      ],
+      "country_display": "Iran",
+      "flag_result": "I",
+      "capital_attempts": [
+        "tahran"
+      ],
+      "capital_display": "Tehran",
+      "capital_result": "I"
+    },
+    {
+      "q": 119,
+      "asset": "./flags/canonical/b257aa0b3e50.svg",
+      "country_attempts": [
+        "south sudan"
+      ],
+      "country_display": "South Sudan",
+      "flag_result": "I",
+      "capital_attempts": [
+        "juba"
+      ],
+      "capital_display": "Juba",
+      "capital_result": "I"
+    },
+    {
+      "q": 120,
+      "asset": "./flags/canonical/5cc918e5ad40.svg",
+      "country_attempts": [
+        "bahamas"
+      ],
+      "country_display": "Bahamas",
+      "flag_result": "I",
+      "capital_attempts": [
+        "nassau"
+      ],
+      "capital_display": "Nassau",
+      "capital_result": "I"
+    }
+  ]
+}
