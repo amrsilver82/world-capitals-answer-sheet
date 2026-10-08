@@ -1,0 +1,187 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_3",
+  "title": "World Flags + Capitals — Edition 3",
+  "batch": 13,
+  "questions": "121–130",
+  "version": "combo-report-ed3-b13-20261009-0115",
+  "test_complete": false,
+  "batch_score": {
+    "flag": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "130/130 = 100.0%",
+      "pa_display": "130/130 = 100.0%",
+      "independent": 130,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "130/130 = 100.0%",
+      "pa_display": "130/130 = 100.0%",
+      "independent": 130,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "records": [
+    {
+      "q": 121,
+      "asset": "./flags/canonical/4f1461a000c8.svg",
+      "country_attempts": [
+        "Oman"
+      ],
+      "country_display": "Oman",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Masqat"
+      ],
+      "capital_display": "Muscat",
+      "capital_result": "I"
+    },
+    {
+      "q": 122,
+      "asset": "./flags/canonical/6de2b268d034.svg",
+      "country_attempts": [
+        "Dominican"
+      ],
+      "country_display": "Dominican Republic",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Santo domingo"
+      ],
+      "capital_display": "Santo Domingo",
+      "capital_result": "I"
+    },
+    {
+      "q": 123,
+      "asset": "./flags/canonical/82d7a3bec553.svg",
+      "country_attempts": [
+        "Mauritus"
+      ],
+      "country_display": "Mauritius",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Port louis"
+      ],
+      "capital_display": "Port Louis",
+      "capital_result": "I"
+    },
+    {
+      "q": 124,
+      "asset": "./flags/canonical/47fe64d617ab.svg",
+      "country_attempts": [
+        "Saint kitts"
+      ],
+      "country_display": "Saint Kitts and Nevis",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Bassetre"
+      ],
+      "capital_display": "Basseterre",
+      "capital_result": "I"
+    },
+    {
+      "q": 125,
+      "asset": "./flags/canonical/471382258410.svg",
+      "country_attempts": [
+        "Burkina faso"
+      ],
+      "country_display": "Burkina Faso",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Ougadogou"
+      ],
+      "capital_display": "Ouagadougou",
+      "capital_result": "I"
+    },
+    {
+      "q": 126,
+      "asset": "./flags/canonical/aec8994902cc.svg",
+      "country_attempts": [
+        "Cabo verde"
+      ],
+      "country_display": "Cabo Verde",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Paraia"
+      ],
+      "capital_display": "Praia",
+      "capital_result": "I"
+    },
+    {
+      "q": 127,
+      "asset": "./flags/canonical/676018e6284f.svg",
+      "country_attempts": [
+        "Slovakia"
+      ],
+      "country_display": "Slovakia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Bratislava"
+      ],
+      "capital_display": "Bratislava",
+      "capital_result": "I"
+    },
+    {
+      "q": 128,
+      "asset": "./flags/canonical/e85d95f0f0a6.svg",
+      "country_attempts": [
+        "Albania"
+      ],
+      "country_display": "Albania",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Tirana"
+      ],
+      "capital_display": "Tirana",
+      "capital_result": "I"
+    },
+    {
+      "q": 129,
+      "asset": "./flags/canonical/3d0701a2c8c8.svg",
+      "country_attempts": [
+        "Timor leste"
+      ],
+      "country_display": "Timor-Leste",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Dilli"
+      ],
+      "capital_display": "Dili",
+      "capital_result": "I"
+    },
+    {
+      "q": 130,
+      "asset": "./flags/canonical/243c3d8f9e78.svg",
+      "country_attempts": [
+        "Antigua"
+      ],
+      "country_display": "Antigua and Barbuda",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Saint jones"
+      ],
+      "capital_display": "Saint John’s",
+      "capital_result": "I"
+    }
+  ]
+}
