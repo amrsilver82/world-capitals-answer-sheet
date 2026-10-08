@@ -1,0 +1,187 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_3",
+  "title": "World Flags + Capitals — Edition 3",
+  "batch": 10,
+  "questions": "91–100",
+  "version": "combo-report-ed3-b10-20261008-1201",
+  "test_complete": false,
+  "batch_score": {
+    "flag": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "100/100 = 100.0%",
+      "pa_display": "100/100 = 100.0%",
+      "independent": 100,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "100/100 = 100.0%",
+      "pa_display": "100/100 = 100.0%",
+      "independent": 100,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "records": [
+    {
+      "q": 91,
+      "asset": "./flags/canonical/ac706a0b5a14.svg",
+      "country_attempts": [
+        "belgium"
+      ],
+      "country_display": "Belgium",
+      "flag_result": "I",
+      "capital_attempts": [
+        "brussels"
+      ],
+      "capital_display": "Brussels",
+      "capital_result": "I"
+    },
+    {
+      "q": 92,
+      "asset": "./flags/canonical/9a46b369b3ff.svg",
+      "country_attempts": [
+        "seycehles"
+      ],
+      "country_display": "Seychelles",
+      "flag_result": "I",
+      "capital_attempts": [
+        "victoria"
+      ],
+      "capital_display": "Victoria",
+      "capital_result": "I"
+    },
+    {
+      "q": 93,
+      "asset": "./flags/canonical/9d2775c08328.svg",
+      "country_attempts": [
+        "austria"
+      ],
+      "country_display": "Austria",
+      "flag_result": "I",
+      "capital_attempts": [
+        "vienna"
+      ],
+      "capital_display": "Vienna",
+      "capital_result": "I"
+    },
+    {
+      "q": 94,
+      "asset": "./flags/canonical/596cf48bb7b6.svg",
+      "country_attempts": [
+        "ksa"
+      ],
+      "country_display": "Saudi Arabia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "riyadh"
+      ],
+      "capital_display": "Riyadh",
+      "capital_result": "I"
+    },
+    {
+      "q": 95,
+      "asset": "./flags/canonical/e4861f5abaaf.svg",
+      "country_attempts": [
+        "nicaragua"
+      ],
+      "country_display": "Nicaragua",
+      "flag_result": "I",
+      "capital_attempts": [
+        "managua"
+      ],
+      "capital_display": "Managua",
+      "capital_result": "I"
+    },
+    {
+      "q": 96,
+      "asset": "./flags/canonical/3e297d638a94.svg",
+      "country_attempts": [
+        "vatican"
+      ],
+      "country_display": "Vatican City",
+      "flag_result": "I",
+      "capital_attempts": [
+        "vatican"
+      ],
+      "capital_display": "Vatican City",
+      "capital_result": "I"
+    },
+    {
+      "q": 97,
+      "asset": "./flags/canonical/269df0383684.svg",
+      "country_attempts": [
+        "jamaica"
+      ],
+      "country_display": "Jamaica",
+      "flag_result": "I",
+      "capital_attempts": [
+        "kingston"
+      ],
+      "capital_display": "Kingston",
+      "capital_result": "I"
+    },
+    {
+      "q": 98,
+      "asset": "./flags/canonical/199ff198e7e4.svg",
+      "country_attempts": [
+        "andorra"
+      ],
+      "country_display": "Andorra",
+      "flag_result": "I",
+      "capital_attempts": [
+        "andorrra"
+      ],
+      "capital_display": "Andorra la Vella",
+      "capital_result": "I"
+    },
+    {
+      "q": 99,
+      "asset": "./flags/canonical/90ec5d240e5e.svg",
+      "country_attempts": [
+        "lithuania"
+      ],
+      "country_display": "Lithuania",
+      "flag_result": "I",
+      "capital_attempts": [
+        "vilnius"
+      ],
+      "capital_display": "Vilnius",
+      "capital_result": "I"
+    },
+    {
+      "q": 100,
+      "asset": "./flags/canonical/88c50bf61656.svg",
+      "country_attempts": [
+        "ecuador"
+      ],
+      "country_display": "Ecuador",
+      "flag_result": "I",
+      "capital_attempts": [
+        "quito"
+      ],
+      "capital_display": "Quito",
+      "capital_result": "I"
+    }
+  ]
+}
