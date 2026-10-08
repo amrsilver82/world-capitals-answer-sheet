@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "engine": "combined_v2",
+  "edition": 3,
+  "batch": 8,
+  "start_question": 71,
+  "end_question": 80,
+  "question_count": 10,
+  "validator_path": "v2/validators/ed3-b08.json",
+  "questions": [
+    {
+      "n": 71,
+      "asset": "./flags/canonical/4dbe4556e12f.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 72,
+      "asset": "./flags/canonical/cbd660a54ac6.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 73,
+      "asset": "./flags/canonical/33e6cfd41781.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 74,
+      "asset": "./flags/canonical/cc122068125c.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 75,
+      "asset": "./flags/canonical/5aa9cea5f519.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 76,
+      "asset": "./flags/canonical/42b4dee2b8cc.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 77,
+      "asset": "./flags/canonical/9b00a8205662.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 78,
+      "asset": "./flags/canonical/569fb562759e.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 79,
+      "asset": "./flags/canonical/d81b16c23d44.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    },
+    {
+      "n": 80,
+      "asset": "./flags/canonical/af2d0d07c31e.svg",
+      "country": {
+        "mode": "input"
+      },
+      "capital": {
+        "mode": "input"
+      }
+    }
+  ],
+  "round_id": "world_flags_capitals_edition_3",
+  "title": "World Flags + Capitals — Edition 3",
+  "stage": 1,
+  "stage_kind": "initial",
+  "stage_label": "Initial answers",
+  "version": "ed3-b08-s01-20261008-1003"
+}
