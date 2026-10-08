@@ -1,0 +1,187 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_3",
+  "title": "World Flags + Capitals — Edition 3",
+  "batch": 11,
+  "questions": "101–110",
+  "version": "combo-report-ed3-b11-20261008-1210",
+  "test_complete": false,
+  "batch_score": {
+    "flag": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "110/110 = 100.0%",
+      "pa_display": "110/110 = 100.0%",
+      "independent": 110,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "110/110 = 100.0%",
+      "pa_display": "110/110 = 100.0%",
+      "independent": 110,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "records": [
+    {
+      "q": 101,
+      "asset": "./flags/canonical/7ce56eff707c.svg",
+      "country_attempts": [
+        "morrocow"
+      ],
+      "country_display": "Morocco",
+      "flag_result": "I",
+      "capital_attempts": [
+        "rabat"
+      ],
+      "capital_display": "Rabat",
+      "capital_result": "I"
+    },
+    {
+      "q": 102,
+      "asset": "./flags/canonical/35b9f783e155.svg",
+      "country_attempts": [
+        "namibia"
+      ],
+      "country_display": "Namibia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "windhok"
+      ],
+      "capital_display": "Windhoek",
+      "capital_result": "I"
+    },
+    {
+      "q": 103,
+      "asset": "./flags/canonical/0f94c3a1aaa2.svg",
+      "country_attempts": [
+        "mozambique"
+      ],
+      "country_display": "Mozambique",
+      "flag_result": "I",
+      "capital_attempts": [
+        "mbouto"
+      ],
+      "capital_display": "Maputo",
+      "capital_result": "I"
+    },
+    {
+      "q": 104,
+      "asset": "./flags/canonical/20aef3a63b4d.svg",
+      "country_attempts": [
+        "bhutan"
+      ],
+      "country_display": "Bhutan",
+      "flag_result": "I",
+      "capital_attempts": [
+        "thimpu"
+      ],
+      "capital_display": "Thimphu",
+      "capital_result": "I"
+    },
+    {
+      "q": 105,
+      "asset": "./flags/canonical/5735c1984de3.svg",
+      "country_attempts": [
+        "tunisia"
+      ],
+      "country_display": "Tunisia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "tunis"
+      ],
+      "capital_display": "Tunis",
+      "capital_result": "I"
+    },
+    {
+      "q": 106,
+      "asset": "./flags/canonical/675210ec5524.svg",
+      "country_attempts": [
+        "tuvalu"
+      ],
+      "country_display": "Tuvalu",
+      "flag_result": "I",
+      "capital_attempts": [
+        "funafati"
+      ],
+      "capital_display": "Funafuti",
+      "capital_result": "I"
+    },
+    {
+      "q": 107,
+      "asset": "./flags/canonical/4154ed765cfc.svg",
+      "country_attempts": [
+        "turkminstan"
+      ],
+      "country_display": "Turkmenistan",
+      "flag_result": "I",
+      "capital_attempts": [
+        "asghabat"
+      ],
+      "capital_display": "Ashgabat",
+      "capital_result": "I"
+    },
+    {
+      "q": 108,
+      "asset": "./flags/canonical/053c9ee3a029.svg",
+      "country_attempts": [
+        "cuba"
+      ],
+      "country_display": "Cuba",
+      "flag_result": "I",
+      "capital_attempts": [
+        "havana"
+      ],
+      "capital_display": "Havana",
+      "capital_result": "I"
+    },
+    {
+      "q": 109,
+      "asset": "./flags/canonical/6aea6b72b405.svg",
+      "country_attempts": [
+        "laos"
+      ],
+      "country_display": "Laos",
+      "flag_result": "I",
+      "capital_attempts": [
+        "vientiane"
+      ],
+      "capital_display": "Vientiane",
+      "capital_result": "I"
+    },
+    {
+      "q": 110,
+      "asset": "./flags/canonical/520eee5c7c1f.svg",
+      "country_attempts": [
+        "ughanda"
+      ],
+      "country_display": "Uganda",
+      "flag_result": "I",
+      "capital_attempts": [
+        "kampala"
+      ],
+      "capital_display": "Kampala",
+      "capital_result": "I"
+    }
+  ]
+}
