@@ -1,0 +1,187 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_3",
+  "title": "World Flags + Capitals — Edition 3",
+  "batch": 8,
+  "questions": "71–80",
+  "version": "combo-report-ed3-b08-20261008-1143",
+  "test_complete": false,
+  "batch_score": {
+    "flag": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "80/80 = 100.0%",
+      "pa_display": "80/80 = 100.0%",
+      "independent": 80,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "80/80 = 100.0%",
+      "pa_display": "80/80 = 100.0%",
+      "independent": 80,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "records": [
+    {
+      "q": 71,
+      "asset": "./flags/canonical/4dbe4556e12f.svg",
+      "country_attempts": [
+        "afghanistan"
+      ],
+      "country_display": "Afghanistan",
+      "flag_result": "I",
+      "capital_attempts": [
+        "kaboul"
+      ],
+      "capital_display": "Kabul",
+      "capital_result": "I"
+    },
+    {
+      "q": 72,
+      "asset": "./flags/canonical/cbd660a54ac6.svg",
+      "country_attempts": [
+        "sri lanka"
+      ],
+      "country_display": "Sri Lanka",
+      "flag_result": "I",
+      "capital_attempts": [
+        "colombo"
+      ],
+      "capital_display": "Colombo",
+      "capital_result": "I"
+    },
+    {
+      "q": 73,
+      "asset": "./flags/canonical/33e6cfd41781.svg",
+      "country_attempts": [
+        "peru"
+      ],
+      "country_display": "Peru",
+      "flag_result": "I",
+      "capital_attempts": [
+        "lima"
+      ],
+      "capital_display": "Lima",
+      "capital_result": "I"
+    },
+    {
+      "q": 74,
+      "asset": "./flags/canonical/cc122068125c.svg",
+      "country_attempts": [
+        "luxemborg"
+      ],
+      "country_display": "Luxembourg",
+      "flag_result": "I",
+      "capital_attempts": [
+        "luxemborg"
+      ],
+      "capital_display": "Luxembourg",
+      "capital_result": "I"
+    },
+    {
+      "q": 75,
+      "asset": "./flags/canonical/5aa9cea5f519.svg",
+      "country_attempts": [
+        "dominica"
+      ],
+      "country_display": "Dominica",
+      "flag_result": "I",
+      "capital_attempts": [
+        "rosseau"
+      ],
+      "capital_display": "Roseau",
+      "capital_result": "I"
+    },
+    {
+      "q": 76,
+      "asset": "./flags/canonical/42b4dee2b8cc.svg",
+      "country_attempts": [
+        "myanmar"
+      ],
+      "country_display": "Myanmar",
+      "flag_result": "I",
+      "capital_attempts": [
+        "rangoon"
+      ],
+      "capital_display": "Rangoon",
+      "capital_result": "I"
+    },
+    {
+      "q": 77,
+      "asset": "./flags/canonical/9b00a8205662.svg",
+      "country_attempts": [
+        "djibouti"
+      ],
+      "country_display": "Djibouti",
+      "flag_result": "I",
+      "capital_attempts": [
+        "djibouti"
+      ],
+      "capital_display": "Djibouti",
+      "capital_result": "I"
+    },
+    {
+      "q": 78,
+      "asset": "./flags/canonical/569fb562759e.svg",
+      "country_attempts": [
+        "guyana"
+      ],
+      "country_display": "Guyana",
+      "flag_result": "I",
+      "capital_attempts": [
+        "georgetown"
+      ],
+      "capital_display": "Georgetown",
+      "capital_result": "I"
+    },
+    {
+      "q": 79,
+      "asset": "./flags/canonical/d81b16c23d44.svg",
+      "country_attempts": [
+        "belize"
+      ],
+      "country_display": "Belize",
+      "flag_result": "I",
+      "capital_attempts": [
+        "balompan"
+      ],
+      "capital_display": "Belmopan",
+      "capital_result": "I"
+    },
+    {
+      "q": 80,
+      "asset": "./flags/canonical/af2d0d07c31e.svg",
+      "country_attempts": [
+        "bulgaria"
+      ],
+      "country_display": "Bulgaria",
+      "flag_result": "I",
+      "capital_attempts": [
+        "sofia"
+      ],
+      "capital_display": "Sofia",
+      "capital_result": "I"
+    }
+  ]
+}
