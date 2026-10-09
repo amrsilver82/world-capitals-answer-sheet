@@ -1,0 +1,187 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_3",
+  "title": "World Flags + Capitals — Edition 3",
+  "batch": 17,
+  "questions": "161–170",
+  "version": "combo-report-ed3-b17-20261009-2040",
+  "test_complete": false,
+  "batch_score": {
+    "flag": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "170/170 = 100.0%",
+      "pa_display": "170/170 = 100.0%",
+      "independent": 170,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "170/170 = 100.0%",
+      "pa_display": "170/170 = 100.0%",
+      "independent": 170,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "records": [
+    {
+      "q": 161,
+      "asset": "./flags/canonical/414d65e47fd1.svg",
+      "country_attempts": [
+        "Comoros"
+      ],
+      "country_display": "Comoros",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Moroni"
+      ],
+      "capital_display": "Moroni",
+      "capital_result": "I"
+    },
+    {
+      "q": 162,
+      "asset": "./flags/canonical/1e93a61e95bf.svg",
+      "country_attempts": [
+        "Thailand"
+      ],
+      "country_display": "Thailand",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Bangkok"
+      ],
+      "capital_display": "Bangkok",
+      "capital_result": "I"
+    },
+    {
+      "q": 163,
+      "asset": "./flags/canonical/6066f94cd117.svg",
+      "country_attempts": [
+        "Solomon islands"
+      ],
+      "country_display": "Solomon Islands",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Honaria"
+      ],
+      "capital_display": "Honiara",
+      "capital_result": "I"
+    },
+    {
+      "q": 164,
+      "asset": "./flags/canonical/93aac4f6cf2d.svg",
+      "country_attempts": [
+        "Zimbabwe"
+      ],
+      "country_display": "Zimbabwe",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Harrari"
+      ],
+      "capital_display": "Harare",
+      "capital_result": "I"
+    },
+    {
+      "q": 165,
+      "asset": "./flags/canonical/24fbfb965888.svg",
+      "country_attempts": [
+        "Hungary"
+      ],
+      "country_display": "Hungary",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Budapest"
+      ],
+      "capital_display": "Budapest",
+      "capital_result": "I"
+    },
+    {
+      "q": 166,
+      "asset": "./flags/canonical/bb256541c6ed.svg",
+      "country_attempts": [
+        "St lucia"
+      ],
+      "country_display": "Saint Lucia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Castries"
+      ],
+      "capital_display": "Castries",
+      "capital_result": "I"
+    },
+    {
+      "q": 167,
+      "asset": "./flags/canonical/7df9df579267.svg",
+      "country_attempts": [
+        "Guatemala"
+      ],
+      "country_display": "Guatemala",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Guatemala"
+      ],
+      "capital_display": "Guatemala City",
+      "capital_result": "I"
+    },
+    {
+      "q": 168,
+      "asset": "./flags/canonical/7a2ea549b63f.svg",
+      "country_attempts": [
+        "Bahrain"
+      ],
+      "country_display": "Bahrain",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Manama"
+      ],
+      "capital_display": "Manama",
+      "capital_result": "I"
+    },
+    {
+      "q": 169,
+      "asset": "./flags/canonical/5a409eebb25d.svg",
+      "country_attempts": [
+        "Costa rica"
+      ],
+      "country_display": "Costa Rica",
+      "flag_result": "I",
+      "capital_attempts": [
+        "San jose"
+      ],
+      "capital_display": "San José",
+      "capital_result": "I"
+    },
+    {
+      "q": 170,
+      "asset": "./flags/canonical/06e26ae44e4e.svg",
+      "country_attempts": [
+        "Rwanda"
+      ],
+      "country_display": "Rwanda",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Kigali"
+      ],
+      "capital_display": "Kigali",
+      "capital_result": "I"
+    }
+  ]
+}
