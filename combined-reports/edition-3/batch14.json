@@ -1,0 +1,189 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_3",
+  "title": "World Flags + Capitals — Edition 3",
+  "batch": 14,
+  "questions": "131–140",
+  "version": "combo-report-ed3-b14-20261009-1432",
+  "test_complete": false,
+  "batch_score": {
+    "flag": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "10/10 = 100.0%",
+      "pa_display": "10/10 = 100.0%",
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "140/140 = 100.0%",
+      "pa_display": "140/140 = 100.0%",
+      "independent": 140,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "140/140 = 100.0%",
+      "pa_display": "140/140 = 100.0%",
+      "independent": 140,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "records": [
+    {
+      "q": 131,
+      "asset": "./flags/canonical/ebd0a0fb2d4b.svg",
+      "country_attempts": [
+        "colombia"
+      ],
+      "country_display": "Colombia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "bogota"
+      ],
+      "capital_display": "Bogotá",
+      "capital_result": "I"
+    },
+    {
+      "q": 132,
+      "asset": "./flags/canonical/2fac45bda64a.svg",
+      "country_attempts": [
+        "kazakhistan"
+      ],
+      "country_display": "Kazakhstan",
+      "flag_result": "I",
+      "capital_attempts": [
+        "astana"
+      ],
+      "capital_display": "Astana",
+      "capital_result": "I"
+    },
+    {
+      "q": 133,
+      "asset": "./flags/canonical/719a763caaf7.svg",
+      "country_attempts": [
+        "brazil"
+      ],
+      "country_display": "Brazil",
+      "flag_result": "I",
+      "capital_attempts": [
+        "brasilia"
+      ],
+      "capital_display": "Brasília",
+      "capital_result": "I"
+    },
+    {
+      "q": 134,
+      "asset": "./flags/canonical/6f6b71695cbb.svg",
+      "country_attempts": [
+        "guinea",
+        "mali"
+      ],
+      "country_display": "Mali",
+      "flag_result": "I",
+      "capital_attempts": [
+        "konakry",
+        "bamako"
+      ],
+      "capital_display": "Bamako",
+      "capital_result": "I"
+    },
+    {
+      "q": 135,
+      "asset": "./flags/canonical/651ac8523d3d.svg",
+      "country_attempts": [
+        "uae"
+      ],
+      "country_display": "United Arab Emirates",
+      "flag_result": "I",
+      "capital_attempts": [
+        "abu dhabi"
+      ],
+      "capital_display": "Abu Dhabi",
+      "capital_result": "I"
+    },
+    {
+      "q": 136,
+      "asset": "./flags/canonical/e482ab9d749d.svg",
+      "country_attempts": [
+        "liberia"
+      ],
+      "country_display": "Liberia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "monrovia"
+      ],
+      "capital_display": "Monrovia",
+      "capital_result": "I"
+    },
+    {
+      "q": 137,
+      "asset": "./flags/canonical/a581ac63cfaf.svg",
+      "country_attempts": [
+        "somalia"
+      ],
+      "country_display": "Somalia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "magadeshou"
+      ],
+      "capital_display": "Mogadishu",
+      "capital_result": "I"
+    },
+    {
+      "q": 138,
+      "asset": "./flags/canonical/5d5d7c80af64.svg",
+      "country_attempts": [
+        "malta"
+      ],
+      "country_display": "Malta",
+      "flag_result": "I",
+      "capital_attempts": [
+        "valleta"
+      ],
+      "capital_display": "Valletta",
+      "capital_result": "I"
+    },
+    {
+      "q": 139,
+      "asset": "./flags/canonical/f6dececab891.svg",
+      "country_attempts": [
+        "latvia"
+      ],
+      "country_display": "Latvia",
+      "flag_result": "I",
+      "capital_attempts": [
+        "riga"
+      ],
+      "capital_display": "Riga",
+      "capital_result": "I"
+    },
+    {
+      "q": 140,
+      "asset": "./flags/canonical/5b3c72fa7c26.svg",
+      "country_attempts": [
+        "chile"
+      ],
+      "country_display": "Chile",
+      "flag_result": "I",
+      "capital_attempts": [
+        "santiago"
+      ],
+      "capital_display": "Santiago",
+      "capital_result": "I"
+    }
+  ]
+}
