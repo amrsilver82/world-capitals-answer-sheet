@@ -1,0 +1,39 @@
+{
+  "schema_version": 3,
+  "engine": "combined_v2",
+  "edition": 3,
+  "round_id": "world_flags_capitals_edition_3",
+  "title": "World Flags + Capitals — Edition 3",
+  "status": "complete",
+  "batch": 20,
+  "stage": 0,
+  "stage_kind": "complete",
+  "version": "ed3-complete-20261009-2354",
+  "questions": [],
+  "question_count": 0,
+  "committed_questions": 195,
+  "total_questions": 195,
+  "test_complete": true,
+  "final_score": {
+    "flag": {
+      "questions_seen": 195,
+      "denominator": 195,
+      "pure": 195,
+      "pure_plus_assisted": 195,
+      "independent_count": 195,
+      "assisted_count": 0,
+      "wrong_count": 0,
+      "cancelled_count": 0
+    },
+    "capital": {
+      "questions_seen": 195,
+      "denominator": 195,
+      "pure": 195,
+      "pure_plus_assisted": 195,
+      "independent_count": 195,
+      "assisted_count": 0,
+      "wrong_count": 0,
+      "cancelled_count": 0
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "schema_version": 3,
+  "round_id": "world_flags_capitals_edition_3",
+  "title": "World Flags + Capitals — Edition 3",
+  "batch": 20,
+  "questions": "191–195",
+  "version": "combo-report-ed3-b20-final-20261009-2354",
+  "test_complete": true,
+  "batch_score": {
+    "flag": {
+      "pure_display": "5/5 = 100.0%",
+      "pa_display": "5/5 = 100.0%",
+      "independent": 5,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "5/5 = 100.0%",
+      "pa_display": "5/5 = 100.0%",
+      "independent": 5,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "pure_display": "195/195 = 100.0%",
+      "pa_display": "195/195 = 100.0%",
+      "independent": 195,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "pure_display": "195/195 = 100.0%",
+      "pa_display": "195/195 = 100.0%",
+      "independent": 195,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "records": [
+    {
+      "q": 191,
+      "asset": "./flags/canonical/bc47d74911bb.svg",
+      "country_attempts": [
+        "India"
+      ],
+      "country_display": "India",
+      "flag_result": "I",
+      "capital_attempts": [
+        "New delhi"
+      ],
+      "capital_display": "New Delhi",
+      "capital_result": "I"
+    },
+    {
+      "q": 192,
+      "asset": "./flags/canonical/332ae61d0b8a.svg",
+      "country_attempts": [
+        "Fiji"
+      ],
+      "country_display": "Fiji",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Suva"
+      ],
+      "capital_display": "Suva",
+      "capital_result": "I"
+    },
+    {
+      "q": 193,
+      "asset": "./flags/canonical/137ff87893c7.svg",
+      "country_attempts": [
+        "Malawi"
+      ],
+      "country_display": "Malawi",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Lilingwi"
+      ],
+      "capital_display": "Lilongwe",
+      "capital_result": "I"
+    },
+    {
+      "q": 194,
+      "asset": "./flags/canonical/297888c7be5f.svg",
+      "country_attempts": [
+        "Montenegreo"
+      ],
+      "country_display": "Montenegro",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Cijne",
+        "Cisinje"
+      ],
+      "capital_display": "Cetinje",
+      "capital_result": "I"
+    },
+    {
+      "q": 195,
+      "asset": "./flags/canonical/16b794debd08.svg",
+      "country_attempts": [
+        "Banghladish"
+      ],
+      "country_display": "Bangladesh",
+      "flag_result": "I",
+      "capital_attempts": [
+        "Dhaka"
+      ],
+      "capital_display": "Dhaka",
+      "capital_result": "I"
+    }
+  ]
+}

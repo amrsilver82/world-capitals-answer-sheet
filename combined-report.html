@@ -36,6 +36,11 @@ header{text-align:center}h1{margin:0 0 7px}.sub{color:#64748b;margin:0}
 .label{font-weight:800;color:#475569}
 .result{display:inline-block;padding:4px 8px;border-radius:999px;font-weight:800;font-size:12px}
 .I{background:#dcfce7;color:#166534}.A{background:#fef3c7;color:#92400e}.W{background:#fee2e2;color:#991b1b}.C{background:#e2e8f0;color:#475569}
+.study-entry{background:#fff;border:1px solid #dbe3ee;border-radius:14px;padding:18px 20px;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.study-field{display:flex;justify-content:space-between;gap:15px;align-items:baseline;padding:7px 0}
+.study-field+.study-field{border-top:1px solid #eef2f7}
+.study-label{font-size:13px;font-weight:750;color:#64748b}
+.study-value{font-size:17px;font-weight:850;color:#0f172a;text-align:right}
 .err{text-align:center;color:#991b1b;margin-top:20px}
 @media(max-width:850px){
   .score-row{grid-template-columns:1fr}
@@ -69,6 +74,16 @@ const scoreCard=(title,s,capital)=>'<section class="score-card"><div class="scor
  '</div></section>';
 const scoreRow=(scope,flag,capital)=>'<div class="score-row"><div class="scope-card">'+esc(scope)+'</div>'+scoreCard("Flag Score",flag,false)+scoreCard("Capital Score",capital,true)+'</div>';
 fetch(src+(src.includes("?")?"&":"?")+"t="+Date.now(),{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("Report not found");return r.json()}).then(d=>{
+ if(d.study_mode===true){
+  document.getElementById("title").textContent=d.title;
+  document.getElementById("sub").textContent="";
+  document.querySelector(".nav").style.display="none";
+  document.getElementById("scores").style.display="none";
+  const grid=document.getElementById("grid");
+  grid.innerHTML=d.records.map(r=>'<article class="study-entry"><div class="study-field"><span class="study-label">Country</span><span class="study-value">'+esc(r.country_display)+'</span></div><div class="study-field"><span class="study-label">Capital</span><span class="study-value">'+esc(r.capital_display)+'</span></div></article>').join("");
+  return;
+ }
+
  document.getElementById("title").textContent=d.title+" — Batch "+d.batch+" Report";
  document.getElementById("sub").textContent="Questions "+d.questions+" · Flags and Capitals scored independently";
  const bs=d.batch_score||{flag:d.flag_score,capital:d.capital_score}, cu=d.cumulative||bs;
