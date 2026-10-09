@@ -3,75 +3,92 @@
   "round_id": "world_flags_capitals_master_study",
   "title": "World Flags + Capitals — Master Study Report",
   "study_mode": true,
-  "version": "master-study-17-20261009-2354",
+  "version": "master-study-17-with-flags-20261010",
   "records": [
     {
       "country_display": "Chad",
-      "capital_display": "N'Djamena"
+      "capital_display": "N'Djamena",
+      "asset": "./flags/canonical/fa3bd927c158.svg"
     },
     {
       "country_display": "Romania",
-      "capital_display": "Bucharest"
+      "capital_display": "Bucharest",
+      "asset": "./flags/canonical/fda0f7bec91d.svg"
     },
     {
       "country_display": "Monaco",
-      "capital_display": "Monaco"
+      "capital_display": "Monaco",
+      "asset": "./flags/canonical/9cb6c9e8a0ea.svg"
     },
     {
       "country_display": "Indonesia",
-      "capital_display": "Jakarta"
+      "capital_display": "Jakarta",
+      "asset": "./flags/canonical/3b7c8fcfd965.svg"
     },
     {
       "country_display": "Kiribati",
-      "capital_display": "Tarawa"
+      "capital_display": "Tarawa",
+      "asset": "./flags/canonical/fda03f37beec.svg"
     },
     {
       "country_display": "Antigua and Barbuda",
-      "capital_display": "Saint John's"
+      "capital_display": "Saint John's",
+      "asset": "./flags/canonical/243c3d8f9e78.svg"
     },
     {
       "country_display": "Palau",
-      "capital_display": "Ngerulmud"
+      "capital_display": "Ngerulmud",
+      "asset": "./flags/canonical/802482d37cfd.svg"
     },
     {
       "country_display": "Saint Kitts and Nevis",
-      "capital_display": "Basseterre"
+      "capital_display": "Basseterre",
+      "asset": "./flags/canonical/47fe64d617ab.svg"
     },
     {
       "country_display": "Fiji",
-      "capital_display": "Suva"
+      "capital_display": "Suva",
+      "asset": "./flags/canonical/81b765b7b5a6.svg"
     },
     {
       "country_display": "Benin",
-      "capital_display": "Porto-Novo"
+      "capital_display": "Porto-Novo",
+      "asset": "./flags/canonical/a4e3d879843f.svg"
     },
     {
       "country_display": "Marshall Islands",
-      "capital_display": "Majuro"
+      "capital_display": "Majuro",
+      "asset": "./flags/canonical/7b9f49075518.svg"
     },
     {
       "country_display": "Vanuatu",
-      "capital_display": "Port Vila"
+      "capital_display": "Port Vila",
+      "asset": "./flags/canonical/326d29e9dc94.svg"
     },
     {
       "country_display": "Equatorial Guinea",
-      "capital_display": "Malabo"
+      "capital_display": "Malabo",
+      "asset": "./flags/canonical/64c8eb220a30.svg"
     },
     {
       "country_display": "Barbados",
-      "capital_display": "Bridgetown"
+      "capital_display": "Bridgetown",
+      "asset": "./flags/canonical/cecd5cc33439.svg"
     },
     {
       "country_display": "Tuvalu",
-      "capital_display": "Funafuti"
+      "capital_display": "Funafuti",
+      "asset": "./flags/canonical/675210ec5524.svg"
     },
     {
       "country_display": "Guinea",
-      "capital_display": "Conakry"
+      "capital_display": "Conakry",
+      "asset": "./flags/canonical/40d6ad4f03db.svg"
     },
     {
       "country_display": "Mali",
-      "capital_display": "Bamako"
+      "capital_display": "Bamako",
+      "asset": "./flags/canonical/6f6b71695cbb.svg"
     }
   ]
 }
