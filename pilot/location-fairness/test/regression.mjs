@@ -56,7 +56,7 @@ async function run(engine){
   // No correct-location reveal before the user submits.
   assert.equal(await a.locator("#resultBox").isHidden(),true);
   await a.locator("#submitBtn").click();
-  await a.waitForFunction(()=>document.querySelector("#syncStatus").textContent.includes("Practice attempt saved"));
+  await a.waitForFunction(()=>!document.querySelector("#resultBox").hidden && !document.querySelector("#submitBtn").disabled && document.querySelector("#syncStatus").textContent.includes("Practice attempt saved"));
   assert.match(await a.locator("#resultText").innerText(),/Approximate distance to nearest mapped land/);
   assert.equal(log.length,1);
   assert.equal(JSON.parse(log[0].body).mode,"pin");
@@ -67,7 +67,7 @@ async function run(engine){
   await touchPoint(a,7.412,43.739);
   assert.equal(await a.locator("#submitBtn").isEnabled(),true);
   await a.locator("#submitBtn").click();
-  await a.waitForFunction(()=>document.querySelector("#syncStatus").textContent.includes("Practice attempt saved"));
+  await a.waitForFunction(()=>!document.querySelector("#resultBox").hidden && !document.querySelector("#submitBtn").disabled && document.querySelector("#syncStatus").textContent.includes("Practice attempt saved"));
   assert.equal(JSON.parse(log.at(-1).body).mode,"exact");
   await a.locator("#nextBtn").click();
   await a.waitForFunction(()=>document.querySelector("#question").textContent.includes("Vatican City"));
@@ -80,7 +80,7 @@ async function run(engine){
   await touchPoint(b,12.4533,41.9032);
   assert.equal(await b.locator("#submitBtn").isEnabled(),true);
   await b.locator("#submitBtn").click();
-  await b.waitForFunction(()=>document.querySelector("#syncStatus").textContent.includes("Practice attempt saved"));
+  await b.waitForFunction(()=>!document.querySelector("#resultBox").hidden && !document.querySelector("#submitBtn").disabled && document.querySelector("#syncStatus").textContent.includes("Practice attempt saved"));
   assert.match(await b.locator("#resultText").innerText(),/20° tile/);
   await b.locator("#nextBtn").click();
   await b.waitForFunction(()=>document.querySelector("#question").textContent.includes("San Marino"));
