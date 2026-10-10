@@ -28,6 +28,12 @@ Map base and detailed boundaries are derived from [Natural Earth public-domain g
 - The pilot manifest, ordered 15 country IDs and local checkpoint storage schema were deliberately **not changed**; existing iPad progress should resume after the update.
 - **Limit for eventual 195-country edition:** all 195 outlines must be represented equivalently, not merely the 15 pilot shapes, with a full tiny-country usability and anti-clue audit.
 
+## Chad selection visibility correction — 10-Oct-2026 (WebKit regression)
+
+A new real WebKit engine CI test exposed that the Check button became enabled after a Chad touch, **but the country never received the green picked style**. The highlighter traversed children of SVG `<path>` nodes instead of applying the selected class to the path itself. This can make a valid tap look like it did nothing and made feedback on iPad Chrome misleading.
+
+The renderer now applies `.picked` directly to SVG country paths for any country; the new WebKit test asserts an actual Chad visual selection AND progress from Q1 to Q2 after Check. The earlier extra transparent administrative overlay was also removed. These two repairs together address both hit-layer and visual-feedback paths, with no answer-name clues or province boundaries.
+
 ## Chad-specific root-cause correction (10-Oct-2026)
 
 The previous coordinate-based touch fallback passed automated tests but did **not** resolve user testing in iPad Chrome: Chad still could not be selected, while Sudan worked. The map was rendering **an invisible, 22-piece detailed overlay over Chad** but no overlay over Sudan. iOS WebKit/Chrome can handle transparent SVG pointer events differently. The corrected renderer removes all detailed SVG overlays for countries already present in the normal world map. Detailed target geometry is retained in data for geospatial validation but not layered over large-country SVG elements. Only seven microstates/island territories missing from the world map retain detailed silhouette elements.

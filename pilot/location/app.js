@@ -113,10 +113,16 @@ function markers(){
  }
  highlight();
 }
-function highlight(){document.querySelectorAll("#land [data-code],#detail [data-code],#marks [data-code]").forEach(g=>{
- let isSelected=Boolean(selected)&&g.getAttribute("data-code")===selected;
- g.querySelectorAll("path").forEach(el=>el.classList.toggle("picked",isSelected))
-})}
+function highlight(){
+ // SVG country geometry is a direct <path> with data-code, not a parent <g>.
+ // The old querySelectorAll("path") skipped the path itself, so a valid
+ // selected country never visibly highlighted on WebKit/iPad Chrome.
+ document.querySelectorAll("#land [data-code],#detail [data-code],#marks [data-code]").forEach(el=>{
+  const match=Boolean(selected)&&el.getAttribute("data-code")===selected;
+  if(el.matches("path"))el.classList.toggle("picked",match);
+  else el.querySelectorAll("path,circle.marker").forEach(child=>child.classList.toggle("picked",match));
+ })
+}
 function paint(){
  for(const [id,features,klass] of [["land",world.features,"country"],["detail",shapes.features,"target"]]){
   let root=$(id);root.replaceChildren();
