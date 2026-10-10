@@ -3,7 +3,7 @@
  Country Location Pilot v1 — UN-SCORED EXPERIMENT
  Static local assets only. Never requests or writes official quiz scores.
 */
-const PILOT="geography-location-v1", STOR="wcg-location-pilot-v1";
+const PILOT="geography-location-v1", STOR="wcg-location-pilot-chad-touch-reset-20261010";
 const $=s=>document.getElementById(s);
 const VIEWS=[
  ["World",[-180,180,-78,84]],["Europe",[-13,40,34,65]],["NW Mediterranean",[6.5,10.5,42,45.4]],["Central Italy",[12.1,12.85,41.6,42.32]],["Adriatic",[11.8,13.1,43.3,44.6]],
@@ -45,9 +45,60 @@ function save(){if(!progress)return;progress.region=region;
 function done(){return data?.questions.filter(q=>!progress.done.includes(q.q))[0]||null}
 function zoomScale(){if(!currentView)return 1;let b=svg.getBoundingClientRect();return Math.max(.001,Math.min(b.width/currentView.w,b.height/currentView.h))}
 function inside(x,y){return currentView&&x>=currentView.x&&x<=currentView.x+currentView.w&&y>=currentView.y&&y<=currentView.y+currentView.h}
-function eventMapPoint(e){const c=svg.getScreenCTM();if(!c)return null;const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;const q=p.matrixTransform(c.inverse());return {x:q.x,y:q.y}}
+function eventMapPoint(e){
+ const c=svg.getScreenCTM();
+ if(c&&svg.createSVGPoint){
+  const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;
+  const q=p.matrixTransform(c.inverse());
+  if(Number.isFinite(q.x)&&Number.isFinite(q.y))return{x:q.x,y:q.y}
+ }
+ // Device-safe fallback if WebKit cannot provide SVG screen transformation.
+ if(!currentView)return null;
+ const b=svg.getBoundingClientRect(),scale=Math.min(b.width/currentView.w,b.height/currentView.h);
+ if(scale<=0)return null;
+ const left=b.left+(b.width-currentView.w*scale)/2,top=b.top+(b.height-currentView.h*scale)/2;
+ return{x:currentView.x+(e.clientX-left)/scale,y:currentView.y+(e.clientY-top)/scale}
+}
 function rememberTap(e){const p=eventMapPoint(e);if(p&&inside(p.x,p.y))zoomAnchor=p}
 function closeOutline(){const show=!!currentView&&currentView.w/4<0.3;document.querySelectorAll("#detail path.micro-target").forEach(p=>p.classList.toggle("precise",show))}
+function ringContains(lon,lat,ring){
+ let hit=false;
+ for(let i=0,j=ring.length-1;i<ring.length;j=i++){
+  const a=ring[i],b=ring[j];
+  if((a[1]>lat)!==(b[1]>lat)&&lon<(b[0]-a[0])*(lat-a[1])/(b[1]-a[1])+a[0])hit=!hit;
+ }
+ return hit
+}
+function featureContains(f,lon,lat){
+ if(f.bbox&&(lon<f.bbox[0]||lon>f.bbox[2]||lat<f.bbox[1]||lat>f.bbox[3]))return false;
+ return (f.polys||[]).some(poly=>poly.reduce((inside,ring)=>inside!==ringContains(lon,lat,ring),false))
+}
+function countryAtPoint(x,y){
+ if(!world||!shapes||!currentView||!inside(x,y))return "";
+ const lon=x/4-180,lat=90-y/4;
+ // Invisible microstate touch allowance at manually selected close zoom only.
+ const width=currentView.w/4,scale=zoomScale();
+ const limits={MC:3,SM:3,VA:.16,NR:2,TV:3,KI:3,TO:4};
+ if(region!=="World")for(const [code,mlon,mlat] of MICRO_TOUCH){
+  if(width>limits[code])continue;
+  const r=Math.min(25/Math.max(scale,.001),currentView.w/4);
+  if((x-px(mlon))**2+(y-py(mlat))**2<=r*r)return code
+ }
+ // Actual detailed polygons for small states, only when user zooms close enough.
+ for(let i=shapes.features.length-1;i>=0;i--){
+  const f=shapes.features[i];
+  if(f.tiny&&featureContains(f,lon,lat))return f.id
+ }
+ // Full world land boundaries have equal priority: never bias towards pilot answers.
+ for(let i=world.features.length-1;i>=0;i--)if(featureContains(world.features[i],lon,lat))return world.features[i].id;
+ // 15 detailed target polygons fill gaps in 110m world data, including microstates.
+ for(let i=shapes.features.length-1;i>=0;i--)if(featureContains(shapes.features[i],lon,lat))return shapes.features[i].id;
+ return ""
+}
+function countryAtEvent(e){
+ const p=eventMapPoint(e);
+ return p?countryAtPoint(p.x,p.y):""
+}
 function markers(){
  const layer=$("marks");layer.replaceChildren();
  if(!currentView||region==="World")return;
@@ -134,11 +185,30 @@ function importState(){
   progress=normalizeState(raw);setRegion(progress.region);save();question();$("restoreStatus").textContent="Restored "+progress.done.length+"/15 locations."
  }catch(e){$("restoreStatus").textContent=e.message}
 }
+/* Cross-browser touch fallback: Safari sometimes emits no path click at all.
+ * Use coordinate hit testing, not event.target, and ignore pan gestures. */
+let touchStart=null;
+svg.addEventListener("touchstart",e=>{
+ const t=e.changedTouches?.[0];touchStart=t?{x:t.clientX,y:t.clientY,at:Date.now()}:null
+},{passive:true});
+svg.addEventListener("touchend",e=>{
+ const t=e.changedTouches?.[0];
+ if(!touchStart||!t)return;
+ const dist=Math.hypot(t.clientX-touchStart.x,t.clientY-touchStart.y),elapsed=Date.now()-touchStart.at;
+ touchStart=null;
+ if(dist>14||elapsed>900||!loaded)return;
+ const code=countryAtEvent(t);if(code)select(code);
+ // Suppress duplicate compatibility click when Safari already selected by touch.
+ if(code){suppress=true;setTimeout(()=>{suppress=false},210)}
+},{passive:true});
+svg.addEventListener("touchcancel",()=>{touchStart=null},{passive:true});
 /* Tap to select; pointer drag to pan. Drag suppresses the following click. */
 svg.addEventListener("click",e=>{
  if(suppress){suppress=false;return}
  rememberTap(e);
- let el=e.target.closest("[data-code]");if(el&&svg.contains(el))select(el.getAttribute("data-code"))
+ // Safari sometimes targets the SVG container instead of its path.
+ const code=countryAtEvent(e);
+ if(code)select(code);
 });
 svg.addEventListener("keydown",e=>{
  if(e.key==="Enter"||e.key===" "){let el=e.target.closest("[data-code]");if(el){e.preventDefault();select(el.getAttribute("data-code"))}}
@@ -149,13 +219,13 @@ svg.addEventListener("pointerdown",e=>{if(!loaded||!currentView)return;
 svg.addEventListener("pointermove",e=>{
  if(!drag||drag.id!==e.pointerId)return;
  const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
- if(!drag.moved&&Math.hypot(dx,dy)<=7)return;
+ if(!drag.moved&&Math.hypot(dx,dy)<=14)return;
  drag.moved=true;svg.classList.add("dragging");
  const b=svg.getBoundingClientRect(),scale=Math.max(.0001,Math.min(b.width/drag.origin.w,b.height/drag.origin.h));
  currentView={...drag.origin,x:Math.max(0,Math.min(1440-drag.origin.w,drag.origin.x-dx/scale)),y:Math.max(0,Math.min(720-drag.origin.h,drag.origin.y-dy/scale))};
  applyView()
 });
-function finishDrag(e){if(!drag||drag.id!==e.pointerId)return;const moved=drag.moved;if(moved){suppress=true;setTimeout(()=>{suppress=false},180)}if(!moved&&e.type==="pointerup"&&e.pointerType==="touch"){rememberTap(e);const hit=e.target.closest("[data-code]");if(hit&&svg.contains(hit))select(hit.getAttribute("data-code"));suppress=true;setTimeout(()=>{suppress=false},180)}drag=null;svg.classList.remove("dragging")}
+function finishDrag(e){if(!drag||drag.id!==e.pointerId)return;const moved=drag.moved;if(moved){suppress=true;setTimeout(()=>{suppress=false},180)}if(!moved&&e.type==="pointerup"&&e.pointerType==="touch"){rememberTap(e);const code=countryAtEvent(e);if(code)select(code);suppress=true;setTimeout(()=>{suppress=false},180)}drag=null;svg.classList.remove("dragging")}
 svg.addEventListener("pointerup",finishDrag);svg.addEventListener("pointercancel",finishDrag);
 for(const [name] of VIEWS){
  let b=document.createElement("button");b.type="button";b.textContent=name;b.setAttribute("aria-pressed",String(name===region));b.onclick=()=>setRegion(name);$("regions").appendChild(b)

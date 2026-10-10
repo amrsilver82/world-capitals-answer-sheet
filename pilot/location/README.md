@@ -28,6 +28,16 @@ Map base and detailed boundaries are derived from [Natural Earth public-domain g
 - The pilot manifest, ordered 15 country IDs and local checkpoint storage schema were deliberately **not changed**; existing iPad progress should resume after the update.
 - **Limit for eventual 195-country edition:** all 195 outlines must be represented equivalently, not merely the 15 pilot shapes, with a full tiny-country usability and anti-clue audit.
 
+## Chad Safari geometry hit test and experimental reset (10-Oct-2026)
+
+- The Chad geometry was explicitly audited against 670 interior sampling points. The browser hit-testing logic found Chad at all 670, without confusion with overlapping pilot overlays.
+- The UI was previously dependent on `e.target.closest('[data-code]')`, which is fragile when Safari targets the SVG container instead of an SVG path. The new handler converts every touch/click into real longitude/latitude and identifies countries using the frozen Natural Earth polygons (uniform world shape recognition).
+- A `touchend` fallback independently handles Safari taps without an SVG path click; drags are excluded using a movement/time threshold.
+- Node/Playwright regression tests now cover SVG-root clicks, simulated mobile touchscreen taps for Chad, refresh persistence, and Q1 reset. This is a browser emulation test, **not an actual iPhone Safari certification**.
+- **User-requested pilot reset**: the isolated 15-item pilot resets to **Q1 Chad and 0/15** when the new revision is loaded on **any** device. Old browser checkpoint files remain under the old key, but are intentionally not read. The 195/195 official Flags and Capitals records remain immutable.
+- **Cross-device syncing is NOT YET implemented**. Chrome on iPad, Safari on iPhone, and desktop still have separate local records after their initial reset. Real cross-device continuity requires a protected shared backend and an agreed sign-in method; static GitHub Pages cannot safely write to the private GitHub repository from untrusted browsers. Do not represent two independent `0/15` starts as synchronized progress.
+- Keep location questions experimental only until the authenticated shared state service, race-safe writes and cross-device handover test are proven.
+
 ## Precision-selection and browser compatibility fix (10-Oct-2026)
 
 User testing uncovered two additional problems:

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "pilot_id": "geography-location-v1",
-  "version": "pilot-location-v1-20261010",
+  "version": "pilot-location-chad-touch-reset-20261010",
   "status": "experimental_unscored",
   "source_of_truth": "GitHub canonical repository, pilot definition only",
   "source_data": "Natural Earth 110m + 10m (CC0/public domain), via BenPortner/geojson-atlas",
@@ -93,5 +93,6 @@
       "code": "FJ",
       "name": "Fiji"
     }
-  ]
+  ],
+  "reset_notice": "Pilot restarted from Q1 on all devices as requested. Local browser saves from previous version are retained separately but not loaded."
 }
