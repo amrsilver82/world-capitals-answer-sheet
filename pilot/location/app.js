@@ -18,7 +18,7 @@ const MICRO_TOUCH=[["MC",7.416,43.737],["VA",12.4533,41.9032],["SM",12.45,43.94]
  ["KI",-157.3,1.9],["TO",-175.2,-21.16]];
 const px=lon=>(lon+180)*4, py=lat=>(90-lat)*4;
 const viewbox=([w,e,s,n])=>({x:px(w),y:py(n),w:(e-w)*4,h:(n-s)*4});
-let data=null,world=null,shapes=null,progress=null,currentView=null,region="World",selected="",loaded=false,drag=null,suppress=false;
+let data=null,world=null,shapes=null,progress=null,currentView=null,region="World",selected="",loaded=false,drag=null,suppress=false,zoomAnchor=null;
 const svg=$("map");
 function node(tag,attributes){let e=document.createElementNS("http://www.w3.org/2000/svg",tag);
  for(const [k,v] of Object.entries(attributes))e.setAttribute(k,String(v));return e}
@@ -45,6 +45,9 @@ function save(){if(!progress)return;progress.region=region;
 function done(){return data?.questions.filter(q=>!progress.done.includes(q.q))[0]||null}
 function zoomScale(){if(!currentView)return 1;let b=svg.getBoundingClientRect();return Math.max(.001,Math.min(b.width/currentView.w,b.height/currentView.h))}
 function inside(x,y){return currentView&&x>=currentView.x&&x<=currentView.x+currentView.w&&y>=currentView.y&&y<=currentView.y+currentView.h}
+function eventMapPoint(e){const c=svg.getScreenCTM();if(!c)return null;const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;const q=p.matrixTransform(c.inverse());return {x:q.x,y:q.y}}
+function rememberTap(e){const p=eventMapPoint(e);if(p&&inside(p.x,p.y))zoomAnchor=p}
+function closeOutline(){const show=!!currentView&&currentView.w/4<0.3;document.querySelectorAll("#detail path.micro-target").forEach(p=>p.classList.toggle("precise",show))}
 function markers(){
  const layer=$("marks");layer.replaceChildren();
  if(!currentView||region==="World")return;
@@ -75,17 +78,17 @@ function paint(){
   }
  }markers();highlight()
 }
-function applyView(){if(!currentView)return;svg.setAttribute("viewBox",[currentView.x,currentView.y,currentView.w,currentView.h].join(" "));markers()}
+function applyView(){if(!currentView)return;svg.setAttribute("viewBox",[currentView.x,currentView.y,currentView.w,currentView.h].join(" "));markers();closeOutline()}
 function setRegion(name){
- const x=VIEWS.find(a=>a[0]===name)||VIEWS[0];region=x[0];currentView=viewbox(x[1]);$("regionname").textContent=region;
+ const x=VIEWS.find(a=>a[0]===name)||VIEWS[0];region=x[0];currentView=viewbox(x[1]);zoomAnchor=null;$("regionname").textContent=region;
  document.querySelectorAll(".regions button").forEach(b=>b.setAttribute("aria-pressed",String(b.textContent===region)));
  selected="";$("check").disabled=true;applyView();highlight();save();
  if(loaded&&done())show("Choose a location on the map.", "")
 }
 function zoom(f){
  if(!loaded||!currentView)return;
- const c={x:currentView.x+currentView.w/2,y:currentView.y+currentView.h/2};
- const w=Math.min(1440,Math.max(.02,currentView.w*f)),h=Math.min(720,Math.max(.02,currentView.h*f));
+ const c=zoomAnchor&&inside(zoomAnchor.x,zoomAnchor.y)?zoomAnchor:{x:currentView.x+currentView.w/2,y:currentView.y+currentView.h/2};
+ const w=Math.min(1440,Math.max(.001,currentView.w*f)),h=Math.min(720,Math.max(.001,currentView.h*f));
  currentView={x:Math.max(0,Math.min(1440-w,c.x-w/2)),y:Math.max(0,Math.min(720-h,c.y-h/2)),w,h};applyView()
 }
 function show(s,cls){$("status").textContent=s;$("status").className="status"+(cls?" "+cls:"")}
@@ -134,6 +137,7 @@ function importState(){
 /* Tap to select; pointer drag to pan. Drag suppresses the following click. */
 svg.addEventListener("click",e=>{
  if(suppress){suppress=false;return}
+ rememberTap(e);
  let el=e.target.closest("[data-code]");if(el&&svg.contains(el))select(el.getAttribute("data-code"))
 });
 svg.addEventListener("keydown",e=>{
@@ -151,7 +155,7 @@ svg.addEventListener("pointermove",e=>{
  currentView={...drag.origin,x:Math.max(0,Math.min(1440-drag.origin.w,drag.origin.x-dx/scale)),y:Math.max(0,Math.min(720-drag.origin.h,drag.origin.y-dy/scale))};
  applyView()
 });
-function finishDrag(e){if(drag?.id===e.pointerId){if(drag.moved){suppress=true;setTimeout(()=>{suppress=false},100)}drag=null;svg.classList.remove("dragging")}}
+function finishDrag(e){if(!drag||drag.id!==e.pointerId)return;const moved=drag.moved;if(moved){suppress=true;setTimeout(()=>{suppress=false},180)}if(!moved&&e.type==="pointerup"&&e.pointerType==="touch"){rememberTap(e);const hit=e.target.closest("[data-code]");if(hit&&svg.contains(hit))select(hit.getAttribute("data-code"));suppress=true;setTimeout(()=>{suppress=false},180)}drag=null;svg.classList.remove("dragging")}
 svg.addEventListener("pointerup",finishDrag);svg.addEventListener("pointercancel",finishDrag);
 for(const [name] of VIEWS){
  let b=document.createElement("button");b.type="button";b.textContent=name;b.setAttribute("aria-pressed",String(name===region));b.onclick=()=>setRegion(name);$("regions").appendChild(b)

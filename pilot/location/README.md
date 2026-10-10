@@ -28,6 +28,23 @@ Map base and detailed boundaries are derived from [Natural Earth public-domain g
 - The pilot manifest, ordered 15 country IDs and local checkpoint storage schema were deliberately **not changed**; existing iPad progress should resume after the update.
 - **Limit for eventual 195-country edition:** all 195 outlines must be represented equivalently, not merely the 15 pilot shapes, with a full tiny-country usability and anti-clue audit.
 
+## Precision-selection and browser compatibility fix (10-Oct-2026)
+
+User testing uncovered two additional problems:
+
+1. **Vatican City was not selectable at the Europe scale.** Its real outline is roughly 0.0013 degrees wide, so any full-Europe map makes its hit target much smaller than a finger. The old zoom button only zoomed the map center.
+2. **Chad selection on iPhone Safari needs a real-device retest**; mouse click and touch pointer event behavior differ.
+3. **Device progress currently differs between browsers** by design, because the pilot uses origin-scoped browser localStorage. Chrome on iPad and Safari on iPhone do not share a checkpoint automatically.
+
+Changes in v1.2:
+
+- Manual map tap remembers the tapped *coordinate*; the **+** button zooms into that coordinate rather than the region's center. It does not move to the correct answer.
+- At very close *manually reached* zoom, the tiny country's **real polygon outline** becomes visible and remains selectable, with a transparent touch allowance. No visible dot and no province borders.
+- A dedicated pointer-up touch fallback complements synthetic `click` for Safari. No automatic marking of wrong/correct answers from a touch; the user still presses the separate Check button.
+- Pilot manifest, question order, local save schema and official 195/195 achievement all remain unchanged.
+
+**Cross-device continuity is NOT solved in this static pilot.** For the real Triple Crown, require a securely authenticated shared state backend with optimistic concurrency protection, atomic update semantics, and GitHub as canonical committed game state. Never put a private GitHub token or API secret in the public GitHub Pages JavaScript. Local JSON export/import is only a temporary pilot workaround. No real 195-country multi-device test is authorized until automatic synchronization is implemented and verified across iPad Chrome, iPhone Safari and PC.
+
 ## Reliability contract
 
 1. The 195/195 World Flags + Capitals Edition 3 record is immutable and off-limits.

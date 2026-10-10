@@ -33,6 +33,7 @@ button:disabled{opacity:.53;cursor:not-allowed}
 .target:hover{fill:transparent}
 .micro-target{fill:#d6e1e5;stroke:none;pointer-events:fill;cursor:pointer}
 .micro-target:hover{fill:#d6e1e5}
+.micro-target.precise{stroke:#728a9a;stroke-width:.9;vector-effect:non-scaling-stroke}
 .country.picked{fill:#34d399;stroke:#047857;stroke-width:1;vector-effect:non-scaling-stroke}
 .target.picked,.micro-target.picked{fill:#34d399;stroke:none;vector-effect:non-scaling-stroke}
 .hit{fill:transparent;stroke:none;pointer-events:fill;cursor:pointer}
