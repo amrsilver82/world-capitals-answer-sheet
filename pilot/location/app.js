@@ -120,12 +120,18 @@ function highlight(){document.querySelectorAll("#land [data-code],#detail [data-
 function paint(){
  for(const [id,features,klass] of [["land",world.features,"country"],["detail",shapes.features,"target"]]){
   let root=$(id);root.replaceChildren();
-  for(const f of features){let d=path(f.polys);if(!d)continue;
-   // Detail shapes receive NO outlines; source provinces merge visually.
-   // Large countries rely on the standard unlabeled world boundary.
-   let kind=klass==="target"&&(f.tiny||!world.features.some(x=>x.id===f.id))?"micro-target":klass;
+  for(const f of features){
+   // IMPORTANT: A country already present in the world layer must never
+   // receive a second invisible SVG path on top of it. On iPad Chrome/WebKit
+   // the transparent 10m provincial overlay swallowed Chad taps, while the
+   // unlayered neighbor Sudan remained selectable.
+   // Retain the 10m source polygons for coordinate checks, but render a
+   // single normal world path for all large/ordinary countries.
+   if(klass==="target"&&world.features.some(x=>x.id===f.id))continue;
+   const d=path(f.polys);if(!d)continue;
+   const kind=klass==="target"?"micro-target":klass;
    let el=node("path",{d,"data-code":f.id,class:kind,role:"button",tabindex:0,"aria-label":"Select country area","fill-rule":"evenodd"});
-   root.appendChild(el)
+   root.appendChild(el);
   }
  }markers();highlight()
 }
