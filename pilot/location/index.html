@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#10233d">
+<title>World Capitals Game — Map Location Pilot</title>
+<link rel="stylesheet" href="style.css">
+<script src="app.js" defer></script>
+</head><body>
+<main class="page">
+<header class="hero">
+ <div><div class="eyebrow">World Capitals Game · Experimental sandbox</div><h1>Country Location Pilot</h1><p>15-country geography trial · no changes to official scores</p></div>
+ <div class="counter"><span id="progress">0</span><small> / 15 completed</small></div>
+</header>
+<section class="panel">
+ <div class="prompt"><div><label id="qindex">Preparing pilot…</label><h2 id="question">Loading map</h2></div><div class="scope">Unscored test</div></div>
+ <p class="help">Locate the named country on the unlabeled map. Select a region manually, then tap its area. For very small countries, use the microstate region or unlabeled circular map targets.</p>
+ <div class="mapheading"><strong>Map view: <span id="regionname">World</span></strong>
+  <div class="toolbar"><button id="zoomIn" title="Zoom in" aria-label="Zoom in">+</button><button id="zoomOut" title="Zoom out" aria-label="Zoom out">−</button><button id="resetView" title="Reset region view" aria-label="Reset view">⟲</button></div>
+ </div>
+ <div id="regions" class="regions" role="group" aria-label="Map region"></div>
+ <div class="mapframe">
+  <svg id="map" role="img" aria-label="Unlabeled world map with selectable countries" viewBox="0 26 1440 652" preserveAspectRatio="xMidYMid meet">
+   <rect x="0" y="0" width="1440" height="720" fill="#d9effa"></rect>
+   <g id="land"></g><g id="detail"></g><g id="marks"></g>
+  </svg>
+  <div class="maperror" id="maperror" role="alert"></div>
+ </div>
+ <div class="actions"><button id="check" class="primary" disabled>Check selected location</button><span id="status" role="status" class="status">Loading static geography…</span></div>
+ <div class="notice"><strong>Safety boundary:</strong> The pilot has no access to the official 195/195 score. If a map cannot load, the question remains unanswered. Results are experimental only.</div>
+</section>
+<section class="panel">
+ <div class="actions"><button class="secondary" id="reload">Reload maps</button><button class="secondary" id="checkpoint">Copy checkpoint</button><button class="secondary" id="saveFile">Save checkpoint file</button><button class="secondary" id="clear">Reset pilot</button></div>
+ <details id="restore"><summary>Restore progress from another chat or device</summary>
+  <textarea id="checkpointInput" placeholder="Paste a checkpoint JSON here"></textarea>
+  <div class="actions"><button class="secondary" id="restoreBtn">Restore checkpoint</button><span id="restoreStatus" class="status"></span></div>
+ </details>
+ <p class="fine">You can test all 15 locations and refresh the page without losing local progress. To use another device, copy or export your checkpoint. Do not submit real credentials here.</p>
+</section>
+</main></body></html>

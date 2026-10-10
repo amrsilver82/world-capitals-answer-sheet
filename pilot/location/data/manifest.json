@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "pilot_id": "geography-location-v1",
+  "version": "pilot-location-v1-20261010",
+  "status": "experimental_unscored",
+  "source_of_truth": "GitHub canonical repository, pilot definition only",
+  "source_data": "Natural Earth 110m + 10m (CC0/public domain), via BenPortner/geojson-atlas",
+  "display": "Unlabeled world geography; region tabs chosen by user; no external runtime map APIs",
+  "notes": "Never writes official quiz state, scores, or streak. Data and code are fixed in this GitHub commit.",
+  "requirements": {
+    "hardCountrySelection": true,
+    "noneOf195Scored": true,
+    "emptyMapCannotScoreWrong": true,
+    "reloadSameDevice": true,
+    "exportCheckpoint": true,
+    "questionOrderImmutable": true,
+    "incorrectSelectionsDoNotRevealCorrect": true,
+    "regionsAlwaysManual": true
+  },
+  "questions": [
+    {
+      "q": 1,
+      "code": "TD",
+      "name": "Chad"
+    },
+    {
+      "q": 2,
+      "code": "RO",
+      "name": "Romania"
+    },
+    {
+      "q": 3,
+      "code": "MC",
+      "name": "Monaco"
+    },
+    {
+      "q": 4,
+      "code": "VA",
+      "name": "Vatican City"
+    },
+    {
+      "q": 5,
+      "code": "SM",
+      "name": "San Marino"
+    },
+    {
+      "q": 6,
+      "code": "NR",
+      "name": "Nauru"
+    },
+    {
+      "q": 7,
+      "code": "TV",
+      "name": "Tuvalu"
+    },
+    {
+      "q": 8,
+      "code": "KI",
+      "name": "Kiribati"
+    },
+    {
+      "q": 9,
+      "code": "TO",
+      "name": "Tonga"
+    },
+    {
+      "q": 10,
+      "code": "PS",
+      "name": "Palestine"
+    },
+    {
+      "q": 11,
+      "code": "BT",
+      "name": "Bhutan"
+    },
+    {
+      "q": 12,
+      "code": "LS",
+      "name": "Lesotho"
+    },
+    {
+      "q": 13,
+      "code": "GM",
+      "name": "The Gambia"
+    },
+    {
+      "q": 14,
+      "code": "TL",
+      "name": "Timor-Leste"
+    },
+    {
+      "q": 15,
+      "code": "FJ",
+      "name": "Fiji"
+    }
+  ]
+}
