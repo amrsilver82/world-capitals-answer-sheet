@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#10233d">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://api.github.com; base-uri 'none'; form-action 'none'; object-src 'none'">
+<title>World Capitals — Fair Location Methods</title>
+<link rel="stylesheet" href="style.css?v=1"><script defer src="app.js?v=1"></script>
+</head><body><main class="page">
+<header class="hero"><div><div class="eyebrow">World Capitals Game · GitHub-only sandbox</div><h1>Fair Location Lab</h1><p>Explore alternatives to impossible tiny-country dots · No official scores</p></div>
+<div class="counter"><span id="progress">–</span><small> / 9 explored</small></div></header>
+<section class="panel auth" id="authPanel">
+<div class="section-head"><h2>Shared private checkpoint</h2><span id="authStatus" class="tag">Not connected</span></div>
+<p class="intro">This experiment uses a separate GitHub Issue. It cannot modify your 195/195 Flags or Capitals records, or your other location pilot's progress.</p>
+<div id="authControls"><label for="tokenInput">Repository-restricted GitHub token (never share it in chat)</label>
+<input id="tokenInput" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…">
+<label class="remember"><input type="checkbox" id="rememberToken"> Remember on this personal browser (less secure)</label>
+<div class="actions"><button class="primary" id="connectBtn">Connect GitHub</button></div></div>
+<div class="actions"><button id="refreshBtn" class="subtle" disabled>Refresh checkpoint</button><button id="disconnectBtn" class="subtle" disabled>Disconnect and clear remembered token</button></div>
+<p class="status" id="syncStatus" role="status">Connect to load your shared experiment checkpoint.</p></section>
+<section class="panel">
+<div class="section-head"><div><p class="kicker" id="questionIndex">Experiment locked</p><h2 id="question">Connect GitHub to begin</h2></div><span class="tag neutral">Unscored experiment</span></div>
+<p class="intro">Choose a method, select a location on the unlabeled map, then <strong>Evaluate my choice</strong>. The actual location is shown only after submission. A distance is experimental feedback, not a penalty.</p>
+<div class="modes" role="group" aria-label="Location method">
+<button id="modePin" data-mode="pin" class="chosen" disabled>Place a pin</button>
+<button id="modeExact" data-mode="exact" disabled>Tap actual land</button>
+<button id="modeGrid" data-mode="grid" disabled>20° geographic grid</button></div>
+<p class="method-help" id="methodHelp">A pin anywhere on the map is allowed, including the sea. The pin is yours, not a hint.</p>
+<div id="toleranceRow" class="tolerance"><label for="radius">Experimental distance allowance <strong id="radiusValue">150 km</strong></label>
+<input id="radius" type="range" min="25" max="500" step="25" value="150">
+<span>This can be adjusted for comparison; it is not an official scoring rule.</span></div>
+<div class="map-tools"><strong>View: <span id="viewName">World</span></strong><div class="zoom"><button id="zoomIn" aria-label="Zoom in">+</button><button id="zoomOut" aria-label="Zoom out">−</button><button id="resetView" aria-label="Reset map view">⟲</button></div></div>
+<div class="regions" id="regions" role="group" aria-label="Manual map region"></div>
+<div class="mapframe"><svg id="map" role="img" aria-label="Unlabeled world map. Tap to choose a location" viewBox="0 26 1440 652" preserveAspectRatio="xMidYMid meet">
+<rect x="0" y="0" width="1440" height="720" fill="#d9effa"></rect>
+<g id="land"></g><g id="detail"></g><g id="grid"></g><g id="feedback"></g>
+</svg></div>
+<div class="actions"><button id="submitBtn" class="primary" disabled>Evaluate my choice</button><button id="clearBtn" class="subtle" disabled>Clear choice</button></div>
+<p id="selectionStatus" class="status" role="status">Nothing selected yet.</p>
+<div id="resultBox" class="result" hidden><h3 id="resultHeading">Your result</h3><p id="resultText"></p>
+<p class="fine">This test is not graded. After your first submission, the location is revealed, so another method on this country is practice rather than a blind comparison.</p></div>
+<div class="actions next"><button id="nextBtn" class="primary" disabled>Next country <span aria-hidden="true">→</span></button>
+<span class="fine">Try another method on this country first if you want to compare.</span></div>
+</section>
+<section class="panel">
+<h2>What are we testing?</h2>
+<p class="intro">The goal is to distinguish geographic knowledge from tiny touch targets. The seven tiny-country cases include microstates and Pacific islands. Chad and Bhutan serve as ordinary-map controls. Each island group accepts <strong>any of its mapped islands</strong> when evaluating pins.</p>
+<p class="fine">The grid has uniform 20° × 20° cells. The preview does not reveal the correct cell until you submit. Polygon distances are approximate and are only used to compare methods. No country is excluded or officially scored in this test. GitHub stores only experimental attempt events and explicit Next actions in a separate private Issue.</p>
+</section></main></body></html>

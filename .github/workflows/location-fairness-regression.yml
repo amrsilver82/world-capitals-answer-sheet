@@ -1,0 +1,28 @@
+name: Location Fairness Lab Regression
+on:
+  push:
+    paths:
+      - 'pilot/location-fairness/**'
+      - '.github/workflows/location-fairness-regression.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chromium and WebKit
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium webkit
+      - name: Start static GitHub Pages test server
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/fairness-lab.log 2>&1 &
+          sleep 2
+      - name: Two-browser GitHub checkpoint simulation
+        run: node pilot/location-fairness/test/regression.mjs
