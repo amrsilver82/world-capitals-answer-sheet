@@ -20,7 +20,7 @@ async function run(browserType){
   if(url===API&&method==="GET")return route.fulfill({status:200,headers,
    body:JSON.stringify({number:1,state:"open"})});
   if(url.startsWith(API+"/comments")&&method==="GET"){
-   const u=new URL(url),page=Number(u.searchParams.get("page")||"1");
+   const u=new globalThis.URL(url),page=Number(u.searchParams.get("page")||"1");
    return route.fulfill({status:200,headers,body:JSON.stringify(comments.slice((page-1)*100,page*100))});
   }
   if(url===API+"/comments"&&method==="POST"){
