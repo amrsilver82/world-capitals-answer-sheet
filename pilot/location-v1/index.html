@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
+<title>World Capitals Game — Location Pilot</title>
+<style>
+:root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#102239;background:#edf2f8}
+*{box-sizing:border-box}body{margin:0}button,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}
+.page{width:min(1150px,100%);margin:auto;padding:18px 16px 56px}
+.hero{background:#10233d;color:white;border-radius:18px;padding:22px 25px;display:flex;justify-content:space-between;gap:20px;align-items:center}
+.hero h1{margin:2px 0 6px;font-size:clamp(20px,3vw,31px)}.hero p{margin:0;color:#cbd5e1;font-size:14px}
+.pilot{color:#a7f3d0;font-size:12px;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+.counter{font-size:31px;font-weight:900;white-space:nowrap}.counter small{font-size:14px;font-weight:600;color:#cbd5e1}
+.panel{background:white;border:1px solid #d5e0ed;border-radius:16px;margin-top:14px;padding:18px 20px;box-shadow:0 2px 8px #0f172a06}
+.prompt{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center}
+.prompt label{font-size:13px;font-weight:850;text-transform:uppercase;letter-spacing:.045em;color:#64748b}
+.prompt h2{margin:4px 0;font-size:clamp(21px,3vw,32px)}
+.scope{background:#ecfdf5;color:#065f46;padding:9px 12px;border-radius:10px;font-weight:800;font-size:13px}
+.meta{font-size:14px;color:#64748b;margin:8px 0 0}
+.regions{display:flex;flex-wrap:wrap;gap:7px;margin:13px 0}
+.regions button,.toolbar button,.secondary{border:1px solid #bfcede;border-radius:9px;background:#fff;color:#233b58;padding:8px 12px;font-size:13px;font-weight:750;min-height:38px}
+.regions button[aria-pressed=true]{background:#10233d;border-color:#10233d;color:#fff}
+.maphead{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.maphead strong{font-size:15px}.maphead span{font-size:12px;color:#64748b}
+.toolbar{display:flex;gap:7px}.toolbar button{font-size:17px;width:41px}
+.mapframe{position:relative;border:1px solid #b4c4d8;border-radius:12px;overflow:hidden;background:#d9f0fa;min-height:310px}
+svg#map{display:block;width:100%;height:clamp(310px,53vw,520px);touch-action:manipulation;outline:none}
+.land{fill:#dde6e9;stroke:#8496a4;stroke-width:.65;vector-effect:non-scaling-stroke;cursor:pointer}
+.land:hover{fill:#c0e4cf}
+.land.selected{fill:#34d399;stroke:#065f46;stroke-width:1.7}
+.overlap{fill:#dde6e9;stroke:none;cursor:pointer}
+.overlap:hover{fill:#c0e4cf}.overlap.selected{fill:#34d399}
+.marker{fill:#ffffff;stroke:#0b5575;stroke-width:1.6;vector-effect:non-scaling-stroke;cursor:pointer}
+.marker.selected{fill:#34d399;stroke:#065f46;stroke-width:2.5}
+.marker-hit{fill:transparent;cursor:pointer}
+.maperror{display:none;position:absolute;inset:0;background:#fffdf9eF;align-items:center;justify-content:center;text-align:center;padding:20px;color:#991b1b;font-weight:750}
+.maperror.on{display:flex}
+.actions{display:flex;align-items:center;gap:10px;margin-top:13px;flex-wrap:wrap}
+.primary{border:0;border-radius:10px;background:#0f766e;color:white;font-weight:850;padding:12px 20px;min-height:44px}
+.primary:hover{background:#115e59}
+.status{font-size:14px;font-weight:750;color:#334155}
+.status.good{color:#047857}.status.bad{color:#b45309}
+.notice{background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;margin-top:14px;padding:11px 13px;color:#475569;font-size:13px}
+.pair{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.pair button{min-height:42px}
+details{margin-top:12px;border-top:1px solid #e2e8f0;padding-top:13px}
+summary{font-size:14px;font-weight:800;cursor:pointer}
+textarea{width:100%;height:112px;border:1px solid #bbc8d9;border-radius:10px;margin-top:12px;padding:10px;font-size:12px}
+small.fine{display:block;margin-top:6px;color:#64748b;font-size:12px}
+.hidden{display:none!important}
+@media (max-width:640px){.page{padding:8px 8px 35px}.hero{padding:15px}.panel{padding:13px}.counter{font-size:23px}.counter small{font-size:12px}.regions button{flex:1}.actions .primary{width:100%}svg#map{height:370px}}
+</style>
+</head>
+<body>
+<main class="page">
+<header class="hero">
+ <div><div class="pilot">World Capitals Game · Experimental Sandbox</div><h1>Country Location Pilot</h1><p>15-country interactive map test · Independent of official Holy Grail scores</p></div>
+ <div class="counter"><span id="progress">0</span><small> / 15 tested</small></div>
+</header>
+<section class="panel">
+ <div class="prompt"><div><label id="qindex">Pilot item 1 / 15</label><h2 id="question">Preparing the map…</h2></div><div class="scope">No official scoring</div></div>
+ <p class="meta">Find the named country on an unlabeled map. Choose any region manually; difficult small countries get neutral selection markers in regional views.</p>
+ <div class="maphead"><strong>Map region <span id="regionname">World</span></strong><div class="toolbar"><button type="button" id="zoomIn" aria-label="Zoom in">+</button><button type="button" id="zoomOut" aria-label="Zoom out">−</button><button type="button" id="resetView" aria-label="Reset map view">⟲</button></div></div>
+ <div id="regions" class="regions" role="group" aria-label="Map region"></div>
+ <div class="mapframe"><svg id="map" viewBox="0 28 1440 660" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Unlabeled interactive political world map"><rect x="0" y="0" width="1440" height="720" fill="#d9f0fa"></rect><g id="baselayer"></g><g id="detail"></g><g id="marks"></g></svg><div id="maperror" class="maperror"></div></div>
+ <div class="actions"><button class="primary" id="submit" disabled>Check selected location</button><span class="status" id="status" role="status">Loading static geography…</span></div>
+ <div class="notice">Safety rule: an unavailable map cannot mark an answer wrong or change the official game. This sandbox saves progress on this device only; use the checkpoint below for moving devices or chats.</div>
+</section>
+<section class="panel">
+ <div class="pair"><button class="secondary" id="reload">Reload map data</button><button class="secondary" id="clear">Reset pilot progress</button><button class="secondary" id="copy">Copy pilot checkpoint</button><button class="secondary" id="download">Download checkpoint JSON</button></div>
+ <details><summary>Restore a pilot checkpoint from another device or chat</summary><textarea id="paste" placeholder="Paste exported checkpoint JSON"></textarea><div class="actions"><button class="secondary" id="import">Restore checkpoint</button><span id="importStatus" class="status"></span></div><small class="fine">No passwords, accounts, or GitHub credentials needed. The production 195/195 record is never modified.</small></details>
+</section>
+</main>
+<script>
+"use strict";
+const ID="geography-location-v1",ROOT="data/",STORAGE="world-capitals-location-pilot-v1";
+const $=s=>document.getElementById(s);
+const regions=[
+ ["World",[-180,180,-78,84]],["Europe",[-12,38,35,62]],["Africa",[-23,54,-37,39]],
+ ["South Asia",[62,104,4,39]],["Middle East",[25,58,15,44]],
+ ["SE Asia",[92,145,-16,26]],["Pacific West",[135,180,-30,22]],
+ ["Pacific East",[-180,-129,-37,21]],["Americas",[-123,-32,-58,60]]
+];
+const markers=[
+ ["MC",7.417,43.735],["VA",12.453,41.903],["SM",12.45,43.94],
+ ["NR",166.93,-.53],["TV",179.2,-8.52],["KI",173.03,1.45],["KI",-157.3,1.9],
+ ["TO",-175.2,-21.16]
+];
+let manifest=null,geo=null,detail=null,selected="",region="World",view=null,state=null,loaded=false,complete=false;
+const px=n=>(n+180)*4,py=n=>(90-n)*4;
+const box=([w,e,s,n])=>({x:px(w),y:py(n),w:(e-w)*4,h:(n-s)*4});
+function normState(raw){
+ let done=Array.isArray(raw?.done)?raw.done.filter(x=>Number.isInteger(x)&&x>=1&&x<=15):[];
+ let attempts=Array.isArray(raw?.attempts)?raw.attempts.filter(x=>Number.isInteger(x.q)&&x.q>=1&&x.q<=15&&typeof x.country==="string"&&typeof x.ok==="boolean").slice(-1000):[];
+ return {pilot_id:ID,version:manifest.version,done:[...new Set(done)],attempts,region:regions.some(r=>r[0]===raw?.region)?raw.region:"World"};
+}
+function save(){if(!state)return;state.region=region;try{localStorage.setItem(STORAGE,JSON.stringify(state))}catch(e){$("status").textContent="Device storage unavailable — export checkpoint before leaving.";}}
+function geom(g){return g?.type==="Polygon"?[g.coordinates]:g?.type==="MultiPolygon"?g.coordinates:[]}
+function path(f){let s="";for(let poly of f.polys||[]){for(let ring of poly){if(!Array.isArray(ring)||ring.length<3)continue;let last=null;let part=[];for(let p of ring){if(!Array.isArray(p)||!Number.isFinite(p[0])||!Number.isFinite(p[1]))continue;
+ const x=px(p[0]),y=py(p[1]);if(last!==null&&Math.abs(x-last)>720){if(part.length>=3)s+="M"+part.join("L")+"Z";part=[]}part.push(x.toFixed(2)+","+y.toFixed(2));last=x}
+ if(part.length>=3)s+="M"+part.join("L")+"Z";
+ }}return s}
+function svgNode(tag,attrs){let e=document.createElementNS("http://www.w3.org/2000/svg",tag);for(let [k,v] of Object.entries(attrs))e.setAttribute(k,String(v));return e}
+function paint(){
+ if(!geo||!detail)return;
+ const base=$("baselayer"),extra=$("detail"),marks=$("marks");base.replaceChildren();extra.replaceChildren();marks.replaceChildren();
+ for(let f of geo.features){let g=svgNode("g",{"data-code":f.id||"",role:"button","aria-label":"Select country boundary"});let p=svgNode("path",{d:path(f),class:"land", "fill-rule":"evenodd"});g.appendChild(p);base.appendChild(g)}
+ for(let f of detail.features){let g=svgNode("g",{"data-code":f.id,role:"button","aria-label":"Select country area"});let p=svgNode("path",{d:path(f),class:"overlap","fill-rule":"evenodd"});g.appendChild(p);extra.appendChild(g)}
+ updateMarks();highlight();
+}
+function markerIsInside(lon,lat,b){let x=px(lon),y=py(lat);return x>=b.x&&x<=b.x+b.w&&y>=b.y&&y<=b.y+b.h}
+function updateMarks(){
+ const marks=$("marks");marks.replaceChildren();
+ if(region==="World"||!view)return;
+ const radius=Math.max(view.w/135,.18);
+ for(const [code,lon,lat] of markers){if(!markerIsInside(lon,lat,view))continue;
+  let g=svgNode("g",{"data-code":code,role:"button","aria-label":"Select small-country marker"});
+  g.appendChild(svgNode("circle",{cx:px(lon),cy:py(lat),r:radius,class:"marker"}));
+  g.appendChild(svgNode("circle",{cx:px(lon),cy:py(lat),r:radius*2.1,class:"marker-hit"}));
+  marks.appendChild(g);
+ }highlight()
+}
+function highlight(){document.querySelectorAll("#baselayer [data-code],#detail [data-code],#marks [data-code]").forEach(g=>{
+ const match=selected&&g.dataset.code===selected;g.querySelectorAll("path,circle.marker").forEach(e=>e.classList.toggle("selected",!!match));
+})}
+function setRegion(name,keepSelected=false){let r=regions.find(x=>x[0]===name)||regions[0];region=r[0];view=box(r[1]);$("regionname").textContent=r[0];$("map").setAttribute("viewBox",[view.x,view.y,view.w,view.h].join(" "));
+ document.querySelectorAll("#regions button").forEach(b=>b.setAttribute("aria-pressed",b.textContent===region?"true":"false"));
+ if(!keepSelected){selected="";$("submit").disabled=!loaded;$("submit").disabled=true;$("status").textContent="Choose a country on the map, then check."}
+ updateMarks();save();
+}
+function zoom(f){if(!view)return;let cx=view.x+view.w/2,cy=view.y+view.h/2;view.w=Math.max(1,Math.min(1440,view.w*f));view.h=Math.max(.7,Math.min(720,view.h*f));view.x=Math.max(0,Math.min(1440-view.w,cx-view.w/2));view.y=Math.max(0,Math.min(720-view.h,cy-view.h/2));$("map").setAttribute("viewBox",[view.x,view.y,view.w,view.h].join(" "));updateMarks()}
+function current(){if(!manifest||!state)return null;let remaining=manifest.questions.filter(q=>!state.done.includes(q.q));return remaining[0]||null}
+function renderQuestion(){
+ if(!manifest||!state)return;
+ $("progress").textContent=state.done.length;let q=current();complete=!q;selected="";highlight();$("submit").disabled=true;
+ if(!q){$("qindex").textContent="Pilot finished";$("question").textContent="15 / 15 locations verified locally";$("status").textContent="Pilot complete on this device. Export the checkpoint for review."; $("status").className="status good";return}
+ $("qindex").textContent="Pilot item "+q.q+" / "+manifest.questions.length;
+ $("question").textContent="Find "+q.name;$("status").textContent="Tap a country or a neutral small-country marker; no names are shown on the map.";
+ $("status").className="status";
+}
+function select(code){if(!loaded||complete||!code)return;selected=code;highlight();$("submit").disabled=false;$("status").className="status";$("status").textContent="Area selected. Check the location when ready."}
+function check(){
+ let q=current();if(!q||!selected||!loaded)return;const ok=selected===q.code;
+ state.attempts.push({q:q.q,country:selected,ok,at:new Date().toISOString()});
+ save();
+ if(ok){state.done.push(q.q);save();$("status").className="status good";$("status").textContent="Correct! Location identified. Moving to the next pilot item.";renderQuestion()}
+ else{$("status").className="status bad";$("status").textContent="That is not the requested country. Try again without a clue.";selected="";highlight();$("submit").disabled=true;}
+}
+function checkpoint(){return JSON.stringify({...state,pilot_id:ID,version:manifest.version,source:"local unscored map pilot",exported_at:new Date().toISOString()},null,2)}
+function showError(msg){loaded=false;$("maperror").textContent=msg;$("maperror").classList.add("on");$("submit").disabled=true;$("status").textContent="Map unavailable — question remains unanswered.";$("status").className="status bad";}
+async function load(){
+ $("status").textContent="Loading fixed map assets…";$("maperror").classList.remove("on");
+ try{
+ const responses=await Promise.all(["manifest.json","world.json","targets.json"].map(p=>fetch(ROOT+p,{cache:"no-store"})));
+ if(responses.some(r=>!r.ok))throw Error("One or more local geography files could not be loaded.");
+ const [m,w,t]=await Promise.all(responses.map(r=>r.json()));
+ if(m.pilot_id!==ID||m.questions.length!==15||w.features.length!==177||t.features.length!==15)throw Error("Geography integrity check failed.");
+ const qids=new Set(m.questions.map(q=>q.code)),tids=new Set(t.features.map(f=>f.id));if(qids.size!==15||tids.size!==15||[...qids].some(id=>!tids.has(id)))throw Error("Mismatch between country shapes and frozen questions.");
+ if(w.features.some(f=>!f.polys?.length)||t.features.some(f=>!f.polys?.length))throw Error("A map shape is missing.");
+ manifest=m;geo=w;detail=t;
+ let raw={};try{raw=JSON.parse(localStorage.getItem(STORAGE)||"{}")}catch(e){}
+ if(raw.version&&raw.version!==manifest.version)throw Error("Saved pilot version is different. Export the old checkpoint before resetting.");
+ state=normState(raw);loaded=true;paint();setRegion(state.region,true);renderQuestion();
+ }catch(e){showError(e.message||"Map could not load. Retry later.");}
+}
+const addRegions=()=>{for(const [n] of regions){let b=document.createElement("button");b.type="button";b.textContent=n;b.setAttribute("aria-pressed",n===region?"true":"false");b.onclick=()=>setRegion(n);$("regions").appendChild(b)}};
+addRegions();
+$("map").addEventListener("click",e=>{let g=e.target.closest("[data-code]");if(g&&$("map").contains(g))select(g.dataset.code)});
+$("map").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){let g=e.target.closest("[data-code]");if(g){e.preventDefault();select(g.dataset.code)}}});
+$("submit").onclick=check;$("zoomIn").onclick=()=>zoom(.65);$("zoomOut").onclick=()=>zoom(1.55);$("resetView").onclick=()=>setRegion(region);
+$("reload").onclick=load;
+$("clear").onclick=()=>{if(!confirm("Reset the unscored pilot only? Official 195/195 scores remain unchanged."))return;try{localStorage.removeItem(STORAGE)}catch(e){}loaded=false;load()};
+$("copy").onclick=async()=>{if(!state)return;const v=checkpoint();try{await navigator.clipboard.writeText(v);$("status").textContent="Pilot checkpoint copied."}catch(e){$("paste").value=v;$("paste").select();$("status").textContent="Clipboard unavailable; select and copy the checkpoint below.";$("paste").closest("details").open=true}};
+$("download").onclick=()=>{if(!state)return;let u=URL.createObjectURL(new Blob([checkpoint()],{type:"application/json"}));let a=document.createElement("a");a.href=u;a.download="location-pilot-checkpoint.json";a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)};
+$("import").onclick=()=>{try{if(!manifest)throw Error("Map must load first.");let d=JSON.parse($("paste").value);if(d.pilot_id!==ID||d.version!==manifest.version)throw Error("This checkpoint is for a different pilot or version.");state=normState(d);save();setRegion(state.region,true);renderQuestion();$("importStatus").textContent="Restored "+state.done.length+"/15 pilot locations."}catch(e){$("importStatus").textContent=e.message}};
+load();
+</script>
+</body>
+</html>
