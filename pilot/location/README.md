@@ -97,3 +97,7 @@ Changes in v1.2:
 Open `index.html` through GitHub Pages. Choose a region manually, tap a country boundary or the silhouette for small countries after manually zooming into the appropriate area, and press **Check selected location**. The selection is the country's fixed ISO code. Use **Copy checkpoint** or **Save checkpoint file** for a handover.
 
 This README is the cross-chat pilot specification. The official game's canonical state remains in the private World-Capitals-Game repo.
+
+## Visible map repair — 10-Oct-2026
+
+The common 177-feature world map no longer reuses `-99` as country ID for five unrelated regions. France and Norway have proper independent IDs. The unchanged neutral NW Mediterranean view is tuned to allow manual Monaco silhouette selection after two zoom presses; all tiny visible outlines follow physical-size thresholds, with no location dots. Existing local pilot checkpoint format and synced pilot's private GitHub event history remain untouched.

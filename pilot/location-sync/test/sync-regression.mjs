@@ -88,14 +88,53 @@ async function run(browserType){
    attempt_id:"stale-attempt-unique-0000001"}),created_at:new Date().toISOString()});
   await x.locator("#refreshSync").click();
   await at(x,"Monaco",2);
+  // France, Norway and three disputed/partially recognized map territories
+  // previously shared the same "-99" ID, causing unrelated areas to turn green.
+  const worldIds=await x.locator("#land path").evaluateAll(paths=>
+   paths.map(p=>p.getAttribute("data-code")));
+  assert.equal(new Set(worldIds).size,177,"Every world country must have an independent hit/selection ID");
+  await x.getByRole("button",{name:"Europe",exact:true}).click();
+  const testTap=async(page,lon,lat)=>{
+   const p=await page.locator("#map").evaluate((svg,pt)=>{
+    const q=svg.createSVGPoint();q.x=(pt.lon+180)*4;q.y=(90-pt.lat)*4;
+    const c=q.matrixTransform(svg.getScreenCTM());return{x:c.x,y:c.y};
+   },{lon,lat});
+   await page.locator("#map").evaluate((svg,c)=>
+    svg.dispatchEvent(new MouseEvent("click",{bubbles:true,clientX:c.x,clientY:c.y})),p);
+  };
+  await testTap(x,2.4,46.5);
+  assert.match(await x.locator('#land [data-code="FR"]').getAttribute("class"),/picked/,
+    "France must be green when selected");
+  for(const foreign of ["NO","XC","XS","XK"]){
+   assert.doesNotMatch(await x.locator('#land [data-code="'+foreign+'"]').getAttribute("class"),/picked/,
+     "Other territory highlighted when France selected: "+foreign);
+  }
+  // Monaco only gains a visible real silhouette at manual zoom. No dots.
+  await x.getByRole("button",{name:"NW Mediterranean",exact:true}).click();
+  assert.doesNotMatch(await x.locator('#detail [data-code="MC"]').getAttribute("class"),/precise/,
+    "Monaco must not have a visible clue at broad region scale");
+  await x.locator("#zoomIn").click();
+  await x.locator("#zoomIn").click();
+  assert.match(await x.locator('#detail [data-code="MC"]').getAttribute("class"),/precise/,
+    "Monaco outline must become visible after two zooms");
+  const size=await x.locator('#detail [data-code="MC"]').boundingBox();
+  assert.ok(size&&size.width>=12&&size.height>=7,"Real Monaco shape too small to select");
+  await testTap(x,7.416,43.737);
+  assert.match(await x.locator('#detail [data-code="MC"]').getAttribute("class"),/picked/,
+    "Monaco must visibly turn green when tapped");
+  await x.locator("#check").click();
+  await at(x,"Vatican City",3);
+  await y.locator("#refreshSync").click();
+  await at(y,"Vatican City",3);
+  assert.equal(answerWrites.at(-1).country,"MC");
   assert.equal(errors.length,0,errors.join("\n"));
   // Disconnect clears locally held credential, not GitHub's shared score.
   await x.locator("#disconnectGithub").click();
   assert.match(await x.locator("#question").innerText(),/Connect GitHub/);
   assert.equal(await x.evaluate(()=>localStorage.getItem("wcg-location-github-pat-v1")),null);
-  assert.equal(comments.length,3);
+  assert.equal(comments.length,4);
   await a.close();await b.close();
-  console.log("PASS "+browserType.name()+": two devices, persistent auth, shared Q1->Q3, refresh, no duplicate, logout.");
+  console.log("PASS "+browserType.name()+": two devices, persistent auth, shared Q1->Q4, France isolated highlight, Monaco zoom silhouette, no duplicate, logout.");
  }finally{await browser.close()}
 }
 for(const engine of [chromium,webkit])await run(engine);

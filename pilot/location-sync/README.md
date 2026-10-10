@@ -49,3 +49,11 @@ This is a personal experimental access-token approach, not a general public auth
 - [ ] User approves promotion after successful multi-device acceptance.
 
 The automated CI regression mocks the private GitHub API in Chromium and WebKit. It is **not** a live-token test or real iPad/iPhone certification.
+
+## Map visual and Monaco selection update — 10-Oct-2026
+
+- User confirmed real-device GitHub sharing works across browsers. Pilot still unscored; progress remains only in private GitHub Issue #1.
+- A source-data bug gave five unrelated regions the same placeholder `-99` ID (France, Norway, Northern Cyprus, Somaliland, Kosovo), causing multiple areas to highlight together. The common 177-country map now has **177 unique IDs**: `FR`, `NO`, `XC`, `XS`, `XK`; remaining normal ISO IDs unchanged. No question IDs changed.
+- The manual **NW Mediterranean** map window now covers 6.1–9.2° E, 42.2–45.0° N. User-controlled `+` twice shows Monaco's **real outline**, with the same neutral physical-pixel threshold for every microstate. No question-directed camera or location dots.
+- WebKit/Chromium automated tests cover selecting France without highlighting Norway or unrelated territories, manually zooming Monaco's silhouette, answering Monaco, and seeing the next synced question from a second browser.
+- Critical: **no new reset**, no change to `pilot_id`, event schema, issue, question order, or manifest version. Existing private Issue event checkpoints preserved.

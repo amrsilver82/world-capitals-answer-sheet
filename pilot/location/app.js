@@ -6,7 +6,7 @@
 const PILOT="geography-location-v1", STOR="wcg-location-pilot-chad-touch-reset-20261010";
 const $=s=>document.getElementById(s);
 const VIEWS=[
- ["World",[-180,180,-78,84]],["Europe",[-13,40,34,65]],["NW Mediterranean",[6.5,10.5,42,45.4]],["Central Italy",[12.1,12.85,41.6,42.32]],["Adriatic",[11.8,13.1,43.3,44.6]],
+ ["World",[-180,180,-78,84]],["Europe",[-13,40,34,65]],["NW Mediterranean",[6.1,9.2,42.2,45.0]],["Central Italy",[12.1,12.85,41.6,42.32]],["Adriatic",[11.8,13.1,43.3,44.6]],
  ["Africa",[-25,55,-39,40]],["West Africa",[-21,20,1,28]],["Southern Africa",[8,40,-39,-10]],
  ["South Asia",[65,106,3,40]],["Middle East",[25,60,15,45]],["SE Asia",[91,145,-18,28]],
  ["Pacific West",[134,180,-30,23]],["Equatorial Pacific",[160,179,-6,9]],["South Pacific atolls",[170,180,-14,-3]],["Pacific East",[-180,-132,-33,24]],["Central Pacific East",[-179,-147,-10,11]],["Americas",[-125,-32,-59,63]]
@@ -60,7 +60,22 @@ function eventMapPoint(e){
  return{x:currentView.x+(e.clientX-left)/scale,y:currentView.y+(e.clientY-top)/scale}
 }
 function rememberTap(e){const p=eventMapPoint(e);if(p&&inside(p.x,p.y))zoomAnchor=p}
-function closeOutline(){const show=!!currentView&&currentView.w/4<0.3;document.querySelectorAll("#detail path.micro-target").forEach(p=>p.classList.toggle("precise",show))}
+function closeOutline(){
+ // Silhouettes become visible only when the user manually zooms far enough
+ // for the REAL polygon to be distinguishable. Do not draw location dots.
+ // The same size-based rule applies to ALL microstates, regardless of the
+ // active question, preventing hidden answer-location hints.
+ const scale=zoomScale(),degreesWide=currentView?.w/4||360;
+ for(const feature of shapes?.features||[]){
+  if(!feature.tiny||!Array.isArray(feature.bbox))continue;
+  const [west,south,east,north]=feature.bbox;
+  const width=Math.abs(east-west)*4*scale,height=Math.abs(north-south)*4*scale;
+  const visible=degreesWide<=1.5&&width>=12&&height>=7;
+  const el=[...document.querySelectorAll("#detail path.micro-target")]
+   .find(p=>p.getAttribute("data-code")===feature.id);
+  if(el)el.classList.toggle("precise",visible);
+ }
+}
 function ringContains(lon,lat,ring){
  let hit=false;
  for(let i=0,j=ring.length-1;i<ring.length;j=i++){
