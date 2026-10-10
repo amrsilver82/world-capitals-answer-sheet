@@ -29,12 +29,15 @@ button:disabled{opacity:.53;cursor:not-allowed}
 #map.dragging{cursor:grabbing}
 .country{fill:#dde6e9;stroke:#859aa7;stroke-width:.6;vector-effect:non-scaling-stroke;cursor:pointer}
 .country:hover{fill:#c6e5d4}
-.target{fill:#dde6e9;stroke:#7a8f9d;stroke-width:.5;vector-effect:non-scaling-stroke;cursor:pointer}
-.target:hover{fill:#c6e5d4}
-.country.picked,.target.picked{fill:#3bd3a2;stroke:#047857;stroke-width:2;vector-effect:non-scaling-stroke}
-.marker{fill:white;stroke:#0c6887;stroke-width:1.4;vector-effect:non-scaling-stroke;pointer-events:none}
-.marker.picked{fill:#3bd3a2;stroke:#047857;stroke-width:2}
-.hit{fill:transparent;cursor:pointer}
+.target{fill:transparent;stroke:none;pointer-events:fill;cursor:pointer}
+.target:hover{fill:transparent}
+.micro-target{fill:#d6e1e5;stroke:none;pointer-events:fill;cursor:pointer}
+.micro-target:hover{fill:#d6e1e5}
+.country.picked{fill:#34d399;stroke:#047857;stroke-width:1;vector-effect:non-scaling-stroke}
+.target.picked,.micro-target.picked{fill:#34d399;stroke:none;vector-effect:non-scaling-stroke}
+.hit{fill:transparent;stroke:none;pointer-events:fill;cursor:pointer}
+#map path,#map circle{-webkit-tap-highlight-color:transparent}
+#map [data-code]{outline:none;-webkit-tap-highlight-color:transparent}
 .maperror{display:none;position:absolute;inset:0;align-items:center;justify-content:center;background:#fffdf9ee;padding:20px;font-weight:800;color:#9f1239;text-align:center}
 .maperror.on{display:flex}
 .actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px}

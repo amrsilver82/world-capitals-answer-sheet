@@ -6,14 +6,14 @@
 const PILOT="geography-location-v1", STOR="wcg-location-pilot-v1";
 const $=s=>document.getElementById(s);
 const VIEWS=[
- ["World",[-180,180,-78,84]],["Europe",[-13,40,34,65]],["Italy microstates",[6.6,13.8,40.7,45.9]],
+ ["World",[-180,180,-78,84]],["Europe",[-13,40,34,65]],["NW Mediterranean",[6.5,10.5,42,45.4]],["Central Italy",[12.1,12.85,41.6,42.32]],["Adriatic",[11.8,13.1,43.3,44.6]],
  ["Africa",[-25,55,-39,40]],["West Africa",[-21,20,1,28]],["Southern Africa",[8,40,-39,-10]],
  ["South Asia",[65,106,3,40]],["Middle East",[25,60,15,45]],["SE Asia",[91,145,-18,28]],
- ["Pacific West",[134,180,-30,23]],["Pacific East",[-180,-132,-33,24]],["Americas",[-125,-32,-59,63]]
+ ["Pacific West",[134,180,-30,23]],["Equatorial Pacific",[160,179,-6,9]],["South Pacific atolls",[170,180,-14,-3]],["Pacific East",[-180,-132,-33,24]],["Central Pacific East",[-179,-147,-10,11]],["Americas",[-125,-32,-59,63]]
 ];
-/* All markers are unlabeled and always visible in the matching regional view,
-   regardless of the question. No marker is generated from the answer. */
-const MARKERS=[["MC",7.416,43.737],["VA",12.4533,41.9032],["SM",12.45,43.94],
+/* No visible dots or province borders. Invisible neutral micro-hit zones are
+ active only after deliberate manual zoom, never based on current answer. */
+const MICRO_TOUCH=[["MC",7.416,43.737],["VA",12.4533,41.9032],["SM",12.45,43.94],
  ["NR",166.931,-0.526],["TV",179.2,-8.52],["KI",173.03,1.45],
  ["KI",-157.3,1.9],["TO",-175.2,-21.16]];
 const px=lon=>(lon+180)*4, py=lat=>(90-lat)*4;
@@ -46,25 +46,31 @@ function done(){return data?.questions.filter(q=>!progress.done.includes(q.q))[0
 function zoomScale(){if(!currentView)return 1;let b=svg.getBoundingClientRect();return Math.max(.001,Math.min(b.width/currentView.w,b.height/currentView.h))}
 function inside(x,y){return currentView&&x>=currentView.x&&x<=currentView.x+currentView.w&&y>=currentView.y&&y<=currentView.y+currentView.h}
 function markers(){
- const g=$("marks");g.replaceChildren();if(region==="World"||!currentView)return;
- const sc=zoomScale(),vis=8/sc,hit=23/sc;
- for(const [code,lon,lat] of MARKERS){
-  if(!inside(px(lon),py(lat)))continue;
-  const wrap=node("g",{"data-code":code,role:"button",tabindex:0,"aria-label":"Select small country location"});
-  wrap.appendChild(node("circle",{class:"marker",cx:px(lon),cy:py(lat),r:vis}));
-  wrap.appendChild(node("circle",{class:"hit",cx:px(lon),cy:py(lat),r:hit}));
-  g.appendChild(wrap)
- }highlight()
+ const layer=$("marks");layer.replaceChildren();
+ if(!currentView||region==="World")return;
+ const degreesWide=currentView.w/4,scale=zoomScale();
+ // No visible circles. All microstates use the same, question-independent rule.
+ const limits={MC:3,SM:3,VA:.16,NR:2,TV:3,KI:3,TO:4};
+ const radius=Math.min(25/Math.max(scale,.001),currentView.w/4);
+ for(const [code,lon,lat] of MICRO_TOUCH){
+  if(degreesWide>limits[code]||!inside(px(lon),py(lat)))continue;
+  const hit=node("circle",{cx:px(lon),cy:py(lat),r:radius,class:"hit","data-code":code,role:"button","aria-label":"Select country outline"});
+  layer.appendChild(hit);
+ }
+ highlight();
 }
 function highlight(){document.querySelectorAll("#land [data-code],#detail [data-code],#marks [data-code]").forEach(g=>{
  let isSelected=Boolean(selected)&&g.getAttribute("data-code")===selected;
- g.querySelectorAll("path,circle.marker").forEach(el=>el.classList.toggle("picked",isSelected))
+ g.querySelectorAll("path").forEach(el=>el.classList.toggle("picked",isSelected))
 })}
 function paint(){
  for(const [id,features,klass] of [["land",world.features,"country"],["detail",shapes.features,"target"]]){
   let root=$(id);root.replaceChildren();
   for(const f of features){let d=path(f.polys);if(!d)continue;
-   let el=node("path",{d,"data-code":f.id,class:klass,role:"button",tabindex:0,"aria-label":"Select country area","fill-rule":"evenodd"});
+   // Detail shapes receive NO outlines; source provinces merge visually.
+   // Large countries rely on the standard unlabeled world boundary.
+   let kind=klass==="target"&&(f.tiny||!world.features.some(x=>x.id===f.id))?"micro-target":klass;
+   let el=node("path",{d,"data-code":f.id,class:kind,role:"button",tabindex:0,"aria-label":"Select country area","fill-rule":"evenodd"});
    root.appendChild(el)
   }
  }markers();highlight()
@@ -88,7 +94,7 @@ function question(){
  $("progress").textContent=progress.done.length;
  let q=done();selected="";highlight();$("check").disabled=true;
  if(!q){$("qindex").textContent="Pilot complete";$("question").textContent="15 locations tested";show("Pilot complete on this device. Save your checkpoint for the review.","good");return}
- $("qindex").textContent="Pilot item "+q.q+" of 15";$("question").textContent="Find "+q.name;show("Select the country's location. No country names are shown on the map.","")
+ $("qindex").textContent="Pilot item "+q.q+" of 15";$("question").textContent="Find "+q.name;show("Select the country silhouette; use manual region and zoom for tiny countries.","")
 }
 function select(code){if(!loaded||!done()||!code)return;selected=code;highlight();$("check").disabled=false;show("Location selected. Check your answer when ready.","")}
 function answer(){
