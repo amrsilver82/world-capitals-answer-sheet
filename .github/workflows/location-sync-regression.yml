@@ -1,0 +1,28 @@
+name: Github-only Location Pilot Sync Regression
+on:
+  push:
+    paths:
+      - 'pilot/location-sync/**'
+      - '.github/workflows/location-sync-regression.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chromium and WebKit
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium webkit
+      - name: Start local GitHub Pages server
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/sync-test-server.log 2>&1 &
+          sleep 2
+      - name: Test two browsers with mocked private GitHub issue
+        run: node pilot/location-sync/test/sync-regression.mjs

@@ -1,0 +1,9 @@
+#authPanel{border:2px solid #b3d2e4}
+#authPanel h2{font-size:19px;margin:0 0 10px}
+#authPanel.connected{border-color:#059669}
+.tokenlabel{display:block;font-size:13px;font-weight:800;margin:12px 0 5px}
+#tokenInput{width:100%;border:1px solid #b6c8d9;border-radius:9px;padding:12px;font-size:14px}
+.rememberlabel{display:flex;align-items:flex-start;gap:8px;margin:12px 0;line-height:1.5;font-size:13px}
+.rememberlabel input{margin-top:4px;accent-color:#0f766e}
+#authPanel button:disabled{opacity:.5;cursor:not-allowed}
+#authPanel .status{display:block;margin-top:13px}

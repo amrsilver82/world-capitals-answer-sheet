@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#10233d">
+<title>World Capitals Game — Private GitHub Sync Pilot</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://api.github.com; base-uri 'none'; form-action 'none'; object-src 'none'">
+<link rel="stylesheet" href="../location/style.css">\n<link rel="stylesheet" href="sync.css">
+<script src="app.js?v=github-sync-1" defer></script>
+</head><body>
+<main class="page">
+<header class="hero">
+ <div><div class="eyebrow">World Capitals Game · Experimental sandbox</div><h1>GitHub Sync Location Pilot</h1><p>15-country experiment · one private GitHub checkpoint · official scores untouched</p></div>
+ <div class="counter"><span id="progress">0</span><small> / 15 completed</small></div>
+</header>
+<section class="panel" id="authPanel">
+ <h2>Private GitHub checkpoint</h2>
+ <p class="help">Sign in using a <strong>fine-grained GitHub token</strong> scoped only to <code>amrsilver82/World-Capitals-Game</code> with <strong>Issues: Read and write</strong>. Your token goes directly from this browser to api.github.com. Never paste it in ChatGPT.</p>
+ <label for="tokenInput" class="tokenlabel">GitHub token (never published)</label>
+ <input id="tokenInput" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…" aria-label="Fine-grained GitHub personal access token">
+ <label class="rememberlabel"><input id="rememberToken" type="checkbox"> Remember token on this browser (less secure; risks from browser extensions or malicious scripts)</label>
+ <div class="actions">
+  <button id="connectGithub" class="primary">Connect GitHub</button>
+  <button id="refreshSync" class="secondary" disabled>Refresh shared score</button>
+  <button id="disconnectGithub" class="secondary" disabled>Disconnect and clear token</button>
+ </div>
+ <p class="status" id="syncStatus" role="status">Not connected — answers are disabled.</p>
+ <p class="fine">Only the private Issue stores answer events. This experiment does not write official scored batches. Other devices automatically refresh approximately every 15 seconds when open.</p>
+ </section>
+<section class="panel">
+ <div class="prompt"><div><label id="qindex">Preparing pilot…</label><h2 id="question">Loading map</h2></div><div class="scope">Unscored test</div></div>
+ <p class="help">Locate the named country on the unlabeled map. Select a region manually, then tap its area. For tiny countries, tap near their approximate location, then use + to zoom into that area. The real outline appears at close zoom. No location dots or answer hints.</p>
+ <div class="mapheading"><strong>Map view: <span id="regionname">World</span></strong>
+  <div class="toolbar"><button id="zoomIn" title="Zoom in" aria-label="Zoom in">+</button><button id="zoomOut" title="Zoom out" aria-label="Zoom out">−</button><button id="resetView" title="Reset region view" aria-label="Reset view">⟲</button></div>
+ </div>
+ <div id="regions" class="regions" role="group" aria-label="Map region"></div>
+ <div class="mapframe">
+  <svg id="map" role="img" aria-label="Unlabeled world map with selectable countries" viewBox="0 26 1440 652" preserveAspectRatio="xMidYMid meet">
+   <rect x="0" y="0" width="1440" height="720" fill="#d9effa"></rect>
+   <g id="land"></g><g id="detail"></g><g id="marks"></g>
+  </svg>
+  <div class="maperror" id="maperror" role="alert"></div>
+ </div>
+ <div class="actions"><button id="check" class="primary" disabled>Check selected location</button><span id="status" role="status" class="status">Loading static geography…</span></div>
+ <div class="notice"><strong>Safety boundary:</strong> This pilot has Issues-only access and cannot modify the official 195/195 score. If a map cannot load, the question remains unanswered. Results are experimental only.</div>
+</section>
+<section class="panel">
+ <div class="actions"><button class="secondary" id="reload">Reload from GitHub</button></div>
+ <p class="fine">This synced pilot is separate from the earlier browser-local experiment. There is no local score fallback: GitHub must confirm answers. If GitHub cannot be reached, your question is preserved remotely and no result is recorded locally.</p>
+</section>
+</main></body></html>
