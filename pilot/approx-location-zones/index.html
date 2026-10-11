@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f8fafc">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Connected Championship — Approximate Location Zones</title>
+<link rel="stylesheet" href="style.css?v=1">
+<script defer src="app.js?v=1"></script>
+</head><body><main class="wrap">
+<header><h1 id="title">World Flags + Capitals + Location Zones — 10-Country Preview</h1>
+<p class="sub">Identify the country from each flag and its capital. Leave anything you do not know blank.</p>
+<div><span id="stagePill" class="pill">Design trial · Approximate location</span><span id="count" class="pill">Loading…</span><span id="locationCount" class="pill">0 / 10 geographic zones selected</span></div>
+<p class="legend">Country, Capital and geographical-zone answers are independent. This is a universal approximate-location trial, not an official score.</p>
+<p class="previewOnly">Unscored one-page design test. Exact same original quiz layout, now with a fixed world-zone grid. Each question uses the same zone size, whether it is France or Nauru.</p></header>
+<section id="grid" class="grid"></section>
+<section id="atlasSection">
+<div class="atlasbox">
+<div class="top"><h2>Shared atlas — select the approximate geographical zone</h2><span class="stage" id="activeQuestion">Question 1</span></div>
+<p class="atlasHint">Choose a region yourself, then tap any map area (land OR ocean) to select a 20° longitude × 15° latitude zone. All countries follow the same rule; no microscopic islands or dots to hit. The map never points to the answer. Previous zone choices stay numbered.</p>
+<div class="atlasToolbar">
+<div id="atlasRegions" class="atlasRegions" role="group" aria-label="Choose world map region">
+<button type="button" data-view="World" aria-pressed="true">World</button>
+<button type="button" data-view="Europe" aria-pressed="false">Europe</button>
+<button type="button" data-view="Caribbean" aria-pressed="false">Caribbean</button>
+<button type="button" data-view="Pacific" aria-pressed="false">Pacific</button>
+<button type="button" data-view="Africa" aria-pressed="false">Africa</button>
+<button type="button" data-view="Asia" aria-pressed="false">Asia</button>
+</div>
+<div class="atlasZoom"><button id="zoomIn" type="button" aria-label="Zoom in">+</button><button id="zoomOut" type="button" aria-label="Zoom out">−</button><button id="resetView" type="button">Reset view</button></div></div>
+<div class="zoneKey" id="zoneKey">Every country: one consistent 20° × 15° coordinate-zone rule. The equator is centered in a band. Exact country dots are optional practice, not part of this demo.</div>
+<div class="atlasViewport"><svg id="map" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Approximate location grid. Select a world coordinate zone by tapping land or ocean. Zoom and pan supported.">
+<rect x="-1440" y="0" width="4320" height="720" fill="#d9effa"></rect><g id="countries"></g><g id="zones"></g><g id="marks"></g><g id="choiceBadges"></g></svg></div>
+<div class="atlasFoot"><div><span class="mapStatus" id="mapStatus">Loading geographic shapes…</span><span class="stage" id="viewLabel"> · World view</span></div><button id="returnQuestion" type="button">↑ Return to active question</button></div>
+<p class="technicalNote">The same coordinate-grid resolution applies to all 195 potential countries. This preview tests the interaction with 10 sample flags only. Geographic zones and boundaries must be validated for all 195 before any official scoring. No answers are sent to GitHub.</p>
+</div></section>
+<section class="actions"><button id="build" class="primary">Build my reply</button><button id="copy" disabled>Copy reply</button><button id="clear">Clear editable fields</button><button id="latest">Reload preview</button></section>
+<p class="small">Prototype answers save locally in this browser only; they are not the official GitHub checkpoint. The original exact-pin atlas remains unchanged at its separate URL.</p>
+<section id="out" class="out"><pre id="reply"></pre><p id="note"></p></section>
+</main></body></html>
