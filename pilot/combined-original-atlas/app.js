@@ -216,10 +216,14 @@ function zoom(f,p){
  view=clamp({x:a.x-fx*w,y:a.y-fy*h,w,h});paint();
 }
 // All clicks select at most one location. Touch pinch never selects a country.
-let lastSelectionTime=0,touchGesture=null,lastTouchAt=-1e5;
+let lastPointerChooseAt=-1e5,touchGesture=null,lastTouchAt=-1e5;
 function chooseOnce(e){
- if(performance.now()-lastSelectionTime<250)return;
- lastSelectionTime=performance.now();chooseAt(e);
+ // Suppress only the synthetic click following a pointerup; do not suppress
+ // a second genuine tap/pointerup made quickly to change the active answer.
+ const now=performance.now();
+ if(e.type==="click"&&now-lastPointerChooseAt<450)return;
+ chooseAt(e);
+ if(e.type==="pointerup")lastPointerChooseAt=now;
 }
 function twoTouches(t){
  const a=t[0],b=t[1];
