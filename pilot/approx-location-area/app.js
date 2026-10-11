@@ -8,7 +8,7 @@ const VIEWS={World:[-180,180,-82,85],Europe:[-14,43,32,66],Caribbean:[-87,-57,8,
 const $=id=>document.getElementById(id),svg=$("map"),px=lon=>(lon+180)*4,py=lat=>(90-lat)*4;
 const STORE="wcg-gridfree-location-area-prototype-v1";
 const ANCHORS=new Map(MARKERS.map(([iso,lat,lon])=>[iso,{lat,lon}]));
-let world=null,detail=null,active=0,view=null,region="World",gesture=null;
+let world=null,detail=null,worldHiRes=null,hiResError=null,active=0,view=null,region="World",gesture=null;
 let state=QUESTIONS.map(()=>({country:"",capital:"",location:null,point:null,radiusKm:500}));
 function esc(s){return String(s??"").replace(/[&<>"]/g,x=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[x]))}
 function node(tag,attrs,cls){const el=document.createElementNS("http://www.w3.org/2000/svg",tag);
@@ -104,15 +104,46 @@ function circlePath(p,shift,radius){
  }
  return d+"Z";
 }
+// Map bounds are indexed once per feature so regional panning never redraws
+// offscreen 1:10m polygons. Dateline-spanning features conservatively overlap.
+const boundsCache=new WeakMap();
+function featureBounds(f){
+ let b=boundsCache.get(f);if(b)return b;
+ let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity;
+ for(const poly of f.polys)for(const ring of poly)for(const p of ring){
+  if(!Array.isArray(p)||p.length<2)continue;
+  const x=px(p[0]),y=py(p[1]);
+  minX=Math.min(minX,x);maxX=Math.max(maxX,x);
+  minY=Math.min(minY,y);maxY=Math.max(maxY,y);
+ }
+ b={left:minX,right:maxX,top:minY,bottom:maxY};
+ boundsCache.set(f,b);return b;
+}
 function paint(){
  if(!view)return;
  svg.setAttribute("viewBox",[view.x,view.y,view.w,view.h].join(" "));
  const land=$("countries"),circles=$("zones"),dots=$("marks"),labels=$("choiceBadges");
  land.replaceChildren();circles.replaceChildren();dots.replaceChildren();labels.replaceChildren();
  if(!world)return;
- const extras=detail.features.filter(f=>!world.features.some(w=>w.id===f.id));
- for(const f of [...world.features,...extras])for(const shift of [-1440,0,1440])
-  land.appendChild(node("path",{d:f.polys.map(poly=>path(poly,shift)).join(" "),"data-iso":f.id},"country"));
+ // World overview stays lightweight; detailed 1:10m shapes appear as you
+ // zoom into a region. Bounds-cull before turning 10m coordinates into SVG paths.
+ const hires=!!worldHiRes&&view.w<=600;
+ const shapes=hires?worldHiRes.features:world.features;
+ const ids=new Set(shapes.map(f=>f.id));
+ const extras=detail.features.filter(f=>!ids.has(f.id));
+ const worldShapes=[...shapes,...extras];
+ for(const f of worldShapes){
+  const bounds=featureBounds(f);
+  for(const shift of [-1440,0,1440]){
+   if(bounds.right+shift<view.x||bounds.left+shift>view.x+view.w||
+      bounds.bottom<view.y||bounds.top>view.y+view.h)continue;
+   land.appendChild(node("path",{d:f.polys.map(poly=>path(poly,shift)).join(" "),"data-iso":f.id},"country"));
+  }
+ }
+ const quality=$("mapResolution");
+ if(quality)quality.textContent=hires?"Detailed borders · Natural Earth 1:10m":
+  view.w<=600&&hiResError?"Detailed borders unavailable · 1:110m fallback":
+  view.w<=600?"Loading detailed borders · 1:110m fallback":"World overview · zoom in for 1:10m detail";
  const scale=Math.max(.001,mapSize().w/view.w);
  state.forEach((s,i)=>{
   const p=s.point&&Number.isFinite(s.point.lon)&&Number.isFinite(s.point.lat)?s.point:pointFromCode(s.location);
@@ -319,9 +350,23 @@ async function init(){
   window.__atlasCoverage={count:195,uncovered,polygonCount:195-OFFICIAL_195_CODES.filter(z=>!datasetCodes.has(z)).length,markerOnly:OFFICIAL_195_CODES.filter(z=>!datasetCodes.has(z))};
 
   changeRegion("World");
-  $("mapStatus").textContent="Map ready. Choose a question, then tap anywhere on the map (land or ocean).";
+  $("mapStatus").textContent="Map ready. Zoom into a region to see detailed national borders; select any approximate location.";
+  // A local copy of Natural Earth 1:10m, generated and committed into this
+  // same GitHub Pages site. The lightweight 110m data remains the fallback.
+  fetch("../location/data/world-10m.json",{cache:"force-cache"})
+    .then(r=>{if(!r.ok)throw Error("High-resolution map unavailable");return r.json()})
+    .then(data=>{
+      if(data.scale!=="Natural Earth 1:10m"||!Array.isArray(data.features)||data.features.length<200)
+        throw Error("Invalid detailed geography dataset");
+      const de=data.features.find(z=>z.id==="DE");
+      const points=de?.polys.reduce((sum,poly)=>sum+poly.reduce((n,ring)=>n+ring.length,0),0)||0;
+      if(points<1000)throw Error("Germany borders are not detailed enough");
+      worldHiRes=data;
+      paint();
+    })
+    .catch(error=>{hiResError=String(error.message||error);paint()});
  }catch(e){$("mapStatus").textContent="Map could not load: "+String(e?.message||e)}
 }
 init();
 
-window.__areaTrial={getState:()=>state.map(s=>({country:s.country,capital:s.capital,location:s.location,point:s.point,radiusKm:s.radiusKm})),getRadius:()=>radiusKm,pointFromCode};
+window.__areaTrial={getState:()=>state.map(s=>({country:s.country,capital:s.capital,location:s.location,point:s.point,radiusKm:s.radiusKm})),getRadius:()=>radiusKm,getHiResStatus:()=>({ready:!!worldHiRes,error:hiResError,features:worldHiRes?.features?.length||0,germanyVertices:worldHiRes?.features?.find(f=>f.id==="DE")?.polys?.reduce((s,p)=>s+p.reduce((n,r)=>n+r.length,0),0)||0}),pointFromCode};

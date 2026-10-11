@@ -76,3 +76,5 @@
 #atlasSection .pinBadge.current circle{fill:#1d4ed8;stroke:#fff}
 #atlasSection .pinBadge text{font:700 12px system-ui;fill:#17406e;dominant-baseline:middle;text-anchor:middle}
 #atlasSection .pinBadge.current text{fill:white}
+
+#atlasSection .atlasResolution{font-size:12px;color:#375d83;font-weight:800;padding:6px 2px 10px}

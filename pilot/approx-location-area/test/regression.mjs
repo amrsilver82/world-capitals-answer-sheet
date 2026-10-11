@@ -14,9 +14,14 @@ async function run(type,mobile){
   await page.goto(URL,{waitUntil:"networkidle"});
   await page.waitForFunction(()=>window.__areaTrial&&document.querySelectorAll("#countries path").length>=177*3,{timeout:20000});
   assert.equal(await page.locator(".card").count(),10);
+  await page.waitForFunction(()=>__areaTrial.getHiResStatus().ready,{timeout:25000});
+  const hires=await page.evaluate(()=>__areaTrial.getHiResStatus());
+  assert.ok(hires.features>=200,"10m country inventory missing: "+JSON.stringify(hires));
+  assert.ok(hires.germanyVertices>=1000,"German border detail missing: "+JSON.stringify(hires));
   assert.equal(await page.locator(".zoneCell").count(),0,"There must be no rigid zone grid");
   await page.locator("#openMap-5").click();
   await page.locator('[data-view="Africa"]').click();
+  assert.match(await page.locator("#mapResolution").innerText(),/1:10m/);
   await tap(page,18,15,mobile);
   const left=await page.evaluate(()=>__areaTrial.getState()[4].point);
   assert.ok(Math.abs(left.lon-18)<1.2&&Math.abs(left.lat-15)<1.2,JSON.stringify(left));
@@ -36,6 +41,7 @@ async function run(type,mobile){
   assert.equal(await page.locator("#map").getAttribute("viewBox"),before);
   await page.locator("#radiusChoice").selectOption("800");
   assert.equal(await page.evaluate(()=>__areaTrial.getRadius()),800);
+  assert.equal(await page.evaluate(()=>__areaTrial.getState()[2].radiusKm),800);
   assert.deepEqual(await page.evaluate(()=>__areaTrial.getState()[0].point),island);
   assert.equal(await page.evaluate(()=>__areaTrial.getState()[2].radiusKm),800);
   await page.locator("#openMap-5").click();
