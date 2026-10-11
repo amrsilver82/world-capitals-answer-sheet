@@ -18,6 +18,28 @@ async function run(type,mobile){
   const hires=await page.evaluate(()=>__areaTrial.getHiResStatus());
   assert.ok(hires.features>=200,"10m country inventory missing: "+JSON.stringify(hires));
   assert.ok(hires.germanyVertices>=1000,"German border detail missing: "+JSON.stringify(hires));
+  const seamCheck=await page.evaluate(()=>{
+    const f=worldHiRes.features.find(x=>x.id==="FJ");
+    let originalCrossings=0,unwrappedLongEdges=0,unwrappedBadClosures=0,maxUnwrapped=0;
+    for(const poly of f.polys)for(const ring of poly){
+      if(ring.length<2)continue;
+      for(let i=1;i<ring.length;i++)if(Math.abs(ring[i][0]-ring[i-1][0])>180)originalCrossings++;
+      const d=path([ring],0);
+      const matches=[...d.matchAll(/[ML](-?[0-9.]+),(-?[0-9.]+)/g)];
+      const points=matches.map(z=>({x:Number(z[1]),y:Number(z[2])}));
+      for(let i=1;i<points.length;i++){
+        const dx=Math.abs(points[i].x-points[i-1].x);
+        maxUnwrapped=Math.max(maxUnwrapped,dx);
+        if(dx>720)unwrappedLongEdges++;
+      }
+      if(points.length>1&&Math.abs(points[0].x-points.at(-1).x)>720)unwrappedBadClosures++;
+    }
+    return {originalCrossings,unwrappedLongEdges,unwrappedBadClosures,maxUnwrapped};
+  });
+  assert.ok(seamCheck.originalCrossings>=4,"Expected real Fiji antimeridian source segments");
+  assert.equal(seamCheck.unwrappedLongEdges,0,"Fiji seam still renders lines across the map: "+JSON.stringify(seamCheck));
+  assert.equal(seamCheck.unwrappedBadClosures,0,"Fiji polygon closure draws a cross-world stripe: "+JSON.stringify(seamCheck));
+  console.log("DATELINE_FIX_PASS "+JSON.stringify(seamCheck));
   const seamAudit=await page.evaluate(()=>{
     const issues=[];
     for(const country of worldHiRes.features) for(const [pi,poly] of country.polys.entries())for(const [ri,ring] of poly.entries()){

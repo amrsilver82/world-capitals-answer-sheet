@@ -80,7 +80,25 @@ function changeRegion(name){
  $("viewLabel").textContent=" · "+name+" view";paint();
 }
 function inside(x,y){return view&&x>=view.x&&x<=view.x+view.w&&y>=view.y&&y<=view.y+view.h}
-function path(poly,shift){return poly.map(ring=>"M"+ring.map(p=>(px(p[0])+shift).toFixed(2)+","+py(p[1]).toFixed(2)).join("L")+"Z").join(" ")}
+// Natural Earth polygons can cross the International Date Line: -180° and
+// +180° are neighboring longitudes, not opposite sides of the planet.
+// Unwrap each SVG ring before projection to prevent long horizontal stripes
+// through Australia/Papua New Guinea from Fiji's 180°-crossing islands.
+function path(poly,shift){
+ return poly.map(ring=>{
+  let last=null,d="";
+  for(const [lon,lat] of ring){
+   let x=lon;
+   if(last!==null){
+    while(x-last>180)x-=360;
+    while(x-last< -180)x+=360;
+   }
+   last=x;
+   d+=(d?"L":"M")+(px(x)+shift).toFixed(2)+","+py(lat).toFixed(2);
+  }
+  return d?d+"Z":"";
+ }).join(" ");
+}
 function representativePoint(iso){
  const f=world?.features.find(z=>z.id===iso)||detail?.features.find(z=>z.id===iso);
  if(!f)return null;
