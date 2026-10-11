@@ -125,10 +125,12 @@ async function testCore(browserType, mobile) {
       const size=await page.locator("#map").boundingBox();
       const diff=await page.evaluate(({cx,cy})=>{
         const svg=document.querySelector("#map");
-        const touch=(id,x,y)=>new Touch({identifier:id,target:svg,clientX:x,clientY:y});
-        const emit=(type,touches,changed)=>svg.dispatchEvent(new TouchEvent(type,{
-          bubbles:true,cancelable:true,touches,targetTouches:touches,changedTouches:changed
-        }));
+        const touch=(id,x,y)=>({identifier:id,clientX:x,clientY:y});
+        const emit=(type,touches,changed)=>{
+          const e=new Event(type,{bubbles:true,cancelable:true});
+          Object.defineProperties(e,{touches:{value:touches},changedTouches:{value:changed}});
+          return svg.dispatchEvent(e);
+        };
         const startW=view.w;
         const a=touch(1,cx-25,cy),b=touch(2,cx+25,cy);
         emit("touchstart",[a,b],[a,b]);
