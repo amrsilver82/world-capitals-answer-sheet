@@ -9,13 +9,13 @@ const $=id=>document.getElementById(id),svg=$("map"),px=lon=>(lon+180)*4,py=lat=
 const STORE="wcg-gridfree-location-area-prototype-v1";
 const ANCHORS=new Map(MARKERS.map(([iso,lat,lon])=>[iso,{lat,lon}]));
 let world=null,detail=null,active=0,view=null,region="World",gesture=null;
-let state=QUESTIONS.map(()=>({country:"",capital:"",location:null,point:null}));
+let state=QUESTIONS.map(()=>({country:"",capital:"",location:null,point:null,radiusKm:500}));
 function esc(s){return String(s??"").replace(/[&<>"]/g,x=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[x]))}
 function node(tag,attrs,cls){const el=document.createElementNS("http://www.w3.org/2000/svg",tag);
  for(const [k,v] of Object.entries(attrs||{}))el.setAttribute(k,String(v));if(cls)el.setAttribute("class",cls);return el}
 function store(){try{localStorage.setItem(STORE,JSON.stringify(state))}catch{}}
 function readStore(){try{const a=JSON.parse(localStorage.getItem(STORE)||"null");if(Array.isArray(a)&&a.length===QUESTIONS.length)state=state.map((s,i)=>({
- country:String(a[i]?.country||""),capital:String(a[i]?.capital||""),location:typeof a[i]?.location==="string"?a[i].location:null,point:Number.isFinite(a[i]?.point?.lat)&&Number.isFinite(a[i]?.point?.lon)?a[i].point:null
+ country:String(a[i]?.country||""),capital:String(a[i]?.capital||""),location:typeof a[i]?.location==="string"?a[i].location:null,point:Number.isFinite(a[i]?.point?.lat)&&Number.isFinite(a[i]?.point?.lon)?a[i].point:null,radiusKm:[300,500,800].includes(a[i]?.radiusKm)?a[i].radiusKm:500
  }))}catch{}}
 function render(){
  $("grid").replaceChildren();
@@ -43,7 +43,7 @@ function status(){
 function refreshActive(){
  $("activeQuestion").textContent="Question "+(active+1);
  for(let i=0;i<10;i++)$("locrow-"+(i+1))?.classList.toggle("active",i===active);
- status();paint();
+ status();radiusKm=state[active].radiusKm;$("radiusChoice").value=String(radiusKm);paint();
 }
 function hide(){$("out").className="out";$("copy").disabled=true}
 function build(){
@@ -52,7 +52,7 @@ function build(){
   const part=[];
   if(s.country.trim())part.push("Country: "+s.country.trim());else blanks.push("Q"+(i+1)+" Country");
   if(s.capital.trim())part.push("Capital: "+s.capital.trim());else blanks.push("Q"+(i+1)+" Capital");
-  if(s.location)part.push("Approximate location: "+s.location);else blanks.push("Q"+(i+1)+" Approximate location");
+  if(s.location){part.push("Approximate location: "+s.location);part.push("Radius: "+s.radiusKm+" km");}else blanks.push("Q"+(i+1)+" Approximate location");
   if(part.length)lines.push((i+1)+". "+part.join(" | "));
  });
  $("reply").textContent=lines.join("\n");
@@ -93,8 +93,8 @@ function representativePoint(iso){
 const EARTH_KM=6371;let radiusKm=500;
 function selectPoint(lon,lat){return {lon:Math.round(normLon(lon)*1000)/1000,lat:Math.round(Math.max(-89.99,Math.min(89.99,lat))*1000)/1000}}
 function pointFromCode(s){const m=/^P:([+-]?[0-9.]+),([+-]?[0-9.]+)$/.exec(s||"");return m?{lon:+m[1],lat:+m[2]}:null}
-function circlePath(p,shift){
- const phi=p.lat*Math.PI/180,lambda=p.lon*Math.PI/180,delta=radiusKm/EARTH_KM;
+function circlePath(p,shift,radius){
+ const phi=p.lat*Math.PI/180,lambda=p.lon*Math.PI/180,delta=radius/EARTH_KM;
  let d="";
  for(let k=0;k<=96;k++){
   const bearing=k*2*Math.PI/96;
@@ -118,7 +118,7 @@ function paint(){
   const p=s.point&&Number.isFinite(s.point.lon)&&Number.isFinite(s.point.lat)?s.point:pointFromCode(s.location);
   if(!p)return;
   for(const shift of [-1440,0,1440]){
-   circles.appendChild(node("path",{d:circlePath(p,shift),"data-question":i+1},"areaCircle"+(i===active?" current":"")));
+   circles.appendChild(node("path",{d:circlePath(p,shift,s.radiusKm||500),"data-question":i+1},"areaCircle"+(i===active?" current":"")));
    const x=px(p.lon)+shift,y=py(p.lat);if(!inside(x,y))continue;
    const badge=node("g",{"data-question":i+1},"pinBadge"+(i===active?" current":""));
    badge.appendChild(node("circle",{cx:x,cy:y,r:11/scale}));
@@ -190,6 +190,7 @@ function chooseAt(e){
  const p=viewPoint(e),point=selectPoint(p.x/4-180,90-p.y/4);
  state[active].location="P:"+point.lon.toFixed(3)+","+point.lat.toFixed(3);
  state[active].point=point;
+ state[active].radiusKm=radiusKm;
  store();status();paint();
  $("mapStatus").textContent="Question "+(active+1)+" — approximate position "+Math.abs(point.lat).toFixed(2)+"°"+(point.lat>=0?"N":"S")+", "+Math.abs(point.lon).toFixed(2)+"°"+(point.lon>=0?"E":"W")+"; circle radius "+radiusKm+" km. Tap again to adjust.";
  hide();
@@ -298,12 +299,12 @@ async function init(){
  $("zoomIn").onclick=()=>zoom(.70);
  $("zoomOut").onclick=()=>zoom(1.43);
  $("resetView").onclick=()=>changeRegion(region);
- $("radiusChoice").onchange=e=>{radiusKm=Number(e.target.value)||500;paint();$("mapStatus").textContent="Visual radius "+radiusKm+" km. Existing location answers unchanged.";};
+ $("radiusChoice").onchange=e=>{radiusKm=Number(e.target.value)||500;state[active].radiusKm=radiusKm;store();paint();$("mapStatus").textContent="Question "+(active+1)+": radius "+radiusKm+" km saved independently. Other question radii unchanged.";};
  $("returnQuestion").onclick=()=>$("card-"+(active+1)).scrollIntoView({behavior:"smooth",block:"center"});
  $("build").onclick=build;
  $("copy").onclick=async()=>{const t=build(),ok=await copy(t);$("note").textContent=(ok?"Copied preview reply. ":"Copy failed — select the text manually. ")+$("note").textContent};
  $("clear").onclick=()=>{if(!confirm("Clear all 30 preview fields? Official results will not change."))return;
-  state=QUESTIONS.map(()=>({country:"",capital:"",location:null,point:null}));store();render();paint();hide()};
+  state=QUESTIONS.map(()=>({country:"",capital:"",location:null,point:null,radiusKm:500}));radiusKm=500;$("radiusChoice").value="500";store();render();paint();hide()};
  $("latest").onclick=()=>{location.reload()};
  window.addEventListener("resize",()=>changeRegion(region));
  try{
@@ -323,4 +324,4 @@ async function init(){
 }
 init();
 
-window.__areaTrial={getState:()=>state.map(s=>({country:s.country,capital:s.capital,location:s.location,point:s.point})),getRadius:()=>radiusKm,pointFromCode};
+window.__areaTrial={getState:()=>state.map(s=>({country:s.country,capital:s.capital,location:s.location,point:s.point,radiusKm:s.radiusKm})),getRadius:()=>radiusKm,pointFromCode};

@@ -37,6 +37,12 @@ async function run(type,mobile){
   await page.locator("#radiusChoice").selectOption("800");
   assert.equal(await page.evaluate(()=>__areaTrial.getRadius()),800);
   assert.deepEqual(await page.evaluate(()=>__areaTrial.getState()[0].point),island);
+  assert.equal(await page.evaluate(()=>__areaTrial.getState()[2].radiusKm),800);
+  await page.locator("#openMap-5").click();
+  assert.equal(await page.locator("#radiusChoice").inputValue(),"500","Chad must keep independent radius");
+  await page.locator("#radiusChoice").selectOption("300");
+  assert.equal(await page.evaluate(()=>__areaTrial.getState()[4].radiusKm),300);
+  assert.equal(await page.evaluate(()=>__areaTrial.getState()[2].radiusKm),800);
   await page.locator("#build").click();
   assert.match(await page.locator("#reply").innerText(),/Approximate location: P:/);
   await page.reload({waitUntil:"networkidle"});
