@@ -100,8 +100,14 @@ async function run(engine,mobile){
    const result=await map.evaluate(svg=>{
     if(typeof Touch!=="function"||typeof TouchEvent!=="function")return{supported:false};
     const rect=svg.getBoundingClientRect(),x=rect.left+rect.width*.5,y=rect.top+rect.height*.5;
-    const make=(id,xx,yy)=>new Touch({identifier:id,target:svg,clientX:xx,clientY:yy});
-    const send=(type,touches,changed)=>svg.dispatchEvent(new TouchEvent(type,{bubbles:true,cancelable:true,touches,targetTouches:touches,changedTouches:changed}));
+    const make=(id,xx,yy)=>({identifier:id,target:svg,clientX:xx,clientY:yy});
+    // WebKit desktop-mode forbids Touch() construction; emit equivalent
+    // touch-coordinate events to verify our gesture logic, not native hardware.
+    const send=(type,touches,changed)=>{
+      const e=new Event(type,{bubbles:true,cancelable:true});
+      Object.defineProperties(e,{touches:{value:touches},targetTouches:{value:touches},changedTouches:{value:changed}});
+      return svg.dispatchEvent(e);
+    };
     const initial=svg.getAttribute("viewBox");
     const a=make(1,x-28,y),b=make(2,x+28,y);
     send("touchstart",[a,b],[a,b]);
