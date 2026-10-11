@@ -45,6 +45,8 @@ async function run(engine){
   assert.match(await p.locator("#question").innerText(),/Nauru/);
  }
  async function oceanTap(p,side,latFraction=.55){
+  await p.locator("#map").evaluate(el=>el.scrollIntoView({block:"center",inline:"center"}));
+  await p.waitForTimeout(100);
   const box=await p.locator("#map").boundingBox();
   assert.ok(box&&box.width>100&&box.height>100);
   const x=box.x+(side==="left"?8:side==="right"?box.width-8:box.width*.55);
@@ -55,7 +57,7 @@ async function run(engine){
   const diagnostics=await p.evaluate(({x,y})=>{
    const e={clientX:x,clientY:y};
    const point=pointerToMap(e);
-   return{selection:document.querySelector("#selectionStatus").textContent,connected,busy,loaded,
+   return{x,y,viewport:[innerWidth,innerHeight],rect:document.querySelector("#map").getBoundingClientRect().toJSON(),selection:document.querySelector("#selectionStatus").textContent,connected,busy,loaded,
     resultVisible:answerReveal,point,inside:inside(point),
     view:{...currentView},onTop:document.elementFromPoint(x,y)?.tagName,
     mode,kind:document.querySelector("#map").viewBox.baseVal.toString()};
