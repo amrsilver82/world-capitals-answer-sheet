@@ -4,6 +4,7 @@ import json,re,math
 from pathlib import Path
 from collections import Counter
 from shapely.geometry import Polygon,MultiPolygon,Point
+from shapely import make_valid
 from shapely.ops import nearest_points
 from pyproj import Geod
 
@@ -38,7 +39,8 @@ def geometry(data):
             if not geom.is_empty and geom.area>0:parts.append(geom)
         except Exception:pass
     if not parts:return None
-    return MultiPolygon(parts) if len(parts)>1 else parts[0]
+    result=MultiPolygon(parts) if len(parts)>1 else parts[0]
+    return make_valid(result) if not result.is_valid else result
 def area_km2(geom):
     shapes=geom.geoms if isinstance(geom,MultiPolygon) else [geom]
     area=0.
