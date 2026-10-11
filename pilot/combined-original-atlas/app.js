@@ -132,16 +132,42 @@ function paint(){
 // Geographic point-inside-polygon test, independent of SVG path/click hitboxes.
 // This is the crucial difference from the experimental side-panel layout.
 function normLon(x){return ((x+180)%360+360)%360-180}
-function inRing(lon,lat,ring){
- let odd=false;
- for(let i=0,j=ring.length-1;i<ring.length;j=i++){
-  const a=ring[i],b=ring[j],ax=lon+normLon(a[0]-lon),bx=lon+normLon(b[0]-lon);
-  if((a[1]>lat)!==(b[1]>lat)){
-   const edgeX=ax+(bx-ax)*(lat-a[1])/(b[1]-a[1]);
-   if(lon<edgeX)odd=!odd;
+// Stable unwrap relative to the actual polygon, never to the clicked longitude.
+// The old code falsely matched India (79 E) to Mexico (-100 W).
+const ringCache=new WeakMap();
+function shapeRing(ring){
+ let cached=ringCache.get(ring);if(cached)return cached;
+ const points=[];
+ let last=null,minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity;
+ for(const [rawX,y] of ring){
+  let x=rawX;
+  if(last!==null){
+   while(x-last>180)x-=360;
+   while(x-last< -180)x+=360;
   }
+  last=x;points.push([x,y]);
+  minX=Math.min(minX,x);maxX=Math.max(maxX,x);
+  minY=Math.min(minY,y);maxY=Math.max(maxY,y);
  }
- return odd;
+ cached={points,minX,maxX,minY,maxY};ringCache.set(ring,cached);
+ return cached;
+}
+function inRing(lon,lat,ring){
+ const {points,minX,maxX,minY,maxY}=shapeRing(ring);
+ if(lat<minY||lat>maxY)return false;
+ for(const x of [lon,lon-360,lon+360]){
+  if(x<minX||x>maxX)continue;
+  let parity=false;
+  for(let i=0,j=points.length-1;i<points.length;j=i++){
+   const a=points[i],b=points[j];
+   if((a[1]>lat)!==(b[1]>lat)){
+    const at=a[0]+(b[0]-a[0])*(lat-a[1])/(b[1]-a[1]);
+    if(x<at)parity=!parity;
+   }
+  }
+  if(parity)return true;
+ }
+ return false;
 }
 function inGeometry(f,lon,lat){
  return f.polys.some(poly=>poly.reduce((v,ring)=>v!==inRing(lon,lat,ring),false));
