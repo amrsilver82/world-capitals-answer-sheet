@@ -102,7 +102,7 @@ async function refereeMode(engine,mobile){
   const context=await browser.newContext(mobile?{viewport:{width:390,height:844},hasTouch:true,isMobile:true,deviceScaleFactor:3}:{viewport:{width:1440,height:900}});
   const page=await context.newPage();
   await page.goto(URL+"?referee=1",{waitUntil:"networkidle"});
-  await page.waitForFunction(()=>window.__areaTrial&&window.REFEREE_PILOT,{timeout:20000});
+  await page.waitForFunction(()=>window.__areaTrial&&REFEREE_PILOT,{timeout:20000});
   assert.equal(await page.locator(".card").count(),10);
   assert.match(await page.locator("#title").innerText(),/Geography Referee/);
   assert.equal(await page.locator("#locationCount").innerText(),"0 / 10 locations selected");
