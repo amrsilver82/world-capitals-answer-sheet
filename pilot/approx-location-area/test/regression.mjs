@@ -114,7 +114,7 @@ async function refereeMode(engine,mobile){
   const code=await page.evaluate(()=>__areaTrial.getState()[0].location);
   assert.match(code,/^P:/);
   await page.locator("#build").click();
-  assert.match(await page.locator("#reply").innerText(),/1\\. Approximate location: P:/);
+  assert.match(await page.locator("#reply").innerText(),/1\. Approximate location: P:/);
   await page.reload({waitUntil:"networkidle"});
   assert.equal(await page.evaluate(()=>__areaTrial.getState()[0].location),code);
   await page.goto(URL,{waitUntil:"networkidle"});
