@@ -9,13 +9,13 @@ const $=id=>document.getElementById(id),svg=$("map"),px=lon=>(lon+180)*4,py=lat=
 const STORE="wcg-combined-original-atlas-prototype-v1";
 const ANCHORS=new Map(MARKERS.map(([iso,lat,lon])=>[iso,{lat,lon}]));
 let world=null,detail=null,active=0,view=null,region="World",gesture=null;
-let state=QUESTIONS.map(()=>({country:"",capital:"",location:null}));
+let state=QUESTIONS.map(()=>({country:"",capital:"",location:null,point:null}));
 function esc(s){return String(s??"").replace(/[&<>"]/g,x=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[x]))}
 function node(tag,attrs,cls){const el=document.createElementNS("http://www.w3.org/2000/svg",tag);
  for(const [k,v] of Object.entries(attrs||{}))el.setAttribute(k,String(v));if(cls)el.setAttribute("class",cls);return el}
 function store(){try{localStorage.setItem(STORE,JSON.stringify(state))}catch{}}
 function readStore(){try{const a=JSON.parse(localStorage.getItem(STORE)||"null");if(Array.isArray(a)&&a.length===QUESTIONS.length)state=state.map((s,i)=>({
- country:String(a[i]?.country||""),capital:String(a[i]?.capital||""),location:typeof a[i]?.location==="string"?a[i].location:null
+ country:String(a[i]?.country||""),capital:String(a[i]?.capital||""),location:typeof a[i]?.location==="string"?a[i].location:null,point:Number.isFinite(a[i]?.point?.lat)&&Number.isFinite(a[i]?.point?.lon)?a[i].point:null
  }))}catch{}}
 function render(){
  $("grid").replaceChildren();
@@ -81,15 +81,24 @@ function changeRegion(name){
 }
 function inside(x,y){return view&&x>=view.x&&x<=view.x+view.w&&y>=view.y&&y<=view.y+view.h}
 function path(poly,shift){return poly.map(ring=>"M"+ring.map(p=>(px(p[0])+shift).toFixed(2)+","+py(p[1]).toFixed(2)).join("L")+"Z").join(" ")}
+function representativePoint(iso){
+ const f=world?.features.find(z=>z.id===iso)||detail?.features.find(z=>z.id===iso);
+ if(!f)return null;
+ const rings=f.polys.flatMap(poly=>poly);
+ const ring=rings.reduce((a,b)=>b.length>a.length?b:a,[]);
+ if(!ring.length)return null;
+ return {lon:ring.reduce((sum,p)=>sum+p[0],0)/ring.length,lat:ring.reduce((sum,p)=>sum+p[1],0)/ring.length};
+}
 function paint(){
  if(!view)return;
  svg.setAttribute("viewBox",[view.x,view.y,view.w,view.h].join(" "));
- const land=$("countries"),dots=$("marks");land.replaceChildren();dots.replaceChildren();
+ const land=$("countries"),dots=$("marks"),labels=$("choiceBadges");land.replaceChildren();dots.replaceChildren();labels.replaceChildren();
  if(!world)return;
  const extras=detail.features.filter(d=>!world.features.some(w=>w.id===d.id));
  for(const f of [...world.features,...extras]){
   for(const shift of [-1440,0,1440]){
-   const p=node("path",{d:f.polys.map(poly=>path(poly,shift)).join(" "), "data-iso":f.id},"country"+(state[active].location===f.id?" targetSelected":""));
+   const chosen=state.some(q=>q.location===f.id);
+   const p=node("path",{d:f.polys.map(poly=>path(poly,shift)).join(" "), "data-iso":f.id},"country"+(chosen?" selectedEarlier":"")+(state[active].location===f.id?" targetSelected":""));
    land.appendChild(p);
   }
  }
@@ -97,9 +106,28 @@ function paint(){
  const radius=Math.max(3.3,Math.min(22,10/scale));
  for(const [iso,lat,lon] of MARKERS)for(const shift of [-1440,0,1440]){
   const x=px(lon)+shift,y=py(lat);if(!inside(x,y))continue;
-  const g=node("g",{"data-iso":iso},"mark"+(state[active].location===iso?" current":""));
+  const chosen=state.some(q=>q.location===iso);
+  const g=node("g",{"data-iso":iso},"mark"+(chosen?" selectedEarlier":"")+(state[active].location===iso?" current":""));
   g.appendChild(node("circle",{cx:x,cy:y,r:radius}));dots.appendChild(g);
  }
+ // Numbered visual memory for all questions, never exposing country names.
+ const labelScale=Math.max(.001,mapSize().w/view.w);
+ const sameCountry=new Map();
+ state.forEach((answer,i)=>{
+  if(!answer.location)return;
+  const at=answer.point||ANCHORS.get(answer.location)||representativePoint(answer.location);
+  if(!at)return;
+  const overlap=sameCountry.get(answer.location)||0;
+  sameCountry.set(answer.location,overlap+1);
+  for(const shift of [-1440,0,1440]){
+   const off=overlap*20/labelScale,x=px(at.lon)+shift+off,y=py(at.lat)-off;
+   if(!inside(x,y))continue;
+   const g=node("g",{"data-question":i+1,"data-country-selection":answer.location},"answerBadge"+(i===active?" active":""));
+   g.appendChild(node("circle",{cx:x,cy:y,r:11/labelScale}));
+   const t=node("text",{x,y:y+3.7/labelScale,"text-anchor":"middle","font-size":10/labelScale});
+   t.textContent=String(i+1);g.appendChild(t);labels.appendChild(g);
+  }
+ });
 }
 // Geographic point-inside-polygon test, independent of SVG path/click hitboxes.
 // This is the crucial difference from the experimental side-panel layout.
@@ -147,8 +175,11 @@ function chooseAt(e){
   $("mapStatus").textContent="No mapped country at that point. Select land, or a neutral marker for a tiny island.";
   return;
  }
- state[active].location=candidate;store();status();paint();
- $("mapStatus").textContent="Question "+(active+1)+": location selected. You may select another location to change it.";
+ const alsoUsed=state.map((q,i)=>q.location===candidate&&i!==active?i+1:null).filter(Boolean);
+ state[active].location=candidate;
+ state[active].point=ANCHORS.get(candidate)||{lon,lat};
+ store();status();paint();
+ $("mapStatus").textContent="Question "+(active+1)+": one location selected."+(alsoUsed.length?" Already selected for Q"+alsoUsed.join(", Q")+".":"")+" Tap again to change it.";
  hide();
 }
 function zoom(f,p){
@@ -255,7 +286,7 @@ async function init(){
  $("build").onclick=build;
  $("copy").onclick=async()=>{const t=build(),ok=await copy(t);$("note").textContent=(ok?"Copied preview reply. ":"Copy failed — select the text manually. ")+$("note").textContent};
  $("clear").onclick=()=>{if(!confirm("Clear all 30 preview fields? Official results will not change."))return;
-  state=QUESTIONS.map(()=>({country:"",capital:"",location:null}));store();render();paint();hide()};
+  state=QUESTIONS.map(()=>({country:"",capital:"",location:null,point:null}));store();render();paint();hide()};
  $("latest").onclick=()=>{location.reload()};
  window.addEventListener("resize",()=>changeRegion(region));
  try{
