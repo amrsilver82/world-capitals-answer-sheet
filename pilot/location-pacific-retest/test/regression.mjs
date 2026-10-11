@@ -41,6 +41,7 @@ async function run(engine){
   await p.locator("#rememberToken").check();
   await p.locator("#connectBtn").click();
   await p.waitForFunction(()=>document.querySelector("#authStatus").textContent.includes("Connected"));
+  await p.waitForFunction(()=>!document.querySelector("#connectBtn").disabled);
   assert.match(await p.locator("#question").innerText(),/Nauru/);
  }
  async function oceanTap(p,side,latFraction=.55){
@@ -50,7 +51,18 @@ async function run(engine){
   const y=box.y+box.height*latFraction;
   if((await p.evaluate(()=>window.matchMedia("(pointer:coarse)").matches)))await p.touchscreen.tap(x,y);
   else await p.mouse.click(x,y);
-  await p.waitForFunction(()=>document.querySelector("#selectionStatus").textContent.includes("Your pin is placed"));
+  await p.waitForTimeout(200);
+  const diagnostics=await p.evaluate(({x,y})=>{
+   const e={clientX:x,clientY:y};
+   const point=pointerToMap(e);
+   return{selection:document.querySelector("#selectionStatus").textContent,connected,busy,loaded,
+    resultVisible:answerReveal,point,inside:inside(point),
+    view:{...currentView},onTop:document.elementFromPoint(x,y)?.tagName,
+    mode,kind:document.querySelector("#map").viewBox.baseVal.toString()};
+  },{x,y});
+  if(!diagnostics.selection.includes("Your pin is placed"))
+   throw new Error("Ocean edge tap missed: "+JSON.stringify(diagnostics));
+  
   assert.equal(await p.locator("#submitBtn").isEnabled(),true);
   return{x,y,box};
  }
