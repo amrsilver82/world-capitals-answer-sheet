@@ -1,0 +1,13 @@
+# Original Combined V2 quiz + shared atlas: exact-template prototype
+
+User demanded the complete former **Combined Flags + Capitals** presentation, not a redesign. This prototype copies the original CSS directly from `combined-v2.html` (same fonts, colors, two-column card grid, 420px flag, Monaco 5:4 override, Country and Capital textboxes, Build my reply/Copy reply/Clear/reload UI). Only a small additional location-status row per existing card and **one shared atlas section below the complete grid** were added. No second web page is required, including on mobile.
+
+Public URL: `https://amrsilver82.github.io/world-capitals-answer-sheet/pilot/combined-original-atlas/`
+
+Ten pilot flags: Tuvalu, Monaco, Japan, Fiji, Chad, Grenada, Bhutan, Nauru, Kiribati, Germany; previously published canonical Edition 3 assets. Country and Capital fields remain independent; Location is a third independent action for each card. Entries save locally by a demo-specific key (not authoritative), and Build my reply includes three parts.
+
+**Large-country click root cause and remediation:** earlier atlas used SVG path click listeners while drag-to-pan dynamically removed/repainted paths on pointer movement, which could cancel click targets; the revised input handles *pointerup on the stable SVG root*, computes map coordinates, then uses polygon ray-casting against Natural Earth data. It does not depend on SVG path event delivery. Microstate markers are resolved by an equal 13 CSS pixel click radius around each anchor, then normal land polygon resolution is attempted. Pan uses a 7-pixel motion threshold. Country names aren't shown during map selection; user selects world region manually.
+
+Scope and exclusions: entirely **unscored experimental** test, no official quiz transactions, no new edition, no GitHub Issue event writes, no modification of existing active/resolved rounds or previous prototypes. Existing 177 world polygons + 15 detailed target shapes + neutral sample markers are NOT yet certified to fully cover the official 195 countries. All map keys are static public trial code, not future private scoring. Mobile browser simulation is not real iPhone or iPad acceptance.
+
+Critical regression checklist: click Japan/Chad/Germany inside land on PC and WebKit mobile simulation (including Chad on world view), small Tuvalu dot, Monaco flag ratio, original stylesheet parity, copy/build reply, independent fields.

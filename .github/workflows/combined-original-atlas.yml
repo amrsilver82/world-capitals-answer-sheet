@@ -1,0 +1,28 @@
+name: Original Combined Quiz Plus Atlas Regression
+on:
+  push:
+    paths:
+      - 'pilot/combined-original-atlas/**'
+      - '.github/workflows/combined-original-atlas.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chromium and WebKit
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium webkit
+      - name: Start test server
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/wcg-atlas.log 2>&1 &
+          sleep 2
+      - name: Verify original style and country click interaction
+        run: node pilot/combined-original-atlas/test/regression.mjs
