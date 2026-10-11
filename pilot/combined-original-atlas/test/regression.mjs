@@ -70,6 +70,59 @@ async function run(engine,mobile){
   await page.locator("#build").click();
   assert.match(await page.locator("#reply").innerText(),/3\. Country: japan \| Capital: tokyo \| Location: JP/);
   assert.match(await page.locator("#reply").innerText(),/5\. Location: TD/);
+  // Official country-code inventory: 173 shapes and 22 fixed markers.
+  const coverage=await page.evaluate(()=>window.__atlasCoverage);
+  assert.equal(coverage.count,195);
+  assert.equal(coverage.uncovered.length,0);
+  assert.equal(coverage.polygonCount,173);
+  assert.equal(coverage.markerOnly.length,22);
+  await page.locator('button[data-view="World"]').click();
+  await map.scrollIntoViewIfNeeded();
+  const badges=await page.locator("#choiceBadges .answerBadge").evaluateAll(a=>[...new Set(a.map(e=>e.getAttribute("data-question")))].sort());
+  assert.deepEqual(badges,["1","10","3","5"],"Previously selected locations must remain visible and numbered.");
+  assert.equal(await page.locator('#country-7').inputValue(),"");
+  await page.locator('#openMap-7').click();
+  await page.locator('button[data-view="Asia"]').click();
+  await map.scrollIntoViewIfNeeded();
+  // India and Myanmar clicks must update one question, not both territories.
+  const insideCheck=await page.evaluate(()=>[countryAt(79,22),countryAt(96,20)]);
+  assert.deepEqual(insideCheck,["IN","MM"]);
+  const india=await interior(page,79,22);await tap(page,india.x,india.y,mobile);
+  assert.equal(await page.evaluate(()=>state[6].location),"IN");
+  const myanmar=await interior(page,96,20);await tap(page,myanmar.x,myanmar.y,mobile);
+  assert.equal(await page.evaluate(()=>state[6].location),"MM");
+  assert.equal(await page.locator('#countries .country[data-iso="IN"].selectedEarlier').count(),0,"Changing Q7 must remove India highlighting.");
+  const chosen=await page.evaluate(()=>state.map(q=>q.location));
+  assert.equal(chosen.filter(Boolean).length,5,"One tap may only assign the active question.");
+  assert.equal(chosen[2],"JP");assert.equal(chosen[4],"TD");
+  if(mobile){
+   // Exercise real two-touch handlers via synthetic Touch Events in WebKit.
+   const result=await map.evaluate(svg=>{
+    if(typeof Touch!=="function"||typeof TouchEvent!=="function")return{supported:false};
+    const rect=svg.getBoundingClientRect(),x=rect.left+rect.width*.5,y=rect.top+rect.height*.5;
+    const make=(id,xx,yy)=>new Touch({identifier:id,target:svg,clientX:xx,clientY:yy});
+    const send=(type,touches,changed)=>svg.dispatchEvent(new TouchEvent(type,{bubbles:true,cancelable:true,touches,targetTouches:touches,changedTouches:changed}));
+    const initial=svg.getAttribute("viewBox");
+    const a=make(1,x-28,y),b=make(2,x+28,y);
+    send("touchstart",[a,b],[a,b]);
+    const a2=make(1,x-73,y),b2=make(2,x+73,y);
+    send("touchmove",[a2,b2],[a2,b2]);
+    send("touchend",[],[a2,b2]);
+    return {supported:true,before:initial,after:svg.getAttribute("viewBox")};
+   });
+   assert.ok(result.supported,"Mobile WebKit Touch Events unavailable");
+   assert.notEqual(result.before,result.after,"Two-finger pinch must change map scale");
+   assert.equal(await page.evaluate(()=>state[6].location),"MM","Pinch must NOT record another country");
+  }else{
+   await map.scrollIntoViewIfNeeded();
+   const beforeWheel=(await map.getAttribute("viewBox")).split(" ").map(Number);
+   const rect=await map.boundingBox();
+   await page.mouse.move(rect.x+rect.width*.5,rect.y+rect.height*.5);
+   await page.mouse.wheel(0,-120);await page.waitForTimeout(150);
+   const afterWheel=(await map.getAttribute("viewBox")).split(" ").map(Number);
+   const ratio=afterWheel[2]/beforeWheel[2];
+   assert.ok(ratio>.82&&ratio<.99,"One ordinary mouse wheel step should zoom moderately: "+ratio);
+  }
   assert.equal(errors.length,0,errors.join("; "));
   console.log("PASS "+engine.name()+" "+(mobile?"mobile simulation":"desktop")+": exact original combined style, large Monaco ratio, Japan/Chad/Germany land-click, Chad world-click, Tuvalu tiny marker, independent answers, original Build my reply.");
  }finally{await browser.close()}
