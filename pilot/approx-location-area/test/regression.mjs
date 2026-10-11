@@ -29,7 +29,8 @@ async function run(type,mobile){
   await tap(page,167,-.52,mobile);
   const island=await page.evaluate(()=>__areaTrial.getState()[0].point);
   assert.ok(Math.abs(island.lon-167)<1.2&&Math.abs(island.lat+.52)<1.2);
-  assert.ok(await page.locator("#choiceBadges .pinBadge").count()>=2);
+  await page.locator('[data-view="World"]').click();
+  assert.ok(await page.locator("#choiceBadges .pinBadge").count()>=2,"Both prior pins should be visible in shared world viewport");
   const before=await page.locator("#map").getAttribute("viewBox");
   await page.locator("#openMap-3").click();
   assert.equal(await page.locator("#map").getAttribute("viewBox"),before);
