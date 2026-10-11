@@ -220,4 +220,60 @@ async function init(){
   const saved=keySaved();if(saved){$("remember").checked=true;await connect(saved)}
  }catch(e){$("choiceStatus").textContent="Map unavailable: "+escapeErr(e)}
 }
+
+/* Desktop wheel zoom, pointer drag-to-pan and cursor-anchored zoom. Manual navigation only. */
+let mapGesture=null, suppressMapClickUntil=0;
+function clampMap(v){
+ const w=Math.max(12,Math.min(1600,v.w)),h=Math.max(8,Math.min(720,v.h));
+ return {x:Math.max(-1440,Math.min(2880-w,v.x)),y:Math.max(0,Math.min(720-h,v.y)),w,h};
+}
+function pointFromPointer(e){
+ const m=svg.getScreenCTM();
+ if(m&&svg.createSVGPoint){const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;
+ const q=p.matrixTransform(m.inverse());return {x:q.x,y:q.y}}
+ const r=svg.getBoundingClientRect();return{x:view.x+(e.clientX-r.x)/r.width*view.w,y:view.y+(e.clientY-r.y)/r.height*view.h}
+}
+function zoomOn(factor,x,y){
+ if(!view)return;
+ const anchor=x===undefined?{x:view.x+view.w/2,y:view.y+view.h/2}:{x,y};
+ const nw=Math.max(12,Math.min(1600,view.w*factor));
+ const nh=Math.max(8,Math.min(720,view.h*factor));
+ const dx=(anchor.x-view.x)/view.w,dy=(anchor.y-view.y)/view.h;
+ view=clampMap({x:anchor.x-dx*nw,y:anchor.y-dy*nh,w:nw,h:nh});draw()
+}
+svg.addEventListener("wheel",e=>{
+ if(!view)return;e.preventDefault();
+ const p=pointFromPointer(e);zoomOn(e.deltaY<0?0.79:1.27,p.x,p.y);
+},{passive:false});
+svg.addEventListener("pointerdown",e=>{
+ if(e.button!==0||!view)return;
+ mapGesture={pointer:e.pointerId,startX:e.clientX,startY:e.clientY,origin:{...view},dragging:false};
+});
+svg.addEventListener("pointermove",e=>{
+ if(!mapGesture||e.pointerId!==mapGesture.pointer)return;
+ const dx=e.clientX-mapGesture.startX,dy=e.clientY-mapGesture.startY;
+ if(!mapGesture.dragging&&Math.hypot(dx,dy)>5){
+  mapGesture.dragging=true;
+  try{svg.setPointerCapture(e.pointerId)}catch(_){}
+ }
+ if(mapGesture.dragging){
+  const b=svg.getBoundingClientRect();
+  view=clampMap({...mapGesture.origin,
+   x:mapGesture.origin.x-dx*mapGesture.origin.w/b.width,
+   y:mapGesture.origin.y-dy*mapGesture.origin.h/b.height
+  });draw();
+ }
+});
+function endMapGesture(e){
+ if(!mapGesture||e.pointerId!==mapGesture.pointer)return;
+ if(mapGesture.dragging)suppressMapClickUntil=performance.now()+400;
+ if(svg.hasPointerCapture(e.pointerId))svg.releasePointerCapture(e.pointerId);
+ mapGesture=null;
+}
+svg.addEventListener("pointerup",endMapGesture);
+svg.addEventListener("pointercancel",endMapGesture);
+svg.addEventListener("click",e=>{
+ if(performance.now()<suppressMapClickUntil){e.preventDefault();e.stopImmediatePropagation()}
+},true);
+
 init();

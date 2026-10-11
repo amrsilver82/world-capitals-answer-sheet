@@ -1,0 +1,34 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b2442">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>10-Country Connected Atlas — Layout Preview</title>
+<link rel="stylesheet" href="style.css?v=1"><script defer src="app.js?v=1"></script></head>
+<body><div class="shell">
+<header class="mast">
+ <div><div class="overline">World Capitals Game · Design Lab</div><h1>Connected World Championship</h1><p>Ten flags, ten capitals, ten locations — <strong>one shared atlas</strong>.</p></div>
+ <div class="header-right"><span class="demo-tag">LAYOUT PREVIEW · UNSCORED</span><div class="counts"><strong id="completeCount">0</strong><span>/ 10 location selections</span></div></div>
+</header>
+<div class="sequence"><span>① Flag</span><b>→</b><span>② Country</span><b>→</b><span>③ Capital</span><b>→</b><span>④ Atlas location</span></div>
+<div class="intro">This is a working <strong>design preview</strong>, not an official round. All ten questions share the atlas on the right. You can switch countries, change region, zoom with your mouse wheel, drag the map, and return to any answer. No answers or scores are written to GitHub in this layout-only preview.</div>
+<div class="workspace">
+<section class="questions">
+ <div class="qhead"><div><h2>Questions 1–10</h2><small>Tap a card to make its map selection active</small></div><button id="resetDemo" type="button">Reset preview</button></div>
+ <div id="questionList" class="question-list"></div>
+ <div class="qfooter"><p>You can browse the entire atlas without submitting any answers. Use <strong>Preview review layout</strong> to inspect how a finished batch would appear.</p><button id="showReview" type="button" class="primary">Preview review layout →</button></div>
+</section>
+<section class="atlas-holder">
+ <div class="atlas-head"><div><div class="overline">ONE MAP FOR ALL TEN</div><h2>Shared interactive atlas</h2><p id="activeStatus">Question 1 selected · enter Country + Capital first</p></div><span class="pill">Anonymous markers</span></div>
+ <div class="view-buttons" id="regions" role="group" aria-label="Select map region">
+ <button data-region="World" aria-pressed="true">🌍 World</button><button data-region="Europe" aria-pressed="false">Europe</button><button data-region="Caribbean" aria-pressed="false">Caribbean</button><button data-region="Pacific" aria-pressed="false">Pacific</button><button data-region="Africa" aria-pressed="false">Africa</button><button data-region="Asia" aria-pressed="false">Asia</button>
+ </div>
+ <div class="maptools"><div><strong id="viewLabel">World view</strong><span id="zoomHint">Scroll to zoom · Drag to pan</span></div><div class="zoom-buttons"><button id="zoomIn" aria-label="Zoom in" type="button">+</button><button id="zoomOut" aria-label="Zoom out" type="button">−</button><button id="resetMap" type="button">Reset view</button></div></div>
+ <div class="mapwrap"><svg id="map" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Unlabeled country-location map. Click country outlines or neutral island markers. Scroll to zoom and drag to pan.">
+ <rect x="-1440" y="0" width="4320" height="720" fill="#d8edfa"/><g id="land"></g><g id="micro"></g><g id="selection"></g></svg></div>
+ <div class="map-status"><span id="mapStatus" role="status">The atlas starts with a world view. Choose any region yourself; it never jumps to the answer.</span></div>
+ <div class="map-help"><strong>How ten countries share this atlas:</strong> Select a question on the left. Enter its country and capital. Choose a marker or country outline on this map; that choice is attached only to the selected question. Switch to another question and the map stays where you left it. Neutral markers do not reveal country names.</div>
+ <div class="map-footer"><span><b>Note:</b> Map reference = 177 large-country outlines + 15 detailed shapes; marker sample is <em>not yet full-195 certified</em>.</span></div>
+</section>
+</div>
+<section class="review" id="review" hidden><div class="review-head"><div><div class="overline">PROPOSED BATCH REPORT</div><h2>Review layout for ten countries</h2><p>Answers are shown only after you request this preview. Unattempted items are marked as such, not wrong.</p></div><button id="hideReview">Back to the questions</button></div><div id="reviewRows" class="review-rows"></div><p class="review-note">Illustrative three-part checking is browser-only. This preview is deliberately not an official score, and incomplete entries carry no penalty.</p></section>
+</div></body></html>
