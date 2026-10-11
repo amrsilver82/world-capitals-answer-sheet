@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0c1c35">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://api.github.com; base-uri 'none'; object-src 'none'; form-action 'none'">
+<title>Connected World Championship — One Country Demo</title>
+<link rel="stylesheet" href="style.css?v=1">
+<script defer src="app.js?v=1"></script>
+</head>
+<body>
+<div class="shell">
+<header class="header">
+ <div class="brand"><div class="brand-icon">🌐</div><div><strong>World Capitals Game</strong><small>Connected Championship · one-country interactive prototype</small></div></div>
+ <span class="badge">UNSCORED DESIGN PILOT · 1 COUNTRY</span>
+</header>
+<nav class="steps" aria-label="Challenge progression">
+ <span>① Flag</span><span class="arrow">→</span><span>② Country</span><span class="arrow">→</span><span>③ Capital</span><span class="arrow">→</span><span>④ Location</span>
+</nav>
+<div class="layout">
+<aside class="left">
+ <section class="panel" id="questionPanel">
+  <div class="eyebrow">QUESTION 1 OF 1 <span class="pill">Connected challenge</span></div>
+  <h1>One flag. Three answers.</h1>
+  <p class="muted">Recognize the flag, enter its country and capital, then find the same country on the atlas.</p>
+  <div class="flagframe"><img id="flag" src="../../flags/canonical/675210ec5524.svg" alt="Flag to identify — country not revealed" decoding="async"></div>
+  <form id="answerForm" autocomplete="off">
+   <label for="country">Country</label><input id="country" name="country" placeholder="Type the country's name" spellcheck="false" required>
+   <label for="capital">Capital</label><input id="capital" name="capital" placeholder="Type the capital" spellcheck="false" required>
+   <button class="primary" id="continueBtn" type="submit">Continue to atlas <span aria-hidden="true">→</span></button>
+  </form>
+  <div id="atlasPrompt" hidden>
+   <h2>Find the same country</h2>
+   <p class="muted">Choose a region yourself, then select one anonymous marker or a country outline. We will not zoom to the answer or reveal a label.</p>
+   <div class="readback"><span id="typedCountry"></span><span id="typedCapital"></span></div>
+   <button id="editBtn" class="subtle">Edit written answers</button>
+   <button id="submitBtn" class="primary" disabled>Reveal my three results</button>
+  </div>
+  <div id="report" hidden aria-live="polite"><h2 id="scoreHeading">Prototype review</h2><div id="results" class="results"></div><p class="muted">This is a design test only. No official results or cumulative scores are changed.</p><button id="restartBtn" class="subtle">Try the same demo again</button></div>
+ </section>
+ <section class="panel compact">
+  <h2>Private GitHub pilot log <span id="authStatus" class="pill">Optional</span></h2>
+  <p class="small muted">You can play immediately without connecting. To save a completed practice attempt across devices, use the existing repository-restricted GitHub Issues token. Never paste it in ChatGPT.</p>
+  <div id="authForm"><label for="pat">GitHub token</label><input id="pat" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…"><label class="remember"><input type="checkbox" id="remember"> Remember on this personal browser</label><button id="connect" class="subtle">Connect GitHub</button></div>
+  <div class="inline"><button id="disconnect" class="subtle" hidden>Disconnect</button><button id="refreshHistory" class="subtle" hidden>Refresh history</button></div>
+  <p id="syncStatus" class="small muted" role="status">Optional synchronization: private Issue #4. Previous pilots and official results are untouched.</p>
+ </section>
+</aside>
+<main class="right">
+<section class="panel atlas">
+ <div class="atlas-title"><div><div class="eyebrow">THE LOCATION CHALLENGE</div><h2>Choose its real-world position</h2></div><span id="atlasState" class="pill">Finish written answers first</span></div>
+ <div class="notice">The atlas never automatically opens the correct region. Small countries have equally sized neutral markers, including non-target countries.</div>
+ <div class="regions" id="regions" role="group" aria-label="Choose geographic region">
+  <button type="button" data-region="World" aria-pressed="true">🌍 World</button>
+  <button type="button" data-region="Europe" aria-pressed="false">Europe</button>
+  <button type="button" data-region="Caribbean" aria-pressed="false">Caribbean</button>
+  <button type="button" data-region="Pacific" aria-pressed="false">Pacific</button>
+ </div>
+ <div class="map-toolbar"><span id="viewLabel">World view</span><div><button id="zoomIn" aria-label="Zoom in" type="button">+</button><button id="zoomOut" aria-label="Zoom out" type="button">−</button><button id="resetMap" type="button">Reset view</button></div></div>
+ <div class="map-wrap"><svg id="map" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Unlabeled interactive world map with neutral country markers" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1440 720">
+  <rect x="-1440" y="0" width="4320" height="720" fill="#d9eefa"></rect><g id="land"></g><g id="micro"></g><g id="selected"></g>
+ </svg></div>
+ <div class="map-foot"><span id="choiceStatus" role="status">Enter country and capital to unlock location selection.</span><span class="small">Markers are not labeled before evaluation</span></div>
+</section>
+<section class="panel footer-notes"><strong>What this prototype tests:</strong> whether a country-to-location question is enjoyable and fair even when islands are invisible at world scale. The map currently uses the existing 177-country reference dataset plus selected detailed islands/neutral markers; it is <strong>not yet certified for all 195 countries</strong>. This is one interactive question, not a new official edition.</section>
+</main>
+</div>
+</div>
+</body></html>
