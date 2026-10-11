@@ -139,6 +139,7 @@ function chooseAt(e){
   if(inside(x,y)&&d<rad&&d<dist){candidate=iso;dist=d}
  }
  const lon=normLon(p.x/4-180),lat=90-p.y/4;
+ window.__atlasLastPoint={eventType:e.type||"touch",clientX:e.clientX,clientY:e.clientY,point:p,lon,lat,country:countryAt(lon,lat),viewport:view,rect:svg.getBoundingClientRect().toJSON()};
  if(!candidate)candidate=countryAt(lon,lat);
  if(!candidate){
   $("mapStatus").textContent="No mapped country at that point. Select land, or a neutral marker for a tiny island.";

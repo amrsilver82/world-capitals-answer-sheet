@@ -46,7 +46,7 @@ async function run(engine,mobile){
    const g=await interior(page,c.lon,c.lat);
    await tap(page,g.x,g.y,mobile);
    const result=await page.evaluate(q=>state[q-1].location,c.q);
-   assert.equal(result,c.iso,"Land polygon click must record "+c.iso+" for Q"+c.q+"; "+JSON.stringify(await page.evaluate(()=>({gesture,active,mapStatus:document.querySelector("#mapStatus").textContent,view,hasWorld:!!world,clickPoint:countryAt(138.5,37.5)}))));
+   assert.equal(result,c.iso,"Land polygon click must record "+c.iso+" for Q"+c.q+"; "+JSON.stringify(await page.evaluate(()=>({gesture,active,mapStatus:document.querySelector("#mapStatus").textContent,view,hasWorld:!!world,clickPoint:countryAt(138.5,37.5),last:window.__atlasLastPoint}))));
    assert.match(await page.locator("#mapStatus").innerText(),/location selected/i);
   }
   // Check world-scale Chad tap independently of zoom via same selected Q5.
