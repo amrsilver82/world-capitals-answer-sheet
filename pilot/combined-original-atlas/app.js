@@ -174,7 +174,9 @@ function inGeometry(f,lon,lat){
 }
 function countryAt(lon,lat){
  if(!world||!detail)return null;
- // Detailed polygons where the 110m background has no country; normal countries first.
+ // 110m land polygons cover Vatican, San Marino and Monaco with their host
+ // country. More precise microstate outlines must take priority inside them.
+ for(const f of detail.features)if(["MC","VA","SM"].includes(f.id)&&inGeometry(f,lon,lat))return f.id;
  for(const f of world.features)if(inGeometry(f,lon,lat))return f.id;
  for(const f of detail.features)if(inGeometry(f,lon,lat))return f.id;
  return null;
