@@ -156,54 +156,92 @@ function zoom(f,p){
  const fx=(a.x-view.x)/view.w,fy=(a.y-view.y)/view.h;
  view=clamp({x:a.x-fx*w,y:a.y-fy*h,w,h});paint();
 }
-// PointerUP selection is deliberate. Redrawing SVG land during pointermove
-// used to cancel browser click events on large country outlines. Some WebKit
-// mobile configurations deliver touch/click without a matching pointerup;
-// support those paths as well, with a short duplicate suppression window.
-let lastSelectionTime=0,touchStart=null;
-function chooseOnce(evt){
- if(performance.now()-lastSelectionTime<240)return;
- lastSelectionTime=performance.now();chooseAt(evt);
+// All clicks select at most one location. Touch pinch never selects a country.
+let lastSelectionTime=0,gesture=null,touchGesture=null,lastTouchAt=-1e5;
+function chooseOnce(e){
+ if(performance.now()-lastSelectionTime<250)return;
+ lastSelectionTime=performance.now();chooseAt(e);
+}
+function twoTouches(t){
+ const a=t[0],b=t[1];
+ return {x:(a.clientX+b.clientX)/2,y:(a.clientY+b.clientY)/2,
+ dist:Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY)};
+}
+function panBy(dx,dy){
+ const matrix=svg.getScreenCTM(),scaleX=Math.abs(matrix?.a)||mapSize().w/view.w,scaleY=Math.abs(matrix?.d)||mapSize().h/view.h;
+ view=clamp({...view,x:view.x-dx/scaleX,y:view.y-dy/scaleY});paint();
 }
 svg.addEventListener("touchstart",e=>{
- if(e.touches.length===1)touchStart={x:e.touches[0].clientX,y:e.touches[0].clientY};
- else touchStart=null;
-},{passive:true});
+ lastTouchAt=performance.now();
+ if(e.touches.length>=2){
+  touchGesture={mode:"pinch",last:twoTouches(e.touches)};
+ }else if(e.touches.length===1&&(!touchGesture||touchGesture.mode!=="ignored")){
+  const t=e.touches[0];
+  touchGesture={mode:"single",startX:t.clientX,startY:t.clientY,prevX:t.clientX,prevY:t.clientY,moved:false};
+ }
+ if(e.cancelable)e.preventDefault();
+},{passive:false});
+svg.addEventListener("touchmove",e=>{
+ if(!view||!touchGesture)return;
+ if(e.cancelable)e.preventDefault();
+ if(e.touches.length>=2){
+  const now=twoTouches(e.touches);
+  if(touchGesture.mode!=="pinch"){touchGesture={mode:"pinch",last:now};return}
+  const before=touchGesture.last;
+  const anchor=viewPoint({clientX:before.x,clientY:before.y});
+  zoom(Math.max(.72,Math.min(1.38,before.dist/Math.max(1,now.dist))),anchor);
+  panBy(now.x-before.x,now.y-before.y);
+  touchGesture.last=now;
+ }else if(e.touches.length===1&&touchGesture.mode==="single"){
+  const t=e.touches[0];
+  if(Math.hypot(t.clientX-touchGesture.startX,t.clientY-touchGesture.startY)>7)touchGesture.moved=true;
+  if(touchGesture.moved)panBy(t.clientX-touchGesture.prevX,t.clientY-touchGesture.prevY);
+  touchGesture.prevX=t.clientX;touchGesture.prevY=t.clientY;
+ }
+},{passive:false});
 svg.addEventListener("touchend",e=>{
- if(!touchStart||e.changedTouches.length!==1){touchStart=null;return}
- const t=e.changedTouches[0],d=Math.hypot(t.clientX-touchStart.x,t.clientY-touchStart.y);
- touchStart=null;if(d<=8)chooseOnce(t);
-},{passive:true});
-svg.addEventListener("click",e=>{
- if(!gesture)chooseOnce(e);
-});
+ lastTouchAt=performance.now();
+ if(!touchGesture)return;
+ if(e.touches.length===0){
+  if(touchGesture.mode==="single"&&!touchGesture.moved&&e.changedTouches.length===1){
+   const t=e.changedTouches[0];
+   if(Math.hypot(t.clientX-touchGesture.startX,t.clientY-touchGesture.startY)<=9)chooseOnce(t);
+  }
+  touchGesture=null;
+ }else if(touchGesture.mode==="pinch")touchGesture={mode:"ignored"};
+},{passive:false});
+svg.addEventListener("touchcancel",()=>{touchGesture=null});
 svg.addEventListener("pointerdown",e=>{
- if(e.button!==0||!view)return;
+ if(e.pointerType==="touch"||e.button!==0||!view)return;
  gesture={id:e.pointerId,startX:e.clientX,startY:e.clientY,v:{...view},dragged:false};
  try{svg.setPointerCapture(e.pointerId)}catch{}
 });
 svg.addEventListener("pointermove",e=>{
- if(!gesture||gesture.id!==e.pointerId)return;
+ if(e.pointerType==="touch"||!gesture||gesture.id!==e.pointerId)return;
  const dx=e.clientX-gesture.startX,dy=e.clientY-gesture.startY;
  if(!gesture.dragged&&Math.hypot(dx,dy)>7){gesture.dragged=true;svg.classList.add("dragging")}
  if(gesture.dragged){
-  const r=mapSize();
-  view=clamp({...gesture.v,x:gesture.v.x-dx*gesture.v.w/r.w,y:gesture.v.y-dy*gesture.v.h/r.h});
-  paint();
+  const matrix=svg.getScreenCTM(),sx=Math.abs(matrix?.a)||mapSize().w/view.w,sy=Math.abs(matrix?.d)||mapSize().h/view.h;
+  view=clamp({...gesture.v,x:gesture.v.x-dx/sx,y:gesture.v.y-dy/sy});paint();
  }
 });
-function pointerFinish(e){
- if(!gesture||gesture.id!==e.pointerId)return;
- const moved=Math.hypot(e.clientX-gesture.startX,e.clientY-gesture.startY);
- const wasDrag=gesture.dragged||moved>7;
+function endPointer(e){
+ if(e.pointerType==="touch"||!gesture||gesture.id!==e.pointerId)return;
+ const isDrag=gesture.dragged||Math.hypot(e.clientX-gesture.startX,e.clientY-gesture.startY)>7;
  try{if(svg.hasPointerCapture(e.pointerId))svg.releasePointerCapture(e.pointerId)}catch{}
  gesture=null;svg.classList.remove("dragging");
- if(e.type==="pointerup"&&!wasDrag)chooseOnce(e);
+ if(e.type==="pointerup"&&!isDrag)chooseOnce(e);
 }
-svg.addEventListener("pointerup",pointerFinish);
-svg.addEventListener("pointercancel",pointerFinish);
+svg.addEventListener("pointerup",endPointer);
+svg.addEventListener("pointercancel",endPointer);
+svg.addEventListener("click",e=>{
+ if(performance.now()-lastTouchAt>500&&!gesture)chooseOnce(e);
+});
 svg.addEventListener("wheel",e=>{
- if(!view)return;e.preventDefault();const p=viewPoint(e);zoom(e.deltaY<0?.79:1.27,p);
+ if(!view)return;e.preventDefault();
+ const delta=e.deltaY*(e.deltaMode===1?16:e.deltaMode===2?400:1);
+ const exponent=Math.max(-.16,Math.min(.16,delta*.0012));
+ zoom(Math.exp(exponent),viewPoint(e));
 },{passive:false});
 async function init(){
  readStore();render();
