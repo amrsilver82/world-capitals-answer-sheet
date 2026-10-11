@@ -95,3 +95,34 @@ async function run(type,mobile){
  }finally{await browser.close()}
 }
 await run(chromium,false);await run(webkit,true);
+
+async function refereeMode(engine,mobile){
+ const browser=await engine.launch({headless:true});
+ try{
+  const context=await browser.newContext(mobile?{viewport:{width:390,height:844},hasTouch:true,isMobile:true,deviceScaleFactor:3}:{viewport:{width:1440,height:900}});
+  const page=await context.newPage();
+  await page.goto(URL+"?referee=1",{waitUntil:"networkidle"});
+  await page.waitForFunction(()=>window.__areaTrial&&window.REFEREE_PILOT,{timeout:20000});
+  assert.equal(await page.locator(".card").count(),10);
+  assert.match(await page.locator("#title").innerText(),/Geography Referee/);
+  assert.equal(await page.locator("#locationCount").innerText(),"0 / 10 locations selected");
+  await page.locator("#openMap-1").click();
+  await page.locator('[data-view="Africa"]').click();
+  const svg=page.locator("#map");await svg.scrollIntoViewIfNeeded();
+  const p=await svg.evaluate(s=>{let a=s.createSVGPoint();a.x=(19+180)*4;a.y=(90-16)*4;let z=a.matrixTransform(s.getScreenCTM());return{x:z.x,y:z.y}});
+  if(mobile)await page.touchscreen.tap(p.x,p.y);else await page.mouse.click(p.x,p.y);
+  const code=await page.evaluate(()=>__areaTrial.getState()[0].location);
+  assert.match(code,/^P:/);
+  await page.locator("#build").click();
+  assert.match(await page.locator("#reply").innerText(),/1\\. Approximate location: P:/);
+  await page.reload({waitUntil:"networkidle"});
+  assert.equal(await page.evaluate(()=>__areaTrial.getState()[0].location),code);
+  await page.goto(URL,{waitUntil:"networkidle"});
+  await page.waitForFunction(()=>window.__areaTrial);
+  assert.equal(await page.evaluate(()=>__areaTrial.getState()[0].location),null,
+    "Referee mode must be isolated from prior normal prototype answers");
+  console.log("PASS "+engine.name()+" "+(mobile?"mobile":"desktop")+" isolated 10-location referee practice mode");
+ }finally{await browser.close()}
+}
+await refereeMode(chromium,false);
+await refereeMode(webkit,true);
