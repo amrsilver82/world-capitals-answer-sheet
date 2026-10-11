@@ -43,7 +43,7 @@ async function run(type,mobile){
  const second=await page.evaluate(()=>__zoneTrial.getState()[1].location);
  assert.equal(second,first);
  assert.equal(await page.locator("#locationCount").innerText(),"2 / 10 zones selected");
- assert.equal(await page.locator('#choiceBadges [data-question="1"]').count(),0,"Zone mode badges use different layer and attrs");
+ assert.ok((await page.locator('#choiceBadges [data-question="1"]').count())>0,"Previous zone remains numbered");
  const badgeCount=await page.locator('.zoneBadge').count();
  assert.ok(badgeCount>=2,"Both answers should remain numbered");
  await page.locator("#openMap-3").click();
