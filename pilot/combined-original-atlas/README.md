@@ -1,6 +1,6 @@
 # Original Combined V2 quiz + shared atlas: exact-template prototype
 
-User demanded the complete former **Combined Flags + Capitals** presentation, not a redesign. This prototype copies the original CSS directly from `combined-v2.html` (same fonts, colors, two-column card grid, 420px flag, Monaco 5:4 override, Country and Capital textboxes, Build my reply/Copy reply/Clear/reload UI). Only a small additional location-status row per existing card and **one shared atlas section below the complete grid** were added. No second web page is required, including on mobile.
+User demanded the complete former **Combined Flags + Capitals** presentation, not a redesign. This prototype copies the original CSS directly from `combined-v2.html` into a linked `style.css` file (same fonts, colors, two-column card grid, 420px flag, Monaco 5:4 override, Country and Capital textboxes, Build my reply/Copy reply/Clear/reload UI). Only a small additional location-status row per existing card and **one shared atlas section below the complete grid** were added. No second web page is required, including on mobile.
 
 Public URL: `https://amrsilver82.github.io/world-capitals-answer-sheet/pilot/combined-original-atlas/`
 

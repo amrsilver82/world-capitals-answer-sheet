@@ -1,0 +1,40 @@
+
+*{box-sizing:border-box}body{font-family:system-ui,-apple-system,sans-serif;margin:0;background:#f8fafc;color:#111827}.wrap{max-width:1120px;margin:auto;padding:24px 14px 44px}header{text-align:center}h1{margin:0 0 6px;font-size:29px}.sub{color:#64748b;margin:6px auto;max-width:760px}.pill{display:inline-block;background:#e2e8f0;border-radius:999px;padding:6px 13px;font-weight:700;margin:5px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}.card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:15px}.top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}.qno{font-weight:800}.stage{font-size:12px;color:#64748b}.pic{display:flex;justify-content:center;align-items:center;margin-bottom:13px;padding:12px;background:#e2e8f0;border:1px solid #cbd5e1;border-radius:10px}.pic img{width:min(420px,100%);display:block;background:#fff;border:2px solid #475569;border-radius:4px}.ratioframe{width:min(420px,100%);background:#fff;border:2px solid #475569;border-radius:4px;overflow:hidden}.ratioframe img{width:100%;height:100%;object-fit:fill;border:0}.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{min-width:0}.label{font-size:13px;font-weight:800;margin-bottom:5px}.clue{font-size:13px;font-weight:800;color:#92400e;background:#fef3c7;border-radius:7px;padding:6px 8px;margin-bottom:6px}.locked{min-height:46px;border:1px solid #bbf7d0;background:#f0fdf4;border-radius:8px;padding:11px;font-weight:750}.revealed{border-color:#fecaca;background:#fef2f2}.cancelled{border-color:#cbd5e1;background:#f1f5f9;color:#64748b}.tag{display:block;font-size:11px;font-weight:650;color:#64748b;margin-top:4px}input{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}input:focus{outline:2px solid #2563eb;outline-offset:1px}.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:22px}button{padding:11px 17px;border-radius:8px;border:1px solid #cbd5e1;background:#fff;font-weight:750;font-size:15px}button.primary{background:#2563eb;color:#fff;border-color:#2563eb}button:disabled{opacity:.45}.out{display:none;margin-top:18px;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:15px}.out.show{display:block}pre{white-space:pre-wrap;word-break:break-word}.small{font-size:12px;color:#64748b;text-align:center}.legend{font-size:13px;color:#475569;margin-top:8px}@media(max-width:760px){.grid{grid-template-columns:1fr}.pair{grid-template-columns:1fr}h1{font-size:24px}}
+
+
+/* All style above comes byte-for-byte from the existing combined-v2.html.
+   Only additional atlas controls are styled here; the original card/flag
+   fonts, spacing, colors, field widths and controls remain unchanged. */
+#atlasSection{margin-top:24px;scroll-margin-top:10px}
+#atlasSection .atlasbox{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:15px}
+#atlasSection h2{font-size:21px;margin:0 0 7px}
+#atlasSection .atlasHint{font-size:13px;color:#64748b;line-height:1.5;margin:6px 0 15px}
+#atlasSection .atlasToolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+#atlasSection .atlasRegions{display:flex;flex-wrap:wrap;gap:7px}
+#atlasSection button{padding:10px 13px;font-size:13px}
+#atlasSection button[aria-pressed="true"]{background:#2563eb;color:#fff;border-color:#2563eb}
+#atlasSection .atlasZoom{display:flex;align-items:center;gap:6px}
+#atlasSection .atlasViewport{height:clamp(385px,69vh,650px);border:1px solid #cbd5e1;border-radius:10px;background:#d9effa;overflow:hidden}
+#atlasSection svg{display:block;width:100%;height:100%;touch-action:none;user-select:none;cursor:grab}
+#atlasSection svg.dragging{cursor:grabbing}
+#atlasSection .country{fill:#faf8ee;stroke:#9db7cb;stroke-width:1.1;vector-effect:non-scaling-stroke;pointer-events:none}
+#atlasSection .country.targetSelected{fill:#6fa8fa;stroke:#1746a1;stroke-width:1.8}
+#atlasSection .mark circle{fill:#fff;stroke:#1e4668;stroke-width:1.8;vector-effect:non-scaling-stroke;pointer-events:none}
+#atlasSection .mark.current circle{fill:#2563eb;stroke:#fff;stroke-width:2.5}
+#atlasSection .atlasFoot{padding:12px 2px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13px;color:#475569}
+#atlasSection .mapStatus{font-weight:750;color:#1d4ed8}
+#atlasSection .atlasFoot button{white-space:nowrap}
+#atlasSection .technicalNote{font-size:12px;color:#64748b;line-height:1.5}
+.locrow{margin-top:12px;padding-top:10px;border-top:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.loclabel{font-size:13px;font-weight:800;color:#475569}
+.locstatus{font-size:12px;color:#64748b}
+.locrow button{padding:9px 13px;font-size:13px}
+.locrow.active .locstatus{color:#1d4ed8;font-weight:800}
+.previewOnly{font-size:13px;color:#64748b;margin:7px auto;max-width:760px}
+@media(max-width:760px){
+  #atlasSection .atlasViewport{height:clamp(330px,56vh,550px)}
+  #atlasSection .atlasbox{padding:10px}
+  #atlasSection .atlasToolbar{align-items:flex-start}
+  #atlasSection .atlasRegions{width:100%}
+  #atlasSection button{padding:9px 11px}
+}
