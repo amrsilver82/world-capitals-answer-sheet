@@ -18,6 +18,20 @@ async function run(type,mobile){
   const hires=await page.evaluate(()=>__areaTrial.getHiResStatus());
   assert.ok(hires.features>=200,"10m country inventory missing: "+JSON.stringify(hires));
   assert.ok(hires.germanyVertices>=1000,"German border detail missing: "+JSON.stringify(hires));
+  const seamAudit=await page.evaluate(()=>{
+    const issues=[];
+    for(const country of worldHiRes.features) for(const [pi,poly] of country.polys.entries())for(const [ri,ring] of poly.entries()){
+      for(let i=1;i<ring.length;i++){
+        const a=ring[i-1],b=ring[i],dx=Math.abs(a[0]-b[0]),dy=Math.abs(a[1]-b[1]);
+        if(dx>=80||dy>=65){
+          issues.push({country:country.id,pi,ri,dx:+dx.toFixed(3),dy:+dy.toFixed(3),a,b});
+        }
+      }
+    }
+    return {count:issues.length,examples:issues.slice(0,30),pacific:issues.filter(x=>x.a[1]>-35&&x.a[1]<25||x.b[1]>-35&&x.b[1]<25).slice(0,35)};
+  });
+  console.log("SEAM_DIAG "+JSON.stringify(seamAudit));
+
   assert.equal(await page.locator(".zoneCell").count(),0,"There must be no rigid zone grid");
   await page.locator("#openMap-5").click();
   await page.locator('[data-view="Africa"]').click();
