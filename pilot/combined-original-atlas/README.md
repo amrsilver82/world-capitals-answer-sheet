@@ -11,3 +11,17 @@ Ten pilot flags: Tuvalu, Monaco, Japan, Fiji, Chad, Grenada, Bhutan, Nauru, Kiri
 Scope and exclusions: entirely **unscored experimental** test, no official quiz transactions, no new edition, no GitHub Issue event writes, no modification of existing active/resolved rounds or previous prototypes. Existing 177 world polygons + 15 detailed target shapes + neutral sample markers are NOT yet certified to fully cover the official 195 countries. All map keys are static public trial code, not future private scoring. Mobile browser simulation is not real iPhone or iPad acceptance.
 
 Critical regression checklist: click Japan/Chad/Germany inside land on PC and WebKit mobile simulation (including Chad on world view), small Tuvalu dot, Monaco flag ratio, original stylesheet parity, copy/build reply, independent fields.
+
+## PC/iPhone feedback and navigation upgrade (11-Oct-2026)
+
+Real PC and real iPhone trial each registered ten location choices. User's iPhone selections included a large India interaction in the screenshot and confirmed the map could select all ten locations. The user also requested: ensure one tap updates only one country/question; keep *all* previously selected locations visible and numbered (Q1–Q10) when navigating to other questions; reduce jumpy mouse-wheel zoom; and enable two-finger iPhone pinch.
+
+Implementation in this experimental route:
+- Persistent in-browser per-question selection with numbered badges on the same shared atlas (prior choices remain visible, active location stronger).
+- Repeated-country choice is explicitly noted instead of quietly overwriting another question. One tap sets at most one country code for the currently active question.
+- Smooth clamped wheel scaling and two-finger pinch + touch panning; pinch never records a location.
+- An audit of the official 195 ISO codes against available polygons and additional fixed anonymous island-state markers yields **195 represented = 173 official states with country geometry + 22 official states with marker only**. This is a code-coverage inventory, **not** a claim that all borders, microstate anchors or touch targets have received human geographical certification.
+- The default Combined V2 fonts, flags, colors and two-column quiz card layout remain unchanged.
+- CI `atlas-features.mjs`: tests interior India vs Myanmar/Bangladesh, only one active country selection per tap, multiple numbered badges across questions, detection of duplicate selections, 195 ISO coverage, gentle wheel speed, WebKit simulated pinch, browser reload persistence.
+
+This remains an **unscored proof of concept**, with no GitHub score or quiz-state writes and no sharing of answers between phone and PC. Real device pinch still needs human confirmation.

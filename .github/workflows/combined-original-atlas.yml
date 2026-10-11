@@ -26,3 +26,5 @@ jobs:
           sleep 2
       - name: Verify original style and country click interaction
         run: node pilot/combined-original-atlas/test/regression.mjs
+      - name: Validate 195-country coverage, selected markers, wheel and pinch
+        run: node pilot/combined-original-atlas/test/atlas-features.mjs
