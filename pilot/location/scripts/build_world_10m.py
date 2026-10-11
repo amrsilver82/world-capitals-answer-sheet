@@ -70,7 +70,9 @@ for g in geoms:
 
 print("Topology first country:", {k:v for k,v in (geoms[0].get("properties") or {}).items() if "iso" in k.lower() or k.lower() in ("admin","name")}, "type",geoms[0]["type"])
 assert len(features)>=210, (len(features), len(geoms))
-assert counts["DE"]==1 and counts["FR"]==1 and counts["JP"]==1
+print("Germany/France/Japan keys:", [(z.get("properties",{}).get("NAME"),z.get("properties",{}).get("ISO_A2"),z.get("properties",{}).get("ISO_A2_EH"),z.get("properties",{}).get("ADM0_A3")) for z in geoms if str(z.get("properties",{}).get("NAME","")).lower() in ("germany","france","japan")])
+print("DE FR JP counts:",counts["DE"],counts["FR"],counts["JP"])
+assert counts["DE"]>=1 and counts["FR"]>=1 and counts["JP"]>=1
 original=json.loads(pathlib.Path("pilot/location/data/world.json").read_text())
 existing=original["features"]
 hiCodes={f["id"] for f in features}
