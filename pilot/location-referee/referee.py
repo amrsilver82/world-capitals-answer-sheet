@@ -40,7 +40,17 @@ def geometry(data):
         except Exception:pass
     if not parts:return None
     result=MultiPolygon(parts) if len(parts)>1 else parts[0]
-    return make_valid(result) if not result.is_valid else result
+    if not result.is_valid:result=make_valid(result)
+    # make_valid may produce a GeometryCollection with tiny line remnants;
+    # retain only polygonal areas rather than mistakenly assigning area zero.
+    def polygon_parts(g):
+        if isinstance(g,Polygon):return [g]
+        if hasattr(g,"geoms"):
+            return [p for child in g.geoms for p in polygon_parts(child)]
+        return []
+    valid=polygon_parts(result)
+    if not valid:return None
+    return MultiPolygon(valid) if len(valid)>1 else valid[0]
 def area_km2(geom):
     shapes=geom.geoms if isinstance(geom,MultiPolygon) else [geom]
     area=0.
