@@ -190,7 +190,7 @@ function zoom(f,p){
  view=clamp({x:a.x-fx*w,y:a.y-fy*h,w,h});paint();
 }
 // All clicks select at most one location. Touch pinch never selects a country.
-let lastSelectionTime=0,gesture=null,touchGesture=null,lastTouchAt=-1e5;
+let lastSelectionTime=0,touchGesture=null,lastTouchAt=-1e5;
 function chooseOnce(e){
  if(performance.now()-lastSelectionTime<250)return;
  lastSelectionTime=performance.now();chooseAt(e);

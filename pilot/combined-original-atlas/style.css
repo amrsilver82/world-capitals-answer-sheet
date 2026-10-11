@@ -42,3 +42,14 @@
 /* Keep original Monaco 5:4 explicit override exact even when the SVG intrinsically suggests 4:3. */
 #grid .ratioframe{position:relative;aspect-ratio:5/4;flex:none}
 #grid .ratioframe img{position:absolute;inset:0;width:100%;height:100%;object-fit:fill}
+
+/* Persistent user-selected territories (not target-specific hints). */
+#atlasSection .country.selectedEarlier{fill:#d4e4fb;stroke:#82a5c9;stroke-width:1.5}
+#atlasSection .country.targetSelected{fill:#6fa8fa;stroke:#1746a1;stroke-width:2}
+#atlasSection .mark.selectedEarlier circle{fill:#c4daf6;stroke:#3770aa;stroke-width:2}
+#atlasSection .mark.current circle{fill:#2563eb;stroke:#fff;stroke-width:2.5}
+#atlasSection .answerBadge{pointer-events:none}
+#atlasSection .answerBadge circle{fill:#fff;stroke:#2563eb;stroke-width:1.7;vector-effect:non-scaling-stroke}
+#atlasSection .answerBadge text{fill:#17406e;font-family:system-ui,sans-serif;font-weight:800}
+#atlasSection .answerBadge.active circle{fill:#1d4ed8;stroke:#fff;stroke-width:2}
+#atlasSection .answerBadge.active text{fill:#fff}

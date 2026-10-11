@@ -4,8 +4,8 @@
 <meta name="theme-color" content="#f8fafc">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>World Flags + Capitals — Original Quiz with Atlas Preview</title>
-<link rel="stylesheet" href="style.css?v=2">
-<script defer src="app.js?v=1"></script>
+<link rel="stylesheet" href="style.css?v=5">
+<script defer src="app.js?v=5"></script>
 </head><body><main class="wrap">
 <header><h1 id="title">World Flags + Capitals + Atlas — Test Batch 1 (Q1–10)</h1>
 <p class="sub">Identify the country from each flag and its capital. Leave anything you do not know blank.</p>
@@ -16,7 +16,7 @@
 <section id="atlasSection">
 <div class="atlasbox">
 <div class="top"><h2>Shared world atlas — select the active question's location</h2><span class="stage" id="activeQuestion">Question 1</span></div>
-<p class="atlasHint">Choose a region yourself. Click inside any large country's outline, or a neutral dot for a very small island. The map never zooms to the correct country. You can zoom or drag and return to the same questions.</p>
+<p class="atlasHint">Choose a region yourself. Tap a country outline or a neutral marker for a tiny island. Your past choices stay visible on the map as numbered markers. The map never zooms to the correct country. You can zoom or drag and return to the same questions.</p>
 <div class="atlasToolbar">
 <div id="atlasRegions" class="atlasRegions" role="group" aria-label="Choose world map region">
 <button type="button" data-view="World" aria-pressed="true">World</button>
@@ -28,7 +28,7 @@
 </div>
 <div class="atlasZoom"><button id="zoomIn" type="button" aria-label="Zoom in">+</button><button id="zoomOut" type="button" aria-label="Zoom out">−</button><button id="resetView" type="button">Reset view</button></div></div>
 <div class="atlasViewport"><svg id="map" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Unlabeled world atlas. Select a country by clicking its landmass; zoom and pan with mouse wheel and drag.">
-<rect x="-1440" y="0" width="4320" height="720" fill="#d9effa"></rect><g id="countries"></g><g id="marks"></g></svg></div>
+<rect x="-1440" y="0" width="4320" height="720" fill="#d9effa"></rect><g id="countries"></g><g id="marks"></g><g id="choiceBadges"></g></svg></div>
 <div class="atlasFoot"><div><span class="mapStatus" id="mapStatus">Loading geographic shapes…</span><span class="stage" id="viewLabel"> · World view</span></div><button id="returnQuestion" type="button">↑ Return to active question</button></div>
 <p class="technicalNote">This atlas is a design test only. It currently uses Natural Earth outlines for 177 countries plus detailed pilot shapes and small-country markers, so it is not yet a verified 195-country geography exam. No scores or answers are sent to the official game.</p>
 </div></section>
