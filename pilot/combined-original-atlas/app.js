@@ -156,7 +156,26 @@ function zoom(f,p){
  view=clamp({x:a.x-fx*w,y:a.y-fy*h,w,h});paint();
 }
 // PointerUP selection is deliberate. Redrawing SVG land during pointermove
-// used to cancel browser click events on large country outlines.
+// used to cancel browser click events on large country outlines. Some WebKit
+// mobile configurations deliver touch/click without a matching pointerup;
+// support those paths as well, with a short duplicate suppression window.
+let lastSelectionTime=0,touchStart=null;
+function chooseOnce(evt){
+ if(performance.now()-lastSelectionTime<240)return;
+ lastSelectionTime=performance.now();chooseAt(evt);
+}
+svg.addEventListener("touchstart",e=>{
+ if(e.touches.length===1)touchStart={x:e.touches[0].clientX,y:e.touches[0].clientY};
+ else touchStart=null;
+},{passive:true});
+svg.addEventListener("touchend",e=>{
+ if(!touchStart||e.changedTouches.length!==1){touchStart=null;return}
+ const t=e.changedTouches[0],d=Math.hypot(t.clientX-touchStart.x,t.clientY-touchStart.y);
+ touchStart=null;if(d<=8)chooseOnce(t);
+},{passive:true});
+svg.addEventListener("click",e=>{
+ if(!gesture)chooseOnce(e);
+});
 svg.addEventListener("pointerdown",e=>{
  if(e.button!==0||!view)return;
  gesture={id:e.pointerId,startX:e.clientX,startY:e.clientY,v:{...view},dragged:false};
@@ -178,7 +197,7 @@ function pointerFinish(e){
  const wasDrag=gesture.dragged||moved>7;
  try{if(svg.hasPointerCapture(e.pointerId))svg.releasePointerCapture(e.pointerId)}catch{}
  gesture=null;svg.classList.remove("dragging");
- if(e.type==="pointerup"&&!wasDrag)chooseAt(e);
+ if(e.type==="pointerup"&&!wasDrag)chooseOnce(e);
 }
 svg.addEventListener("pointerup",pointerFinish);
 svg.addEventListener("pointercancel",pointerFinish);
