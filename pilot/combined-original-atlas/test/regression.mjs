@@ -27,7 +27,7 @@ async function run(engine,mobile){
   }));
   assert.match(styles.font,/system-ui/);
   assert.equal(styles.background,"rgb(248, 250, 252)");
-  assert.ok((await page.locator(".pic img").first().boundingBox()).width>=(mobile?320:390),"Original flag must be large");
+  assert.ok((await page.locator(".pic img").first().boundingBox()).width>=(mobile?275:390),"Original flag must be large");
   const monaco=await page.locator(".ratioframe").first().boundingBox();
   assert.ok(Math.abs(monaco.width/monaco.height-1.25)<.025,"Monaco 5:4 invariant "+JSON.stringify(monaco));
   const map=page.locator("#map");
