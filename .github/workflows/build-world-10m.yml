@@ -1,0 +1,35 @@
+name: Build Natural Earth 10m Atlas Asset
+on:
+  push:
+    paths:
+      - 'pilot/location/scripts/build_world_10m.py'
+      - '.github/workflows/build-world-10m.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile and verify 10m country outlines
+        run: python pilot/location/scripts/build_world_10m.py
+      - name: Commit verified map asset
+        run: |
+          if git diff --quiet -- pilot/location/data/world-10m.json && [ -f pilot/location/data/world-10m.json ]; then
+            echo "Map data already up to date"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add pilot/location/data/world-10m.json
+          export TZ=Africa/Cairo
+          stamp=$(date '+%d-%b-%Y %-I:%M %p')
+          git commit -m "$stamp — Map: generate detailed Natural Earth 10m outlines (AI)"
+          git push origin HEAD:main
