@@ -1,0 +1,34 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b2442">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>10-Country Connected Atlas — Full-Size Flags Preview</title>
+<link rel="stylesheet" href="style.css?v=2"><script defer src="app.js?v=2"></script></head>
+<body><div class="shell">
+<header class="mast">
+ <div><div class="overline">World Capitals Game · Design Lab</div><h1>Connected World Championship</h1><p>Ten flags, ten capitals, ten locations — <strong>one shared atlas below the flag cards</strong>.</p></div>
+ <div class="header-right"><span class="demo-tag">LAYOUT PREVIEW · UNSCORED</span><div class="counts"><strong id="completeCount">0</strong><span>/ 10 location selections</span></div></div>
+</header>
+<div class="sequence"><span>① Flag</span><b>→</b><span>② Country</span><b>→</b><span>③ Capital</span><b>→</b><span>④ Atlas location</span></div>
+<div class="intro">This is a working <strong>design preview</strong>, not an official round. Full-size canonical flags follow the earlier Combined Quiz presentation (including Monaco’s true 5:4 ratio). All ten questions appear first; one shared atlas sits below on the SAME page. Tap <strong>Open atlas</strong> on any card, navigate and tap a country, then return to the cards. Answer the three parts in any order. No target region is highlighted automatically. No answers or scores are written to GitHub in this layout-only preview.</div>
+<div class="workspace">
+<section class="questions">
+ <div class="qhead"><div><h2>Questions 1–10</h2><small>Original-size flags and separate Country / Capital fields</small></div><button id="resetDemo" type="button">Reset preview</button></div>
+ <div id="questionList" class="question-list"></div>
+ <div class="qfooter"><p>You can browse the entire atlas without submitting any answers. Use <strong>Preview review layout</strong> to inspect how a finished batch would appear.</p><button id="showReview" type="button" class="primary">Preview review layout →</button></div>
+</section>
+<section class="atlas-holder" id="atlasHolder">
+ <div class="atlas-head"><div><div class="overline">ONE MAP FOR ALL TEN</div><h2>Shared interactive atlas</h2><p id="activeStatus">Question 1 selected · choose its location when ready</p></div><div class="atlas-actions"><button id="backQuestion" type="button">↑ Return to selected question</button><span class="pill">Anonymous markers</span></div></div>
+ <div class="view-buttons" id="regions" role="group" aria-label="Select map region">
+ <button data-region="World" aria-pressed="true">🌍 World</button><button data-region="Europe" aria-pressed="false">Europe</button><button data-region="Caribbean" aria-pressed="false">Caribbean</button><button data-region="Pacific" aria-pressed="false">Pacific</button><button data-region="Africa" aria-pressed="false">Africa</button><button data-region="Asia" aria-pressed="false">Asia</button>
+ </div>
+ <div class="maptools"><div><strong id="viewLabel">World view</strong><span id="zoomHint">Mouse wheel / trackpad to zoom · Drag to pan · + / − on touchscreens</span></div><div class="zoom-buttons"><button id="zoomIn" aria-label="Zoom in" type="button">+</button><button id="zoomOut" aria-label="Zoom out" type="button">−</button><button id="resetMap" type="button">Reset view</button></div></div>
+ <div class="mapwrap"><svg id="map" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Unlabeled country-location map. Click country outlines or neutral island markers. Scroll to zoom and drag to pan.">
+ <rect x="-1440" y="0" width="4320" height="720" fill="#d8edfa"/><g id="land"></g><g id="micro"></g><g id="selection"></g></svg></div>
+ <div class="map-status"><span id="mapStatus" role="status">The atlas starts with a world view. Tap a country outline directly or choose a region manually; zoom is not required for Chad.</span></div>
+ <div class="map-help"><strong>One atlas, all ten countries:</strong> Select a question in the full-size cards above, then select any country outline or neutral marker on this atlas. Each question has its own independent location choice; no text-field completion is required. Tap <strong>Return to selected question</strong> to move back up. Switching questions preserves map zoom and region; the target is never shown automatically.</div>
+ <div class="map-footer"><span><b>Note:</b> Map reference = 177 large-country outlines + 15 detailed shapes; marker sample is <em>not yet full-195 certified</em>.</span></div>
+</section>
+</div>
+<section class="review" id="review" hidden><div class="review-head"><div><div class="overline">PROPOSED BATCH REPORT</div><h2>Review layout for ten countries</h2><p>Answers are shown only after you request this preview. Unattempted items are marked as such, not wrong.</p></div><button id="hideReview">Back to the questions</button></div><div id="reviewRows" class="review-rows"></div><p class="review-note">Illustrative three-part checking is browser-only. This preview is deliberately not an official score, and incomplete entries carry no penalty.</p></section>
+</div></body></html>
