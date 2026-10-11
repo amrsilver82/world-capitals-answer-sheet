@@ -105,7 +105,7 @@ function zoneCentre(r,c){
  const b=zoneBounds(r,c);return {lon:(b.west+b.east)/2,lat:(b.south+b.north)/2};
 }
 function zoneFromCode(code){
- const m=/^Z(\\d{2})-(\\d{2})$/.exec(code||"");
+ const m=/^Z(\d{2})-(\d{2})$/.exec(code||"");
  if(!m)return null;
  const r=+m[1]-1,c=+m[2]-1;
  return r>=0&&r<=12&&c>=0&&c<=17?{r,c,code}:null;
