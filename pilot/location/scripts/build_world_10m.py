@@ -51,6 +51,7 @@ counts=collections.Counter()
 for g in geoms:
     prop=g.get("properties") or {}
     country=str(prop.get("iso_a2") or prop.get("ISO_A2") or prop.get("ISO_A2_EH") or "").upper()
+    if country=="-99":country={"FRA":"FR","NOR":"NO","ESH":"EH"}.get(str(prop.get("ADM0_A3") or prop.get("adm0_a3") or ""),country)
     if len(country)!=2 or not country.isalpha():continue
     if g["type"]=="Polygon":
         groups=[g["arcs"]]
@@ -71,6 +72,7 @@ for g in geoms:
 print("Topology first country:", {k:v for k,v in (geoms[0].get("properties") or {}).items() if "iso" in k.lower() or k.lower() in ("admin","name")}, "type",geoms[0]["type"])
 assert len(features)>=210, (len(features), len(geoms))
 print("Germany/France/Japan keys:", [(z.get("properties",{}).get("NAME"),z.get("properties",{}).get("ISO_A2"),z.get("properties",{}).get("ISO_A2_EH"),z.get("properties",{}).get("ADM0_A3")) for z in geoms if str(z.get("properties",{}).get("NAME","")).lower() in ("germany","france","japan")])
+print("Unknown ISO_A2 features:",[(p.get("NAME"),p.get("ISO_A2"),p.get("ADM0_A3")) for z in geoms if (p:=z.get("properties") or {}) and str(p.get("ISO_A2"))=="-99"])
 print("DE FR JP counts:",counts["DE"],counts["FR"],counts["JP"])
 assert counts["DE"]>=1 and counts["FR"]>=1 and counts["JP"]>=1
 original=json.loads(pathlib.Path("pilot/location/data/world.json").read_text())
