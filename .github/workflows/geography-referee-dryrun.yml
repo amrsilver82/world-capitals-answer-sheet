@@ -1,0 +1,28 @@
+name: Geography Referee 195-Country Dry Run
+on:
+  push:
+    paths:
+      - 'pilot/location-referee/**'
+      - '.github/workflows/geography-referee-dryrun.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  referee:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install reference geometry packages
+        run: python -m pip install shapely==2.1.2 pyproj==3.7.2
+      - name: Run unscored 195-country and adversarial-location test
+        run: python pilot/location-referee/referee.py
+      - name: Upload dry-run results only
+        uses: actions/upload-artifact@v4
+        with:
+          name: geography-referee-unscored-195
+          path: pilot/location-referee/dryrun-latest.json
+          retention-days: 30
