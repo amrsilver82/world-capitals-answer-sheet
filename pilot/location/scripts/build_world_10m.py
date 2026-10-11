@@ -50,7 +50,7 @@ features=[]
 counts=collections.Counter()
 for g in geoms:
     prop=g.get("properties") or {}
-    country=str(prop.get("iso_a2") or "").upper()
+    country=str(prop.get("iso_a2") or prop.get("ISO_A2") or prop.get("ISO_A2_EH") or "").upper()
     if len(country)!=2 or not country.isalpha():continue
     if g["type"]=="Polygon":
         groups=[g["arcs"]]
@@ -68,7 +68,8 @@ for g in geoms:
     features.append({"id":country,"polys":polygons})
     counts[country]+=1
 
-assert len(features)>=210,len(features)
+print("Topology first country:", {k:v for k,v in (geoms[0].get("properties") or {}).items() if "iso" in k.lower() or k.lower() in ("admin","name")}, "type",geoms[0]["type"])
+assert len(features)>=210, (len(features), len(geoms))
 assert counts["DE"]==1 and counts["FR"]==1 and counts["JP"]==1
 original=json.loads(pathlib.Path("pilot/location/data/world.json").read_text())
 existing=original["features"]
