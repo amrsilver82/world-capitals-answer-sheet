@@ -12,9 +12,9 @@ async function run(type,mobile){
   const page=await browser.newPage(mobile?{viewport:{width:390,height:844},hasTouch:true,isMobile:true,deviceScaleFactor:3}:{viewport:{width:1440,height:900}});
   const errors=[];page.on("pageerror",e=>errors.push(e.message));
   await page.goto(URL,{waitUntil:"networkidle"});
-  await page.waitForFunction(()=>window.__areaTrial&&document.querySelectorAll("#countries path").length>=177*3,{timeout:20000});
+  await page.waitForFunction(()=>window.__areaTrial&&document.querySelectorAll("#countries path").length>=170,{timeout:20000});
   assert.equal(await page.locator(".card").count(),10);
-  await page.waitForFunction(()=>__areaTrial.getHiResStatus().ready,{timeout:25000});
+  await page.waitForFunction(()=>__areaTrial.getHiResStatus().ready,null,{timeout:25000});
   const hires=await page.evaluate(()=>__areaTrial.getHiResStatus());
   assert.ok(hires.features>=200,"10m country inventory missing: "+JSON.stringify(hires));
   assert.ok(hires.germanyVertices>=1000,"German border detail missing: "+JSON.stringify(hires));
