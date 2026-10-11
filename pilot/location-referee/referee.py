@@ -49,7 +49,8 @@ def area_km2(geom):
             outer=abs(G.polygon_area_perimeter(*p.exterior.coords.xy)[0])
             holes=sum(abs(G.polygon_area_perimeter(*h.coords.xy)[0]) for h in p.interiors)
             area+=max(0,outer-holes)
-        except Exception:pass
+        except Exception as e:
+            print("GEOMETRY_AREA_FAILURE",type(e).__name__,str(e));raise
     return area/1e6
 def tier(km2):
     if km2<500:return "micro"
@@ -70,6 +71,7 @@ for code in OFFICIAL:
     p=max(pieces,key=lambda x:x.area).representative_point() if pieces else None
     focus=(norm(p.x),p.y) if p is not None else anchors[0]
     REGISTRY[code]={"poly":geom,"area":area,"tier":tier(area),"focus":focus,"anchors":anchors}
+print("AREA_DIAG",[(k,round(REGISTRY[k]["area"],2),REGISTRY[k]["tier"],type(REGISTRY[k]["poly"]).__name__) for k in ("DE","AU","RU","FR","MC","NR","KI","GD")])
 def to_country(code,p):
     spec=REGISTRY[code];shape=spec["poly"]
     if shape is not None:
