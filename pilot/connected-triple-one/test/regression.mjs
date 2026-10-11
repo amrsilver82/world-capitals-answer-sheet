@@ -38,7 +38,7 @@ async function run(browserType,small){
   await page.locator('button[data-region="Pacific"]').click();
   await page.waitForFunction(()=>document.querySelectorAll('.marker[data-iso="TV"]').length>0);
   const count=await page.locator("#micro .marker").count();assert.ok(count>=10,"Not enough neutral Pacific markers");
-  const names=await page.locator("#micro").innerText();assert.equal(names.trim(),"","Premature island labels");
+  const names=await page.locator("#micro").textContent();assert.equal(names.trim(),"","Premature island labels");
   const candidates=page.locator('.marker[data-iso="TV"] circle');
   let selected=false;
   await page.locator("#map").scrollIntoViewIfNeeded();
