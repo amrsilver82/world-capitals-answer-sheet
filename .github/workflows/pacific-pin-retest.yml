@@ -1,0 +1,28 @@
+name: Pacific Pin Retest Regression
+on:
+  push:
+    paths:
+      - 'pilot/location-pacific-retest/**'
+      - '.github/workflows/pacific-pin-retest.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chromium and WebKit
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium webkit
+      - name: Start static GitHub Pages test server
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/pacific-retest.log 2>&1 &
+          sleep 2
+      - name: Desktop and mobile two-device regression
+        run: node pilot/location-pacific-retest/test/regression.mjs
