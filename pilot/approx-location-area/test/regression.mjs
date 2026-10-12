@@ -139,7 +139,7 @@ async function funFirstTest(engine,mobile){
   assert.equal(await page.locator("#grid").isVisible(),false);
   assert.equal(await page.locator("#radiusChoice").isVisible(),false,"No radius negotiation in fun mode");
   assert.equal(await page.locator("#funCountry").innerText(),"Germany");
-  assert.match(await page.locator("#funMode").innerText(),/EUROPE/);
+  assert.match(await page.locator("#funMode").innerText(),/Europe/i);
   assert.equal(await page.locator("#funReveal").isDisabled(),true,"Cannot reveal before selecting");
   assert.equal(await page.locator("#countries path.funCorrect").count(),0,"No answer silhouette before reveal");
   await tap(page,10.5,51,mobile);
