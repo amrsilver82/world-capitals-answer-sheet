@@ -448,14 +448,16 @@ function setupFun(){
  document.querySelector(".atlasHint").textContent="Tap anywhere to place or move your pin. You can pan, zoom, and use Reset view. Then Reveal shows the real outline or island locator.";
  document.querySelector("#atlasSection h2").textContent="Your map";
  const wrap=document.createElement("section");wrap.id="funPanel";wrap.className="funPanel";
- wrap.innerHTML='<div class="funTop"><span id="funNumber"></span><span id="funProgress"></span></div><div class="funMode" id="funMode"></div><h2 id="funCountry"></h2><p id="funInstruction"></p><div id="funSteps" class="funSteps"></div><div class="funControls"><button type="button" id="funPrev">← Previous</button><button type="button" id="funReveal" class="funPrimary">Reveal location</button><button type="button" id="funZoom" hidden>View country close-up</button><button type="button" id="funNext" class="funPrimary">Next →</button></div><div id="funFeedback" class="funFeedback"></div><div id="funDone"></div><button type="button" id="funReset" class="funReset">Restart this practice</button>';
+ wrap.innerHTML='<div class="funTop"><span id="funNumber"></span><span id="funProgress"></span></div><div class="funMode" id="funMode"></div><h2 id="funCountry"></h2><p id="funInstruction"></p><div id="funSteps" class="funSteps"></div><div class="funControls"><button type="button" id="funPrev">← Previous</button><button type="button" id="funReveal" class="funPrimary">Reveal location</button><button type="button" id="funZoom" hidden>View country close-up</button><button type="button" id="funNext" class="funPrimary">Next →</button></div><div id="funFeedback" class="funFeedback"></div><div id="funDone"></div><div class="funExportRow"><button type="button" id="funExport" class="funPrimary">Copy my test results</button><span class="funExportHelp">One tap to share all ten saved pins. No replay needed.</span></div><div id="funExportStatus" class="funExportStatus" role="status" aria-live="polite"></div><textarea id="funExportText" class="funExportText" rows="13" readonly hidden aria-label="Copyable geography test results"></textarea><button type="button" id="funReset" class="funReset">Restart this practice</button>';
  $("atlasSection").before(wrap);
  const bottom=document.createElement("div");bottom.className="funBottom";
- bottom.innerHTML='<button type="button" id="funNextBottom">Next question →</button>';
+ bottom.innerHTML='<button type="button" id="funExportBottom" class="funExportButton" hidden>Copy test results</button><button type="button" id="funNextBottom">Next question →</button>';
  document.querySelector(".atlasFoot").after(bottom);
  $("funPrev").onclick=()=>pickFun(Math.max(0,active-1));
  $("funNext").onclick=()=>pickFun(Math.min(9,active+1));
  $("funNextBottom").onclick=()=>pickFun(Math.min(9,active+1));
+ $("funExport").onclick=copyFunResults;
+ $("funExportBottom").onclick=copyFunResults;
  $("funReveal").onclick=()=>{
    if(!state[active].point)return;
    state[active].revealed=true;store();updateFun();paint();
@@ -470,7 +472,7 @@ function setupFun(){
  $("funReset").onclick=()=>{
    if(!confirm("Restart only this unscored geography practice?"))return;
    state=QUESTIONS.map(()=>({country:"",capital:"",location:null,point:null,radiusKm:500,revealed:false}));
-   active=0;store();pickFun(0);
+   active=0;store();$("funExportText").hidden=true;$("funExportStatus").textContent="";pickFun(0);
  };
  for(let i=0;i<10;i++){
    const b=document.createElement("button");b.type="button";b.id="funStep"+(i+1);
@@ -483,6 +485,41 @@ function pickFun(i){
  $("mapStatus").textContent="Tap anywhere to put your pin; use Reveal after selecting.";
  $("funPanel").scrollIntoView({block:"start"});
 }
+function buildFunResults(){
+ // This is a LOCAL export of saved selections; nothing is sent to a server.
+ // Reveal details appear only for questions already revealed by the player.
+ if(!FUN_PILOT)return "";
+ const revealed=state.filter(s=>s.revealed).length;
+ const pinned=state.filter(s=>s.point).length;
+ const rows=[
+  "World Capitals Game — Geography Fun Trial V1",
+  "Unscored browser-local test: "+pinned+"/10 pins, "+revealed+"/10 reveals",
+  "My map selections (longitude, latitude):"
+ ];
+ FUN_QUESTIONS.forEach((q,i)=>{
+  const answer=state[i];
+  const p=answer.point||pointFromCode(answer.location);
+  const place=p?"P:"+Number(p.lon).toFixed(3)+","+Number(p.lat).toFixed(3):"No pin";
+  const mode=q.type==="region"?"Broad world region":"Approximate country position";
+  rows.push((i+1)+". "+q.name+" | "+mode+" | Selected: "+place+
+   " | Revealed: "+(answer.revealed?"Yes":"No")+
+   (answer.revealed?" | Actual region: "+q.region:""));
+ });
+ rows.push("No scores, radius thresholds or referee judgments were applied.");
+ return rows.join("\n");
+}
+async function copyFunResults(){
+ if(!FUN_PILOT)return;
+ const t=buildFunResults();
+ const field=$("funExportText"),status=$("funExportStatus");
+ field.value=t;field.hidden=false;
+ const ok=await copy(t);
+ status.textContent=ok?
+   "Results copied. Return to ChatGPT and paste them here. No need to replay the test.":
+   "Automatic copy was unavailable. Select the results in the box below and copy them manually, then paste into ChatGPT.";
+ field.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
 function updateFun(){
  if(!FUN_PILOT)return;
  const q=FUN_QUESTIONS[active],s=state[active];
@@ -510,6 +547,8 @@ function updateFun(){
  }
  const n=state.filter(s=>s.revealed).length;
  $("funDone").textContent=n===10?"All 10 explored. Was this more enjoyable than the old precision referee?":"";
+ $("funExport").disabled=!state.some(s=>s.point);
+ $("funExportBottom").hidden=n!==10;
 }
 
 

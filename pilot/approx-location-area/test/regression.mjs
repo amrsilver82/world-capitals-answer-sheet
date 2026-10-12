@@ -170,6 +170,18 @@ async function funFirstTest(engine,mobile){
   assert.equal(stats[0].revealed,true);
   assert.equal(stats[5].revealed,true);
   assert.equal(stats[1].revealed,false);
+  // A completed or partial play session can be shared without replaying:
+  // the export must include the stored coordinates, not guessed values.
+  await page.locator("#funExport").click();
+  const exported=await page.locator("#funExportText").inputValue();
+  assert.match(exported,/World Capitals Game — Geography Fun Trial V1/);
+  assert.match(exported,/1\\. Germany.*Selected: P:10\.500,51\.000/);
+  assert.match(exported,/6\\. Nauru.*Selected: P:/);
+  assert.match(exported,/Revealed: Yes/);
+  assert.match(exported,/2\\. Myanmar.*No pin.*Revealed: No/);
+  assert.doesNotMatch(exported,/Radius:|\+1 Pure|Score: 10/);
+  assert.equal(await page.locator("#funExportText").isVisible(),true);
+
   await page.goto(URL,{waitUntil:"networkidle"});
   assert.equal(await page.locator("#funPanel").count(),0,"Normal atlas unaffected by fun mode");
   assert.equal(errors.length,0,errors.join("; "));

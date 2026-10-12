@@ -107,3 +107,13 @@
 body:has(#funPanel) .atlasViewport{min-height:400px}
 body:has(#funPanel) #map{min-height:400px}
 @media(max-width:540px){.funPanel{padding:13px}.funControls button{flex-grow:1;padding:10px}.funSteps{gap:4px}.funSteps button{min-width:32px;height:32px}.funBottom button{width:100%}}
+
+/* User-controlled local export; nothing uploads or alters stored answers. */
+.funExportRow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:15px 0 4px}
+.funExportRow button,.funBottom .funExportButton{padding:12px 18px;min-height:44px;border:0;border-radius:8px;background:#165eaa;color:#fff;font:700 14px system-ui;cursor:pointer}
+.funExportRow button:disabled{opacity:.45;cursor:default}
+.funExportHelp{color:#52667d;font-size:13px;flex:1}
+.funExportStatus{font-size:13px;font-weight:600;color:#245179;margin:8px 0}
+.funExportText{display:block;width:100%;max-width:100%;min-height:220px;padding:12px;border:1px solid #cad8e8;background:#f8fbff;color:#1e293b;border-radius:8px;resize:vertical;font:12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre;overflow:auto}
+.funExportText[hidden]{display:none!important}
+@media(max-width:540px){.funExportRow button{width:100%}.funExportHelp{width:100%}.funBottom .funExportButton{width:100%}}
