@@ -1,0 +1,28 @@
+name: Geography Fun V2 Browser Regression
+on:
+  push:
+    paths:
+      - 'pilot/geography-fun-v2/**'
+      - '.github/workflows/geography-fun-v2.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chromium and mobile WebKit
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium webkit
+      - name: Serve preview
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/wcg-fun-v2.log 2>&1 &
+          sleep 2
+      - name: Validate standalone V2 against V1
+        run: node pilot/geography-fun-v2/test/regression.mjs
