@@ -126,3 +126,55 @@ async function refereeMode(engine,mobile){
 }
 await refereeMode(chromium,false);
 await refereeMode(webkit,true);
+
+
+async function funFirstTest(engine,mobile){
+ const browser=await engine.launch({headless:true});
+ try{
+  const page=await browser.newPage(mobile?{viewport:{width:390,height:844},isMobile:true,hasTouch:true,deviceScaleFactor:3}:{viewport:{width:1440,height:900}});
+  const errors=[];page.on("pageerror",e=>errors.push(e.message));
+  await page.goto(URL+"?fun=1",{waitUntil:"networkidle"});
+  await page.waitForFunction(()=>window.__geoFun?.enabled&&__areaTrial.getHiResStatus().ready,null,{timeout:30000});
+  assert.equal(await page.locator("#funPanel").count(),1);
+  assert.equal(await page.locator("#grid").isVisible(),false);
+  assert.equal(await page.locator("#radiusChoice").isVisible(),false,"No radius negotiation in fun mode");
+  assert.equal(await page.locator("#funCountry").innerText(),"Germany");
+  assert.match(await page.locator("#funMode").innerText(),/EUROPE/);
+  assert.equal(await page.locator("#funReveal").isDisabled(),true,"Cannot reveal before selecting");
+  assert.equal(await page.locator("#countries path.funCorrect").count(),0,"No answer silhouette before reveal");
+  await tap(page,10.5,51,mobile);
+  assert.equal(await page.locator("#funReveal").isEnabled(),true);
+  assert.equal(await page.locator("#countries path.funCorrect").count(),0,"No country highlight on pin");
+  await page.locator("#funReveal").click();
+  assert.ok(await page.locator("#countries path.funCorrect").count()>0,"Germany highlighted after reveal");
+  assert.match(await page.locator("#funFeedback").innerText(),/Central Europe/);
+  assert.equal(await page.locator("#funZoom").isVisible(),true);
+  await page.locator("#funNext").click();
+  assert.equal(await page.locator("#funCountry").innerText(),"Myanmar");
+  assert.equal(await page.locator("#countries path.funCorrect").count(),0,"New question remains hidden");
+  await page.locator("#funStep6").click();
+  assert.equal(await page.locator("#funCountry").innerText(),"Nauru");
+  assert.match(await page.locator("#funMode").innerText(),/BROAD WORLD REGION/);
+  assert.match(await page.locator("#viewLabel").innerText(),/World/);
+  assert.equal(await page.locator("#countries path.funCorrect").count(),0);
+  // Broad Pacific-region knowledge: no microscopic island hit required.
+  await tap(page,169,-6,mobile);
+  assert.equal(await page.locator("#funReveal").isEnabled(),true);
+  await page.locator("#funReveal").click();
+  assert.match(await page.locator("#funFeedback").innerText(),/Pacific/);
+  assert.ok(await page.locator("#marks .funTruthDot").count()>0,"Correct island locator only after reveal");
+  assert.ok(await page.locator("#marks .funYourDot").count()>0,"Player's pin stays visible");
+  await page.reload({waitUntil:"networkidle"});
+  await page.waitForFunction(()=>window.__geoFun?.enabled);
+  const stats=await page.evaluate(()=>__geoFun.getRecord());
+  assert.equal(stats[0].revealed,true);
+  assert.equal(stats[5].revealed,true);
+  assert.equal(stats[1].revealed,false);
+  await page.goto(URL,{waitUntil:"networkidle"});
+  assert.equal(await page.locator("#funPanel").count(),0,"Normal atlas unaffected by fun mode");
+  assert.equal(errors.length,0,errors.join("; "));
+  console.log("PASS fun-first "+engine.name()+" "+(mobile?"mobile WebKit":"desktop Chromium")+" — Europe pin, masked target, reveal silhouette, world-region island, saved answers and isolated mode.");
+ }finally{await browser.close()}
+}
+await funFirstTest(chromium,false);
+await funFirstTest(webkit,true);
