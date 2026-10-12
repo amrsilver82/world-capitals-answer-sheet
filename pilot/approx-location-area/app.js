@@ -2,13 +2,26 @@
 // Standalone, unscored prototype. Original Combined V2 visual system is kept
 // in index.html, but no official batch state or secret answer key is read here.
 const REFEREE_PILOT=new URLSearchParams(location.search).get("referee")==="1";
+const FUN_PILOT=new URLSearchParams(location.search).get("fun")==="1";
+const FUN_QUESTIONS=[
+ {iso:"DE",name:"Germany",type:"pin",view:"Europe",viewName:"Europe",region:"Central Europe",where:[10.5,51]},
+ {iso:"MM",name:"Myanmar",type:"pin",view:"SEAsia",viewName:"Southeast Asia",region:"Southeast Asia",where:[96,21]},
+ {iso:"NA",name:"Namibia",type:"pin",view:"SouthernAfrica",viewName:"Southern Africa",region:"Southern Africa",where:[17,-22]},
+ {iso:"CL",name:"Chile",type:"pin",view:"SouthAmerica",viewName:"South America",region:"South America",where:[-70,-33]},
+ {iso:"JP",name:"Japan",type:"pin",view:"EastAsia",viewName:"East Asia",region:"East Asia",where:[139,36]},
+ {iso:"NR",name:"Nauru",type:"region",view:"World",viewName:"World map",region:"Central-West Pacific",where:[166.93,-.52]},
+ {iso:"GD",name:"Grenada",type:"region",view:"World",viewName:"World map",region:"Caribbean",where:[-61.68,12.12]},
+ {iso:"TV",name:"Tuvalu",type:"region",view:"World",viewName:"World map",region:"South Pacific",where:[179.2,-8.52]},
+ {iso:"MT",name:"Malta",type:"region",view:"World",viewName:"World map",region:"Central Mediterranean",where:[14.51,35.9]},
+ {iso:"KM",name:"Comoros",type:"region",view:"World",viewName:"World map",region:"Western Indian Ocean",where:[43.25,-11.7]}
+];
 const BASE_QUESTIONS=[{"iso":"TV","country":"Tuvalu","capital":"Funafuti","asset":"flags/canonical/675210ec5524.svg"},{"iso":"MC","country":"Monaco","capital":"Monaco","asset":"flags/canonical/9cb6c9e8a0ea.svg","display_ratio":"5/4"},{"iso":"JP","country":"Japan","capital":"Tokyo","asset":"flags/canonical/cc1c181ce9b2.svg"},{"iso":"FJ","country":"Fiji","capital":"Suva","asset":"flags/canonical/332ae61d0b8a.svg"},{"iso":"TD","country":"Chad","capital":"N'Djamena","asset":"flags/canonical/fa3bd927c158.svg"},{"iso":"GD","country":"Grenada","capital":"Saint George's","asset":"flags/canonical/b3d250db99cf.svg"},{"iso":"BT","country":"Bhutan","capital":"Thimphu","asset":"flags/canonical/20aef3a63b4d.svg"},{"iso":"NR","country":"Nauru","capital":"No official capital","asset":"flags/canonical/ff394c411211.svg"},{"iso":"KI","country":"Kiribati","capital":"South Tarawa","asset":"flags/canonical/fda03f37beec.svg"},{"iso":"DE","country":"Germany","capital":"Berlin","asset":"flags/canonical/71aa2d2c30f5.svg"}];
 const QUESTIONS=REFEREE_PILOT?[4,8,0,9,5,2,7,3,1,6].map(i=>BASE_QUESTIONS[i]):BASE_QUESTIONS;
 const MARKERS=[["TV",-8.52,179.2],["NR",-0.52,166.93],["KI",1.87,-157.36],["TO",-21.14,-175.2],["FJ",-17.71,178.06],["VU",-16.08,167.4],["SB",-9.65,160.17],["WS",-13.83,-171.77],["FM",6.92,158.18],["MH",7.09,171.38],["PW",7.5,134.62],["PG",-6.31,147],["MC",43.738,7.425],["VA",41.903,12.453],["SM",43.941,12.458],["AD",42.506,1.521],["LI",47.14,9.54],["MT",35.9,14.51],["AG",17.07,-61.79],["BB",13.19,-59.54],["BS",25.03,-77.4],["DM",15.41,-61.37],["GD",12.12,-61.68],["KN",17.35,-62.75],["LC",13.91,-60.98],["VC",13.25,-61.2],["TT",10.69,-61.22],["HT",18.97,-72.29],["JM",18.11,-77.29],["CU",21.52,-77.78],["MV",4.1755,73.5093],["SG",1.3521,103.8198],["ST",0.3365,6.7273],["SC",-4.62,55.45],["MU",-20.166,57.502],["CV",14.933,-23.513],["KM",-11.7,43.25],["BH",26.0667,50.5577]];
 const OFFICIAL_195_CODES=["KW","MC","AO","BJ","FM","KE","MY","SI","SN","PT","HN","ZM","PY","MH","CM","RU","CN","MD","GM","CY","GQ","TZ","EG","MV","SG","GR","QA","SY","US","TT","IT","TJ","GD","ET","EE","JO","PH","TG","AR","MG","VE","VN","IS","ER","MK","SE","ES","ST","DE","NZ","GA","WS","FR","DK","LY","VC","LI","PK","NG","TR","KP","BY","KR","GB","IQ","ZA","LS","NP","UA","CF","AF","LK","PE","LU","DM","MM","DJ","GY","BZ","BG","LB","MN","KI","CA","BN","PS","NL","PL","HT","MR","BE","SC","AT","SA","NI","VA","JM","AD","LT","EC","MA","NA","MZ","BT","TN","TV","TM","CU","LA","UG","RO","TD","KH","CD","AZ","IE","SL","IR","SS","BS","OM","DO","MU","KN","BF","CV","SK","AL","TL","AG","CO","KZ","BR","ML","AE","LR","SO","MT","LV","CL","GE","BO","SR","UY","RS","PA","BW","FI","AU","GN","GH","YE","VU","BI","AM","ID","NO","IL","KG","SZ","KM","TH","SB","ZW","HU","LC","GT","BH","CR","RW","CG","CH","NR","SD","BB","MX","SV","SM","PG","NE","GW","PW","BA","DZ","UZ","JP","CI","CZ","TO","HR","IN","FJ","MW","ME","BD"];
-const VIEWS={World:[-180,180,-82,85],Europe:[-14,43,32,66],Caribbean:[-87,-57,8,28],Pacific:[125,225,-52,26],Africa:[-25,55,-38,39],Asia:[42,150,-12,61]};
+const VIEWS={World:[-180,180,-82,85],Europe:[-14,43,32,66],Caribbean:[-87,-57,8,28],Pacific:[125,225,-52,26],Africa:[-25,55,-38,39],Asia:[42,150,-12,61],SEAsia:[88,137,-15,32],SouthernAfrica:[8,43,-37,-9],SouthAmerica:[-82,-34,-57,16],EastAsia:[112,156,20,52]};
 const $=id=>document.getElementById(id),svg=$("map"),px=lon=>(lon+180)*4,py=lat=>(90-lat)*4;
-const STORE=REFEREE_PILOT?"wcg-ten-location-referee-20261011":"wcg-gridfree-location-area-prototype-v1";
+const STORE=FUN_PILOT?"wcg-geography-simple-fun-trial-v1":REFEREE_PILOT?"wcg-ten-location-referee-20261011":"wcg-gridfree-location-area-prototype-v1";
 const ANCHORS=new Map(MARKERS.map(([iso,lat,lon])=>[iso,{lat,lon}]));
 let world=null,detail=null,worldHiRes=null,hiResError=null,active=0,view=null,region="World",gesture=null;
 let state=QUESTIONS.map(()=>({country:"",capital:"",location:null,point:null,radiusKm:500}));
@@ -17,7 +30,7 @@ function node(tag,attrs,cls){const el=document.createElementNS("http://www.w3.or
  for(const [k,v] of Object.entries(attrs||{}))el.setAttribute(k,String(v));if(cls)el.setAttribute("class",cls);return el}
 function store(){try{localStorage.setItem(STORE,JSON.stringify(state))}catch{}}
 function readStore(){try{const a=JSON.parse(localStorage.getItem(STORE)||"null");if(Array.isArray(a)&&a.length===QUESTIONS.length)state=state.map((s,i)=>({
- country:String(a[i]?.country||""),capital:String(a[i]?.capital||""),location:typeof a[i]?.location==="string"?a[i].location:null,point:Number.isFinite(a[i]?.point?.lat)&&Number.isFinite(a[i]?.point?.lon)?a[i].point:null,radiusKm:[300,500,800].includes(a[i]?.radiusKm)?a[i].radiusKm:500
+ country:String(a[i]?.country||""),capital:String(a[i]?.capital||""),location:typeof a[i]?.location==="string"?a[i].location:null,point:Number.isFinite(a[i]?.point?.lat)&&Number.isFinite(a[i]?.point?.lon)?a[i].point:null,radiusKm:[300,500,800].includes(a[i]?.radiusKm)?a[i].radiusKm:500,revealed:Boolean(a[i]?.revealed)
  }))}catch{}}
 function render(){
  $("grid").replaceChildren();
@@ -164,6 +177,7 @@ function paint(){
  if(quality)quality.textContent=hires?"Detailed borders · Natural Earth 1:10m":
   view.w<=600&&hiResError?"Detailed borders unavailable · 1:110m fallback":
   view.w<=600?"Loading detailed borders · 1:110m fallback":"World overview · zoom in for 1:10m detail";
+ if(FUN_PILOT){paintFun(land,circles,dots,labels);return}
  const scale=Math.max(.001,mapSize().w/view.w);
  state.forEach((s,i)=>{
   const p=s.point&&Number.isFinite(s.point.lon)&&Number.isFinite(s.point.lat)?s.point:pointFromCode(s.location);
@@ -243,6 +257,7 @@ function chooseAt(e){
  state[active].point=point;
  state[active].radiusKm=radiusKm;
  store();status();paint();
+ if(FUN_PILOT){updateFun();$("mapStatus").textContent="Pin placed. Reveal the country when you are ready.";return}
  $("mapStatus").textContent="Question "+(active+1)+" — approximate position "+Math.abs(point.lat).toFixed(2)+"°"+(point.lat>=0?"N":"S")+", "+Math.abs(point.lon).toFixed(2)+"°"+(point.lon>=0?"E":"W")+"; circle radius "+radiusKm+" km. Tap again to adjust.";
  hide();
 }
@@ -345,7 +360,7 @@ svg.addEventListener("wheel",e=>{
  zoom(Math.exp(exponent),viewPoint(e));
 },{passive:false});
 async function init(){
- readStore();render();
+ readStore();render();if(FUN_PILOT)setupFun();
  $("atlasRegions").onclick=e=>{const b=e.target.closest("button[data-view]");if(b)changeRegion(b.dataset.view)};
  $("zoomIn").onclick=()=>zoom(.70);
  $("zoomOut").onclick=()=>zoom(1.43);
@@ -369,7 +384,7 @@ async function init(){
   if(OFFICIAL_195_CODES.length!==195||uncovered.length)throw Error("Selectable 195-country inventory incomplete: "+uncovered.join(","));
   window.__atlasCoverage={count:195,uncovered,polygonCount:195-OFFICIAL_195_CODES.filter(z=>!datasetCodes.has(z)).length,markerOnly:OFFICIAL_195_CODES.filter(z=>!datasetCodes.has(z))};
 
-  changeRegion("World");
+  changeRegion(FUN_PILOT?FUN_QUESTIONS[active].view:"World");
   $("mapStatus").textContent="Map ready. Zoom into a region to see detailed national borders; select any approximate location.";
   // A local copy of Natural Earth 1:10m, generated and committed into this
   // same GitHub Pages site. The lightweight 110m data remains the fallback.
@@ -387,6 +402,117 @@ async function init(){
     .catch(error=>{hiResError=String(error.message||error);paint()});
  }catch(e){$("mapStatus").textContent="Map could not load: "+String(e?.message||e)}
 }
+
+function funCircle(layer,cx,cy,r,cls){
+ layer.appendChild(node("circle",{cx,cy,r},cls));
+}
+function paintFun(land,circles,dots,labels){
+ const q=FUN_QUESTIONS[active],s=state[active];
+ const scale=Math.max(.001,mapSize().w/view.w);
+ // Before reveal, neither the silhouette nor the correct-location marker
+ // may stand out from other countries.
+ if(s.revealed){
+   for(const pathEl of land.querySelectorAll("path")){
+     if(pathEl.getAttribute("data-iso")===q.iso)pathEl.classList.add("funCorrect");
+   }
+ }
+ const pins=[];
+ if(s.point)pins.push({point:[s.point.lon,s.point.lat],kind:"your",caption:"Your pin"});
+ if(s.revealed)pins.push({point:q.where,kind:"truth",caption:"Actual country"});
+ for(const item of pins)for(const shift of [-1440,0,1440]){
+   const x=px(item.point[0])+shift,y=py(item.point[1]);
+   if(!inside(x,y))continue;
+   if(item.kind==="truth"&&q.type==="region")funCircle(circles,x,y,17/scale,"funLocatorRing");
+   funCircle(dots,x,y,7.5/scale,item.kind==="truth"?"funTruthDot":"funYourDot");
+   const t=node("text",{x:x+12/scale,y:y-12/scale,"font-size":13/scale},
+     item.kind==="truth"?"funTruthLabel":"funYourLabel");
+   t.textContent=item.caption;labels.appendChild(t);
+ }
+}
+function setupFun(){
+ document.title="World Capitals Game · Geography, simplified";
+ $("title").textContent="Where in the world?";
+ document.querySelector(".sub").textContent="A simple geography experiment: pin a country, then reveal where it really is.";
+ $("stagePill").textContent="Fun-first geography · no scores";
+ document.querySelector(".legend").textContent="Five continent-map pins · Five broad world-region pins · 10 quick reveals";
+ document.querySelector(".previewOnly").textContent="No kilometre limits, grids or referee negotiations. This is a design test, not an official championship.";
+ $("grid").hidden=true;
+ document.querySelector(".actions").hidden=true;
+ document.querySelector(".small").hidden=true;
+ $("out").hidden=true;
+ $("atlasRegions").hidden=true;
+ document.querySelector(".radiusBar").hidden=true;
+ $("zoneKey").hidden=true;
+ $("returnQuestion").hidden=true;
+ document.querySelector(".technicalNote").textContent="Your trial is saved only in this browser. Clicking Reveal shows the true country; nothing here changes the official 390/390.";
+ document.querySelector(".atlasHint").textContent="Tap anywhere to place or move your pin. You can pan, zoom, and use Reset view. Then Reveal shows the real outline or island locator.";
+ document.querySelector("#atlasSection h2").textContent="Your map";
+ const wrap=document.createElement("section");wrap.id="funPanel";wrap.className="funPanel";
+ wrap.innerHTML='<div class="funTop"><span id="funNumber"></span><span id="funProgress"></span></div><div class="funMode" id="funMode"></div><h2 id="funCountry"></h2><p id="funInstruction"></p><div id="funSteps" class="funSteps"></div><div class="funControls"><button type="button" id="funPrev">← Previous</button><button type="button" id="funReveal" class="funPrimary">Reveal location</button><button type="button" id="funZoom" hidden>View country close-up</button><button type="button" id="funNext" class="funPrimary">Next →</button></div><div id="funFeedback" class="funFeedback"></div><div id="funDone"></div><button type="button" id="funReset" class="funReset">Restart this practice</button>';
+ $("atlasSection").before(wrap);
+ const bottom=document.createElement("div");bottom.className="funBottom";
+ bottom.innerHTML='<button type="button" id="funNextBottom">Next question →</button>';
+ document.querySelector(".atlasFoot").after(bottom);
+ $("funPrev").onclick=()=>pickFun(Math.max(0,active-1));
+ $("funNext").onclick=()=>pickFun(Math.min(9,active+1));
+ $("funNextBottom").onclick=()=>pickFun(Math.min(9,active+1));
+ $("funReveal").onclick=()=>{
+   if(!state[active].point)return;
+   state[active].revealed=true;store();updateFun();paint();
+ };
+ $("funZoom").onclick=()=>{
+   if(!state[active].revealed)return;
+   const point=FUN_QUESTIONS[active].where;
+   const w=FUN_QUESTIONS[active].type==="region"?48:70,ratio=mapSize().ratio;
+   view=clamp({x:px(point[0])-w/2,y:py(point[1])-w/(2*ratio),w,h:w/ratio});
+   paint();
+ };
+ $("funReset").onclick=()=>{
+   if(!confirm("Restart only this unscored geography practice?"))return;
+   state=QUESTIONS.map(()=>({country:"",capital:"",location:null,point:null,radiusKm:500,revealed:false}));
+   active=0;store();pickFun(0);
+ };
+ for(let i=0;i<10;i++){
+   const b=document.createElement("button");b.type="button";b.id="funStep"+(i+1);
+   b.textContent=String(i+1);b.onclick=()=>pickFun(i);$("funSteps").appendChild(b);
+ }
+ updateFun();
+}
+function pickFun(i){
+ active=i;changeRegion(FUN_QUESTIONS[i].view);updateFun();
+ $("mapStatus").textContent="Tap anywhere to put your pin; use Reveal after selecting.";
+ $("funPanel").scrollIntoView({block:"start"});
+}
+function updateFun(){
+ if(!FUN_PILOT)return;
+ const q=FUN_QUESTIONS[active],s=state[active];
+ $("funNumber").textContent="Question "+(active+1)+" of 10";
+ $("activeQuestion").textContent=q.type==="pin"?"Country pin":"Region pin";
+ $("funProgress").textContent=state.filter(s=>s.revealed).length+" of 10 revealed";
+ $("funMode").textContent=q.type==="pin"?"CONTINENT / REGION MAP: "+q.viewName:"BROAD WORLD REGION: no tiny island pixel needed";
+ $("funCountry").textContent=q.name;
+ $("funInstruction").textContent=q.type==="pin"?
+   "This country is somewhere in "+q.viewName+". Place your pin roughly where it belongs.":
+   "Use the world map to point to the broad part of the world where this country belongs. Exact island placement is not required.";
+ $("funReveal").disabled=!s.point||!!s.revealed;
+ $("funReveal").textContent=s.revealed?"Location revealed":"Reveal location";
+ $("funZoom").hidden=!s.revealed;
+ $("funPrev").disabled=active===0;
+ $("funNext").disabled=active===9;
+ $("funNextBottom").disabled=active===9;
+ $("funFeedback").textContent=s.revealed?
+    "Actual location: "+q.region+". Highlighted shape / amber locator shows the country. Your blue pin remains visible when it is in view.":
+    s.point?"Pin selected. Reveal whenever you're ready.":"No pin yet. Tap the map to make your choice.";
+ for(let i=0;i<10;i++){
+   const b=$("funStep"+(i+1));
+   b.classList.toggle("current",i===active);b.classList.toggle("completed",!!state[i].revealed);
+   b.setAttribute("aria-label","Question "+(i+1)+(state[i].revealed?" revealed":""));
+ }
+ const n=state.filter(s=>s.revealed).length;
+ $("funDone").textContent=n===10?"All 10 explored. Was this more enjoyable than the old precision referee?":"";
+}
+
+
 if(REFEREE_PILOT){
  document.title="Geography Referee · Ten-Question Practice";
  $("title").textContent="Geography Referee — 10-Question Practice";
@@ -395,4 +521,5 @@ if(REFEREE_PILOT){
 }
 init();
 
+window.__geoFun={enabled:FUN_PILOT,getQuestions:()=>FUN_QUESTIONS.map(x=>({name:x.name,type:x.type,view:x.view})),getActive:()=>active,getRecord:()=>FUN_PILOT?state.map(s=>({point:s.point,revealed:!!s.revealed})):[],getMapMode:()=>region};
 window.__areaTrial={getState:()=>state.map(s=>({country:s.country,capital:s.capital,location:s.location,point:s.point,radiusKm:s.radiusKm})),getRadius:()=>radiusKm,getHiResStatus:()=>({ready:!!worldHiRes,error:hiResError,features:worldHiRes?.features?.length||0,germanyVertices:worldHiRes?.features?.find(f=>f.id==="DE")?.polys?.reduce((s,p)=>s+p.reduce((n,r)=>n+r.length,0),0)||0}),pointFromCode};
