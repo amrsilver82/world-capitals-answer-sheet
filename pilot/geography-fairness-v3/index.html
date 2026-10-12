@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f8fafc">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>World Capitals Game — Geography V3</title>
+<link rel="stylesheet" href="style.css?v=v3">
+<script defer src="app.js?v=v3"></script>
+</head><body><main class="wrap">
+<header><h1 id="title">World Flags + Capitals + Approximate Location — 10-Country Preview</h1>
+<p class="sub">Identify the country from each flag and its capital. Leave anything you do not know blank.</p>
+<div><span id="stagePill" class="pill">Design trial · Approximate location</span><span id="count" class="pill">Loading…</span><span id="locationCount" class="pill">0 / 10 locations selected</span></div>
+<p class="legend">Country, Capital and Location are independent. No official scoring takes place here.</p>
+<p class="previewOnly">Same original quiz layout, but no rigid grid. You choose an approximate position and see a consistent kilometre-radius area around YOUR choice.</p></header>
+<section id="grid" class="grid"></section>
+<section id="atlasSection">
+<div class="atlasbox">
+<div class="top"><h2>Shared atlas — select an approximate geographical area</h2><span class="stage" id="activeQuestion">Question 1</span></div>
+<p class="atlasHint">Select a region manually, then tap anywhere on land or water. Your tap places a pin and a distance circle; you never need to hit a tiny island dot. No fixed grid, no target hint. Previous locations stay numbered.</p>
+<div class="atlasToolbar">
+<div id="atlasRegions" class="atlasRegions" role="group" aria-label="Choose world map region">
+<button type="button" data-view="World" aria-pressed="true">World</button>
+<button type="button" data-view="Europe" aria-pressed="false">Europe</button>
+<button type="button" data-view="Caribbean" aria-pressed="false">Caribbean</button>
+<button type="button" data-view="Pacific" aria-pressed="false">Pacific</button>
+<button type="button" data-view="Africa" aria-pressed="false">Africa</button>
+<button type="button" data-view="Asia" aria-pressed="false">Asia</button>
+</div>
+<div class="atlasZoom"><button id="zoomIn" type="button" aria-label="Zoom in">+</button><button id="zoomOut" type="button" aria-label="Zoom out">−</button><button id="resetView" type="button">Reset view</button></div></div>
+<div class="zoneKey" id="zoneKey">A circle around YOUR selected point illustrates an approximate radius in kilometres. Every country uses the same visual setting. Circles are NOT approved scoring boundaries.</div>
+<div class="radiusBar"><label for="radiusChoice">Illustrative radius for current question:</label><select id="radiusChoice"><option value="300">300 km</option><option value="500" selected>500 km</option><option value="800">800 km</option></select><span>Saved separately for each question; changing it does not move any pin.</span></div><div class="atlasResolution" id="mapResolution">World overview · zoom in for detailed 1:10m borders</div>
+<div class="atlasViewport"><svg id="map" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Grid-free geography map. Tap anywhere to place a geographical area; zoom and pan supported.">
+<rect x="-1440" y="0" width="4320" height="720" fill="#d9effa"></rect><g id="countries"></g><g id="zones"></g><g id="marks"></g><g id="choiceBadges"></g></svg></div>
+<div class="atlasFoot"><div><span class="mapStatus" id="mapStatus">Loading geographic shapes…</span><span class="stage" id="viewLabel"> · World view</span></div><button id="returnQuestion" type="button">↑ Return to active question</button></div>
+<p class="technicalNote">This ten-country design trial does not grade locations. A consistent kilometre radius is being demonstrated, not adopted as an official rule. Countries with scattered islands and disputed borders still need careful treatment. No scores sent to GitHub.</p>
+</div></section>
+<section class="actions"><button id="build" class="primary">Build my reply</button><button id="copy" disabled>Copy reply</button><button id="clear">Clear editable fields</button><button id="latest">Reload preview</button></section>
+<p class="small">Prototype answers save locally in this browser only; they are not the official GitHub checkpoint. The original exact-pin atlas remains unchanged at its separate URL.</p>
+<section id="out" class="out"><pre id="reply"></pre><p id="note"></p></section>
+</main></body></html>

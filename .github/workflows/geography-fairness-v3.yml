@@ -1,0 +1,28 @@
+name: Geography V3 Fairness Browser Regression
+on:
+  push:
+    paths:
+      - 'pilot/geography-fairness-v3/**'
+      - '.github/workflows/geography-fairness-v3.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.56.1-noble
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright
+        run: npm install --no-save playwright@1.56.1
+      - name: Serve app
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/v3-geo.log 2>&1 &
+          sleep 2
+      - name: Test V3 desktop and mobile
+        run: node pilot/geography-fairness-v3/test/regression.mjs
