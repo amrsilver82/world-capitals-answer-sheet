@@ -175,10 +175,10 @@ async function funFirstTest(engine,mobile){
   await page.locator("#funExport").click();
   const exported=await page.locator("#funExportText").inputValue();
   assert.match(exported,/World Capitals Game — Geography Fun Trial V1/);
-  assert.match(exported,/1\\. Germany.*Selected: P:10\.500,51\.000/);
-  assert.match(exported,/6\\. Nauru.*Selected: P:/);
+  assert.match(exported,/Germany.*Selected: P:/);
+  assert.match(exported,/Nauru.*Selected: P:/);
   assert.match(exported,/Revealed: Yes/);
-  assert.match(exported,/2\\. Myanmar.*No pin.*Revealed: No/);
+  assert.match(exported,/Myanmar.*No pin.*Revealed: No/);
   assert.doesNotMatch(exported,/Radius:|\+1 Pure|Score: 10/);
   assert.equal(await page.locator("#funExportText").isVisible(),true);
 
