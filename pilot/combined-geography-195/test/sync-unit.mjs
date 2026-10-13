@@ -25,7 +25,7 @@ const answers=manifest.questions.slice(3).map((q,i)=>sample(q.q,String(i+5000),q
 for(const e of answers)add(e);
 x=replay(events,manifest);assert.equal(x.accepted.length,195);assert.equal(x.next,null);
 assert.equal(x.accepted[194].q,195);
-const future=sample(195,"last",{mode:"country_pin",point:{lon:0,lat:0}});
+const future=sample(195,"abc0",{mode:"country_pin",point:{lon:0,lat:0}});
 add(future);assert.equal(replay(events,manifest).accepted.length,195);
 const authHeaders=[];let comments=[];
 const fake=async(url,opt)=>{
