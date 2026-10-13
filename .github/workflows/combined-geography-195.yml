@@ -1,0 +1,30 @@
+name: Combined Geography 195 Integration Regression
+on:
+  push:
+    paths:
+      - 'pilot/combined-geography-195/**'
+      - '.github/workflows/combined-geography-195.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser-and-sync:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.56.1-noble
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright
+        run: npm install --no-save playwright@1.56.1
+      - name: Start static preview
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/combined195.log 2>&1 &
+          sleep 2
+      - name: Test GitHub draft event replay and 195-country manifest
+        run: node pilot/combined-geography-195/test/sync-unit.mjs
+      - name: Test desktop Chromium and simulated mobile WebKit
+        run: node pilot/combined-geography-195/test/regression.mjs
