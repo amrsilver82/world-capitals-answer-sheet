@@ -179,7 +179,7 @@ function setupMap(){
 }
 function beginGeography(){
  const q=currentTarget;
- if(!connected||busy||!q||!remote?.pending)return;
+ if(!connected||!q||!remote?.pending)return;
  identityLocked=true;currentDraft={countryText:remote.pending.countryText,capitalText:remote.pending.capitalText};
  $("countryInput").value=currentDraft.countryText;$("capitalInput").value=currentDraft.capitalText;
  $("countryInput").disabled=true;$("capitalInput").disabled=true;
@@ -250,7 +250,7 @@ async function saveIdentity(){
   }
   showNext();message("Initial Country and Capital saved to GitHub; geography target now available.","good");
  }catch(e){message("Initial answers NOT confirmed: "+e.message+". You may retry.","warning")}
- finally{busy=false;$("lockIdentity").disabled=!!remote?.pending||!connected}
+ finally{busy=false;$("lockIdentity").disabled=!!remote?.pending||!connected;updateSubmit()}
 }
 async function connect(token){
  if(busy)return;busy=true;auth("Verifying private experimental Issue #"+ISSUE+"…");
