@@ -70,6 +70,35 @@ async function run(engine,mobile){
   await page.waitForFunction(()=>__combined195.getStatus().connected);
   assert.equal(await page.evaluate(()=>__combined195.getStatus().accepted),1,"GitHub is authoritative across refresh");
   assert.equal(await page.evaluate(()=>__combined195.getStatus().next),2);
+  assert.equal(await page.locator("#countryInput").isEnabled(),true,"Connected next question stays editable after sync");
+  // Two different browser tabs must read the same GitHub-only checkpoint.
+  const second=await ctx.newPage();second.on("pageerror",e=>errors.push(e.message));
+  await second.goto(URL,{waitUntil:"networkidle"});await second.waitForFunction(()=>__combined195?.getAtlasReady(),null,{timeout:45000});
+  assert.equal(await second.evaluate(()=>__combined195.getStatus().connected),false);
+  await second.locator("#credential").fill("github_pat_fakeMockIntegration");
+  await second.locator("#connect").click();await second.waitForFunction(()=>__combined195.getStatus().connected);
+  assert.equal(await second.evaluate(()=>__combined195.getStatus().next),2);
+  // Both browsers prepare Q2. A wins the GitHub append-only race.
+  for(const tab of [second,page]){
+   await tab.locator("#countryInput").fill("Monaco");await tab.locator("#capitalInput").fill("Monaco");
+   await tab.locator("#lockIdentity").click();
+   const bounds=await tab.locator("#atlas").boundingBox();
+   const x=bounds.x+(7.425+180)/360*bounds.width,y=bounds.y+(90-43.738)/180*bounds.height;
+   if(mobile){
+    await tab.evaluate(({x,y})=>{const map=document.getElementById("atlas"),touch=new Touch({identifier:3,target:map,clientX:x,clientY:y});
+     map.dispatchEvent(new TouchEvent("touchstart",{bubbles:true,cancelable:true,touches:[touch],changedTouches:[touch]}));
+     map.dispatchEvent(new TouchEvent("touchend",{bubbles:true,cancelable:true,touches:[],changedTouches:[touch]}));
+    },{x,y});
+   }else await tab.mouse.click(x,y);
+   assert.equal(await tab.locator("#submit").isEnabled(),true);
+  }
+  await page.locator("#submit").click();await page.waitForFunction(()=>__combined195.getStatus().accepted===2);
+  assert.equal(comments.length,2);
+  await second.locator("#submit").click();
+  await second.waitForFunction(()=>__combined195.getStatus().accepted===2);
+  assert.equal(comments.length,2,"Stale concurrent browser cannot post an extra answer");
+  assert.equal(await second.evaluate(()=>__combined195.getStatus().next),3);
+  assert.equal(await second.locator("#countryInput").isEnabled(),true);
   assert.deepEqual(errors,[],"No browser script errors");
   console.log("PASS "+engine.name()+" "+(mobile?"mobile":"desktop")+" 195 combined UI, no continent hint, canonical flag, submitted event confirmed by GitHub, no local score fallback, reload resumes from remote.");
  }finally{await browser.close()}

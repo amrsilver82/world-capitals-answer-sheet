@@ -42,7 +42,7 @@ function showNext(){
  renderCount();renderCards();
  const q=getCurrent();identityLocked=false;currentDraft=null;temporaryPin=null;
  $("countryInput").value="";$("capitalInput").value="";
- const enabled=!!q&&connected&&!busy;
+ const enabled=!!q&&connected; // render the next question after GitHub confirm even while previous async operation settles
  $("countryInput").disabled=!enabled;$("capitalInput").disabled=!enabled;
  $("lockIdentity").disabled=!enabled;$("lockIdentity").hidden=!q;
  $("unlockIdentity").hidden=true;$("geoControls").hidden=true;
