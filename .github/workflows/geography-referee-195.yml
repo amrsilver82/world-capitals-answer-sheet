@@ -1,0 +1,22 @@
+name: Geography Referee 195 Candidate Tests
+on:
+  push:
+    paths:
+      - 'pilot/geography-integrated-v4/referee/**'
+      - 'pilot/geography-integrated-v4/data/candidate195.json'
+      - 'pilot/geography-integrated-v4/test/referee195.mjs'
+      - '.github/workflows/geography-referee-195.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  referee:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate country coverage, geometry and experimental fairness
+        run: node pilot/geography-integrated-v4/test/referee195.mjs
