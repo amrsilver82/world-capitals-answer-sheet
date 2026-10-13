@@ -9,7 +9,7 @@ async function check(browserType,mobile){
   await page.addInitScript(()=>{localStorage.setItem("wcg-geography-fairness-scored-v3",JSON.stringify({current:19,records:Array.from({length:20},(_,i)=>({point:i===0?{lon:9.8,lat:50.9}:null,areaChoice:i===11?"atlantic":i===19?"europe":null,revealed:i===0||i===11||i===19}))}))});
   await page.goto(URL,{waitUntil:"networkidle"});await page.waitForFunction(()=>window.__geoFun?.version===4&&window.__areaTrial?.getHiResStatus().ready,null,{timeout:30000});
   assert.equal(await page.locator(".geoCard").count(),22);
-  assert.equal(await page.locator(".geoCard:visible").count(),2,"last batch 21-22 visible from saved active Q20");
+  assert.equal(await page.locator(".geoCard:visible").count(),10,"imported Q20 should show Q11-20 as a ten-card batch");
   assert.equal(await page.locator("#funCountry").innerText(),"Vatican City");
   assert.equal(await page.evaluate(()=>__geoFun.getMapMode()),"World");
   assert.equal(await page.locator("#activeQuestion").innerText(),"Question 20 / 22");
