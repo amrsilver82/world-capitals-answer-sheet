@@ -296,7 +296,14 @@ function planRecovery(payload){
     conflict="A different area choice already exists; kept the current one.";
    else if(!copy.areaChoice){copy.areaChoice=incoming.areaChoice;change=true}
   }
-  if(incoming.legacy&&!copy.legacy){copy.legacy=incoming.legacy;change=true}
+  if(incoming.legacy){
+   if(!copy.legacy){copy.legacy=incoming.legacy;change=true}
+   else if(copy.legacy.areaChoice&&incoming.legacy.areaChoice&&copy.legacy.areaChoice!==incoming.legacy.areaChoice){
+    conflict="Different earlier V3 area recorded; current history kept.";
+   }else if(incoming.legacy.revealed&&!copy.legacy.revealed){
+    copy.legacy={areaChoice:copy.legacy.areaChoice||incoming.legacy.areaChoice,revealed:true};change=true;
+   }
+  }
   if(incoming.revealed&&!copy.revealed){
    if(conflict){} // Preserve currently chosen attempt; do not retroactively reveal a different answer.
    else if((Q[i].type==="pin"&&copy.point)||(Q[i].type==="area"&&copy.areaChoice)){
@@ -351,7 +358,7 @@ function setupRecovery(){
    point:now.point||record.point,
    areaChoice:now.areaChoice||record.areaChoice,
    revealed:now.revealed||record.revealed,
-   legacy:now.legacy||record.legacy
+   legacy:now.legacy?{areaChoice:now.legacy.areaChoice||record.legacy?.areaChoice||null,revealed:!!(now.legacy.revealed||record.legacy?.revealed)}:record.legacy
   }}
   save();update();paint();proposedRecovery=null;apply.disabled=true;
   $("v4RecoveryStatus").textContent=changes.length+" missing records restored and backed up locally. Your existing records were preserved. Nothing was sent to a server.";

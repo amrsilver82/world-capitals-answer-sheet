@@ -75,8 +75,8 @@ async function regressionV4Persistence(engine,mobile){
   // User's private recovery payload, through URL hash and explicit user action.
   await page.evaluate(()=>{
    const r=JSON.parse(localStorage.getItem("wcg-geography-integrated-v4"));
-   r.records[11].point=null;r.records[11].legacy=null;
-   r.records[19].point=null;r.records[19].revealed=false;r.records[19].legacy=null;
+   r.records[11].point=null;r.records[11].legacy={areaChoice:"atlantic",revealed:false};
+   r.records[19].point=null;r.records[19].revealed=false;r.records[19].legacy={areaChoice:"europe",revealed:false};
    localStorage.setItem("wcg-geography-integrated-v4",JSON.stringify(r));
   });
   await page.reload({waitUntil:"networkidle"});await page.waitForFunction(()=>__geoFun?.version===4);
@@ -98,7 +98,9 @@ async function regressionV4Persistence(engine,mobile){
   await page.locator("#v4RecoveryApply").click();
   const got=await page.evaluate(()=>__geoFun.getRecord());
   assert.deepEqual(got[11].point,{lon:-24,lat:15});
+  assert.equal(got[11].legacy.revealed,true,"Recover original V3 revealed flag");
   assert.equal(got[19].revealed,true);
+  assert.equal(got[19].legacy.revealed,true,"Recover revealed V3 history without resetting V4");
   assert.deepEqual(got[20].point,before[20].point,"Do not overwrite newer Malta answer");
   assert.ok(await page.evaluate(()=>Object.keys(localStorage).some(k=>k.includes("-pre-recovery-"))),"Pre-repair snapshot");
   await page.reload({waitUntil:"networkidle"});await page.waitForFunction(()=>__geoFun?.version===4);
