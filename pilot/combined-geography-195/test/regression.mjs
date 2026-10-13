@@ -46,13 +46,8 @@ async function run(engine,mobile){
   const lon=47.5,lat=29.3;
   const px=rect.x+(lon+180)/360*rect.width;
   const py=rect.y+(90-lat)/180*rect.height;
-  if(mobile){
-   await page.evaluate(({x,y})=>{
-    const map=document.getElementById("atlas");
-    map.dispatchEvent(new TouchEvent("touchstart",{bubbles:true,cancelable:true,touches:[new Touch({identifier:1,target:map,clientX:x,clientY:y})],changedTouches:[new Touch({identifier:1,target:map,clientX:x,clientY:y})]}));
-    map.dispatchEvent(new TouchEvent("touchend",{bubbles:true,cancelable:true,touches:[],changedTouches:[new Touch({identifier:1,target:map,clientX:x,clientY:y})]}));
-   },{x:px,y:py});
-  }else await page.mouse.click(px,py);
+  if(mobile)await page.touchscreen.tap(px,py);
+  else await page.mouse.click(px,py);
   assert.equal(await page.locator("#submit").isEnabled(),true);
   await page.locator("#submit").click();
   await page.waitForFunction(()=>__combined195.getStatus().accepted===1);
@@ -86,12 +81,8 @@ async function run(engine,mobile){
    await tab.locator("#atlas").scrollIntoViewIfNeeded();
    const bounds=await tab.locator("#atlas").boundingBox();
    const x=bounds.x+(7.425+180)/360*bounds.width,y=bounds.y+(90-43.738)/180*bounds.height;
-   if(mobile){
-    await tab.evaluate(({x,y})=>{const map=document.getElementById("atlas"),touch=new Touch({identifier:3,target:map,clientX:x,clientY:y});
-     map.dispatchEvent(new TouchEvent("touchstart",{bubbles:true,cancelable:true,touches:[touch],changedTouches:[touch]}));
-     map.dispatchEvent(new TouchEvent("touchend",{bubbles:true,cancelable:true,touches:[],changedTouches:[touch]}));
-    },{x,y});
-   }else await tab.mouse.click(x,y);
+   if(mobile)await tab.touchscreen.tap(x,y);
+   else await tab.mouse.click(x,y);
    assert.equal(await tab.locator("#submit").isEnabled(),true);
   }
   await page.locator("#submit").click();await page.waitForFunction(()=>__combined195.getStatus().accepted===2);
