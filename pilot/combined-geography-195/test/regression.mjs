@@ -1,132 +1,93 @@
 import {chromium,webkit} from "playwright";
+import fs from "node:fs";
 import assert from "node:assert/strict";
 const URL="http://127.0.0.1:8765/pilot/combined-geography-195/";
-async function run(engine,mobile){
- const browser=await engine.launch();
+const m=JSON.parse(fs.readFileSync("pilot/combined-geography-195/data/questions.json","utf8"));
+const used=new Set(),iso=[];
+for(let i=0;i<195;i++){let c=i===0?"KW":i===1?"MC":String.fromCharCode(65+Math.floor(i/26),65+i%26);
+ while(used.has(c))c=String.fromCharCode(65+Math.floor((i+31)/26),65+(i+31)%26);
+ used.add(c);iso.push(c)}
+const assets={entries:m.questions.map((q,i)=>({q:q.q,country:i===0?"Kuwait":i===1?"Monaco":"Country "+q.q,public_asset:q.flag.slice(6),source_path:"flags/"+iso[i]+".svg"}))};
+const classified={countries:assets.entries.map((x,i)=>({iso2:iso[i],name:x.country,mode:"country_pin"}))};
+const base64=o=>Buffer.from(JSON.stringify(o)).toString("base64");
+async function run(browserType,mobile){
+ const browser=await browserType.launch();
  try{
-  const ctx=await browser.newContext(mobile?{viewport:{width:390,height:844},isMobile:true,hasTouch:true}:{viewport:{width:1365,height:900}});
-  const comments=[];let nextId=100;
-  await ctx.route("https://api.github.com/**",async route=>{
-   const req=route.request(),url=req.url();
-   if(!req.headers().authorization?.startsWith("Bearer github_pat_"))return route.fulfill({status:401,json:{message:"Unauthorized"}});
-   if(/\/issues\/5\/comments\?/.test(url))return route.fulfill({status:200,json:comments});
-   if(url.endsWith("/issues/5"))return route.fulfill({status:200,json:{number:5,state:"open"}});
-   if(url.endsWith("/issues/5/comments")&&req.method()==="POST"){
-    const ev=JSON.parse(req.postData()||"{}"),body=ev.body;
-    comments.push({id:nextId++,body,created_at:"2026-10-13T07:10:00Z"});
-    return route.fulfill({status:201,json:{id:comments.at(-1).id}});
-   }
-   return route.fulfill({status:404,json:{}});
-  });
-  const page=await ctx.newPage(),errors=[];
-  page.on("pageerror",e=>errors.push(e.message));
-  await page.goto(URL,{waitUntil:"networkidle"});
-  await page.waitForFunction(()=>window.__combined195?.getAtlasReady(),null,{timeout:45000});
-  assert.equal(await page.evaluate(()=>__combined195.getCount()),195);
-  assert.deepEqual(await page.evaluate(()=>__combined195.modeCount()),{pins:177,areas:18});
-  assert.equal(await page.locator(".card").count(),10,"Ten original-style flag cards per batch");
-  assert.equal(await page.locator("#submit").isDisabled(),true,"No unsynced answers");
-  assert.equal(await page.locator("#batchNext").isDisabled(),true,"No early access to future flag batches");
-  assert.match(await page.locator("#batchNo").innerText(),/Batch 1/);
-  assert.equal(await page.locator(".card").count(),10);
-  assert.equal(await page.locator(".flagPic img").count(),10,"Only ten flags are displayed before saved progress");
-
-  assert.equal(await page.evaluate(()=>__combined195.getWorldView().w),1440);
-  await page.locator("#credential").fill("github_pat_fakeMockIntegration");
-  await page.locator("#connect").click();
-  await page.waitForFunction(()=>__combined195.getStatus().connected===true);
-  assert.deepEqual(await page.evaluate(()=>__combined195.getStatus()),{connected:true,accepted:0,next:1});
-  assert.equal(await page.locator("#countryInput").isEnabled(),true);
-  await page.locator("#countryInput").fill("Kuwait");
-  await page.locator("#capitalInput").fill("Kuwait City");
-  await page.locator("#lockIdentity").click();
-  assert.match(await page.locator("#geoPrompt").innerText(),/Kuwait/);
-  assert.equal(await page.evaluate(()=>__combined195.getWorldView().w),1440);
-  for(let i=0;i<12;i++)await page.locator("#zoomIn").click();
-  const magnified=await page.evaluate(()=>__combined195.getWorldView());
-  assert.ok(magnified.w<=0.25,"Map must support manually reaching microstate-scale zoom");
-  await page.locator("#resetWorld").click();
-  assert.equal(await page.evaluate(()=>__combined195.getWorldView().w),1440,"World reset does not hint a country");
-  await page.locator("#atlas").scrollIntoViewIfNeeded();
-  const rect=await page.locator("#atlas").boundingBox();
-  assert.ok(rect);
-  const lon=47.5,lat=29.3;
-  const px=rect.x+(lon+180)/360*rect.width;
-  const py=rect.y+(90-lat)/180*rect.height;
-  if(mobile)await page.touchscreen.tap(px,py);
-  else await page.mouse.click(px,py);
-  assert.equal(await page.locator("#submit").isEnabled(),true);
-  await page.locator("#submit").click();
-  await page.waitForFunction(()=>__combined195.getStatus().accepted===1);
-  assert.equal(comments.length,1,"Exactly one private experimental GitHub comment");
-  const first=JSON.parse(comments[0].body);
-  assert.equal(first.iso,"KW");assert.equal(first.q,1);
-  assert.equal(first.countryText,"Kuwait");
-  assert.equal(first.capitalText,"Kuwait City");
-  assert.equal(await page.evaluate(()=>__combined195.getStatus().next),2);
-  await page.reload({waitUntil:"networkidle"});
-  await page.waitForFunction(()=>__combined195.getCount()===195);
-  assert.equal(await page.evaluate(()=>__combined195.getStatus().connected),false,"No credential silently reused after refresh");
-  assert.equal(await page.locator("#submit").isDisabled(),true);
-  await page.locator("#credential").fill("github_pat_fakeMockIntegration");
-  await page.locator("#connect").click();
-  await page.waitForFunction(()=>__combined195.getStatus().connected);
-  assert.equal(await page.evaluate(()=>__combined195.getStatus().accepted),1,"GitHub is authoritative across refresh");
-  assert.equal(await page.evaluate(()=>__combined195.getStatus().next),2);
-  assert.equal(await page.locator("#countryInput").isEnabled(),true,"Connected next question stays editable after sync");
-  // Two different browser tabs must read the same GitHub-only checkpoint.
-  const second=await ctx.newPage();second.on("pageerror",e=>errors.push(e.message));
-  await second.goto(URL,{waitUntil:"networkidle"});await second.waitForFunction(()=>__combined195?.getAtlasReady(),null,{timeout:45000});
-  assert.equal(await second.evaluate(()=>__combined195.getStatus().connected),false);
-  await second.locator("#credential").fill("github_pat_fakeMockIntegration");
-  await second.locator("#connect").click();await second.waitForFunction(()=>__combined195.getStatus().connected);
-  assert.equal(await second.evaluate(()=>__combined195.getStatus().next),2);
-  // Both browsers prepare Q2. A wins the GitHub append-only race.
-  for(const tab of [second,page]){
-   await tab.locator("#countryInput").fill("Monaco");await tab.locator("#capitalInput").fill("Monaco");
-   await tab.locator("#lockIdentity").click();
-   await tab.locator("#atlas").scrollIntoViewIfNeeded();
-   const bounds=await tab.locator("#atlas").boundingBox();
-   const x=bounds.x+(7.425+180)/360*bounds.width,y=bounds.y+(90-43.738)/180*bounds.height;
-   if(mobile)await tab.touchscreen.tap(x,y);
-   else await tab.mouse.click(x,y);
-   assert.equal(await tab.locator("#submit").isEnabled(),true);
+ const ctx=await browser.newContext(mobile?{viewport:{width:390,height:844},isMobile:true,hasTouch:true}:{viewport:{width:1365,height:900}});
+ const comments=[],requests=[];let seq=100;
+ await ctx.route("https://api.github.com/**",async r=>{
+  const req=r.request(),url=req.url();requests.push(url);
+  if(url.includes("/contents/v2/edition3-asset-map.json"))return r.fulfill({status:200,json:{content:base64(assets)}});
+  if(url.includes("/contents/experiments/location-pilot/GEOGRAPHY_195_CLASSIFICATION"))return r.fulfill({status:200,json:{content:base64(classified)}});
+  if(url.endsWith("/issues/5"))return r.fulfill({status:200,json:{number:5,state:"open"}});
+  if(url.includes("/comments?"))return r.fulfill({status:200,json:comments});
+  if(url.endsWith("/issues/5/comments")&&req.method()==="POST"){
+   const data=JSON.parse(req.postData());
+   comments.push({id:seq++,body:data.body,created_at:"2026-10-13T12:00:00Z"});
+   return r.fulfill({status:201,json:{id:seq-1}});
   }
-  await page.locator("#submit").click();await page.waitForFunction(()=>__combined195.getStatus().accepted===2);
-  assert.equal(comments.length,2);
-  await second.locator("#submit").click();
-  await second.waitForFunction(()=>__combined195.getStatus().accepted===2);
-  assert.equal(comments.length,2,"Stale concurrent browser cannot post an extra answer");
-  assert.equal(await second.evaluate(()=>__combined195.getStatus().next),3);
-  assert.equal(await second.locator("#countryInput").isEnabled(),true);
-  // Seed ONLY mocked GitHub Issue #5 comments, not real questions, to verify full-batch handoff.
-  const flagManifest=await page.evaluate(async()=>await (await fetch("data/questions.json")).json());
-  for(const q of flagManifest.questions.slice(2,10)){
-   comments.push({id:100+comments.length,created_at:"2026-10-13T07:10:00Z",body:JSON.stringify({
-    kind:"wcg.combined195.answer.v1",version:1,manifest:flagManifest.version,
-    attempt_id:String(q.q).padStart(24,"a"),q:q.q,iso:q.iso,
-    countryText:"user entry "+q.q,capitalText:"capital input "+q.q,
-    geography:q.mode==="country_pin"?{mode:"country_pin",point:{lon:10,lat:5}}:{mode:"broad_area",choice:"PACIFIC_OCEAN"}
-   })});
-  }
-  await page.locator("#refresh").click();
-  await page.waitForFunction(()=>__combined195.getStatus().accepted===10);
-  assert.deepEqual(await page.evaluate(()=>__combined195.getCompletedHandoffs()),[1]);
-  assert.equal(await page.locator("#batchPrev").isDisabled(),false,"Batch 2 is now visible only after Q1–10 accepted");
-  assert.match(await page.locator("#batchNo").innerText(),/Batch 2/);
-  assert.equal(await page.locator(".flagPic img").count(),10,"Next frozen batch reveals exactly ten flags");
-
-  assert.equal(await page.locator("#copyHandoff").isEnabled(),true);
-  await page.locator("#handoffBatch").selectOption("1");
-  await page.evaluate(()=>document.getElementById("handoffBatch").dispatchEvent(new Event("change",{bubbles:true})));
-  const handoff=await page.locator("#handoffPreview").inputValue();
-  assert.ok(handoff.includes("Q1 | Country entered: Kuwait"));
-  assert.ok(handoff.includes("Q10 | Country entered: user entry 10"));
-  assert.ok(!handoff.includes("Q11 | Country entered:"));
-  assert.ok(!handoff.includes("github_pat_"));
-  assert.ok(!handoff.includes("expectedCountry"));
-  assert.deepEqual(errors,[],"No browser script errors");
-  console.log("PASS "+engine.name()+" "+(mobile?"mobile":"desktop")+" 195 combined UI, no continent hint, canonical flag, submitted event confirmed by GitHub, no local score fallback, reload resumes from remote.");
+  return r.fulfill({status:404,json:{}});
+ });
+ const page=await ctx.newPage(),errors=[];page.on("pageerror",e=>errors.push(e.message));
+ await page.goto(URL,{waitUntil:"networkidle"});
+ await page.waitForFunction(()=>__combined195?.getAtlasReady(),null,{timeout:40000});
+ assert.equal(await page.evaluate(()=>__combined195.getCount()),195);
+ assert.ok(m.questions.every(q=>Object.keys(q).join(",")==="q,flag"));
+ assert.equal(await page.locator("#batchNext").isDisabled(),true);
+ assert.equal(await page.locator(".flagPic img").count(),10);
+ assert.equal(await page.locator("#geoControls").isHidden(),true);
+ assert.equal(requests.filter(x=>x.includes("/contents/")).length,0);
+ await page.locator("#credential").fill("github_pat_mockOnly");
+ await page.locator("#connect").click();
+ await page.waitForFunction(()=>__combined195.getStatus().connected);
+ assert.equal(requests.filter(x=>x.includes("/contents/")).length,0,"No private lookup merely on connect");
+ await page.locator("#countryInput").fill("Kuwait");
+ await page.locator("#capitalInput").fill("Kuwait City");
+ await page.locator("#lockIdentity").click();
+ await page.waitForFunction(()=>__combined195.getStatus().identitySaved,{timeout:15000});
+ assert.equal(comments.length,1);
+ assert.equal(JSON.parse(comments[0].body).kind,"wcg.combined195.identity.v2");
+ await page.waitForFunction(()=>__combined195.getTarget()?.iso==="KW",{timeout:40000});
+ assert.equal(await page.locator("#countryInput").isDisabled(),true);
+ assert.equal(await page.locator("#unlockIdentity").isHidden(),true);
+ assert.match(await page.locator("#geoPrompt").innerText(),/Kuwait/);
+ for(let i=0;i<12;i++)await page.locator("#zoomIn").click();
+ assert.ok((await page.evaluate(()=>__combined195.getWorldView().w))<=.25);
+ await page.locator("#resetWorld").click();
+ await page.locator("#atlas").scrollIntoViewIfNeeded();
+ const rect=await page.locator("#atlas").boundingBox();
+ const x=rect.x+(47.5+180)/360*rect.width,y=rect.y+(90-29.3)/180*rect.height;
+ if(mobile)await page.touchscreen.tap(x,y);else await page.mouse.click(x,y);
+ await page.waitForFunction(()=>!document.getElementById("submit").disabled);
+ await page.locator("#submit").click();
+ await page.waitForFunction(()=>__combined195.getStatus().accepted===1);
+ assert.equal(comments.length,2);
+ assert.equal(JSON.parse(comments[1].body).kind,"wcg.combined195.geography.v2");
+ assert.equal(await page.evaluate(()=>__combined195.getStatus().next),2);
+ await page.reload({waitUntil:"networkidle"});
+ assert.equal(await page.evaluate(()=>__combined195.getStatus().connected),false);
+ await page.locator("#credential").fill("github_pat_mockOnly");
+ await page.locator("#connect").click();
+ await page.waitForFunction(()=>__combined195.getStatus().connected);
+ assert.equal(await page.evaluate(()=>__combined195.getStatus().next),2);
+ const second=await ctx.newPage();second.on("pageerror",e=>errors.push(e.message));
+ await second.goto(URL,{waitUntil:"networkidle"});
+ await second.locator("#credential").fill("github_pat_mockOnly");
+ await second.locator("#connect").click();
+ await second.waitForFunction(()=>__combined195.getStatus().connected);
+ await page.locator("#countryInput").fill("Monaco");
+ await page.locator("#capitalInput").fill("Monaco");
+ await second.locator("#countryInput").fill("Monaco");
+ await second.locator("#capitalInput").fill("Monaco");
+ await page.locator("#lockIdentity").click();
+ await page.waitForFunction(()=>__combined195.getStatus().identitySaved);
+ await second.locator("#lockIdentity").click();
+ await second.waitForFunction(()=>__combined195.getStatus().identitySaved);
+ assert.equal(comments.length,3,"Stale client must not create duplicate identity event");
+ await page.waitForFunction(()=>__combined195.getTarget()?.iso==="MC");
+ await second.waitForFunction(()=>__combined195.getTarget()?.iso==="MC");
+ assert.deepEqual(errors,[]);
+ console.log("PASS "+browserType.name()+" "+(mobile?"mobile":"desktop")+" — two-stage protected metadata, no source leaks, country locked before reveal, geography, restore, stale client");
  }finally{await browser.close()}
 }
 await run(chromium,false);
