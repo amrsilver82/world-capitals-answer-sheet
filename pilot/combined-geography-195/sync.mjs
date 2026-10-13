@@ -68,7 +68,7 @@ export function githubClient(token,fetchImpl=fetch){
  };
  let privateCache=null;
  return {
-  async verify(){const issue=await get(API);if(issue.number!==ISSUE||issue.state!=="open")throw Error("Issue #5 not open");return true},
+  async verify(){const issue=await get(API);if(issue.number!==ISSUE||issue.state!=="open")throw Error("Issue #5 not open");const access=await get(ROOT+"/contents/START_HERE.md");if(typeof access.content!=="string")throw Error("Private repository Contents read permission required");return true},
   async comments(){const all=[];for(let page=1;page<=30;page++){
    const chunk=await get(API+"/comments?per_page=100&page="+page);
    if(!Array.isArray(chunk))throw Error("Invalid GitHub comments");

@@ -17,6 +17,7 @@ async function run(browserType,mobile){
  const comments=[],requests=[];let seq=100;
  await ctx.route("https://api.github.com/**",async r=>{
   const req=r.request(),url=req.url();requests.push(url);
+  if(url.includes("/contents/START_HERE.md"))return r.fulfill({status:200,json:{content:base64({safe:true})}});
   if(url.includes("/contents/v2/edition3-asset-map.json"))return r.fulfill({status:200,json:{content:base64(assets)}});
   if(url.includes("/contents/experiments/location-pilot/GEOGRAPHY_195_CLASSIFICATION"))return r.fulfill({status:200,json:{content:base64(classified)}});
   if(url.endsWith("/issues/5"))return r.fulfill({status:200,json:{number:5,state:"open"}});
@@ -40,7 +41,7 @@ async function run(browserType,mobile){
  await page.locator("#credential").fill("github_pat_mockOnly");
  await page.locator("#connect").click();
  await page.waitForFunction(()=>__combined195.getStatus().connected);
- assert.equal(requests.filter(x=>x.includes("/contents/")).length,0,"No private lookup merely on connect");
+ assert.equal(requests.filter(x=>x.includes("edition3-asset-map")||x.includes("GEOGRAPHY_195_CLASSIFICATION")).length,0,"No answer-key lookup before first saved identity");
  await page.locator("#countryInput").fill("Kuwait");
  await page.locator("#capitalInput").fill("Kuwait City");
  await page.locator("#lockIdentity").click();
