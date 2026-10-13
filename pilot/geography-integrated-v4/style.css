@@ -142,3 +142,13 @@ body:has(#funPanel) #map{min-height:400px}
 .geoAuditRow small{color:#64748b}
 .geoAuditRow button[aria-pressed="true"]{background:#2563eb;color:white}
 @media(max-width:540px){.geoAuditRow{flex-direction:column;align-items:stretch}}
+
+/* Private-checkpoint, consent-only state repair. Never changes scored replies without user confirmation. */
+.v4Recovery{margin:22px 0;background:#fff;border:1px solid #94a3b8;border-radius:12px;padding:16px}
+.v4Recovery h2{font-size:18px;margin:0 0 10px}
+.v4Recovery p{font-size:13px;color:#475569}
+.v4Recovery textarea{width:100%;max-width:100%;border:1px solid #94a3b8;border-radius:8px;padding:10px;font:12px ui-monospace,monospace}
+.recoveryActions{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}
+.recoveryActions button{min-height:40px}
+.recoveryActions button:disabled{opacity:.4}
+#v4RecoveryPreview ul{padding-left:20px;font-size:13px}

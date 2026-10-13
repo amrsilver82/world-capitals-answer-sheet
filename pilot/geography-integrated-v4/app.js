@@ -15,24 +15,62 @@ const AUDIT_PIN_UPGRADES=[
 {iso:"SB",name:"Solomon Islands",where:[160.17,-9.65],px:147},
 {iso:"TT",name:"Trinidad and Tobago",where:[-61.22,10.69],px:125}];
 let records=Q.map(()=>({point:null,areaChoice:null,revealed:false,legacy:null}));let pageIndex=0;let legacyImported=false;
-function save(){try{localStorage.setItem(STORE,JSON.stringify({current:active,records}))}catch{}}
+// V4 persistence: NEVER reinterpret a valid 22-record V4 save as a 20-record V3 legacy import.
+// Regression in prior V4 code mistakenly cleared Q10/Q12/Q14/Q20 every time the page loaded.
+const HISTORY_STORE=STORE+"-history";
+function save(){
+ const next=JSON.stringify({schema:4,current:active,records});
+ try{
+  const before=localStorage.getItem(STORE);
+  if(before&&before!==next){
+   try{
+    const history=JSON.parse(localStorage.getItem(HISTORY_STORE)||"[]");
+    const items=Array.isArray(history)?history:[];
+    items.push({savedAt:new Date().toISOString(),snapshot:before});
+    localStorage.setItem(HISTORY_STORE,JSON.stringify(items.slice(-12)));
+   }catch(error){console.warn("History backup unavailable",error)}
+  }
+  localStorage.setItem(STORE,next);
+ }catch(error){console.warn("V4 browser save unavailable",error)}
+}
+function validGeoPoint(p){
+ return p&&typeof p==="object"&&Number.isFinite(p.lon)&&Number.isFinite(p.lat)&&
+  p.lon>=-180&&p.lon<=180&&p.lat>=-90&&p.lat<=90;
+}
+function normalizedRecord(o){
+ const valid=validGeoPoint(o?.point);
+ return {point:valid?{lon:o.point.lon,lat:o.point.lat}:null,
+   areaChoice:typeof o?.areaChoice==="string"?o.areaChoice:null,
+   revealed:!!o?.revealed&&!!(valid||o?.areaChoice),
+   legacy:o?.legacy&&typeof o.legacy==="object"?{areaChoice:o.legacy.areaChoice||null,revealed:!!o.legacy.revealed}:null};
+}
 function load(){
  try{
-  const current=JSON.parse(localStorage.getItem(STORE)||"null");
-  const old=current?.records?.length===Q.length?current:JSON.parse(localStorage.getItem(OLD_STORE)||"null");
-  if(!old?.records||old.records.length<20)return;
-  legacyImported=old!==current;
+  const local=JSON.parse(localStorage.getItem(STORE)||"null");
+  // This FIRST branch is essential: valid V4 records must pass through unmodified.
+  if(Array.isArray(local?.records)&&local.records.length===Q.length){
+   active=Number.isInteger(local.current)?Math.max(0,Math.min(Q.length-1,local.current)):0;
+   records=Q.map((q,i)=>normalizedRecord(local.records[i]));
+   pageIndex=Math.floor(active/10);legacyImported=false;
+   return;
+  }
+  // Only the 20-entry V3 store may be interpreted as a legacy trial.
+  const old=JSON.parse(localStorage.getItem(OLD_STORE)||"null");
+  if(!Array.isArray(old?.records)||old.records.length!==20)return;
+  legacyImported=true;
   active=Number.isInteger(old.current)?Math.max(0,Math.min(Q.length-1,old.current)):0;
   records=records.map((initial,i)=>{
-   const o=old.records[i];if(!o)return initial;
-   const oldMode=["pin","area","pin","area","pin","area","pin","area","pin","area","pin","area","pin","area","pin","area","pin","area","pin","area"][i];
-   const changed=oldMode==="area"&&Q[i].type==="pin";
-   const validPoint=o.point&&Number.isFinite(o.point.lon)&&Number.isFinite(o.point.lat)?o.point:null;
-   return {point:changed?null:validPoint,areaChoice:o.areaChoice||null,revealed:changed?false:!!o.revealed,
-    legacy:changed?{areaChoice:o.areaChoice||null,revealed:!!o.revealed}:o.legacy||null};
+   if(i>=20)return initial;
+   const entry=normalizedRecord(old.records[i]);
+   const oldArea=[1,3,5,7,9,11,13,15,17,19].includes(i);
+   if(oldArea&&Q[i].type==="pin"){
+    return {point:null,areaChoice:entry.areaChoice,revealed:false,
+     legacy:{areaChoice:entry.areaChoice,revealed:entry.revealed}};
+   }
+   return entry;
   });
-  pageIndex=Math.floor(active/10);if(legacyImported)save();
- }catch(e){console.warn("Import unavailable, prior V3 remains untouched",e)}
+  pageIndex=Math.floor(active/10);save();
+ }catch(error){console.warn("V4 persistence recovery skipped",error)}
 }
 const px=lon=>(lon+180)*4,py=lat=>(90-lat)*4;
 const norm=x=>((x+180)%360+360)%360-180;
@@ -205,6 +243,131 @@ function setupAuditReview(){
  details.appendChild(back);$("atlasSection").after(details);updateAuditStatus();
 }
 
+
+/* Restore from a user-provided PRIVATE GitHub checkpoint (never hosted in public source).
+   Snapshot supplied by a URL fragment stays on the client, requires explicit Apply,
+   and cannot overwrite any already-populated different answer. */
+let proposedRecovery=null;
+function decodeRecoveryFragment(){
+ const match=location.hash.match(/^#wcg-recover=([A-Za-z0-9_-]{1,8000})$/);
+ if(!match)return null;
+ try{
+  const token=match[1].replace(/-/g,"+").replace(/_/g,"/");
+  const pad=token+"=".repeat((4-token.length%4)%4);
+  return JSON.parse(atob(pad));
+ }catch(e){return null}
+}
+function prepareRecovery(payload){
+ if(!payload||payload.version!==1||!Array.isArray(payload.records)||payload.records.length>Q.length)return null;
+ const seen=new Set(),prepared=[];
+ for(const rec of payload.records){
+  const i=rec?.q-1;
+  if(!Number.isInteger(i)||i<0||i>=Q.length||seen.has(i)||rec.name!==Q[i].name)return null;
+  seen.add(i);
+  const q=Q[i],point=rec.point;
+  if(point!==null&&point!==undefined&&!validGeoPoint(point))return null;
+  if(q.type==="area"&&(point!==null&&point!==undefined))return null;
+  if(q.type==="pin"&&typeof rec.areaChoice==="string"&&!rec.legacy)return null;
+  const choice=rec.areaChoice||null;
+  if(choice&&!OPTIONS.some(x=>x[0]===choice))return null;
+  if(rec.revealed&&!(validGeoPoint(point)||choice))return null;
+  const legacy=rec.legacy||null;
+  if(legacy&&(typeof legacy!=="object"||!(legacy.areaChoice===null||OPTIONS.some(x=>x[0]===legacy.areaChoice))))return null;
+  prepared.push({i,record:{point:validGeoPoint(point)?{lon:point.lon,lat:point.lat}:null,
+   areaChoice:choice,revealed:!!rec.revealed,
+   legacy:legacy?{areaChoice:legacy.areaChoice||null,revealed:!!legacy.revealed}:null}});
+ }
+ return prepared;
+}
+function planRecovery(payload){
+ const parsed=prepareRecovery(payload);
+ if(!parsed)return {error:"Recovery code failed validation. No browser data was changed."};
+ const results=[],changes=[];
+ for(const {i,record:incoming} of parsed){
+  const original=records[i],copy=normalizedRecord(original);
+  let conflict=null,change=false;
+  if(incoming.point){
+   if(copy.point&&(copy.point.lon!==incoming.point.lon||copy.point.lat!==incoming.point.lat))
+    conflict="A different pin already exists; kept the current one.";
+   else if(!copy.point){copy.point=incoming.point;change=true}
+  }
+  if(incoming.areaChoice){
+   if(copy.areaChoice&&copy.areaChoice!==incoming.areaChoice)
+    conflict="A different area choice already exists; kept the current one.";
+   else if(!copy.areaChoice){copy.areaChoice=incoming.areaChoice;change=true}
+  }
+  if(incoming.legacy&&!copy.legacy){copy.legacy=incoming.legacy;change=true}
+  if(incoming.revealed&&!copy.revealed){
+   if(conflict){} // Preserve currently chosen attempt; do not retroactively reveal a different answer.
+   else if((Q[i].type==="pin"&&copy.point)||(Q[i].type==="area"&&copy.areaChoice)){
+    copy.revealed=true;change=true;
+   }
+  }
+  if(change){changes.push({i,record:copy})}
+  results.push({q:i+1,name:Q[i].name,action:conflict?"Conflict: "+conflict:change?"Restore missing history":"Already present"});
+ }
+ return{results,changes};
+}
+function showRecovery(payload){
+ const panel=$("v4Recovery"),preview=$("v4RecoveryPreview"),apply=$("v4RecoveryApply"),status=$("v4RecoveryStatus");
+ panel.hidden=false;
+ const plan=planRecovery(payload);
+ proposedRecovery=plan.error?null:plan;
+ preview.replaceChildren();
+ if(plan.error){status.textContent=plan.error;apply.disabled=true;return}
+ const title=document.createElement("p");
+ title.textContent="Private GitHub snapshot: "+plan.results.length+" records checked; "+plan.changes.length+" missing entries can be restored without replacing current answers.";
+ preview.appendChild(title);
+ const ul=document.createElement("ul");
+ for(const r of plan.results){const li=document.createElement("li");li.textContent="Q"+r.q+" "+r.name+" — "+r.action;ul.appendChild(li)}
+ preview.appendChild(ul);
+ status.textContent="Preview only. No answer has been changed. Select Apply if you approve this recovery.";
+ apply.disabled=plan.changes.length===0;
+}
+function setupRecovery(){
+ const panel=document.createElement("section");panel.id="v4Recovery";panel.className="v4Recovery";panel.hidden=true;
+ const header=document.createElement("h2");header.textContent="Safe progress recovery — no question replay";
+ const desc=document.createElement("p");
+ desc.textContent="Recover only missing V4 records from your private GitHub checkpoint. Existing pins and revealed answers are never overwritten. The original browser save is backed up before a confirmed merge.";
+ const field=document.createElement("textarea");field.id="v4RecoveryPaste";field.placeholder="Paste a private V4 recovery JSON code here if you don't have a recovery link.";field.rows=3;
+ const buttons=document.createElement("div");buttons.className="recoveryActions";
+ const inspect=document.createElement("button");inspect.type="button";inspect.textContent="Preview pasted recovery";
+ inspect.onclick=()=>{try{showRecovery(JSON.parse(field.value))}catch(e){$("v4RecoveryStatus").textContent="Invalid recovery JSON; nothing changed.";proposedRecovery=null;$("v4RecoveryApply").disabled=true}};
+ const apply=document.createElement("button");apply.type="button";apply.id="v4RecoveryApply";apply.textContent="Apply safe recovery";apply.disabled=true;
+ apply.onclick=()=>{
+  if(!proposedRecovery?.changes.length)return;
+  const fresh=planRecovery({version:1,records:proposedRecovery.results.map(r=>{
+   const found=proposedRecovery.changes.find(c=>c.i===r.q-1);
+   return found?{q:r.q,name:r.name,...found.record}:null
+  }).filter(Boolean)});
+  // Instead of recomputing from the DOM, only fill fields from validated pending changes.
+  const changes=proposedRecovery.changes;
+  const conflicts=changes.filter(({i,record})=>{
+   const current=records[i];
+   return (current.point&&record.point&&(current.point.lon!==record.point.lon||current.point.lat!==record.point.lat))||
+    (current.areaChoice&&record.areaChoice&&current.areaChoice!==record.areaChoice);
+  });
+  if(conflicts.length){$("v4RecoveryStatus").textContent="Some answers changed since preview. Please reopen the recovery link and preview again.";return}
+  // Browser's latest local records are saved verbatim in a separate pre-merge backup key.
+  try{localStorage.setItem(STORE+"-pre-recovery-"+Date.now(),JSON.stringify({current:active,records}))}
+  catch(e){$("v4RecoveryStatus").textContent="Unable to create safety backup; no recovery applied.";return}
+  for(const {i,record} of changes){const now=records[i];records[i]={
+   point:now.point||record.point,
+   areaChoice:now.areaChoice||record.areaChoice,
+   revealed:now.revealed||record.revealed,
+   legacy:now.legacy||record.legacy
+  }}
+  save();update();paint();proposedRecovery=null;apply.disabled=true;
+  $("v4RecoveryStatus").textContent=changes.length+" missing records restored and backed up locally. Your existing records were preserved. Nothing was sent to a server.";
+ };
+ const status=document.createElement("p");status.id="v4RecoveryStatus";status.setAttribute("role","status");
+ const preview=document.createElement("div");preview.id="v4RecoveryPreview";
+ buttons.append(inspect,apply);panel.append(header,desc,field,buttons,preview,status);
+ const anchor=$("geoModeAudit")||$("atlasSection");anchor.before(panel);
+ const candidate=decodeRecoveryFragment();
+ if(candidate)showRecovery(candidate);
+}
+
 function setup(){
  document.title="World Capitals Game · Integrated Geography Design V4";
  $("title").textContent="World Flags + Capitals + Geography — Original Layout Preview";
@@ -216,7 +379,7 @@ function setup(){
  $("atlasRegions").hidden=true;document.querySelector(".radiusBar").hidden=true;$("zoneKey").hidden=true;$("returnQuestion").hidden=true;
  document.querySelector(".technicalNote").textContent="V4 has separate saved state. Compatible V3 answers imported; reclassified answers retained as historical V3 responses only. Nothing changes official 390/390.";
  document.querySelector(".atlasHint").textContent="Shared WORLD MAP. You navigate to the country; no pre-zoom and no continent clue. Area-mode answers use the selector, not map dots.";
- document.querySelector("#atlasSection h2").textContent="Shared world geography map";renderCards();setupAuditReview();
+ document.querySelector("#atlasSection h2").textContent="Shared world geography map";renderCards();setupAuditReview();setupRecovery();
  const wrap=document.createElement("section");wrap.id="funPanel";wrap.className="funPanel";
  wrap.innerHTML='<div class="funTop"><span id="funNumber"></span><span id="funProgress"></span></div><div id="funMode" class="funMode"></div><h2 id="funCountry"></h2><p id="funInstruction"></p><label id="funAreaRow" class="funAreaRow" hidden>Choose broad geographical area<select id="funAreaChoice"><option value="">— Select an area —</option></select></label><div class="funSteps" id="funSteps"></div><div class="funControls"><button type="button" id="funPrev">← Previous</button><button type="button" id="funReveal" class="funPrimary">Reveal & grade</button><button type="button" id="funZoom" hidden>Zoom to target after reveal</button><button type="button" id="funNext" class="funPrimary">Next →</button></div><div id="funFeedback" class="funFeedback"></div><div id="funDone"></div><div class="funExportRow"><button type="button" id="funExport" class="funPrimary">Copy V4 results</button><span class="funExportHelp">Export your original answers and provisional scores.</span></div><div id="funExportStatus" class="funExportStatus" role="status"></div><textarea id="funExportText" class="funExportText" rows="15" readonly hidden></textarea><button type="button" id="funReset" class="funReset">Reset V4 practice</button>';
  $("atlasSection").before(wrap);
@@ -252,6 +415,6 @@ async function init(){
   fetch("../location/data/world-10m.json",{cache:"force-cache"}).then(r=>{if(!r.ok)throw Error("Detailed atlas unavailable");return r.json()}).then(j=>{if(!Array.isArray(j.features)||j.features.length<200)throw Error("Invalid 10m atlas");high=j;paint();update()}).catch(e=>{highErr=String(e);paint();update()});
  }catch(e){$("mapStatus").textContent="Atlas load failed: "+String(e)}
 }
-window.__geoFun={version:4,enabled:true,getQuestions:()=>Q.map(q=>({name:q.name,type:q.type})),getActive:()=>active,getRecord:()=>records.map((r,i)=>({...r,grade:grade(Q[i],r)})),getGrade:i=>grade(Q[i],records[i]),getExport:exportText,getMapMode:()=>region,getAuditFocus:()=>auditFocus?.name||null,getAuditUpgradeNames:()=>AUDIT_PIN_UPGRADES.map(x=>x.name)};
+window.__geoFun={version:4,enabled:true,getQuestions:()=>Q.map(q=>({name:q.name,type:q.type})),getActive:()=>active,getRecord:()=>records.map((r,i)=>({...r,grade:grade(Q[i],r)})),getGrade:i=>grade(Q[i],records[i]),getExport:exportText,getMapMode:()=>region,getAuditFocus:()=>auditFocus?.name||null,getAuditUpgradeNames:()=>AUDIT_PIN_UPGRADES.map(x=>x.name),previewRecovery:planRecovery};
 window.__areaTrial={getHiResStatus:()=>({ready:!!high,error:highErr,features:high?.features.length||0})};
 init();
