@@ -38,7 +38,7 @@ async function test(engine,mobile){
   assert.equal(await page.locator("#areaControls").isVisible(),true);
   await page.locator("#area").selectOption("INDIAN_OCEAN");
   await page.locator("#evaluate").click();
-  assert.match(await page.locator("#result").innerText(),/matches proposed/);
+  assert.match(await page.locator("#result").innerText(),/matches the proposed region/);
   await page.locator('input[name="vote"][value="broad_area"]').check();
   await page.reload({waitUntil:"networkidle"});
   await page.waitForFunction(()=>__fairness7?.ready());
