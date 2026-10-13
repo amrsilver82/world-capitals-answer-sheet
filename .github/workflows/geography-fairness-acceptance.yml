@@ -1,0 +1,30 @@
+name: Seven-Case Geography Fairness Acceptance
+on:
+  push:
+    paths:
+      - 'pilot/geography-fairness-acceptance/**'
+      - '.github/workflows/geography-fairness-acceptance.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  desktop-mobile:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.56.1-noble
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright
+        run: npm install --no-save playwright@1.56.1
+      - name: Start local site
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/fairness7.log 2>&1 &
+          sleep 2
+      - name: Check JavaScript syntax
+        run: node --check pilot/geography-fairness-acceptance/app.mjs
+      - name: Test desktop Chromium and mobile WebKit
+        run: node pilot/geography-fairness-acceptance/test/regression.mjs
