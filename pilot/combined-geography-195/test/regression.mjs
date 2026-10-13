@@ -40,6 +40,7 @@ async function run(engine,mobile){
   await page.locator("#lockIdentity").click();
   assert.match(await page.locator("#geoPrompt").innerText(),/Kuwait/);
   assert.equal(await page.evaluate(()=>__combined195.getWorldView().w),1440);
+  await page.locator("#atlas").scrollIntoViewIfNeeded();
   const rect=await page.locator("#atlas").boundingBox();
   assert.ok(rect);
   const lon=47.5,lat=29.3;
@@ -82,6 +83,7 @@ async function run(engine,mobile){
   for(const tab of [second,page]){
    await tab.locator("#countryInput").fill("Monaco");await tab.locator("#capitalInput").fill("Monaco");
    await tab.locator("#lockIdentity").click();
+   await tab.locator("#atlas").scrollIntoViewIfNeeded();
    const bounds=await tab.locator("#atlas").boundingBox();
    const x=bounds.x+(7.425+180)/360*bounds.width,y=bounds.y+(90-43.738)/180*bounds.height;
    if(mobile){
