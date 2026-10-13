@@ -5,7 +5,7 @@ const $=id=>document.getElementById(id);
 const TOKEN_KEY="wcg-location-github-pat-v1"; // prior user opt-in only; never automatically read.
 const api="https://api.github.com/repos/amrsilver82/World-Capitals-Game/issues/"+ISSUE;
 let manifest=null,questions=[],client=null,remote=null,connected=false,busy=false,refreshing=false;
-let pageIndex=0,currentDraft=null,identityLocked=false,temporaryPin=null,atlas=null,world=null,hi=null,detail=null;
+let pageIndex=0,currentDraft=null,currentTarget=null,identityLocked=false,temporaryPin=null,atlas=null,world=null,hi=null,detail=null;
 let view={x:0,y:0,w:1440,h:720},lastDrawn="",activeDrawing=null;
 const HALF=Math.PI/180;
 const modes={country_pin:"Locate actual country",broad_area:"Identify broad area"};
@@ -69,30 +69,31 @@ function renderCards(){
  }
 }
 function showSaved(done){
- const q=questions[done.q-1];const grade=atlas?referee({...scoreInput(q,done.geography),atlas}):null;
- message("GitHub-confirmed experimental Q"+done.q+" · "+q.name+" · provisional geography "+(grade?.points??"pending")+"/1. This record cannot be edited in the browser.","good");
+ message("GitHub-confirmed experimental Q"+done.q+": Country and Capital responses and geography recorded. Private referee will grade after full batch.","good");
 }
 function showNext(){
  renderCount();renderCards();renderChatHandoff();
- const q=getCurrent();identityLocked=false;currentDraft=null;temporaryPin=null;
+ const q=getCurrent();identityLocked=false;currentTarget=null;currentDraft=null;temporaryPin=null;
  $("countryInput").value="";$("capitalInput").value="";
- const enabled=!!q&&connected; // render the next question after GitHub confirm even while previous async operation settles
- $("countryInput").disabled=!enabled;$("capitalInput").disabled=!enabled;
- $("lockIdentity").disabled=!enabled;$("lockIdentity").hidden=!q;
+ const canEnter=!!q&&connected&&!remote?.pending;
+ $("countryInput").disabled=!canEnter;$("capitalInput").disabled=!canEnter;
+ $("lockIdentity").disabled=!canEnter;$("lockIdentity").hidden=!q||!!remote?.pending;
  $("unlockIdentity").hidden=true;$("geoControls").hidden=true;
- $("activeTitle").textContent=q?"Q"+q.q+" of 195 — identify this flag":"195-country Geography game";
- $("modeLabel").textContent=q?modes[q.mode]:"";
- $("instructions").textContent=q?
-  "Enter Country and Capital, then Continue to Geography. These two fields are recorded but are NOT automatically graded in this development candidate.":
-  connected?"All 195 experimental draft answers are stored on GitHub. Official scores unaffected.":"Connect GitHub to submit draft answers. Browse the 195 flag cards above without playing.";
- message(q?"No answers will be saved until you confirm a complete question and GitHub accepts it.":"");
+ $("activeTitle").textContent=q?"Q"+q.q+" of 195 — identify the flag":"195-country experiment complete";
+ $("modeLabel").textContent="";
+ $("instructions").textContent=remote?.pending?
+  "Country and Capital are saved to GitHub. Retrieving this question's private geography target...":
+  q?"Enter Country and Capital, then save those initial answers to GitHub before the target's name is revealed.":
+  "No unsaved work. Your experimental history remains in private GitHub.";
+ message(q?"Experimental draft, not an official scored question.":"");
  pageIndex=q?Math.floor((q.q-1)/10):pageIndex;renderCards();
+ if(remote?.pending&&connected)restorePending();
 }
 function scoreInput(q,g){
  return {iso:q.iso,mode:q.mode,point:g.point||null,areaChoice:g.choice||null,acceptedArea:q.area||null};
 }
 function normalizedGeo(){
- const q=getCurrent();if(!q)return null;
+ const q=currentTarget;if(!q||!remote?.pending)return null;
  if(q.mode==="broad_area"){const v=$("areaSelect").value;return v?{mode:q.mode,choice:v}:null}
  return temporaryPin?{mode:q.mode,point:{...temporaryPin}}:null;
 }
@@ -147,7 +148,7 @@ function zoom(f,p){
  view.w=w*f;view.h=h*f;view.x=a.x-(a.x-view.x)*f;view.y=a.y-(a.y-view.y)*f;clampView();drawMap();
 }
 function setPin(e){
- const q=getCurrent();if(!q||q.mode!=="country_pin"||!identityLocked||!connected||busy)return;
+ const q=getCurrent();if(!q||currentTarget?.mode!=="country_pin"||!remote?.pending||!identityLocked||!connected||busy)return;
  const p=mapPoint(e);temporaryPin={lon:+normalize(p.x/4-180).toFixed(3),lat:+Math.max(-90,Math.min(90,90-p.y/4)).toFixed(3)};
  drawMap();updateSubmit();
 }
@@ -177,37 +178,79 @@ function setupMap(){
  $("zoomIn").onclick=()=>zoom(.45);$("zoomOut").onclick=()=>zoom(1.43);$("resetWorld").onclick=worldView;
 }
 function beginGeography(){
- if(!connected||busy||!getCurrent())return;
- identityLocked=true;currentDraft={countryText:$("countryInput").value.trim(),capitalText:$("capitalInput").value.trim()};
- $("countryInput").disabled=true;$("capitalInput").disabled=true;$("lockIdentity").hidden=true;$("unlockIdentity").hidden=false;
- const q=getCurrent();$("geoControls").hidden=false;$("geoPrompt").textContent="Place "+q.name+" on the world map, or select the declared broad area if it is an approved tiny-island exception.";
+ const q=currentTarget;
+ if(!connected||busy||!q||!remote?.pending)return;
+ identityLocked=true;currentDraft={countryText:remote.pending.countryText,capitalText:remote.pending.capitalText};
+ $("countryInput").value=currentDraft.countryText;$("capitalInput").value=currentDraft.capitalText;
+ $("countryInput").disabled=true;$("capitalInput").disabled=true;
+ $("lockIdentity").hidden=true;$("unlockIdentity").hidden=true;
+ $("geoControls").hidden=false;
+ $("geoPrompt").textContent="Place "+q.name+" on the world map, or choose its permitted broad area.";
  $("areaRow").hidden=q.mode!=="broad_area";$("mapInstructions").hidden=q.mode!=="country_pin";
  $("mapStatus").hidden=q.mode!=="country_pin";$("atlas").closest(".mapFrame").hidden=q.mode!=="country_pin";
+ $("modeLabel").textContent=modes[q.mode];
+ $("instructions").textContent="Your Country and Capital answers are securely recorded; they cannot be edited. Now answer Geography.";
  $("areaSelect").value="";temporaryPin=null;worldView();updateSubmit();
+}
+async function restorePending(){
+ const waiting=remote?.pending,q=getCurrent();
+ if(!waiting||!q||!connected)return;
+ try{
+  const target=await client.targetFor(q.q,q.flag);
+  if(remote?.pending?.attempt_id!==waiting.attempt_id||!connected)return;
+  currentTarget=target;beginGeography();
+ }catch(e){message("Unable to load verified geography target: "+e.message,"warning")}
 }
 async function refresh(force=false){
  if(!client||refreshing||busy)return;
  if(document.hidden&&!force)return;refreshing=true;
- try{const next=replay(await client.comments(),manifest);const changed=remote?.lastId!==next.lastId||remote?.accepted.length!==next.accepted.length;remote=next;
-  if(changed||force){showNext();auth("GitHub verified: "+next.accepted.length+"/195 draft responses.","good")}
- }catch(e){auth("GitHub refresh failed. No new progress has been accepted: "+e.message,"warning")}
+ try{
+  const next=replay(await client.comments(),manifest);
+  const changed=remote?.lastId!==next.lastId||remote?.accepted.length!==next.accepted.length;
+  remote=next;
+  if(changed||force){showNext();auth("Private GitHub verified: "+next.accepted.length+" complete geographic drafts.","good")}
+ }catch(e){auth("Private GitHub refresh failed: "+e.message,"warning")}
  finally{refreshing=false}
 }
 async function submit(){
- const q=getCurrent(),geo=normalizedGeo();if(!connected||busy||!q||!identityLocked||!geo)return;
- busy=true;$("submit").disabled=true;message("Checking private GitHub checkpoint before posting…");
- const draft={...currentDraft,geography:geo};
+ const q=getCurrent(),geo=normalizedGeo(),waiting=remote?.pending;
+ if(!connected||busy||!q||!identityLocked||!geo||!waiting||!currentTarget)return;
+ busy=true;$("submit").disabled=true;message("Saving geography to private GitHub...");
  try{
   const before=replay(await client.comments(),manifest);
-  if(before.next?.q!==q.q){remote=before;showNext();message("Another device advanced the checkpoint. This tab refreshed; no duplicate answer was saved.","warning");return}
-  const id=crypto.randomUUID(),event=eventFor(q,manifest,draft,id);
-  await client.post(event);
+  if(before.next?.q!==q.q||before.pending?.attempt_id!==waiting.attempt_id){
+   remote=before;showNext();message("This question changed in another client. Refreshed without duplicate.","warning");return
+  }
+  const id=crypto.randomUUID(),ev=eventFor(q,manifest,{geography:geo},id,"geography",waiting,currentTarget);
+  await client.post(ev);
   const after=replay(await client.comments(),manifest);remote=after;
-  if(!after.acceptedIds.has(id)){showNext();message("A competing device submitted first. Your stale attempt was not counted. Nothing was overwritten.","warning");return}
-  const grader=atlas?referee({...scoreInput(q,geo),atlas}):null;
-  showNext();message("Saved to private GitHub, verified. Geography provisional: "+(grader?.points??"needs review")+"/1. Flag/capital not auto-graded.","good");
- }catch(e){message("Not saved: "+e.message+". You may retry when the connection is available.","warning")}
+  if(!after.acceptedIds.has(id)){
+   showNext();message("Another device completed first; stale answer not counted.","warning");return
+  }
+  const score=atlas?referee({...scoreInput(currentTarget,geo),atlas}):null;
+  showNext();message("Full draft saved and confirmed. Geography provisional "+(score?.points??"needs review")+"/1; final scoring awaits approved referee.","good");
+ }catch(e){message("Geography not confirmed: "+e.message+". Retry after checking connection.","warning")}
  finally{busy=false;updateSubmit()}
+}
+async function saveIdentity(){
+ const q=getCurrent();
+ if(!connected||busy||!q||remote?.pending)return;
+ busy=true;$("lockIdentity").disabled=true;
+ const data={countryText:$("countryInput").value.trim(),capitalText:$("capitalInput").value.trim()};
+ try{
+  const before=replay(await client.comments(),manifest);
+  if(before.next?.q!==q.q||before.pending){
+   remote=before;showNext();message("Other client advanced the checkpoint; nothing overwritten.","warning");return
+  }
+  const id=crypto.randomUUID(),ev=eventFor(q,manifest,data,id,"identity");
+  await client.post(ev);
+  const after=replay(await client.comments(),manifest);remote=after;
+  if(!after.identityIds.has(id)){
+   showNext();message("A different client saved this question first; its identity is authoritative.","warning");return
+  }
+  showNext();message("Initial Country and Capital saved to GitHub; geography target now available.","good");
+ }catch(e){message("Initial answers NOT confirmed: "+e.message+". You may retry.","warning")}
+ finally{busy=false;$("lockIdentity").disabled=!!remote?.pending||!connected}
 }
 async function connect(token){
  if(busy)return;busy=true;auth("Verifying private experimental Issue #"+ISSUE+"…");
@@ -223,11 +266,10 @@ function disconnect(){client=null;connected=false;remote=null;identityLocked=fal
 async function init(){
  const r=await Promise.all(["data/questions.json","../location/data/world.json","../location/data/targets.json"].map(u=>fetch(u).then(x=>{if(!x.ok)throw Error("Asset unavailable "+u);return x.json()})));
  [manifest,world,detail]=r;questions=manifest.questions;
- if(questions.length!==195||new Set(questions.map(x=>x.iso)).size!==195)throw Error("195-country manifest verification failed");
+ if(questions.length!==195||new Set(questions.map(x=>x.q)).size!==195||questions.some(x=>Object.keys(x).some(k=>!["q","flag"].includes(k))))throw Error("Public flag-only manifest verification failed");
  if(manifest.github_event_issue!==ISSUE)throw Error("Dedicated issue mismatch");
  worldView();setupMap();$("batchPrev").onclick=()=>{pageIndex--;renderCards()};$("batchNext").onclick=()=>{pageIndex++;renderCards()};
- $("lockIdentity").onclick=beginGeography;$("unlockIdentity").onclick=()=>{identityLocked=false;currentDraft=null;temporaryPin=null;
-  $("countryInput").disabled=false;$("capitalInput").disabled=false;$("lockIdentity").hidden=false;$("unlockIdentity").hidden=true;$("geoControls").hidden=true};
+ $("lockIdentity").onclick=saveIdentity;$("unlockIdentity").hidden=true;
  $("areaSelect").onchange=updateSubmit;$("submit").onclick=submit;
  $("handoffBatch").onchange=previewChatHandoff;$("copyHandoff").onclick=copyChatHandoff;
  $("connect").onclick=()=>connect($("credential").value.trim());
@@ -237,5 +279,5 @@ async function init(){
  renderCount();renderCards();showNext();
  fetch("../location/data/world-10m.json").then(x=>x.json()).then(j=>{if(j.features?.length<200)throw Error("Invalid high-resolution atlas");hi=j;atlas=atlasIndex(hi,world,detail);drawMap(true);updateSubmit()}).catch(e=>{$("mapStatus").textContent="Detailed map unavailable: "+e.message});
 }
-window.__combined195={getCount:()=>questions.length,modeCount:()=>({pins:questions.filter(x=>x.mode==="country_pin").length,areas:questions.filter(x=>x.mode==="broad_area").length}),getStatus:()=>({connected,accepted:remote?.accepted.length||0,next:remote?.next?.q??null}),getWorldView:()=>({...view}),getSubmitted:()=>remote?.accepted||[],getCurrent:()=>getCurrent(),getAtlasReady:()=>!!atlas,getCompletedHandoffs:()=>remote?completedBatches(remote.accepted).map(x=>x.batch):[],getHandoffPreview:()=>{const batches=remote?completedBatches(remote.accepted):[];return batches.length?batchHandoff(remote.accepted,batches.at(-1).batch):null}};
+window.__combined195={getCount:()=>questions.length,modeCount:()=>({status:"PRIVATE_AFTER_IDENTITY",total:questions.length}),getStatus:()=>({connected,accepted:remote?.accepted.length||0,next:remote?.next?.q??null,identitySaved:!!remote?.pending}),getWorldView:()=>({...view}),getSubmitted:()=>remote?.accepted||[],getCurrent:()=>getCurrent(),getAtlasReady:()=>!!atlas,getTarget:()=>currentTarget,getCompletedHandoffs:()=>remote?completedBatches(remote.accepted).map(x=>x.batch):[],getHandoffPreview:()=>{const batches=remote?completedBatches(remote.accepted):[];return batches.length?batchHandoff(remote.accepted,batches.at(-1).batch):null}};
 init().catch(e=>{$("count").textContent="Could not load game";auth(e.message,"warning")});
