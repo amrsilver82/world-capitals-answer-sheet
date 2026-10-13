@@ -19,6 +19,15 @@
 <div class="batchNav"><button id="batchPrev" type="button">‹ Previous batch</button><strong id="batchNo"></strong><button id="batchNext" type="button">Next batch ›</button></div>
 <div id="cards" class="cards"></div>
 </section>
+<section class="panel" id="chatHandoff">
+<div class="sectionheading"><h2>Completed batch → ChatGPT referee</h2><span>Never writes an incomplete batch</span></div>
+<p class="handoffInfo">When 10 initial answers (or the final 5) are confirmed in private GitHub, this panel prepares a single batch for review. It contains only what you typed and where you placed pins—not correct flag or capital answers.</p>
+<div class="authcontrols"><label for="handoffBatch">Verified batch <select id="handoffBatch" disabled></select></label><button id="copyHandoff" disabled type="button">Copy completed batch for chat</button></div>
+<p id="handoffStatus" role="status">No completed batch is ready.</p>
+<label for="handoffPreview">Handoff preview (nothing submitted from this box)
+<textarea id="handoffPreview" readonly rows="5" aria-label="Completed batch handoff preview"></textarea></label>
+<p class="handoffInfo">This is a development handoff, not an official score report. Free retries and clues remain chat-only and the final GitHub score commit remains approval-gated.</p>
+</section>
 <section class="panel" id="activePanel"><div class="sectionheading"><h2 id="activeTitle">Geography question</h2><span id="modeLabel"></span></div>
 <p id="instructions">Connect GitHub before starting an experimental attempt. Browsing flag cards does not change progress.</p>
 <div class="fields"><label>Country <input id="countryInput" type="text" autocomplete="off" spellcheck="false" placeholder="Country answer" disabled></label>

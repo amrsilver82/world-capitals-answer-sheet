@@ -1,0 +1,27 @@
+import assert from "node:assert/strict";
+import {completedBatches,batchHandoff} from "../handoff.mjs";
+const all=Array.from({length:195},(_,i)=>({q:i+1,githubCommentId:1000+i,countryText:"Country entered "+(i+1),capitalText:"Capital entered "+(i+1),
+ geography:i%2?{mode:"broad_area",choice:"PACIFIC_OCEAN"}:{mode:"country_pin",point:{lon:-20.153,lat:37.4}}}));
+assert.deepEqual(completedBatches([]),[]);
+assert.deepEqual(completedBatches(all.slice(0,9)),[]);
+assert.deepEqual(completedBatches(all.slice(0,10)).map(x=>x.batch),[1]);
+assert.deepEqual(completedBatches(all.slice(0,19)).map(x=>x.batch),[1]);
+assert.deepEqual(completedBatches(all.slice(0,20)).map(x=>x.batch),[1,2]);
+assert.equal(completedBatches(all.slice(0,194)).length,19);
+assert.equal(completedBatches(all).length,20);
+assert.deepEqual(completedBatches(all).at(-1),{batch:20,start:191,end:195,count:5});
+assert.throws(()=>batchHandoff(all.slice(0,9),1),/all initial questions/);
+assert.throws(()=>batchHandoff(all.slice(0,194),20),/all initial questions/);
+const b=batchHandoff(all.slice(0,10),1);
+assert.ok(b.includes("Q1 | Country entered: Country entered 1 | Capital entered: Capital entered 1 | Pin:"));
+assert.ok(b.includes("Q10 | Country entered:"));
+assert.ok(!b.includes("Q11 | Country entered:"));
+assert.ok(!b.includes("github_pat_"),"Token must not appear");
+assert.ok(!b.includes("expectedCountry"),"Never include answer key");
+const last=batchHandoff(all,20);
+assert.ok(last.includes("Q191–Q195")&&last.includes("Q195 | Country entered:"));
+assert.ok(!last.includes("Q190 | Country entered:"));
+assert.equal(last.split("\n").filter(x=>/^Q\d+ \| Country entered:/.test(x)).length,5);
+const bad=all.slice(0,10).map(x=>({...x}));bad[4].githubCommentId=undefined;
+assert.deepEqual(completedBatches(bad),[]);
+console.log("PASS read-only completed 10/5-question chat handoff, never exports incomplete batch, credentials, expected Country or unsent answers.");

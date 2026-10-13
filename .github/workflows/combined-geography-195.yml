@@ -26,5 +26,7 @@ jobs:
           sleep 2
       - name: Test GitHub draft event replay and 195-country manifest
         run: node pilot/combined-geography-195/test/sync-unit.mjs
+      - name: Test read-only completed-batch handoff
+        run: node pilot/combined-geography-195/test/handoff.test.mjs
       - name: Test desktop Chromium and simulated mobile WebKit
         run: node pilot/combined-geography-195/test/regression.mjs

@@ -1,5 +1,6 @@
 import {atlasIndex,referee} from "../geography-integrated-v4/referee/scorer.mjs";
 import {githubClient,replay,eventFor,ISSUE} from "./sync.mjs";
+import {completedBatches,batchHandoff} from "./handoff.mjs";
 const $=id=>document.getElementById(id);
 const TOKEN_KEY="wcg-location-github-pat-v1"; // prior user opt-in only; never automatically read.
 const api="https://api.github.com/repos/amrsilver82/World-Capitals-Game/issues/"+ISSUE;
@@ -11,6 +12,35 @@ const modes={country_pin:"Locate actual country",broad_area:"Identify broad area
 function message(text,klass=""){$("questionStatus").className=klass;$("questionStatus").textContent=text}
 function auth(text,klass=""){$("authStatus").className=klass;$("authStatus").textContent=text}
 function getCurrent(){return remote?.next||null}
+
+function renderChatHandoff(){
+ const list=$("handoffBatch"),button=$("copyHandoff"),summary=$("handoffStatus");
+ if(!list||!button)return;
+ const prev=list.value;
+ const complete=connected&&remote?completedBatches(remote.accepted):[];
+ list.replaceChildren();
+ for(const b of complete){const op=document.createElement("option");op.value=String(b.batch);
+  op.textContent="Batch "+b.batch+" · Q"+b.start+"–Q"+b.end;list.appendChild(op)}
+ if(complete.some(x=>String(x.batch)===prev))list.value=prev;
+ else if(complete.length)list.value=String(complete.at(-1).batch);
+ list.disabled=!complete.length;button.disabled=!complete.length;
+ if(!complete.length){$("handoffPreview").value="";
+  summary.textContent=connected?"No entire ten-question batch has been saved yet. There is nothing to hand to chat.":"Connect private GitHub to view completed batches. Browsing remains available."}
+ else summary.textContent=complete.length+" full initial "+(complete.length===1?"batch":"batches")+" confirmed in GitHub. Select one for chat referee; no automatic grading or answer reset.";
+}
+function previewChatHandoff(){
+ if(!connected||!remote)return;
+ try{$("handoffPreview").value=batchHandoff(remote.accepted,Number($("handoffBatch").value))}
+ catch(e){$("handoffStatus").textContent=e.message;$("handoffPreview").value=""}
+}
+async function copyChatHandoff(){
+ previewChatHandoff();
+ const output=$("handoffPreview"),value=output.value;
+ if(!value)return;
+ try{await navigator.clipboard.writeText(value);$("handoffStatus").textContent="Verified batch copied. Paste it into this ChatGPT conversation for private review. No game scores changed."}
+ catch(e){output.focus();output.select();$("handoffStatus").textContent="Clipboard not available. The handoff text is selected below; copy it manually. No answers changed."}
+}
+
 function renderCount(){const done=remote?.accepted.length||0;$("count").textContent=done+" / 195 experimentally synced";$("stage").textContent=connected?"GitHub draft connected · not official":"Read-only until private GitHub connected"}
 function renderCards(){
  if(!questions.length)return;
@@ -39,7 +69,7 @@ function showSaved(done){
  message("GitHub-confirmed experimental Q"+done.q+" · "+q.name+" · provisional geography "+(grade?.points??"pending")+"/1. This record cannot be edited in the browser.","good");
 }
 function showNext(){
- renderCount();renderCards();
+ renderCount();renderCards();renderChatHandoff();
  const q=getCurrent();identityLocked=false;currentDraft=null;temporaryPin=null;
  $("countryInput").value="";$("capitalInput").value="";
  const enabled=!!q&&connected; // render the next question after GitHub confirm even while previous async operation settles
@@ -195,6 +225,7 @@ async function init(){
  $("lockIdentity").onclick=beginGeography;$("unlockIdentity").onclick=()=>{identityLocked=false;currentDraft=null;temporaryPin=null;
   $("countryInput").disabled=false;$("capitalInput").disabled=false;$("lockIdentity").hidden=false;$("unlockIdentity").hidden=true;$("geoControls").hidden=true};
  $("areaSelect").onchange=updateSubmit;$("submit").onclick=submit;
+ $("handoffBatch").onchange=previewChatHandoff;$("copyHandoff").onclick=copyChatHandoff;
  $("connect").onclick=()=>connect($("credential").value.trim());
  $("reuse").onclick=()=>{const token=localStorage.getItem(TOKEN_KEY)||"";if(!token){auth("No previously remembered pilot credential in this browser. Enter a restricted token if you decide to try synchronized drafts.");return}connect(token)};
  $("refresh").onclick=()=>refresh(true);$("disconnect").onclick=disconnect;
@@ -202,5 +233,5 @@ async function init(){
  renderCount();renderCards();showNext();
  fetch("../location/data/world-10m.json").then(x=>x.json()).then(j=>{if(j.features?.length<200)throw Error("Invalid high-resolution atlas");hi=j;atlas=atlasIndex(hi,world,detail);drawMap(true);updateSubmit()}).catch(e=>{$("mapStatus").textContent="Detailed map unavailable: "+e.message});
 }
-window.__combined195={getCount:()=>questions.length,modeCount:()=>({pins:questions.filter(x=>x.mode==="country_pin").length,areas:questions.filter(x=>x.mode==="broad_area").length}),getStatus:()=>({connected,accepted:remote?.accepted.length||0,next:remote?.next?.q??null}),getWorldView:()=>({...view}),getSubmitted:()=>remote?.accepted||[],getCurrent:()=>getCurrent(),getAtlasReady:()=>!!atlas};
+window.__combined195={getCount:()=>questions.length,modeCount:()=>({pins:questions.filter(x=>x.mode==="country_pin").length,areas:questions.filter(x=>x.mode==="broad_area").length}),getStatus:()=>({connected,accepted:remote?.accepted.length||0,next:remote?.next?.q??null}),getWorldView:()=>({...view}),getSubmitted:()=>remote?.accepted||[],getCurrent:()=>getCurrent(),getAtlasReady:()=>!!atlas,getCompletedHandoffs:()=>remote?completedBatches(remote.accepted).map(x=>x.batch):[],getHandoffPreview:()=>remote?.accepted.length?batchHandoff(remote.accepted,completedBatches(remote.accepted).at(-1)?.batch):null};
 init().catch(e=>{$("count").textContent="Could not load game";auth(e.message,"warning")});

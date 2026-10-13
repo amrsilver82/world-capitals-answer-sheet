@@ -92,6 +92,28 @@ async function run(engine,mobile){
   assert.equal(comments.length,2,"Stale concurrent browser cannot post an extra answer");
   assert.equal(await second.evaluate(()=>__combined195.getStatus().next),3);
   assert.equal(await second.locator("#countryInput").isEnabled(),true);
+  // Seed ONLY mocked GitHub Issue #5 comments, not real questions, to verify full-batch handoff.
+  const flagManifest=await page.evaluate(async()=>await (await fetch("data/questions.json")).json());
+  for(const q of flagManifest.questions.slice(2,10)){
+   comments.push({id:100+comments.length,created_at:"2026-10-13T07:10:00Z",body:JSON.stringify({
+    kind:"wcg.combined195.answer.v1",version:1,manifest:flagManifest.version,
+    attempt_id:String(q.q).padStart(24,"a"),q:q.q,iso:q.iso,
+    countryText:"user entry "+q.q,capitalText:"capital input "+q.q,
+    geography:q.mode==="country_pin"?{mode:"country_pin",point:{lon:10,lat:5}}:{mode:"broad_area",choice:"PACIFIC_OCEAN"}
+   })});
+  }
+  await page.locator("#refresh").click();
+  await page.waitForFunction(()=>__combined195.getStatus().accepted===10);
+  assert.deepEqual(await page.evaluate(()=>__combined195.getCompletedHandoffs()),[1]);
+  assert.equal(await page.locator("#copyHandoff").isEnabled(),true);
+  await page.locator("#handoffBatch").selectOption("1");
+  await page.evaluate(()=>document.getElementById("handoffBatch").dispatchEvent(new Event("change",{bubbles:true})));
+  const handoff=await page.locator("#handoffPreview").inputValue();
+  assert.ok(handoff.includes("Q1 | Country entered: Kuwait"));
+  assert.ok(handoff.includes("Q10 | Country entered: user entry 10"));
+  assert.ok(!handoff.includes("Q11 | Country entered:"));
+  assert.ok(!handoff.includes("github_pat_"));
+  assert.ok(!handoff.includes("expectedCountry"));
   assert.deepEqual(errors,[],"No browser script errors");
   console.log("PASS "+engine.name()+" "+(mobile?"mobile":"desktop")+" 195 combined UI, no continent hint, canonical flag, submitted event confirmed by GitHub, no local score fallback, reload resumes from remote.");
  }finally{await browser.close()}

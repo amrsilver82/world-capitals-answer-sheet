@@ -11,3 +11,9 @@ button.primary,#submit,#lockIdentity,#connect{background:#175bc4;color:#fff;bord
 #mapStatus,#questionStatus,#authStatus{color:#52647e;font-size:13px;min-height:1.3em}.warning{color:#ae2d29!important}.good{color:#15734a!important}
 #areaRow{max-width:380px}footer{color:#60728c;font-size:12px;text-align:center;padding:8px}
 @media(max-width:650px){h1{font-size:22px}.cards,.fields{grid-template-columns:1fr}.flagPic{height:150px}.authcontrols{align-items:stretch}.authcontrols button{flex:1}.batchNav{justify-content:center}}
+
+/* Experimental read-only complete-batch chat handoff */
+#chatHandoff textarea{width:100%;border:1px solid #c2cbda;border-radius:8px;padding:10px;background:#f8fafc;font:12px/1.6 ui-monospace,Consolas,monospace;color:#2d405c;resize:vertical}
+#chatHandoff label{min-width:230px}
+#chatHandoff .handoffInfo{font-size:13px;color:#556680}
+#chatHandoff button:disabled{opacity:.45}
