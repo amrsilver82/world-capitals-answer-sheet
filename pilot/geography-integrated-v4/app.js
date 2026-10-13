@@ -7,7 +7,13 @@ const STORE="wcg-geography-integrated-v4",OLD_STORE="wcg-geography-fairness-scor
 
 const Q=[{"id":1,"name":"Germany","iso":"DE","type":"pin","view":"World","region":"Europe","where":[10.5,51.1],"flag":"../../flags/canonical/71aa2d2c30f5.svg"},{"id":2,"name":"Vanuatu","iso":"VU","type":"area","view":"World","region":"Pacific Ocean","where":[167.4,-16.08],"area":"pacific","accept":["pacific"],"flag":"../../flags/canonical/326d29e9dc94.svg"},{"id":3,"name":"Myanmar","iso":"MM","type":"pin","view":"World","region":"Southeast Asia","where":[95.8,21],"flag":"../../flags/canonical/42b4dee2b8cc.svg"},{"id":4,"name":"Barbados","iso":"BB","type":"area","view":"World","region":"Caribbean","where":[-59.54,13.19],"area":"caribbean","accept":["caribbean"],"flag":"../../flags/canonical/cecd5cc33439.svg"},{"id":5,"name":"Kenya","iso":"KE","type":"pin","view":"World","region":"East Africa","where":[37.9,0.5],"flag":"../../flags/canonical/3a67ca3ccd48.svg"},{"id":6,"name":"Maldives","iso":"MV","type":"area","view":"World","region":"Indian Ocean","where":[73.2,3.2],"area":"indian","accept":["indian"],"flag":"../../flags/canonical/10450f984585.svg"},{"id":7,"name":"France","iso":"FR","type":"pin","view":"World","region":"Europe","where":[2.2,46.6],"flag":"../../flags/canonical/e682b9002021.svg"},{"id":8,"name":"Nauru","iso":"NR","type":"area","view":"World","region":"Pacific Ocean","where":[166.93,-0.52],"area":"pacific","accept":["pacific"],"flag":"../../flags/canonical/ff394c411211.svg"},{"id":9,"name":"Brazil","iso":"BR","type":"pin","view":"World","region":"South America","where":[-50,-12],"flag":"../../flags/canonical/719a763caaf7.svg"},{"id":10,"name":"Cyprus","iso":"CY","type":"pin","view":"World","region":"Mediterranean Sea","where":[33.3,35.1],"area":"mediterranean","accept":["mediterranean"],"flag":"../../flags/canonical/ee4b0c78c285.svg"},{"id":11,"name":"Thailand","iso":"TH","type":"pin","view":"World","region":"Southeast Asia","where":[100.5,15.4],"flag":"../../flags/canonical/1e93a61e95bf.svg"},{"id":12,"name":"Cabo Verde","iso":"CV","type":"pin","view":"World","region":"Atlantic Ocean","where":[-23.6,15.1],"area":"atlantic","accept":["atlantic"],"flag":"../../flags/canonical/aec8994902cc.svg"},{"id":13,"name":"Japan","iso":"JP","type":"pin","view":"World","region":"East Asia","where":[138,37],"flag":"../../flags/canonical/cc1c181ce9b2.svg"},{"id":14,"name":"Monaco","iso":"MC","type":"pin","view":"World","region":"Europe","where":[7.425,43.738],"area":"europe","accept":["europe","mediterranean"],"flag":"../../flags/canonical/9cb6c9e8a0ea.svg"},{"id":15,"name":"Chile","iso":"CL","type":"pin","view":"World","region":"South America","where":[-71,-33],"flag":"../../flags/canonical/5b3c72fa7c26.svg"},{"id":16,"name":"Tuvalu","iso":"TV","type":"area","view":"World","region":"Pacific Ocean","where":[179.2,-8.52],"area":"pacific","accept":["pacific"],"flag":"../../flags/canonical/675210ec5524.svg"},{"id":17,"name":"Morocco","iso":"MA","type":"pin","view":"World","region":"Africa","where":[-7,32],"flag":"../../flags/canonical/7ce56eff707c.svg"},{"id":18,"name":"Grenada","iso":"GD","type":"area","view":"World","region":"Caribbean","where":[-61.7,12.1],"area":"caribbean","accept":["caribbean"],"flag":"../../flags/canonical/b3d250db99cf.svg"},{"id":19,"name":"Argentina","iso":"AR","type":"pin","view":"World","region":"South America","where":[-64,-35],"flag":"../../flags/canonical/c753da103f3c.svg"},{"id":20,"name":"Vatican City","iso":"VA","type":"pin","view":"World","region":"Europe","where":[12.453,41.903],"area":"europe","accept":["europe"],"flag":"../../flags/canonical/3e297d638a94.svg"},{"id":21,"name":"Malta","iso":"MT","type":"pin","view":"World","region":"World","where":[14.51,35.9],"flag":"../../flags/canonical/5d5d7c80af64.svg"},{"id":22,"name":"San Marino","iso":"SM","type":"pin","view":"World","region":"World","where":[12.458,43.94],"flag":"../../flags/canonical/e41d2f776cc9.svg"}];
 
-const map=$("map");let world=null,detail=null,high=null,highErr=null,view=null,active=0,gesture=null,region="World";
+const map=$("map");let world=null,detail=null,high=null,highErr=null,view=null,active=0,gesture=null,region="World",auditFocus=null;
+const AUDIT_PIN_UPGRADES=[
+{iso:"BS",name:"Bahamas",where:[-77.4,25.03],px:86},
+{iso:"FJ",name:"Fiji",where:[178.06,-17.7],px:173},
+{iso:"JM",name:"Jamaica",where:[-77.3,18.11],px:259},
+{iso:"SB",name:"Solomon Islands",where:[160.17,-9.65],px:147},
+{iso:"TT",name:"Trinidad and Tobago",where:[-61.22,10.69],px:125}];
 let records=Q.map(()=>({point:null,areaChoice:null,revealed:false,legacy:null}));let pageIndex=0;let legacyImported=false;
 function save(){try{localStorage.setItem(STORE,JSON.stringify({current:active,records}))}catch{}}
 function load(){
@@ -53,7 +59,7 @@ function grade(q,s){
  return {points:0,status:other?"Selected another country, not "+q.name:"Outside "+q.name+"'s approximate location"};
 }
 function viewPoint(e){const m=map.getScreenCTM();if(m&&map.createSVGPoint){const p=map.createSVGPoint();p.x=e.clientX;p.y=e.clientY;const q=p.matrixTransform(m.inverse());return{x:q.x,y:q.y}}const r=map.getBoundingClientRect();return{x:view.x+(e.clientX-r.x)*view.w/r.width,y:view.y+(e.clientY-r.y)*view.h/r.height}}
-function choose(e){const q=Q[active],s=records[active];if(q.type!=="pin"||s.revealed||!world||!view)return;const p=viewPoint(e);s.point={lon:Math.round(norm(p.x/4-180)*1000)/1000,lat:Math.round((90-p.y/4)*1000)/1000};save();update();paint()}
+function choose(e){const q=Q[active],s=records[active];if(auditFocus||q.type!=="pin"||s.revealed||!world||!view)return;const p=viewPoint(e);s.point={lon:Math.round(norm(p.x/4-180)*1000)/1000,lat:Math.round((90-p.y/4)*1000)/1000};save();update();paint()}
 function zoom(f,p){if(!view)return;const a=p||{x:view.x+view.w/2,y:view.y+view.h/2},w=Math.max(12,Math.min(1500,view.w*f)),h=Math.max(8,Math.min(720,view.h*f)),fx=(a.x-view.x)/view.w,fy=(a.y-view.y)/view.h;view=clamp({x:a.x-fx*w,y:a.y-fy*h,w,h});paint()}
 function panBy(dx,dy){const m=map.getScreenCTM(),sx=Math.abs(m?.a)||mapSize().w/view.w,sy=Math.abs(m?.d)||mapSize().h/view.h;view=clamp({...view,x:view.x-dx/sx,y:view.y-dy/sy});paint()}
 function paint(){
@@ -71,7 +77,7 @@ function paint(){
  }
  $("mapResolution").textContent=fine?"Detailed borders · Natural Earth 1:10m":highErr?"Detailed borders unavailable · overview fallback":"World overview · zoom in for detailed borders";
  const q=Q[active],s=records[active];
- if(s.revealed){for(const el of land.querySelectorAll("path[data-iso]"))if(el.getAttribute("data-iso")===q.iso)el.classList.add("funCorrect")}
+ if(s.revealed||auditFocus){for(const el of land.querySelectorAll("path[data-iso]"))if(el.getAttribute("data-iso")===(auditFocus?.iso||q.iso))el.classList.add("funCorrect")}
  const marks=[];
  if(q.type==="pin"&&s.point)marks.push({p:[s.point.lon,s.point.lat],truth:false});
  if(s.revealed)marks.push({p:q.where,truth:true});
@@ -101,7 +107,7 @@ function update(){
  $("funDone").textContent=sum.revealed===Q.length?"Complete. Copy your experimental record.":(sum.archived?sum.archived+" past V3 broad-region answers are archived and were NOT converted into country pins. No old grade was changed.":"");
  $("funExportBottom").hidden=sum.revealed!==Q.length;updateCards();
 }
-function pick(i){active=Math.max(0,Math.min(Q.length-1,i));pageIndex=Math.floor(active/10);save();changeRegion("World");update();$("mapStatus").textContent=Q[active].type==="pin"?"Pin the target country, then Reveal.":"Pick broad geographical area from the selector. Exact dot not required.";$("funPanel").scrollIntoView({block:"start"})}
+function pick(i){auditFocus=null;updateAuditStatus();active=Math.max(0,Math.min(Q.length-1,i));pageIndex=Math.floor(active/10);save();changeRegion("World");update();$("mapStatus").textContent=Q[active].type==="pin"?"Pin the target country, then Reveal.":"Pick broad geographical area from the selector. Exact dot not required.";$("funPanel").scrollIntoView({block:"start"})}
 function reveal(){const q=Q[active],s=records[active];if(s.revealed||!(q.type==="pin"?s.point&&(high||highErr):s.areaChoice))return;s.revealed=true;save();paint();update()}
 function exportText(){const s=scoreSummary();return["World Capitals Game — Integrated V4 Geography Design Pilot","PROVISIONAL browser-local total: "+s.earned+"/"+s.graded+" | "+s.revealed+"/"+Q.length+" revealed | "+s.archived+" archived V3 answers","Country pin: inside or within 60 km of actual border (provisional) = 1. Tiny country: correct broad area = 1; NO dot distance.","Answers:"].concat(Q.map((q,i)=>{const x=records[i],g=grade(q,x),v=q.type==="pin"?(x.point?"P:"+x.point.lon.toFixed(3)+","+x.point.lat.toFixed(3):"No pin"):(x.areaChoice||"No area");return(i+1)+". "+q.name+" | "+(q.type==="pin"?"Country pin":"Broad region")+" | Selected: "+v+" | Revealed: "+(x.revealed?"Yes":"No")+(g?" | Provisional: "+g.points+"/1 | "+g.status:"")+(x.legacy?" | Earlier V3 broad-area answer: "+x.legacy.areaChoice+" (revealed="+x.legacy.revealed+", archived not regraded)":"")})).concat(["No official scores were changed. Review and commit these practice results after submission."]).join("\n")}
 async function copyExport(){const v=exportText();$("funExportText").hidden=false;$("funExportText").value=v;let copied=false;try{await navigator.clipboard.writeText(v);copied=true}catch{}$("funExportStatus").textContent=copied?"Copied. Paste these V3 results into ChatGPT.":"Select and copy the results from the text box below."}
@@ -152,23 +158,70 @@ function updateCards(){
  $("count").textContent=total.revealed+" / "+Q.length+" new-mode reveals";
  $("locationCount").textContent=total.earned+" / "+total.graded+" provisional geography points";
 }
+
+function updateAuditStatus(){
+ const note=$("auditReviewStatus");if(!note)return;
+ note.textContent=auditFocus?
+  "Read-only inspection: "+auditFocus.name+". Existing pins, questions and scores are untouched.":
+  "Inspection is separate from gameplay. The five proposed upgrades require your approval.";
+ const back=$("auditReturn");if(back)back.hidden=!auditFocus;
+ for(const b of document.querySelectorAll("[data-audit-iso]"))
+  b.setAttribute("aria-pressed",String(b.dataset.auditIso===auditFocus?.iso));
+}
+function viewAuditCountry(iso){
+ const item=AUDIT_PIN_UPGRADES.find(x=>x.iso===iso);
+ if(!item)return;
+ if(!world){$("auditReviewStatus").textContent="Map still loading. Please try again.";return}
+ auditFocus=item;
+ // The user explicitly requested to inspect this country. Normal quiz questions still start at WORLD.
+ const w=68,r=mapSize().ratio,p=item.where;
+ view=clamp({x:px(p[0])-w/2,y:py(p[1])-w/(2*r),w,h:w/r});
+ paint();updateAuditStatus();$("atlasSection").scrollIntoView({block:"start"});
+}
+function setupAuditReview(){
+ const details=document.createElement("details");details.id="geoModeAudit";details.className="geoModeAudit";
+ const summary=document.createElement("summary");summary.textContent="Read-only classification review — five proposed country-pin upgrades (no gameplay)";
+ details.appendChild(summary);
+ const lead=document.createElement("p");
+ lead.textContent="Measured on the same 195-country atlas at maximum practical mobile zoom. These five countries appear individually recognizable; use Inspect map to examine their shapes without answering or restarting the quiz.";
+ details.appendChild(lead);
+ const items=document.createElement("div");items.className="geoAuditRows";
+ for(const item of AUDIT_PIN_UPGRADES){
+  const row=document.createElement("div");row.className="geoAuditRow";
+  const txt=document.createElement("div");
+  const strong=document.createElement("strong");strong.textContent=item.name;
+  const desc=document.createElement("small");desc.textContent="Largest island/group component ~"+item.px+" px at maximum mobile zoom";
+  txt.append(strong,desc);
+  const button=document.createElement("button");button.type="button";button.dataset.auditIso=item.iso;
+  button.textContent="Inspect map";button.setAttribute("aria-pressed","false");
+  button.onclick=()=>viewAuditCountry(item.iso);
+  row.append(txt,button);items.appendChild(row);
+ }
+ details.appendChild(items);
+ const note=document.createElement("p");note.id="auditReviewStatus";note.setAttribute("role","status");details.appendChild(note);
+ const back=document.createElement("button");back.id="auditReturn";back.type="button";back.hidden=true;
+ back.textContent="Return to normal world map (answers unchanged)";
+ back.onclick=()=>{auditFocus=null;changeRegion("World");updateAuditStatus();$("atlasSection").scrollIntoView({block:"start"})};
+ details.appendChild(back);$("atlasSection").after(details);updateAuditStatus();
+}
+
 function setup(){
  document.title="World Capitals Game · Integrated Geography Design V4";
  $("title").textContent="World Flags + Capitals + Geography — Original Layout Preview";
  document.querySelector(".sub").textContent="Original flag and Country/Capital cards + a shared navigable world map. Only Geography is provisionally graded.";
  $("stagePill").textContent="Integrated geography design · Experimental";
  document.querySelector(".legend").textContent="Flags displayed; Country and Capital inputs optional and unscored. Geography graded separately.";
- document.querySelector(".previewOnly").textContent="World map starts globally every time. Cabo Verde, Cyprus, Malta, Monaco, Vatican City and San Marino are country-placement questions. Dense Pacific/Caribbean dots remain broad-area questions.";
+ document.querySelector(".previewOnly").textContent="Every scored country starts from the full world. Recognizable islands and microstates are map-pin questions; tiny indistinguishable dots are broad-area only. Prior V3/V4 grades are unchanged.";
  $("grid").hidden=false;document.querySelector(".actions").hidden=true;document.querySelector(".small").hidden=true;$("out").hidden=true;
  $("atlasRegions").hidden=true;document.querySelector(".radiusBar").hidden=true;$("zoneKey").hidden=true;$("returnQuestion").hidden=true;
  document.querySelector(".technicalNote").textContent="V4 has separate saved state. Compatible V3 answers imported; reclassified answers retained as historical V3 responses only. Nothing changes official 390/390.";
  document.querySelector(".atlasHint").textContent="Shared WORLD MAP. You navigate to the country; no pre-zoom and no continent clue. Area-mode answers use the selector, not map dots.";
- document.querySelector("#atlasSection h2").textContent="Shared world geography map";renderCards();
+ document.querySelector("#atlasSection h2").textContent="Shared world geography map";renderCards();setupAuditReview();
  const wrap=document.createElement("section");wrap.id="funPanel";wrap.className="funPanel";
- wrap.innerHTML='<div class="funTop"><span id="funNumber"></span><span id="funProgress"></span></div><div id="funMode" class="funMode"></div><h2 id="funCountry"></h2><p id="funInstruction"></p><label id="funAreaRow" class="funAreaRow" hidden>Choose broad geographical area<select id="funAreaChoice"><option value="">— Select an area —</option></select></label><div class="funSteps" id="funSteps"></div><div class="funControls"><button type="button" id="funPrev">← Previous</button><button type="button" id="funReveal" class="funPrimary">Reveal & grade</button><button type="button" id="funZoom" hidden>Zoom to target after reveal</button><button type="button" id="funNext" class="funPrimary">Next →</button></div><div id="funFeedback" class="funFeedback"></div><div id="funDone"></div><div class="funExportRow"><button type="button" id="funExport" class="funPrimary">Copy V3 results</button><span class="funExportHelp">Export your original answers and provisional scores.</span></div><div id="funExportStatus" class="funExportStatus" role="status"></div><textarea id="funExportText" class="funExportText" rows="15" readonly hidden></textarea><button type="button" id="funReset" class="funReset">Restart V3 pilot</button>';
+ wrap.innerHTML='<div class="funTop"><span id="funNumber"></span><span id="funProgress"></span></div><div id="funMode" class="funMode"></div><h2 id="funCountry"></h2><p id="funInstruction"></p><label id="funAreaRow" class="funAreaRow" hidden>Choose broad geographical area<select id="funAreaChoice"><option value="">— Select an area —</option></select></label><div class="funSteps" id="funSteps"></div><div class="funControls"><button type="button" id="funPrev">← Previous</button><button type="button" id="funReveal" class="funPrimary">Reveal & grade</button><button type="button" id="funZoom" hidden>Zoom to target after reveal</button><button type="button" id="funNext" class="funPrimary">Next →</button></div><div id="funFeedback" class="funFeedback"></div><div id="funDone"></div><div class="funExportRow"><button type="button" id="funExport" class="funPrimary">Copy V4 results</button><span class="funExportHelp">Export your original answers and provisional scores.</span></div><div id="funExportStatus" class="funExportStatus" role="status"></div><textarea id="funExportText" class="funExportText" rows="15" readonly hidden></textarea><button type="button" id="funReset" class="funReset">Reset V4 practice</button>';
  $("atlasSection").before(wrap);
  const bottom=document.createElement("div");bottom.className="funBottom";
- bottom.innerHTML='<button type="button" id="funExportBottom" class="funExportButton" hidden>Copy V3 results</button><button type="button" id="funNextBottom">Next question →</button>';document.querySelector(".atlasFoot").after(bottom);
+ bottom.innerHTML='<button type="button" id="funExportBottom" class="funExportButton" hidden>Copy V4 results</button><button type="button" id="funNextBottom">Next question →</button>';document.querySelector(".atlasFoot").after(bottom);
  for(const [id,label] of OPTIONS){const el=document.createElement("option");el.value=id;el.textContent=label;$("funAreaChoice").appendChild(el)}
  $("funAreaChoice").onchange=e=>{if(records[active].revealed)return;records[active].areaChoice=e.target.value||null;save();update()};
  for(let i=0;i<Q.length;i++){const b=document.createElement("button");b.type="button";b.id="funStep"+(i+1);b.textContent=String(i+1);b.onclick=()=>pick(i);$("funSteps").appendChild(b)}
@@ -199,6 +252,6 @@ async function init(){
   fetch("../location/data/world-10m.json",{cache:"force-cache"}).then(r=>{if(!r.ok)throw Error("Detailed atlas unavailable");return r.json()}).then(j=>{if(!Array.isArray(j.features)||j.features.length<200)throw Error("Invalid 10m atlas");high=j;paint();update()}).catch(e=>{highErr=String(e);paint();update()});
  }catch(e){$("mapStatus").textContent="Atlas load failed: "+String(e)}
 }
-window.__geoFun={version:4,enabled:true,getQuestions:()=>Q.map(q=>({name:q.name,type:q.type})),getActive:()=>active,getRecord:()=>records.map((r,i)=>({...r,grade:grade(Q[i],r)})),getGrade:i=>grade(Q[i],records[i]),getExport:exportText,getMapMode:()=>region};
+window.__geoFun={version:4,enabled:true,getQuestions:()=>Q.map(q=>({name:q.name,type:q.type})),getActive:()=>active,getRecord:()=>records.map((r,i)=>({...r,grade:grade(Q[i],r)})),getGrade:i=>grade(Q[i],records[i]),getExport:exportText,getMapMode:()=>region,getAuditFocus:()=>auditFocus?.name||null,getAuditUpgradeNames:()=>AUDIT_PIN_UPGRADES.map(x=>x.name)};
 window.__areaTrial={getHiResStatus:()=>({ready:!!high,error:highErr,features:high?.features.length||0})};
 init();

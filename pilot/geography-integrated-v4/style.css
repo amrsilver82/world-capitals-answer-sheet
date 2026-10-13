@@ -131,3 +131,14 @@ body:has(#funPanel) #map{min-height:400px}
 .geoCardNote{font-size:12px;color:#64748b}
 .geoCard .pair input{font-size:14px;min-height:45px}
 .legacyDone{border-color:#bdc8d2!important;background:#e5e7eb!important;color:#374151!important}
+
+/* Read-only design audit, preserving original two-column scorecard and storage */
+.geoModeAudit{margin:22px 0;padding:16px;background:#fff;border:1px solid #94a3b8;border-radius:12px}
+.geoModeAudit summary{font-weight:800;font-size:17px;cursor:pointer}
+.geoModeAudit p{font-size:13px;color:#475569}
+.geoAuditRows{display:grid;gap:8px}
+.geoAuditRow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px;border-radius:8px;background:#f8fafc}
+.geoAuditRow>div{display:flex;flex-direction:column;gap:4px}
+.geoAuditRow small{color:#64748b}
+.geoAuditRow button[aria-pressed="true"]{background:#2563eb;color:white}
+@media(max-width:540px){.geoAuditRow{flex-direction:column;align-items:stretch}}

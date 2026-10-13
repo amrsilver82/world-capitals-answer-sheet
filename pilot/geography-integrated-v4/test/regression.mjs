@@ -25,6 +25,18 @@ async function check(browserType,mobile){
   await page.reload({waitUntil:"networkidle"});await page.waitForFunction(()=>__geoFun?.version===4);
   assert.equal(await page.evaluate(()=>__geoFun.getRecord()[1].revealed),true);
   assert.equal(await page.evaluate(()=>__geoFun.getMapMode()),"World");
+  
+  const untouched=await page.evaluate(()=>__geoFun.getRecord());
+  await page.locator("#geoModeAudit summary").click();
+  assert.equal(await page.locator("[data-audit-iso]").count(),5);
+  assert.ok((await page.evaluate(()=>__geoFun.getAuditUpgradeNames())).includes("Fiji"));
+  await page.locator('[data-audit-iso="FJ"]').click();
+  assert.equal(await page.evaluate(()=>__geoFun.getAuditFocus()),"Fiji");
+  assert.deepEqual(await page.evaluate(()=>__geoFun.getRecord()),untouched,"Review must not change user answers");
+  await page.locator("#auditReturn").click();
+  assert.equal(await page.evaluate(()=>__geoFun.getAuditFocus()),null);
+  assert.equal(await page.evaluate(()=>__geoFun.getMapMode()),"World");
+  assert.deepEqual(await page.evaluate(()=>__geoFun.getRecord()),untouched);
   assert.deepEqual(errors,[]);
   console.log("PASS integrated V4 "+browserType.name()+" "+(mobile?"mobile":"desktop")+" — original flag cards, no continent hints, dynamic Q label, broad-area grading, legacy isolation");
  }finally{await browser.close()}
