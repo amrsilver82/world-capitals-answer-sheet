@@ -44,8 +44,12 @@ async function copyChatHandoff(){
 function renderCount(){const done=remote?.accepted.length||0;$("count").textContent=done+" / 195 experimentally synced";$("stage").textContent=connected?"GitHub draft connected · not official":"Read-only until private GitHub connected"}
 function renderCards(){
  if(!questions.length)return;
- const n=Math.ceil(questions.length/10);pageIndex=Math.max(0,Math.min(n-1,pageIndex));
- $("batchNo").textContent="Batch "+(pageIndex+1)+" / "+n;$("batchPrev").disabled=pageIndex===0;$("batchNext").disabled=pageIndex===n-1;
+ const n=Math.ceil(questions.length/10);
+ // Freeze unreached batches: preview only Batch 1, release a later flag batch only after GitHub has all earlier submissions.
+ const maxPage=Math.min(n-1,Math.floor((remote?.accepted.length||0)/10));
+ pageIndex=Math.max(0,Math.min(maxPage,pageIndex));
+ $("batchNo").textContent="Batch "+(pageIndex+1)+" / "+n;
+ $("batchPrev").disabled=pageIndex===0;$("batchNext").disabled=pageIndex>=maxPage;
  const wrap=$("cards");wrap.replaceChildren();
  for(const q of questions.slice(pageIndex*10,pageIndex*10+10)){
   const card=document.createElement("article");card.className="card";
@@ -136,7 +140,7 @@ function mapPoint(e){
  if(m&&svg.createSVGPoint){const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;const a=p.matrixTransform(m.inverse());return{x:a.x,y:a.y}}
  const r=svg.getBoundingClientRect();return{x:view.x+(e.clientX-r.x)*view.w/r.width,y:view.y+(e.clientY-r.y)*view.h/r.height};
 }
-function clampView(){view.w=Math.max(12,Math.min(1440,view.w));view.h=Math.max(8,Math.min(720,view.h));
+function clampView(){view.w=Math.max(0.2,Math.min(1440,view.w));view.h=Math.max(0.1,Math.min(720,view.h));
  view.x=Math.max(-1440,Math.min(2880-view.w,view.x));view.y=Math.max(0,Math.min(720-view.h,view.y))}
 function zoom(f,p){
  const a=p||{x:view.x+view.w/2,y:view.y+view.h/2};const w=view.w,h=view.h;
@@ -170,7 +174,7 @@ function setupMap(){
  },{passive:false});
  svg.addEventListener("touchend",e=>{if(touch?.one&&!touch.moved&&e.changedTouches?.length===1)setPin(e.changedTouches[0]);touch=null;e.preventDefault()},{passive:false});
  svg.addEventListener("click",e=>{if(e.detail===0)setPin(e)});
- $("zoomIn").onclick=()=>zoom(.7);$("zoomOut").onclick=()=>zoom(1.43);$("resetWorld").onclick=worldView;
+ $("zoomIn").onclick=()=>zoom(.45);$("zoomOut").onclick=()=>zoom(1.43);$("resetWorld").onclick=worldView;
 }
 function beginGeography(){
  if(!connected||busy||!getCurrent())return;

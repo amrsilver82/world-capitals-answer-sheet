@@ -17,3 +17,5 @@ button.primary,#submit,#lockIdentity,#connect{background:#175bc4;color:#fff;bord
 #chatHandoff label{min-width:230px}
 #chatHandoff .handoffInfo{font-size:13px;color:#556680}
 #chatHandoff button:disabled{opacity:.45}
+
+/* No future batch flags are rendered until the prior full batch is accepted on private GitHub. */

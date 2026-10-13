@@ -26,9 +26,11 @@ async function run(engine,mobile){
   assert.deepEqual(await page.evaluate(()=>__combined195.modeCount()),{pins:177,areas:18});
   assert.equal(await page.locator(".card").count(),10,"Ten original-style flag cards per batch");
   assert.equal(await page.locator("#submit").isDisabled(),true,"No unsynced answers");
-  await page.locator("#batchNext").click();assert.equal(await page.locator(".card").count(),10);
-  assert.match(await page.locator("#batchNo").innerText(),/Batch 2/);
-  await page.locator("#batchPrev").click();
+  assert.equal(await page.locator("#batchNext").isDisabled(),true,"No early access to future flag batches");
+  assert.match(await page.locator("#batchNo").innerText(),/Batch 1/);
+  assert.equal(await page.locator(".card").count(),10);
+  assert.equal(await page.locator(".flagPic img").count(),10,"Only ten flags are displayed before saved progress");
+
   assert.equal(await page.evaluate(()=>__combined195.getWorldView().w),1440);
   await page.locator("#credential").fill("github_pat_fakeMockIntegration");
   await page.locator("#connect").click();
@@ -40,6 +42,11 @@ async function run(engine,mobile){
   await page.locator("#lockIdentity").click();
   assert.match(await page.locator("#geoPrompt").innerText(),/Kuwait/);
   assert.equal(await page.evaluate(()=>__combined195.getWorldView().w),1440);
+  for(let i=0;i<12;i++)await page.locator("#zoomIn").click();
+  const magnified=await page.evaluate(()=>__combined195.getWorldView());
+  assert.ok(magnified.w<=0.25,"Map must support manually reaching microstate-scale zoom");
+  await page.locator("#resetWorld").click();
+  assert.equal(await page.evaluate(()=>__combined195.getWorldView().w),1440,"World reset does not hint a country");
   await page.locator("#atlas").scrollIntoViewIfNeeded();
   const rect=await page.locator("#atlas").boundingBox();
   assert.ok(rect);
@@ -105,6 +112,10 @@ async function run(engine,mobile){
   await page.locator("#refresh").click();
   await page.waitForFunction(()=>__combined195.getStatus().accepted===10);
   assert.deepEqual(await page.evaluate(()=>__combined195.getCompletedHandoffs()),[1]);
+  assert.equal(await page.locator("#batchPrev").isDisabled(),false,"Batch 2 is now visible only after Q1–10 accepted");
+  assert.match(await page.locator("#batchNo").innerText(),/Batch 2/);
+  assert.equal(await page.locator(".flagPic img").count(),10,"Next frozen batch reveals exactly ten flags");
+
   assert.equal(await page.locator("#copyHandoff").isEnabled(),true);
   await page.locator("#handoffBatch").selectOption("1");
   await page.evaluate(()=>document.getElementById("handoffBatch").dispatchEvent(new Event("change",{bubbles:true})));
