@@ -1,0 +1,20 @@
+name: Geography 195 Geometry Recognizability Audit
+on:
+  push:
+    paths:
+      - 'pilot/geography-integrated-v4/test/audit195.mjs'
+      - '.github/workflows/geography-195-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Measure all 195 outlines from existing atlas
+        run: node pilot/geography-integrated-v4/test/audit195.mjs
