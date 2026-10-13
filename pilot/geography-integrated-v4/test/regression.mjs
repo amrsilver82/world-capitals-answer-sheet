@@ -79,6 +79,8 @@ async function regressionV4Persistence(engine,mobile){
    r.records[19].point=null;r.records[19].revealed=false;r.records[19].legacy=null;
    localStorage.setItem("wcg-geography-integrated-v4",JSON.stringify(r));
   });
+  await page.reload({waitUntil:"networkidle"});await page.waitForFunction(()=>__geoFun?.version===4);
+  assert.equal(await page.evaluate(()=>__geoFun.getRecord()[11].point),null,"Deleted fixture must be loaded into browser memory first");
   const candidate={version:1,records:[
    {q:12,name:"Cabo Verde",point:{lon:-24,lat:15},revealed:false,legacy:{areaChoice:"atlantic",revealed:true}},
    {q:20,name:"Vatican City",point:{lon:13,lat:41.9},revealed:true,legacy:{areaChoice:"europe",revealed:true}},
