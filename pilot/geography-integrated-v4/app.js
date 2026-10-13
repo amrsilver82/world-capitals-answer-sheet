@@ -336,10 +336,6 @@ function setupRecovery(){
  const apply=document.createElement("button");apply.type="button";apply.id="v4RecoveryApply";apply.textContent="Apply safe recovery";apply.disabled=true;
  apply.onclick=()=>{
   if(!proposedRecovery?.changes.length)return;
-  const fresh=planRecovery({version:1,records:proposedRecovery.results.map(r=>{
-   const found=proposedRecovery.changes.find(c=>c.i===r.q-1);
-   return found?{q:r.q,name:r.name,...found.record}:null
-  }).filter(Boolean)});
   // Instead of recomputing from the DOM, only fill fields from validated pending changes.
   const changes=proposedRecovery.changes;
   const conflicts=changes.filter(({i,record})=>{
@@ -366,6 +362,7 @@ function setupRecovery(){
  const anchor=$("geoModeAudit")||$("atlasSection");anchor.before(panel);
  const candidate=decodeRecoveryFragment();
  if(candidate)showRecovery(candidate);
+ window.addEventListener("hashchange",()=>{const incoming=decodeRecoveryFragment();if(incoming)showRecovery(incoming)});
 }
 
 function setup(){

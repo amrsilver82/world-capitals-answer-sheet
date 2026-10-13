@@ -52,6 +52,8 @@ async function regressionV4Persistence(engine,mobile){
   // Exact regression: original V4 load() mistakenly treated legitimate 22-record state
   // as V3 and removed country pins/reveals from Q12/Q14/Q20.
   await page.addInitScript(()=>{
+   if(sessionStorage.getItem("v4RecoveryRegressionSeeded")==="1")return;
+   sessionStorage.setItem("v4RecoveryRegressionSeeded","1");
    const base=Array.from({length:22},()=>({point:null,areaChoice:null,revealed:false,legacy:null}));
    base[11]={point:{lon:-24,lat:15},areaChoice:"atlantic",revealed:false,legacy:{areaChoice:"atlantic",revealed:true}};
    base[13]={point:{lon:7.2,lat:43.7},areaChoice:"mediterranean",revealed:false,legacy:{areaChoice:"mediterranean",revealed:true}};
