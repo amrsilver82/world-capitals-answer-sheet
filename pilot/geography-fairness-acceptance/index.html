@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'">
+<title>Geography Fairness — Seven-case Acceptance Test</title>
+<link rel="stylesheet" href="style.css?v=1"><script type="module" src="app.mjs?v=1"></script></head>
+<body><main>
+<header><p class="eyebrow">World Capitals Game · independent geography review</p><h1>Is this location scoring fair?</h1>
+<p>Test 4 disputed islands and 3 microstates. You choose the map location, compare pin versus broad-area placement and judge whether the rule is practical. <strong>No flags, capitals, GitHub token, or official scores involved.</strong></p>
+<div id="progress">Loading map…</div></header>
+<section class="card">
+<div class="top"><span id="counter">Case 1 of 7</span><span id="draft"></span></div>
+<h2 id="country"></h2><p id="context"></p>
+<fieldset id="methodGroup"><legend>Placement method to test</legend><label><input type="radio" name="method" value="pin" checked> Locate country with a pin</label><label id="areaMethod"><input type="radio" name="method" value="area"> Choose broad area</label></fieldset>
+<div id="areaControls" hidden><label>Which area?<select id="area"><option value="">Choose…</option><option value="PACIFIC_OCEAN">Pacific Ocean</option><option value="CARIBBEAN">Caribbean</option><option value="INDIAN_OCEAN">Indian Ocean</option></select></label></div>
+<p id="mapHelp">World start. Zoom/pan yourself and tap the map. You do NOT have to hit a tiny island pixel.</p>
+<div class="mapbar"><button id="zoomIn">+ Zoom</button><button id="zoomOut">− Zoom</button><button id="resetMap">World view</button><button id="removePin">Clear pin</button><span id="resolution">Loading outlines…</span></div>
+<div class="mapframe"><svg id="atlas" viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid meet" aria-label="Zoomable world map for placing a test pin" role="img"><rect x="-1440" y="0" width="4320" height="720" fill="#dcecf7"/><g id="land"></g><g id="mark"></g></svg></div>
+<p id="pinStatus" class="small">No pin selected</p>
+<div class="controls"><button id="evaluate" class="primary">Show provisional result</button><button id="next">Next case →</button></div>
+<div id="result" class="result" hidden></div>
+<div class="decision"><h3>How should this country be tested in the future?</h3><fieldset><label><input type="radio" name="vote" value="country_pin"> Direct country pin</label><label><input type="radio" name="vote" value="broad_area"> Broad area</label><label><input type="radio" name="vote" value="review"> Neither is fair / needs revision</label></fieldset></div>
+</section>
+<section class="card"><h2>Your seven-case feedback</h2><p>Responses are stored only in this browser's separate test storage. Earlier V3/V4 sessions and private GitHub are not touched.</p>
+<div class="controls"><button id="previous">← Previous</button><button id="build">Prepare results to share</button><button id="copy" disabled>Copy feedback</button><button id="restart">Clear only this trial</button></div>
+<textarea readonly rows="10" id="export" aria-label="Copyable fairness test feedback" placeholder="Your results will appear here."></textarea><p class="small" id="status">No scores have been changed.</p></section>
+<footer>All geographic scores and thresholds here are provisional. The user makes the final ruling. Official Flags + Capitals: 390/390 unchanged.</footer>
+</main></body></html>
