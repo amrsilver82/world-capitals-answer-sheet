@@ -39,7 +39,7 @@ const fake=async(url,opt)=>{
 };
 const client=githubClient("github_pat_testCredOnly",fake);
 assert.equal(await client.verify(),true);
-await client.post(sample(1,"mock",{mode:"country_pin",point:{lon:47.5,lat:29.3}}));
+await client.post(sample(1,"abcf",{mode:"country_pin",point:{lon:47.5,lat:29.3}}));
 assert.equal(replay(await client.comments(),manifest).next.q,2);
 assert.ok(authHeaders.every(x=>x.Authorization==="Bearer github_pat_testCredOnly"));
 assert.ok(!JSON.stringify(comments).includes("testCredOnly"),"Never write token in issue comment");
