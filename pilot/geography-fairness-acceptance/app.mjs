@@ -99,7 +99,7 @@ function evaluate(){
   ):(
     out.result==="inside"?"Your pin is inside the country border.":out.result==="near-border"?"Your pin is within the draft tolerance.":out.result==="outside"?"Your pin is outside the draft tolerance.":"Further geographic review needed."
   )+(Number.isFinite(out.nearBorderKm)?" Nearest border: "+out.nearBorderKm+" km.":"")+
-  (Number.isFinite(out.allowedKm)?" Draft tolerance: "+out.allowedKm+" km.":"")));
+  (Number.isFinite(out.allowedKm)?" Draft tolerance: "+out.allowedKm+" km.":""));
  d.revealed=true;d.score=text;save();$("result").hidden=false;$("result").textContent=text;draw(true)
 }
 function summary(){
