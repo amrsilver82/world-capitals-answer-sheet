@@ -48,7 +48,16 @@ async function exercise(browserType,mobile){
   assert.equal(await page.locator("#cards .card").count(),1,"Exactly one flag visible");
   assert.equal(await page.locator("#chatHandoff").isHidden(),true);
   assert.equal(requests.filter(x=>x.path.includes("/contents/")).length,0,"Cannot read protected target before identity");
-  assert.equal(await page.locator("#geoControls").isHidden(),true);
+  assert.equal(await page.locator("#activePanel").isVisible(),true);
+  assert.equal(await page.locator("#geoControls").isVisible(),true,"Map must be visible before login");
+  assert.equal(await page.locator("#atlas").isVisible(),true,"Actual atlas must be visible before login");
+  assert.equal(await page.locator("#submit").isHidden(),true,"No geography submission before private identity");
+  assert.ok(await page.evaluate(()=>!!(document.querySelector("#activePanel").compareDocumentPosition(document.querySelector(".panel.auth"))&Node.DOCUMENT_POSITION_FOLLOWING)),
+    "The atlas must follow the flag and precede authentication, preserving V4 layout");
+  await page.locator("#zoomIn").click();
+  assert.ok((await page.evaluate(()=>__combined195.getWorldView().w))<1440,
+    "User-controlled atlas zoom must work without authentication");
+  await page.locator("#resetWorld").click();
   assert.equal(await page.locator("#countryInput").isEnabled(),true);
   assert.equal(await page.locator("#capitalInput").isEnabled(),true);
   assert.equal(await page.locator("#lockIdentity").isDisabled(),true);
@@ -78,6 +87,8 @@ async function exercise(browserType,mobile){
   assert.equal(id.countryText,"Lesotho");
   assert.equal(id.capitalText,"Maseru");
   assert.equal(id.manifest,"live-browser-github-acceptance-one-20261014-v1");
+  assert.equal(await page.locator("#atlas").isVisible(),true,"The map remains visible after target confirmation");
+  assert.equal(await page.locator("#submit").isVisible(),true,"Geography save button is unlocked only after identity confirmation");
   assert.equal(await page.locator("#countryInput").isDisabled(),true);
   assert.match(await page.locator("#geoPrompt").innerText(),/Lesotho/);
   // Recovery must work even if the browser closes after Country+Capital but before Geography.
@@ -89,6 +100,7 @@ async function exercise(browserType,mobile){
   assert.equal(await page.locator("#capitalInput").inputValue(),"Maseru");
   assert.equal(events.length,2);
 
+  assert.equal(await page.locator("#atlas").isVisible(),true,"Map visible after reload/reconnect");
   await page.locator("#atlas").scrollIntoViewIfNeeded();
   const pin=await page.evaluate(()=>{
    const svg=document.getElementById("atlas"),p=svg.createSVGPoint();

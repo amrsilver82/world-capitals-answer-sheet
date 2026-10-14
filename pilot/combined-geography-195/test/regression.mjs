@@ -36,7 +36,7 @@ async function run(browserType,mobile){
  assert.ok(m.questions.every(q=>Object.keys(q).join(",")==="q,flag"));
  assert.equal(await page.locator("#batchNext").isDisabled(),true);
  assert.equal(await page.locator(".flagPic img").count(),10);
- assert.equal(await page.locator("#geoControls").isHidden(),true);
+ assert.equal(await page.locator("#geoControls").isHidden(),true,"Full 195-country authenticated question flow unchanged");
  assert.equal(await page.locator("#countryInput").isDisabled(),true,"Normal 195-country authenticated workflow is unchanged");
  assert.equal(requests.filter(x=>x.includes("/contents/")).length,0);
  await page.locator("#credential").fill("github_pat_mockOnly");

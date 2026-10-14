@@ -102,8 +102,18 @@ function showNext(){
  $("lockIdentity").disabled=!connected||!canType;
  $("lockIdentity").hidden=!shown||!!remote?.pending;
  $("lockIdentity").textContent=ACCEPTANCE&&!connected?"Connect GitHub below to enable saving":"Save Country + Capital, then reveal Geography";
- $("unlockIdentity").hidden=true;$("geoControls").hidden=true;
- $("activePanel").hidden=ACCEPTANCE&&!remote?.pending;
+ $("unlockIdentity").hidden=true;
+ $("geoControls").hidden=!ACCEPTANCE;
+ if(ACCEPTANCE&&!remote?.pending){
+  $("geoPrompt").textContent="Unlabeled shared atlas — navigate freely now. Placement opens after Country and Capital are confirmed in private GitHub.";
+  $("areaRow").hidden=true;
+  $("mapInstructions").hidden=false;
+  $("mapInstructions").textContent="Browse the map and zoom/pan manually. No automatic target prezoom or location clue. You can submit a location only after Country and Capital are privately confirmed.";
+  $("mapStatus").hidden=false;
+  $("atlas").closest(".mapFrame").hidden=false;
+  $("submit").hidden=true;
+ }else $("submit").hidden=false;
+ $("activePanel").hidden=false; // Same as original V4: keep atlas visible before GitHub login
  $("activeTitle").textContent=ACCEPTANCE?"Geography (after private confirmation)":
    q?"Q"+q.q+" of 195 — identify the flag":"195-country experiment complete";
  $("modeLabel").textContent="";
@@ -213,12 +223,14 @@ function beginGeography(){
  $("countryInput").disabled=true;$("capitalInput").disabled=true;
  $("lockIdentity").hidden=true;$("unlockIdentity").hidden=true;
  $("geoControls").hidden=false;
+ $("submit").hidden=false;
  $("geoPrompt").textContent="Place "+q.name+" on the world map, or choose its permitted broad area.";
  $("areaRow").hidden=q.mode!=="broad_area";$("mapInstructions").hidden=q.mode!=="country_pin";
+ $("mapInstructions").textContent="Place your own pin for "+q.name+"; pan and zoom manually, with no automatic country prezoom.";
  $("mapStatus").hidden=q.mode!=="country_pin";$("atlas").closest(".mapFrame").hidden=q.mode!=="country_pin";
  $("modeLabel").textContent=modes[q.mode];
  $("instructions").textContent="Your Country and Capital answers are securely recorded; they cannot be edited. Now answer Geography.";
- $("areaSelect").value="";temporaryPin=null;worldView();updateSubmit();
+ $("areaSelect").value="";temporaryPin=null;if(!ACCEPTANCE)worldView();updateSubmit();
 }
 async function restorePending(){
  const waiting=remote?.pending,q=getCurrent();
@@ -327,7 +339,8 @@ async function init(){
   sheet.querySelector(".batchNav").style.display="none";
   $("cards").classList.add("single-acceptance");
   acceptanceFields=$("identityFields");acceptanceActions=$("identityActions");
-  sheet.after(document.querySelector(".panel.auth")); // the flag and its inputs come before authorization
+  sheet.after($("activePanel")); // original V4: flag card then always-visible world atlas
+  $("activePanel").after(document.querySelector(".panel.auth")); // authentication only to save
   $("countryInput").addEventListener("input",()=>{if(!remote?.pending)unsentAcceptance.countryText=$("countryInput").value});
   $("capitalInput").addEventListener("input",()=>{if(!remote?.pending)unsentAcceptance.capitalText=$("capitalInput").value});
  }
