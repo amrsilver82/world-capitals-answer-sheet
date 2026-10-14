@@ -14,18 +14,28 @@ async function run(browserType,mobile){
  const browser=await browserType.launch();
  try{
  const ctx=await browser.newContext(mobile?{viewport:{width:390,height:844},isMobile:true,hasTouch:true}:{viewport:{width:1365,height:900}});
- const comments=[],requests=[];let seq=100;
+ const comments=[],botReceipts=[],requests=[];let seq=100;
  await ctx.route("https://api.github.com/**",async r=>{
   const req=r.request(),url=req.url();requests.push(url);
   if(url.includes("/contents/START_HERE.md"))return r.fulfill({status:200,json:{content:base64({safe:true})}});
   if(url.includes("/contents/v2/edition3-asset-map.json"))return r.fulfill({status:200,json:{content:base64(assets)}});
   if(url.includes("/contents/experiments/location-pilot/GEOGRAPHY_195_CLASSIFICATION"))return r.fulfill({status:200,json:{content:base64(classified)}});
   if(url.endsWith("/issues/5"))return r.fulfill({status:200,json:{number:5,state:"open"}});
-  if(url.includes("/comments?"))return r.fulfill({status:200,json:comments});
+  if(url.includes("/comments?"))return r.fulfill({status:200,json:[...comments,...botReceipts].sort((a,b)=>a.id-b.id)});
   if(url.endsWith("/issues/5/comments")&&req.method()==="POST"){
-   const data=JSON.parse(req.postData());
-   comments.push({id:seq++,body:data.body,created_at:"2026-10-13T12:00:00Z"});
-   return r.fulfill({status:201,json:{id:seq-1}});
+   const data=JSON.parse(req.postData()),ev=JSON.parse(data.body);
+   const savedId=seq++;
+   comments.push({id:savedId,body:data.body,user:{login:"amrsilver82"},created_at:"2026-10-13T12:00:00Z"});
+   if(ev.kind==="wcg.combined195.identity.v2"){
+    const item=assets.entries[ev.q-1],mode=classified.countries[ev.q-1].mode;
+    const target={q:ev.q,iso:iso[ev.q-1],name:item.country,flag:"../../"+item.public_asset,
+     mode,area:mode==="broad_area"?"PACIFIC_OCEAN":null};
+    botReceipts.push({id:seq++,user:{login:"github-actions[bot]"},
+     body:JSON.stringify({kind:"wcg.combined195.target.v1",version:1,manifest:m.version,
+      q:ev.q,identity_attempt_id:ev.attempt_id,identity_comment_id:savedId,target}),
+     created_at:"2026-10-13T12:01:00Z"});
+   }
+   return r.fulfill({status:201,json:{id:savedId}});
   }
   return r.fulfill({status:404,json:{}});
  });
@@ -54,7 +64,7 @@ async function run(browserType,mobile){
  await page.locator("#zoomIn").click();
  assert.ok((await page.evaluate(()=>__combined195.getWorldView().w))<1440,"Map zoom must work before authentication");
  await page.locator("#resetWorld").click();
- assert.equal(requests.filter(x=>x.includes("/contents/")).length,0);
+ assert.equal(requests.filter(x=>x.includes("/contents/")).length,0,"No private Contents permissions requested in normal game");
  await page.locator("#credential").fill("github_pat_mockOnly");
  await page.locator("#connect").click();
  await page.waitForFunction(()=>__combined195.getStatus().connected);
@@ -95,6 +105,7 @@ async function run(browserType,mobile){
  assert.equal(comments.length,2);
  assert.equal(JSON.parse(comments[1].body).kind,"wcg.combined195.geography.v2");
  assert.equal(await page.evaluate(()=>__combined195.getStatus().next),2);
+ assert.equal(requests.filter(x=>x.includes("/contents/")).length,0,"Issues-only browser must not read private file Contents");
  await page.reload({waitUntil:"networkidle"});
  assert.equal(await page.evaluate(()=>__combined195.getStatus().connected),false);
  await page.locator("#credential").fill("github_pat_mockOnly");

@@ -101,14 +101,49 @@ export function githubClient(token,fetchImpl=fetch,issueNumber=ISSUE){
  };
  let privateCache=null;
  return {
-  async verify(){const issue=await get(endpoint);if(issue.number!==issueNumber||issue.state!=="open")throw Error("Experimental issue not open");const access=await get(ROOT+"/contents/START_HERE.md");if(typeof access.content!=="string")throw Error("Private repository Contents read permission required");return true},
+  async verify(){
+   const issue=await get(endpoint);
+   if(issue.number!==issueNumber||issue.state!=="open")throw Error("Experimental issue not open");
+   // Normal combined-195 uses ORIGINAL Issues-only permissions.
+   // Protected mapping lives behind a private Actions response after confirmed identity.
+   // Legacy Issue #6 diagnostic remains separately permissioned.
+   if(issueNumber===6){
+    const access=await get(ROOT+"/contents/START_HERE.md");
+    if(typeof access.content!=="string")throw Error("Private repository Contents read permission required");
+   }
+   return true;
+  },
   async comments(){const all=[];for(let page=1;page<=30;page++){
    const chunk=await get(endpoint+"/comments?per_page=100&page="+page);
    if(!Array.isArray(chunk))throw Error("Invalid GitHub comments");
    all.push(...chunk);if(chunk.length<100)return all;
   }throw Error("More than 3000 comments; refuse truncated history")},
   async post(ev){return get(endpoint+"/comments",{method:"POST",body:JSON.stringify({body:JSON.stringify(ev)})})},
-  async targetFor(q,publicFlag){
+  async targetFor(q,publicFlag,pending=null){
+   if(issueNumber===5){
+    if(!pending||pending.q!==q||!ID.test(pending.attempt_id)||
+       !Number.isSafeInteger(pending.githubIdentityCommentId))
+     throw Error("Geography target requires a confirmed private GitHub identity");
+    const receipts=(await this.comments()).filter(c=>c.user?.login==="github-actions[bot]")
+      .sort((a,b)=>b.id-a.id);
+    for(const c of receipts){
+     let ev;try{ev=JSON.parse(c.body||"")}catch{continue}
+     if(ev?.kind!=="wcg.combined195.target.v1"||ev.version!==1||
+      ev.manifest!=="combined-geography-195-two-stage-v2"||
+      ev.identity_attempt_id!==pending.attempt_id||
+      ev.identity_comment_id!==pending.githubIdentityCommentId||ev.q!==q)continue;
+     const t=ev.target;
+     if(!t||t.q!==q||t.flag!==publicFlag||
+      typeof t.name!=="string"||!t.name.trim()||!/^[A-Z]{2}$/.test(t.iso||"")||
+      !["country_pin","broad_area"].includes(t.mode)||
+      (t.mode==="broad_area"&&!regionSet.has(t.area))||
+      (t.mode==="country_pin"&&t.area!==null))
+      throw Error("GitHub referee target receipt invalid. Geography must stay hidden.");
+     return t;
+    }
+    throw Error("Waiting for GitHub's private referee to release Geography. Your Country and Capital are safely saved; checking again automatically.");
+   }
+   // Isolated legacy Issue #6 probe retains its Contents-based target lookup.
    if(!privateCache){
     const [assets,cls]=await Promise.all([
      contents("v2/edition3-asset-map.json"),

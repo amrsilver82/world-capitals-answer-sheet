@@ -12,12 +12,13 @@ async function failureAt(stage,status,body,headers){
   calls.push({url,method:options.method||"GET",authenticated:options.headers.Authorization==="Bearer "+token});
   if(stage==="issue"&&url===issue)return response(status,body,headers);
   if(stage==="contents"&&url===content)return response(status,body,headers);
+  if(stage==="contents"&&url===root+"/issues/6")return response(200,{number:6,state:"open"});
   if(stage==="comments"&&url.startsWith(issue+"/comments"))return response(status,body,headers);
   if(url===issue)return response(200,{number:5,state:"open"});
   if(url===content)return response(200,{content:"YQ=="});
   throw Error("Unexpected test endpoint "+url);
  };
- const c=githubClient(token,fetcher,5);
+ const c=githubClient(token,fetcher,stage==="contents"?6:5);
  const attempt=async()=>stage==="comments"?(await c.verify(),await c.comments()):await c.verify();
  let message="";
  try{await attempt();assert.fail("Expected an access failure")}
@@ -46,4 +47,16 @@ assert.match(await failureAt("issue",404,{message:"Not Found"}),/GitHub 404/);
 const hostile=await failureAt("issue",403,{message:"Sensitive /user/private-path message"},
  {"x-ratelimit-remaining":"120"});
 assert.ok(!hostile.includes("Sensitive")&&!hostile.includes("private-path"));
+
+// Normal Issue #5 uses only the original Issues permission; no Contents preflight.
+const issueOnlyRequests=[];
+const oldPermissionClient=githubClient(token,async(url,options)=>{
+ issueOnlyRequests.push(url);
+ if(url===issue)return response(200,{number:5,state:"open"});
+ if(url.startsWith(issue+"/comments"))return response(200,[]);
+ throw Error("Unexpected GitHub Contents request");
+},5);
+assert.equal(await oldPermissionClient.verify(),true);
+assert.deepEqual(await oldPermissionClient.comments(),[]);
+assert.equal(issueOnlyRequests.some(u=>u.includes("/contents/")),false);
 console.log("PASS safe GitHub connection diagnostics: named 403 endpoint, 401, 404, primary vs secondary rate limit, no token exposure");

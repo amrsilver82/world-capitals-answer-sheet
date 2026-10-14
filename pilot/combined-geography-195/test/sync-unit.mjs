@@ -23,4 +23,28 @@ put(eventFor(b,m,{geography:{mode:"country_pin",point:{lon:7.4,lat:43.7}}},uid(5
 state=replay(comments,m);assert.equal(state.accepted.length,2);
 assert.equal(state.next.q,3);assert.equal(state.accepted[1].countryText,"Monaco");
 assert.throws(()=>eventFor(a,m,{geography:{}},uid(6),"geography"),/confirmed identity/);
+
+// After GitHub saves identity, only the private bot's receipt may resolve a target.
+const initialReceipt={kind:"wcg.combined195.target.v1",version:1,manifest:m.version,q:1,
+ identity_attempt_id:start.attempt_id,identity_comment_id:100,
+ target:{q:1,iso:"KW",name:"Kuwait",flag:a.flag,mode:"country_pin",area:null}};
+const issueUrls=[];
+const issuesOnlyClient=(await import("../sync.mjs")).githubClient("github_pat_mockIssues",
+ async(url)=>{
+  issueUrls.push(url);
+  if(url.endsWith("/issues/5"))return new Response(JSON.stringify({number:5,state:"open"}),{status:200});
+  if(url.includes("/issues/5/comments?"))return new Response(JSON.stringify([
+   {id:100,body:JSON.stringify(start),user:{login:"amrsilver82"}},
+   {id:101,body:JSON.stringify(initialReceipt),user:{login:"github-actions[bot]"}}
+  ]),{status:200});
+  throw Error("Protected Contents API must not be needed in normal Issue #5");
+ },5);
+assert.equal(await issuesOnlyClient.verify(),true);
+const resolved=await issuesOnlyClient.targetFor(1,a.flag,
+ {q:1,attempt_id:start.attempt_id,githubIdentityCommentId:100});
+assert.equal(resolved.iso,"KW");
+assert.equal(resolved.name,"Kuwait");
+assert.equal(issueUrls.some(url=>url.includes("/contents/")),false);
+await assert.rejects(issuesOnlyClient.targetFor(1,a.flag,
+ {q:1,attempt_id:start.attempt_id,githubIdentityCommentId:999}),/Waiting for GitHub/);
 console.log("PASS 195 public flag-only questions, two-stage identity confirmation, geography, stale duplicate rejection.");

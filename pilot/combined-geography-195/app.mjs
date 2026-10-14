@@ -356,7 +356,7 @@ async function restorePending(){
  const waiting=remote?.pending,q=getCurrent();
  if(!waiting||!q||!connected)return;
  try{
-  const target=await client.targetFor(q.q,q.flag);
+  const target=await client.targetFor(q.q,q.flag,waiting);
   if(remote?.pending?.attempt_id!==waiting.attempt_id||!connected)return;
   currentTarget=target;beginGeography();
  }catch(e){message("Unable to load verified geography target: "+e.message,"warning")}
@@ -487,6 +487,7 @@ async function init(){
  $("trialBuild").onclick=buildLocalTrial;$("trialCopy").onclick=copyLocalTrial;
  $("trialClear").onclick=clearLocalTrial;
  window.addEventListener("focus",()=>refresh(false));document.addEventListener("visibilitychange",()=>{if(!document.hidden)refresh(false)});setInterval(()=>refresh(false),60000);
+  setInterval(()=>{if(connected&&remote?.pending&&!currentTarget)refresh(false)},12000); // Wait for private Action's single-target receipt.
  if(!ACCEPTANCE){
   $("countryInput").addEventListener("input",()=>{const q=getCurrent()||(!connected?questions.find(x=>x.q===localSelected):null);if(q&&!remote?.pending)draft(q.q).countryText=$("countryInput").value;persistLocal();updateLocalTrial()});
   $("capitalInput").addEventListener("input",()=>{const q=getCurrent()||(!connected?questions.find(x=>x.q===localSelected):null);if(q&&!remote?.pending)draft(q.q).capitalText=$("capitalInput").value;persistLocal();updateLocalTrial()});

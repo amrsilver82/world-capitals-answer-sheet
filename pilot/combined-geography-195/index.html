@@ -2,14 +2,14 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self' https://api.github.com; base-uri 'none'; object-src 'none'; form-action 'none'">
 <title>World Flags + Capitals + Geography — 195 Integration Candidate</title>
-<link rel="stylesheet" href="style.css?v=flag-ratio-20261014"><script type="module" src="app.mjs?v=contract-local-20261014"></script></head>
+<link rel="stylesheet" href="style.css?v=flag-ratio-20261014"><script type="module" src="app.mjs?v=issues-only-20261014"></script></head>
 <body><main class="wrap">
 <header><h1>World Flags + Capitals + Geography</h1><p class="sub">195-country integrated design · experimental, unapproved scoring · official 390/390 untouched</p>
 <div class="pills"><span id="count" class="pill">195-country manifest loading</span><span id="stage" class="pill">Answers editable · connect only to save</span></div>
 <p class="notice">195-country experimental game · enter Country and Capital on each flag card, use the world atlas below, and connect GitHub only to save. No official championship has started.</p></header>
 <section class="panel auth" aria-labelledby="authTitle">
 <h2 id="authTitle">GitHub-authoritative draft progress</h2>
-<p>Type Country and Capital on the flag card above without logging in. <strong>Only saving needs GitHub authorization.</strong> Choose "Use previously remembered pilot credential" if you explicitly stored a token before, or supply a restricted fine-grained token for private <code>World-Capitals-Game</code> (Issues: read/write; Contents: read). Your token goes directly to GitHub, never to ChatGPT or a public repository.</p>
+<p>Type Country and Capital on the flag card above without logging in. <strong>Only saving needs GitHub authorization.</strong> Choose "Use previously remembered pilot credential" if you explicitly stored a token before, or supply a restricted fine-grained token for private <code>World-Capitals-Game</code> (Issues: read/write for the normal game. The isolated legacy one-question diagnostic separately requires Contents: read). Your token goes directly to GitHub, never to ChatGPT or a public repository.</p>
 <div class="authcontrols"><input id="credential" type="password" autocomplete="off" spellcheck="false" placeholder="Fine-grained GitHub token" aria-label="GitHub token">
 <button id="connect">Connect private GitHub</button><button id="reuse" title="Only if you previously chose Remember token in the old location pilot">Use previously remembered pilot credential</button>
 <button id="refresh" disabled>Refresh</button><button id="disconnect" disabled>Disconnect</button></div>
