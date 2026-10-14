@@ -1,4 +1,5 @@
 import {atlasIndex,referee} from "../geography-integrated-v4/referee/scorer.mjs";
+import {triageMicrostate} from "../geography-integrated-v4/referee/microstate-triage.mjs";
 import {githubClient,replay,eventFor,ISSUE} from "./sync.mjs";
 import {completedBatches,batchHandoff} from "./handoff.mjs";
 const $=id=>document.getElementById(id);
@@ -227,8 +228,14 @@ async function submit(){
   if(!after.acceptedIds.has(id)){
    showNext();message("Another device completed first; stale answer not counted.","warning");return
   }
-  const score=atlas?referee({...scoreInput(currentTarget,geo),atlas}):null;
-  showNext();message("Full draft saved and confirmed. Geography provisional "+(score?.points??"needs review")+"/1; final scoring awaits approved referee.","good");
+  const isMicro=["MC","VA","SM"].includes(currentTarget.iso);
+  const score=atlas?(isMicro?triageMicrostate({iso:currentTarget.iso,point:geo.point,atlas}):
+   referee({...scoreInput(currentTarget,geo),atlas})):null;
+  const feedback=score?.result==="manual-review"?
+   "Microstate location is BORDERLINE ("+score.nearBorderKm+" km). Human referee review required: NO automatic score.":
+   isMicro?"Microstate geography provisional "+(score?.points??"needs review")+"/1 (draft only; no approved threshold).":
+   "Geography provisional "+(score?.points??"needs review")+"/1; final scoring awaits approved referee.";
+  showNext();message("Full draft saved and confirmed. "+feedback,"good");
  }catch(e){message("Geography not confirmed: "+e.message+". Retry after checking connection.","warning")}
  finally{busy=false;updateSubmit()}
 }

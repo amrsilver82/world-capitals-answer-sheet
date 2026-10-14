@@ -87,6 +87,16 @@ async function run(browserType,mobile){
  assert.equal(comments.length,3,"Stale client must not create duplicate identity event");
  await page.waitForFunction(()=>__combined195.getTarget()?.iso==="MC");
  await second.waitForFunction(()=>__combined195.getTarget()?.iso==="MC");
+ // Borderline Monaco: 20–60km may NEVER be shown as an automatic wrong or zero.
+ await page.locator("#atlas").scrollIntoViewIfNeeded();
+ const mr=await page.locator("#atlas").boundingBox();
+ const bx=mr.x+(7.05+180)/360*mr.width,by=mr.y+(90-43.60)/180*mr.height;
+ if(mobile)await page.touchscreen.tap(bx,by);else await page.mouse.click(bx,by);
+ await page.waitForFunction(()=>!document.getElementById("submit").disabled);
+ await page.locator("#submit").click();
+ await page.waitForFunction(()=>__combined195.getStatus().accepted===2);
+ assert.match(await page.locator("#questionStatus").innerText(),/BORDERLINE.*Human referee review required.*NO automatic score/i);
+ assert.equal(comments.length,4);
  assert.deepEqual(errors,[]);
  console.log("PASS "+browserType.name()+" "+(mobile?"mobile":"desktop")+" — two-stage protected metadata, no source leaks, country locked before reveal, geography, restore, stale client");
  }finally{await browser.close()}
