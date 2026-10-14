@@ -40,6 +40,21 @@ async function check(engine,mobile){
   await page.goto(root+"?v=finish-local",{waitUntil:"networkidle"});
   await page.waitForFunction(()=>__combined195?.getAtlasReady(),null,{timeout:40000});
   assert.equal(await page.locator("#finishBatch").isVisible(),true);
+  assert.ok(await page.locator("#finishBatch").evaluate(btn=>{
+   const r=btn.getBoundingClientRect();
+   return r.top>=0&&r.bottom<=window.innerHeight
+  }),"Primary Finish action must be in initial viewport, not hidden below the atlas");
+  assert.match(await page.locator("#finishEligibility").innerText(),/UNSCORED LOCAL/);
+  assert.ok(await page.evaluate(()=>{
+   const flagPanel=document.querySelector("#cards").closest(".panel");
+   const atlas=document.querySelector("#activePanel");
+   const finish=document.querySelector("#finishPanel");
+   const legacy=document.querySelector("#trialPanel");
+   return document.querySelector("header").contains(document.querySelector("#finishBatch"))&&
+    !!(flagPanel.compareDocumentPosition(atlas)&Node.DOCUMENT_POSITION_FOLLOWING)&&
+    !!(atlas.querySelector(".mapFrame").compareDocumentPosition(finish)&Node.DOCUMENT_POSITION_FOLLOWING)&&
+    !!(finish.compareDocumentPosition(legacy)&Node.DOCUMENT_POSITION_FOLLOWING);
+  }),"Header Finish button, flags -> atlas -> results -> legacy controls must keep original layout");
   assert.equal(await page.locator("#cards .card").count(),10);
   assert.equal(await page.locator("#atlas").isVisible(),true);
   // Incomplete batch must be honestly labeled; all ten Qs must be present.
@@ -131,6 +146,12 @@ async function verified(engine,mobile,accepted=10){
   await page.locator("#credential").fill("github_pat_finishMockOnly");
   await page.locator("#connect").click();
   await page.waitForFunction(n=>__combined195.getStatus().accepted===n,accepted);
+  assert.ok(await page.locator("#finishBatch").evaluate(btn=>{
+   const r=btn.getBoundingClientRect();
+   return r.top>=0&&r.bottom<=innerHeight
+  }),"Visible Finish button at top in private mode");
+  if(accepted===9)assert.match(await page.locator("#finishEligibility").innerText(),/9\/10 saved; 1 remaining/);
+  else assert.match(await page.locator("#finishEligibility").innerText(),/verified completed/);
   const expectedBatch=Math.floor(accepted/10);
   await page.locator("#finishBatch").click();
   await page.waitForFunction(n=>n<10?

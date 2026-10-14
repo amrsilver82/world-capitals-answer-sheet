@@ -152,7 +152,7 @@ async function finishBatch(){
    const chosen=eligible.find(x=>x.batch===selected)||eligible.at(-1);
    if(!chosen){
     status.textContent="Batch not complete in private GitHub. Save and verify all ten Geography entries (five in the final batch) first.";
-    output.value="";return;
+    output.value="";$("finishPanel").scrollIntoView({block:"start",behavior:"auto"});return;
    }
    text=batchHandoff(fresh.accepted,chosen.batch);
    label="GitHub VERIFIED draft batch "+chosen.batch+" only — player-entered results, NOT official grades. Correct answers await private referee.";
@@ -173,6 +173,7 @@ async function finishBatch(){
    output.focus();output.select();
    status.textContent=label+" Clipboard blocked. Results are selected below; use Ctrl+C (or mobile Copy).";
   }
+  $("finishPanel").scrollIntoView({block:"start",behavior:"auto"});
  }catch(e){
   output.value="";
   status.textContent="No verified batch report created: "+e.message+". Your draft answers were not changed.";
@@ -180,7 +181,26 @@ async function finishBatch(){
 }
 
 
-function renderCount(){const done=remote?.accepted.length||0;$("count").textContent=done+" / "+questions.length+" experimentally synced";$("stage").textContent=connected?"GitHub draft connected · not official":"Answers editable · connect only to save"}
+function renderCount(){
+ const done=remote?.accepted.length||0;
+ $("count").textContent=done+" / "+questions.length+" experimentally synced";
+ $("stage").textContent=connected?"GitHub draft connected · not official":"Answers editable · connect only to save";
+ if(!ACCEPTANCE){
+  if(!connected){
+   $("finishEligibility").textContent="UNSCORED LOCAL · Copy any time, with missing answers clearly marked. No GitHub login needed.";
+  }else{
+   const complete=completedBatches(remote?.accepted||[]);
+   const currentSize=Math.min(10,195-(Math.floor(done/10)*10));
+   const pendingCount=done%10;
+   const nextBatch=done<195?" Current batch: "+pendingCount+"/"+currentSize+" saved; "+
+    (currentSize-pendingCount)+" remaining.":" All 195 experimental answers saved.";
+   $("finishEligibility").textContent=complete.length?
+    complete.length+" verified completed "+(complete.length===1?"batch":"batches")+" ready to copy."+
+    nextBatch:"No completed verified batch yet."+nextBatch+
+    " Private results require every Geography save.";
+  }
+ }
+}
 function renderCards(){
  if(!questions.length)return;
  if(!ACCEPTANCE){ // Keep the original answer controls alive while re-rendering the 10 flag cards.
