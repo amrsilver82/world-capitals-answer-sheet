@@ -34,9 +34,13 @@ function draw(force=false){
  const mode=hi&&view.w<=550?"high":"low";
  if(mode!==drawingMode||force){
   const f=mode==="high"?hi?.features:world?.features;
-  if(f){const el=$("land");el.replaceChildren();const ids=new Set(f.map(v=>v.id));const add=detail?.features.filter(x=>!ids.has(x.id))||[];
+  if(f){const el=$("land");el.replaceChildren();
+   // Microstate visuals must use the same detailed supplement as their geometry referee.
+   const micros=new Set(["MC","VA","SM"]);
+   const shapes=f.filter(v=>!micros.has(v.id));const ids=new Set(shapes.map(v=>v.id));
+   const add=detail?.features.filter(x=>micros.has(x.id)||!ids.has(x.id))||[];
    const fragment=document.createDocumentFragment();
-   for(const v of [...f,...add])for(const shift of [-1440,0,1440]){
+   for(const v of [...shapes,...add])for(const shift of [-1440,0,1440]){
     const z=document.createElementNS("http://www.w3.org/2000/svg","path");
     z.setAttribute("d",v.polys.map(x=>path(x,shift)).join(" "));
     z.setAttribute("class","country"+(data[at].revealed&&v.id===C[at].iso?" chosen":""));

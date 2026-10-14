@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import assert from "node:assert/strict";
-import {atlasIndex} from "../scorer.mjs";
-import {triageMicrostate,MICROSTATE_ISOS,MICROSTATE_REVIEW_CEILING_KM_DRAFT} from "../microstate-triage.mjs";
+import {atlasIndex} from "../referee/scorer.mjs";
+import {triageMicrostate,MICROSTATE_ISOS,MICROSTATE_REVIEW_CEILING_KM_DRAFT} from "../referee/microstate-triage.mjs";
 const load=p=>JSON.parse(fs.readFileSync(p,"utf8"));
 const atlas=atlasIndex(load("pilot/location/data/world-10m.json"),load("pilot/location/data/world.json"),load("pilot/location/data/targets.json"));
 assert.deepEqual(MICROSTATE_ISOS,["MC","VA","SM"]);
