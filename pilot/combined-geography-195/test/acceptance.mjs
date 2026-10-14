@@ -49,6 +49,14 @@ async function exercise(browserType,mobile){
   assert.equal(await page.locator("#chatHandoff").isHidden(),true);
   assert.equal(requests.filter(x=>x.path.includes("/contents/")).length,0,"Cannot read protected target before identity");
   assert.equal(await page.locator("#geoControls").isHidden(),true);
+  assert.equal(await page.locator("#countryInput").isEnabled(),true);
+  assert.equal(await page.locator("#capitalInput").isEnabled(),true);
+  assert.equal(await page.locator("#lockIdentity").isDisabled(),true);
+  assert.equal(await page.locator("#cards #countryInput").count(),1,"Country input remains directly in the flag card");
+  assert.equal(await page.locator("#cards #capitalInput").count(),1,"Capital input remains directly in the flag card");
+  await page.locator("#countryInput").fill("Lesotho");
+  await page.locator("#capitalInput").fill("Maseru");
+  assert.equal(events.length,1,"Typing may not write to GitHub");
 
   async function connect(){
    await page.locator("#credential").fill("github_pat_testBrowserOnly");
@@ -57,10 +65,11 @@ async function exercise(browserType,mobile){
   }
   await connect();
   assert.equal(await page.evaluate(()=>__combined195.getCurrent()?.q),67);
+  assert.equal(await page.locator("#countryInput").inputValue(),"Lesotho","Typed answer survives GitHub login");
+  assert.equal(await page.locator("#capitalInput").inputValue(),"Maseru","Typed answer survives GitHub login");
+  assert.equal(await page.locator("#lockIdentity").isEnabled(),true);
   assert.equal(events.length,1);
   assert.ok(requests.every(x=>!x.path.includes("/issues/5")),"Never touch the general 195 draft issue");
-  await page.locator("#countryInput").fill("Lesotho");
-  await page.locator("#capitalInput").fill("Maseru");
   await page.locator("#lockIdentity").click();
   await page.waitForFunction(()=>__combined195.getStatus().identitySaved);
   await page.waitForFunction(()=>__combined195.getTarget()?.iso==="LS");

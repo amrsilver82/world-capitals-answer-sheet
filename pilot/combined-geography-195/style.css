@@ -22,3 +22,9 @@ button.primary,#submit,#lockIdentity,#connect{background:#175bc4;color:#fff;bord
 
 /* One-question live sync acceptance: wrap long GitHub recovery identifiers on mobile. */
 #acceptanceProof{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;line-height:1.65}
+
+/* One-question entry restores the original flag-card-with-inputs UX. */
+.cards.single-acceptance{grid-template-columns:minmax(0,720px)}
+.acceptance-card .fields{margin-top:7px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.acceptance-card .fields input{min-width:0}
+@media(max-width:650px){.acceptance-card .fields{grid-template-columns:1fr}}

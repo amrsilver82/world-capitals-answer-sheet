@@ -10,6 +10,8 @@ const ACCEPTANCE_Q=67;
 const ACCEPTANCE_VERSION="live-browser-github-acceptance-one-20261014-v1";
 let manifest=null,questions=[],client=null,remote=null,connected=false,busy=false,refreshing=false;
 let pageIndex=0,currentDraft=null,currentTarget=null,identityLocked=false,temporaryPin=null,atlas=null,world=null,hi=null,detail=null;
+let acceptanceFields=null,acceptanceActions=null;
+let unsentAcceptance={countryText:"",capitalText:""}; // Ephemeral page memory only, never GitHub until saved.
 let view={x:0,y:0,w:1440,h:720},lastDrawn="",activeDrawing=null;
 const HALF=Math.PI/180;
 const modes={country_pin:"Locate actual country",broad_area:"Identify broad area"};
@@ -45,11 +47,10 @@ async function copyChatHandoff(){
  catch(e){output.focus();output.select();$("handoffStatus").textContent="Clipboard not available. The handoff text is selected below; copy it manually. No answers changed."}
 }
 
-function renderCount(){const done=remote?.accepted.length||0;$("count").textContent=done+" / "+questions.length+" experimentally synced";$("stage").textContent=connected?"GitHub draft connected · not official":"Read-only until private GitHub connected"}
+function renderCount(){const done=remote?.accepted.length||0;$("count").textContent=done+" / "+questions.length+" experimentally synced";$("stage").textContent=connected?"GitHub draft connected · not official":ACCEPTANCE?"Answers editable · connect only to save":"Read-only until private GitHub connected"}
 function renderCards(){
  if(!questions.length)return;
  const n=Math.ceil(questions.length/10);
- // Freeze unreached batches: preview only Batch 1, release a later flag batch only after GitHub has all earlier submissions.
  const maxPage=Math.min(n-1,Math.floor((remote?.accepted.length||0)/10));
  pageIndex=Math.max(0,Math.min(maxPage,pageIndex));
  $("batchNo").textContent="Batch "+(pageIndex+1)+" / "+n;
@@ -58,18 +59,32 @@ function renderCards(){
  for(const q of questions.slice(pageIndex*10,pageIndex*10+10)){
   const card=document.createElement("article");card.className="card";
   const done=remote?.accepted.find(x=>x.q===q.q);
-  if(done)card.classList.add("done");if(getCurrent()?.q===q.q)card.classList.add("current");
+  const current=getCurrent()?.q===q.q||ACCEPTANCE&&!connected&&q.q===ACCEPTANCE_Q;
+  if(done)card.classList.add("done");if(current)card.classList.add("current");
+  if(ACCEPTANCE)card.classList.add("acceptance-card");
   const top=document.createElement("div");top.className="header";
   const no=document.createElement("strong");no.textContent="Question "+q.q;
-  const state=document.createElement("span");state.textContent=done?"Saved to GitHub":getCurrent()?.q===q.q?"Current":"Upcoming";top.append(no,state);
+  const state=document.createElement("span");
+  state.textContent=done?"Saved to GitHub":getCurrent()?.q===q.q?"Current":ACCEPTANCE?"Ready to type · unsaved":"Upcoming";
+  top.append(no,state);
   const flag=document.createElement("div");flag.className="flagPic";
   const img=document.createElement("img");img.src=q.flag;img.loading="lazy";img.alt="Flag for question "+q.q;flag.appendChild(img);
   const field=document.createElement("div");field.className="fieldsSmall";
-  field.textContent=done?"Country: "+(done.countryText||"—")+" · Capital: "+(done.capitalText||"—"):"Country and Capital fields are below for the active question";
-  const button=document.createElement("button");button.type="button";
-  button.textContent=getCurrent()?.q===q.q?"Go to current question":done?"See saved submission":"Not yet available";
-  button.disabled=!done&&getCurrent()?.q!==q.q;button.onclick=()=>{if(done)showSaved(done);else $("activePanel").scrollIntoView({behavior:"smooth"})};
-  card.append(top,flag,field,button);wrap.appendChild(card);
+  field.textContent=done?"Country: "+(done.countryText||"—")+" · Capital: "+(done.capitalText||"—"):
+   ACCEPTANCE?"Enter Country and Capital here. They are not transmitted until you connect and press Save.":
+   "Country and Capital fields are below for the active question";
+  if(ACCEPTANCE){
+   if(!acceptanceFields||!acceptanceActions)throw Error("Answer fields missing");
+   acceptanceFields.hidden=!!done;acceptanceActions.hidden=!!done;
+   card.append(top,flag,field,acceptanceFields,acceptanceActions);
+  }else{
+   const button=document.createElement("button");button.type="button";
+   button.textContent=getCurrent()?.q===q.q?"Go to current question":done?"See saved submission":"Not yet available";
+   button.disabled=!done&&getCurrent()?.q!==q.q;
+   button.onclick=()=>{if(done)showSaved(done);else $("activePanel").scrollIntoView({behavior:"smooth"})};
+   card.append(top,flag,field,button);
+  }
+  wrap.appendChild(card);
  }
 }
 function showSaved(done){
@@ -77,21 +92,29 @@ function showSaved(done){
 }
 function showNext(){
  renderCount();renderCards();renderChatHandoff();
- const q=getCurrent();identityLocked=false;currentTarget=null;currentDraft=null;temporaryPin=null;
- $("countryInput").value="";$("capitalInput").value="";
- const canEnter=!!q&&connected&&!remote?.pending;
- $("countryInput").disabled=!canEnter;$("capitalInput").disabled=!canEnter;
- $("lockIdentity").disabled=!canEnter;$("lockIdentity").hidden=!q||!!remote?.pending;
+ const q=getCurrent(),shown=q||(ACCEPTANCE&&!connected?manifest?.questions[0]:null);
+ identityLocked=false;currentTarget=null;currentDraft=null;temporaryPin=null;
+ if(ACCEPTANCE&&(remote?.pending||connected&&!q))unsentAcceptance={countryText:"",capitalText:""};
+ $("countryInput").value=ACCEPTANCE&&shown&&!remote?.pending?unsentAcceptance.countryText:"";
+ $("capitalInput").value=ACCEPTANCE&&shown&&!remote?.pending?unsentAcceptance.capitalText:"";
+ const canType=!!shown&&!remote?.pending&&(connected||ACCEPTANCE);
+ $("countryInput").disabled=!canType;$("capitalInput").disabled=!canType;
+ $("lockIdentity").disabled=!connected||!canType;
+ $("lockIdentity").hidden=!shown||!!remote?.pending;
+ $("lockIdentity").textContent=ACCEPTANCE&&!connected?"Connect GitHub below to enable saving":"Save Country + Capital, then reveal Geography";
  $("unlockIdentity").hidden=true;$("geoControls").hidden=true;
- $("activeTitle").textContent=ACCEPTANCE?(q?"One acceptance question — identify the flag":"One-question GitHub test saved"):(q?"Q"+q.q+" of 195 — identify the flag":"195-country experiment complete");
+ $("activePanel").hidden=ACCEPTANCE&&!remote?.pending;
+ $("activeTitle").textContent=ACCEPTANCE?"Geography (after private confirmation)":
+   q?"Q"+q.q+" of 195 — identify the flag":"195-country experiment complete";
  $("modeLabel").textContent="";
  $("instructions").textContent=remote?.pending?
-  "Country and Capital are saved to GitHub. Retrieving this question's private geography target...":
-  q?"Enter Country and Capital, then save those initial answers to GitHub before the target's name is revealed.":
-  "No unsaved work. Your experimental history remains in private GitHub.";
- message(q?"Experimental draft, not an official scored question.":"");
+   "Country and Capital are saved to GitHub. Retrieving this question's private geography target...":
+   ACCEPTANCE&&!connected?"Type your answers inside the flag card; connect below when ready to save.":
+   q?"Enter Country and Capital, then save those initial answers to GitHub before the target's name is revealed.":
+   "No unsaved work. Your experimental history remains in private GitHub.";
+ message(shown?"Experimental draft, not an official scored question.":"");
  pageIndex=ACCEPTANCE?0:q?Math.floor((q.q-1)/10):pageIndex;renderCards();
-  renderAcceptanceProof();
+ renderAcceptanceProof();
  if(remote?.pending&&connected)restorePending();
 }
 function scoreInput(q,g){
@@ -299,6 +322,14 @@ async function init(){
   document.querySelector("header .notice").textContent="This is a restricted browser write/read/reload test. No earlier V3/V4 trial results are reused.";
   document.querySelector(".sectionheading h2").textContent="Single unscored flag card";
   $("chatHandoff").hidden=true;$("acceptancePanel").hidden=false;
+  const sheet=$("cards").closest(".panel");
+  sheet.querySelector(".sectionheading span").textContent="One question · unscored";
+  sheet.querySelector(".batchNav").style.display="none";
+  $("cards").classList.add("single-acceptance");
+  acceptanceFields=$("identityFields");acceptanceActions=$("identityActions");
+  sheet.after(document.querySelector(".panel.auth")); // the flag and its inputs come before authorization
+  $("countryInput").addEventListener("input",()=>{if(!remote?.pending)unsentAcceptance.countryText=$("countryInput").value});
+  $("capitalInput").addEventListener("input",()=>{if(!remote?.pending)unsentAcceptance.capitalText=$("capitalInput").value});
  }
  questions=manifest.questions;
  if(questions.length!==(ACCEPTANCE?1:195)||new Set(questions.map(x=>x.q)).size!==questions.length||questions.some(x=>Object.keys(x).some(k=>!["q","flag"].includes(k))))throw Error("Public flag-only manifest verification failed");
