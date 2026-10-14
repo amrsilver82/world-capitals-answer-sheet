@@ -102,7 +102,20 @@ async function run(browserType,mobile){
   });
   await page.touchscreen.tap(initial.x,initial.y);
   await page.waitForFunction(()=>!document.getElementById("submit").disabled);
-  for(let i=0;i<11;i++)await page.locator("#zoomIn").click();
+  for(let i=0;i<11;i++){
+   await page.locator("#zoomIn").click();
+   await page.locator("#atlas").scrollIntoViewIfNeeded();
+   const refined=await page.evaluate(()=>{
+    const svg=document.getElementById("atlas"),p=svg.createSVGPoint();
+    p.x=(7.05+180)*4;p.y=(90-43.60)*4;
+    const a=p.matrixTransform(svg.getScreenCTM());return {x:a.x,y:a.y};
+   });
+   const bounds=await page.locator("#atlas").boundingBox();
+   assert.ok(refined.x>=bounds.x&&refined.x<=bounds.x+bounds.width&&
+     refined.y>=bounds.y&&refined.y<=bounds.y+bounds.height,
+     "The user-chosen pin must remain visible through manual zoom");
+   await page.touchscreen.tap(refined.x,refined.y);
+  }
  }else{
   for(let i=0;i<24;i++){
    const where=await page.evaluate(()=>{
