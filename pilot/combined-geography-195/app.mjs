@@ -231,7 +231,7 @@ function showNext(){
  message(shown?"Unscored development draft; official scores unchanged.":"");
  pageIndex=ACCEPTANCE?0:q?Math.floor((q.q-1)/10):pageIndex;
  renderCards();renderAcceptanceProof();
- if(!ACCEPTANCE)updateLocalTrial();
+ if(!ACCEPTANCE){updateLocalTrial();if(localMode())drawMap()}
  if(remote?.pending&&connected)restorePending();
 }
 function scoreInput(q,g){

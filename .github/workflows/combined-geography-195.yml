@@ -30,5 +30,7 @@ jobs:
         run: node pilot/combined-geography-195/test/handoff.test.mjs
       - name: Test desktop Chromium and simulated mobile WebKit
         run: node pilot/combined-geography-195/test/regression.mjs
+      - name: Test normal 195 page against mandatory UI URL contract
+        run: node pilot/combined-geography-195/test/contract-normal.mjs
       - name: Test isolated one-question GitHub browser acceptance mode
         run: node pilot/combined-geography-195/test/acceptance.mjs
