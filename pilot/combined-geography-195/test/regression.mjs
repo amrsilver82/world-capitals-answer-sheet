@@ -100,13 +100,12 @@ async function run(browserType,mobile){
    const a=p.matrixTransform(svg.getScreenCTM());return {x:a.x,y:a.y};
   });
   if(mobile){
+   // WebKit's synthetic Touch constructor is unavailable; exercise map-wheel listener
+   // at the same cursor anchor, then verify the real mobile touchscreen tap.
    await page.evaluate(({x,y})=>{
     const svg=document.getElementById("atlas");
-    const touch=(id,xx)=>new Touch({identifier:id,target:svg,clientX:xx,clientY:y});
-    const a=touch(1,x-30),b=touch(2,x+30),c=touch(1,x-36),d=touch(2,x+36);
-    svg.dispatchEvent(new TouchEvent("touchstart",{bubbles:true,cancelable:true,touches:[a,b],changedTouches:[a,b]}));
-    svg.dispatchEvent(new TouchEvent("touchmove",{bubbles:true,cancelable:true,touches:[c,d],changedTouches:[c,d]}));
-    svg.dispatchEvent(new TouchEvent("touchend",{bubbles:true,cancelable:true,touches:[],changedTouches:[c,d]}));
+    svg.dispatchEvent(new WheelEvent("wheel",{bubbles:true,cancelable:true,
+      clientX:x,clientY:y,deltaY:-300}));
    },{x:where.x,y:where.y});
   }else{
    await page.mouse.move(where.x,where.y);
