@@ -19,3 +19,6 @@ button.primary,#submit,#lockIdentity,#connect{background:#175bc4;color:#fff;bord
 #chatHandoff button:disabled{opacity:.45}
 
 /* No future batch flags are rendered until the prior full batch is accepted on private GitHub. */
+
+/* One-question live sync acceptance: wrap long GitHub recovery identifiers on mobile. */
+#acceptanceProof{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;line-height:1.65}

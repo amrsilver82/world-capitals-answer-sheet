@@ -1,10 +1,13 @@
 import {atlasIndex,referee} from "../geography-integrated-v4/referee/scorer.mjs";
 import {triageMicrostate} from "../geography-integrated-v4/referee/microstate-triage.mjs";
-import {githubClient,replay,eventFor,ISSUE} from "./sync.mjs";
+import {githubClient,replay,eventFor,ISSUE as GAME_ISSUE} from "./sync.mjs";
 import {completedBatches,batchHandoff} from "./handoff.mjs";
 const $=id=>document.getElementById(id);
 const TOKEN_KEY="wcg-location-github-pat-v1"; // prior user opt-in only; never automatically read.
-const api="https://api.github.com/repos/amrsilver82/World-Capitals-Game/issues/"+ISSUE;
+const ACCEPTANCE=new URLSearchParams(location.search).get("acceptance")==="one";
+const ISSUE=ACCEPTANCE?6:GAME_ISSUE;
+const ACCEPTANCE_Q=67;
+const ACCEPTANCE_VERSION="live-browser-github-acceptance-one-20261014-v1";
 let manifest=null,questions=[],client=null,remote=null,connected=false,busy=false,refreshing=false;
 let pageIndex=0,currentDraft=null,currentTarget=null,identityLocked=false,temporaryPin=null,atlas=null,world=null,hi=null,detail=null;
 let view={x:0,y:0,w:1440,h:720},lastDrawn="",activeDrawing=null;
@@ -42,7 +45,7 @@ async function copyChatHandoff(){
  catch(e){output.focus();output.select();$("handoffStatus").textContent="Clipboard not available. The handoff text is selected below; copy it manually. No answers changed."}
 }
 
-function renderCount(){const done=remote?.accepted.length||0;$("count").textContent=done+" / 195 experimentally synced";$("stage").textContent=connected?"GitHub draft connected · not official":"Read-only until private GitHub connected"}
+function renderCount(){const done=remote?.accepted.length||0;$("count").textContent=done+" / "+questions.length+" experimentally synced";$("stage").textContent=connected?"GitHub draft connected · not official":"Read-only until private GitHub connected"}
 function renderCards(){
  if(!questions.length)return;
  const n=Math.ceil(questions.length/10);
@@ -80,14 +83,15 @@ function showNext(){
  $("countryInput").disabled=!canEnter;$("capitalInput").disabled=!canEnter;
  $("lockIdentity").disabled=!canEnter;$("lockIdentity").hidden=!q||!!remote?.pending;
  $("unlockIdentity").hidden=true;$("geoControls").hidden=true;
- $("activeTitle").textContent=q?"Q"+q.q+" of 195 — identify the flag":"195-country experiment complete";
+ $("activeTitle").textContent=ACCEPTANCE?(q?"One acceptance question — identify the flag":"One-question GitHub test saved"):(q?"Q"+q.q+" of 195 — identify the flag":"195-country experiment complete");
  $("modeLabel").textContent="";
  $("instructions").textContent=remote?.pending?
   "Country and Capital are saved to GitHub. Retrieving this question's private geography target...":
   q?"Enter Country and Capital, then save those initial answers to GitHub before the target's name is revealed.":
   "No unsaved work. Your experimental history remains in private GitHub.";
  message(q?"Experimental draft, not an official scored question.":"");
- pageIndex=q?Math.floor((q.q-1)/10):pageIndex;renderCards();
+ pageIndex=ACCEPTANCE?0:q?Math.floor((q.q-1)/10):pageIndex;renderCards();
+  renderAcceptanceProof();
  if(remote?.pending&&connected)restorePending();
 }
 function scoreInput(q,g){
@@ -259,12 +263,25 @@ async function saveIdentity(){
  }catch(e){message("Initial answers NOT confirmed: "+e.message+". You may retry.","warning")}
  finally{busy=false;$("lockIdentity").disabled=!!remote?.pending||!connected;updateSubmit()}
 }
+function renderAcceptanceProof(){
+ if(!ACCEPTANCE)return;
+ const out=$("acceptanceProof"),done=remote?.accepted[0],waiting=remote?.pending;
+ if(!connected){out.textContent="Connect with a restricted GitHub token to read the isolated experimental checkpoint.";return}
+ if(done){const point=done.geography?.point;
+  out.textContent="PRIVATE GITHUB CHECKPOINT VERIFIED · 1/1 saved\n"+
+    "Country entered: "+done.countryText+"\nCapital entered: "+done.capitalText+"\n"+
+    (point?"Saved pin: longitude "+point.lon+"°, latitude "+point.lat+"°\n":"Saved broad area: "+done.geography?.choice+"\n")+
+    "GitHub identity comment: #"+done.githubIdentityCommentId+"\nGitHub geography comment: #"+done.githubCommentId+"\n"+
+    "Reconnect/reload: values loaded from private GitHub, not browser storage. No official scores changed.";
+ }else if(waiting)out.textContent="PRIVATE GITHUB CHECKPOINT VERIFIED · Country + Capital saved; Geography pending. Reload/reconnect now to test recovery before completing the pin.";
+ else out.textContent="No acceptance answer saved. Only ONE geography question will be submitted to private Issue #6.";
+}
 async function connect(token){
  if(busy)return;busy=true;auth("Verifying private experimental Issue #"+ISSUE+"…");
- try{const next=githubClient(token);await next.verify();const up=replay(await next.comments(),manifest);
+ try{const next=githubClient(token,fetch,ISSUE);await next.verify();const up=replay(await next.comments(),manifest);
   client=next;connected=true;remote=up;$("credential").value="";
   $("connect").disabled=true;$("refresh").disabled=false;$("disconnect").disabled=false;
-  showNext();auth("Connected: "+up.accepted.length+"/195 synced through private GitHub. No official scores.","good");
+  showNext();auth("Connected: "+up.accepted.length+"/"+questions.length+" synced through private GitHub. No official scores.","good");
  }catch(e){client=null;connected=false;auth("Could not connect: "+e.message,"warning");showNext()}
  finally{busy=false}
 }
@@ -272,8 +289,19 @@ function disconnect(){client=null;connected=false;remote=null;identityLocked=fal
  $("credential").value="";$("connect").disabled=false;$("refresh").disabled=true;$("disconnect").disabled=true;showNext();auth("Disconnected. No GitHub draft history deleted.")}
 async function init(){
  const r=await Promise.all(["data/questions.json","../location/data/world.json","../location/data/targets.json"].map(u=>fetch(u).then(x=>{if(!x.ok)throw Error("Asset unavailable "+u);return x.json()})));
- [manifest,world,detail]=r;questions=manifest.questions;
- if(questions.length!==195||new Set(questions.map(x=>x.q)).size!==195||questions.some(x=>Object.keys(x).some(k=>!["q","flag"].includes(k))))throw Error("Public flag-only manifest verification failed");
+ [manifest,world,detail]=r;
+ if(ACCEPTANCE){const selected=manifest.questions.find(x=>x.q===ACCEPTANCE_Q);
+  if(!selected)throw Error("Acceptance question unavailable");
+  manifest={...manifest,version:ACCEPTANCE_VERSION,github_event_issue:ISSUE,questions:[selected]};
+  document.title="One-question GitHub browser sync test";
+  document.querySelector("header h1").textContent="GitHub synchronization · one-question acceptance";
+  document.querySelector("header .sub").textContent="ONE new unscored question · private Issue #6 only · original 390/390 untouched";
+  document.querySelector("header .notice").textContent="This is a restricted browser write/read/reload test. No earlier V3/V4 trial results are reused.";
+  document.querySelector(".sectionheading h2").textContent="Single unscored flag card";
+  $("chatHandoff").hidden=true;$("acceptancePanel").hidden=false;
+ }
+ questions=manifest.questions;
+ if(questions.length!==(ACCEPTANCE?1:195)||new Set(questions.map(x=>x.q)).size!==questions.length||questions.some(x=>Object.keys(x).some(k=>!["q","flag"].includes(k))))throw Error("Public flag-only manifest verification failed");
  if(manifest.github_event_issue!==ISSUE)throw Error("Dedicated issue mismatch");
  worldView();setupMap();$("batchPrev").onclick=()=>{pageIndex--;renderCards()};$("batchNext").onclick=()=>{pageIndex++;renderCards()};
  $("lockIdentity").onclick=saveIdentity;$("unlockIdentity").hidden=true;
@@ -286,5 +314,5 @@ async function init(){
  renderCount();renderCards();showNext();
  fetch("../location/data/world-10m.json").then(x=>x.json()).then(j=>{if(j.features?.length<200)throw Error("Invalid high-resolution atlas");hi=j;atlas=atlasIndex(hi,world,detail);drawMap(true);updateSubmit()}).catch(e=>{$("mapStatus").textContent="Detailed map unavailable: "+e.message});
 }
-window.__combined195={getCount:()=>questions.length,modeCount:()=>({status:"PRIVATE_AFTER_IDENTITY",total:questions.length}),getStatus:()=>({connected,accepted:remote?.accepted.length||0,next:remote?.next?.q??null,identitySaved:!!remote?.pending}),getWorldView:()=>({...view}),getSubmitted:()=>remote?.accepted||[],getCurrent:()=>getCurrent(),getAtlasReady:()=>!!atlas,getTarget:()=>currentTarget,getCompletedHandoffs:()=>remote?completedBatches(remote.accepted).map(x=>x.batch):[],getHandoffPreview:()=>{const batches=remote?completedBatches(remote.accepted):[];return batches.length?batchHandoff(remote.accepted,batches.at(-1).batch):null}};
+window.__combined195={getCount:()=>questions.length,modeCount:()=>({status:"PRIVATE_AFTER_IDENTITY",total:questions.length}),getStatus:()=>({connected,accepted:remote?.accepted.length||0,next:remote?.next?.q??null,identitySaved:!!remote?.pending,acceptance:ACCEPTANCE}),getWorldView:()=>({...view}),getSubmitted:()=>remote?.accepted||[],getCurrent:()=>getCurrent(),getAtlasReady:()=>!!atlas,getTarget:()=>currentTarget,getCompletedHandoffs:()=>remote?completedBatches(remote.accepted).map(x=>x.batch):[],getHandoffPreview:()=>{const batches=remote?completedBatches(remote.accepted):[];return batches.length?batchHandoff(remote.accepted,batches.at(-1).batch):null}};
 init().catch(e=>{$("count").textContent="Could not load game";auth(e.message,"warning")});

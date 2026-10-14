@@ -50,7 +50,9 @@ export function eventFor(next,manifest,input,id,stage="identity",pending=null,ta
  return{kind:GEO_EVENT_KIND,version:EVENT_VERSION,manifest:manifest.version,attempt_id:id,
     identity_attempt_id:pending.attempt_id,q:next.q,iso:target.iso,geography:input.geography};
 }
-export function githubClient(token,fetchImpl=fetch){
+export function githubClient(token,fetchImpl=fetch,issueNumber=ISSUE){
+ if(![5,6].includes(issueNumber))throw Error("Unexpected experimental issue");
+ const endpoint=ROOT+"/issues/"+issueNumber;
  if(!token||!/^(github_pat_[A-Za-z0-9_]+|gh[pousr]_[A-Za-z0-9_]+)$/.test(token))
   throw Error("Use a restricted GitHub fine-grained PAT");
  const get=async(url,opt={})=>{
@@ -68,13 +70,13 @@ export function githubClient(token,fetchImpl=fetch){
  };
  let privateCache=null;
  return {
-  async verify(){const issue=await get(API);if(issue.number!==ISSUE||issue.state!=="open")throw Error("Issue #5 not open");const access=await get(ROOT+"/contents/START_HERE.md");if(typeof access.content!=="string")throw Error("Private repository Contents read permission required");return true},
+  async verify(){const issue=await get(endpoint);if(issue.number!==issueNumber||issue.state!=="open")throw Error("Experimental issue not open");const access=await get(ROOT+"/contents/START_HERE.md");if(typeof access.content!=="string")throw Error("Private repository Contents read permission required");return true},
   async comments(){const all=[];for(let page=1;page<=30;page++){
-   const chunk=await get(API+"/comments?per_page=100&page="+page);
+   const chunk=await get(endpoint+"/comments?per_page=100&page="+page);
    if(!Array.isArray(chunk))throw Error("Invalid GitHub comments");
    all.push(...chunk);if(chunk.length<100)return all;
   }throw Error("More than 3000 comments; refuse truncated history")},
-  async post(ev){return get(API+"/comments",{method:"POST",body:JSON.stringify({body:JSON.stringify(ev)})})},
+  async post(ev){return get(endpoint+"/comments",{method:"POST",body:JSON.stringify({body:JSON.stringify(ev)})})},
   async targetFor(q,publicFlag){
    if(!privateCache){
     const [assets,cls]=await Promise.all([
