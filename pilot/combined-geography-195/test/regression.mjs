@@ -101,10 +101,10 @@ async function run(browserType,mobile){
  await page.waitForFunction(()=>!document.getElementById("submit").disabled);
  await page.locator("#submit").click();
  await page.waitForFunction(()=>__combined195.getStatus().accepted===2);
- assert.match(await page.locator("#questionStatus").innerText(),/BORDERLINE.*Human referee review required.*NO automatic score/i);
  assert.equal(comments.length,4);
  const actualPin=JSON.parse(comments[3].body).geography.point;
  assert.ok(Math.abs(actualPin.lon-7.05)<.3&&Math.abs(actualPin.lat-43.60)<.3,"Geography pin click mismatch: "+JSON.stringify(actualPin));
+ assert.match(await page.locator("#questionStatus").innerText(),/BORDERLINE.*Human referee review required.*NO automatic score/i);
  assert.deepEqual(errors,[]);
  console.log("PASS "+browserType.name()+" "+(mobile?"mobile":"desktop")+" — two-stage protected metadata, no source leaks, country locked before reveal, geography, restore, stale client");
  }finally{await browser.close()}
