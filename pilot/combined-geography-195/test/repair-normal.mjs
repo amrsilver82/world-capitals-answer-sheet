@@ -255,8 +255,29 @@ async function doRun(engine,mobile){
   assert.match(await page.locator("#finishStatus").innerText(),/Batch not complete/);
   assert.equal(bctx.posts.length,0,"Browse, inspect and copy must not POST");
   assert.equal(bctx.urls.some(x=>x.includes("/contents/")),false);
+  // Actual synthetic private broad-area SAVE + confirmation, reload and read-only recovery.
+  await page.locator("#submit").click();
+  await page.waitForFunction(()=>__combined195.getStatus().accepted===5,null,{timeout:15000});
+  assert.equal(bctx.posts.length,1,"Exactly one explicit broad-area save event");
+  assert.equal(bctx.posts[0].kind,"wcg.combined195.geography.v2");
+  assert.equal(bctx.posts[0].geography.mode,"broad_area");
+  assert.equal(bctx.posts[0].geography.choice,"CARIBBEAN");
+  await page.reload({waitUntil:"networkidle"});
+  await page.waitForFunction(()=>__combined195.getAtlasReady());
+  await page.locator("#credential").fill("github_pat_synthetic_Only");
+  await page.locator("#connect").click();
+  await page.waitForFunction(()=>__combined195.getStatus().connected&&__combined195.getStatus().accepted===5);
+  await page.locator('[data-question="5"] .inspectSaved').click();
+  assert.equal(await page.locator("#atlas").isVisible(),true,"Saved broad area must retain the shared world map");
+  assert.equal(await page.locator("#areaSelect").inputValue(),"CARIBBEAN");
+  assert.equal(await page.locator("#areaSelect").isDisabled(),true);
+  assert.match(await page.locator("#mapStatus").innerText(),/Saved Q5 broad area/);
+  await capture(page,kind+"-07-broad-saved-after-reconnect","#atlas");
+  await page.locator("#returnToActive").click();
+  assert.equal(bctx.posts.length,1,"Inspection/reconnect must not create duplicates");
+  assert.equal(bctx.urls.some(x=>x.includes("/contents/")),false);
   assert.deepEqual(bctx.errors,[]);
-  console.log("PASS "+kind+" NORMAL verified broad-area Atlas visible, pan/zoom/world reset, no pin, region save gated, screenshot pixels");
+  console.log("PASS "+kind+" NORMAL verified broad-area Atlas, world view, actual private save/reload/reconnect, saved-Q read-only and screenshot pixels");
  }finally{await bctx.browser.close()}
 }
 await doRun(chromium,false);
