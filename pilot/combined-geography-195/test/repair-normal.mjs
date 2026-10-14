@@ -10,8 +10,8 @@ fs.mkdirSync(root,{recursive:true});
 const id=n=>"00000000-0000-4000-8000-"+String(n).padStart(12,"0");
 function identity(q){return {kind:"wcg.combined195.identity.v2",version:2,manifest:M.version,
  q,attempt_id:id(q),countryText:"Synthetic country "+q,capitalText:"Synthetic capital "+q}}
-function target(q,commentId,mode){return {kind:"wcg.combined195.target.v1",version:1,
- manifest:M.version,q,identity_attempt_id:id(q),identity_comment_id:commentId,
+function target(q,commentId,mode,attemptId=id(q)){return {kind:"wcg.combined195.target.v1",version:1,
+ manifest:M.version,q,identity_attempt_id:attemptId,identity_comment_id:commentId,
  target:{q,iso:["AA","BB","CC","DD","EE"][q-1],name:"Synthetic target "+q,
   flag:M.questions[q-1].flag,mode,area:mode==="broad_area"?"CARIBBEAN":null}}}
 const pins={1:{lon:-62.124,lat:13.521},2:{lon:8.462,lat:43.771},4:{lon:58.112,lat:-21.339}};
@@ -75,7 +75,7 @@ async function openPage(engine,mobile,seed){
    const saved=history.push(ev);
    if(ev.kind==="wcg.combined195.identity.v2"){
     const mode=seed?"broad_area":"country_pin";
-    history.push(target(ev.q,saved.id,mode),"github-actions[bot]");
+    history.push(target(ev.q,saved.id,mode,ev.attempt_id),"github-actions[bot]");
    }
    return route.fulfill({status:201,json:{id:saved.id}});
   }
