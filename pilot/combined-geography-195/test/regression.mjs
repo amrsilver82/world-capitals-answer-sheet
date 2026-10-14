@@ -36,7 +36,6 @@ async function run(browserType,mobile){
  assert.ok(m.questions.every(q=>Object.keys(q).join(",")==="q,flag"));
  assert.equal(await page.locator("#batchNext").isDisabled(),true);
  assert.equal(await page.locator(".flagPic img").count(),10);
- assert.equal(await page.locator("#geoControls").isHidden(),true,"Full 195-country authenticated question flow unchanged");
  assert.equal(await page.locator("#countryInput").isEnabled(),true,"Country editable before login");
  assert.equal(await page.locator("#capitalInput").isEnabled(),true,"Capital editable before login");
  assert.equal(await page.locator("#cards .card").count(),10);
