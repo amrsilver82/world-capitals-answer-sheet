@@ -99,8 +99,19 @@ async function run(browserType,mobile){
    p.x=(7.05+180)*4;p.y=(90-43.60)*4;
    const a=p.matrixTransform(svg.getScreenCTM());return {x:a.x,y:a.y};
   });
-  await page.mouse.move(where.x,where.y);
-  await page.mouse.wheel(0,-300);
+  if(mobile){
+   await page.evaluate(({x,y})=>{
+    const svg=document.getElementById("atlas");
+    const touch=(id,xx)=>new Touch({identifier:id,target:svg,clientX:xx,clientY:y});
+    const a=touch(1,x-30),b=touch(2,x+30),c=touch(1,x-36),d=touch(2,x+36);
+    svg.dispatchEvent(new TouchEvent("touchstart",{bubbles:true,cancelable:true,touches:[a,b],changedTouches:[a,b]}));
+    svg.dispatchEvent(new TouchEvent("touchmove",{bubbles:true,cancelable:true,touches:[c,d],changedTouches:[c,d]}));
+    svg.dispatchEvent(new TouchEvent("touchend",{bubbles:true,cancelable:true,touches:[],changedTouches:[c,d]}));
+   },{x:where.x,y:where.y});
+  }else{
+   await page.mouse.move(where.x,where.y);
+   await page.mouse.wheel(0,-300);
+  }
   await page.waitForTimeout(10);
  }
  assert.ok((await page.evaluate(()=>__combined195.getWorldView().w))<40,
