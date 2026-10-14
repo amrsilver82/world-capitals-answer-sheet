@@ -76,12 +76,16 @@ async function normal(browserType,mobile){
   if(mobile){
    const touchWorked=await page.evaluate(()=>{
     const svg=document.querySelector("#atlas"),rect=svg.getBoundingClientRect();
-    if(typeof Touch!=="function"||typeof TouchEvent!=="function")return false;
-    const t=(x,y)=>new Touch({identifier:37,target:svg,clientX:x,clientY:y});
-    const start=t(rect.x+rect.width*.5,rect.y+rect.height*.5);
-    const finish=t(rect.x+rect.width*.61,rect.y+rect.height*.59);
-    const fire=(event,active,changed)=>svg.dispatchEvent(new TouchEvent(event,
-      {touches:active,targetTouches:active,changedTouches:changed,bubbles:true,cancelable:true}));
+    const start={clientX:rect.x+rect.width*.5,clientY:rect.y+rect.height*.5};
+    const finish={clientX:rect.x+rect.width*.61,clientY:rect.y+rect.height*.59};
+    // WebKit mobile disallows constructing Touch in some automation contexts.
+    // Dispatch touch-shaped events to the exact existing touch handlers.
+    const fire=(name,touches,changedTouches)=>{
+      const e=new Event(name,{bubbles:true,cancelable:true});
+      Object.defineProperty(e,"touches",{value:touches});
+      Object.defineProperty(e,"changedTouches",{value:changedTouches});
+      svg.dispatchEvent(e);
+    };
     fire("touchstart",[start],[start]);fire("touchmove",[finish],[finish]);fire("touchend",[],[finish]);
     return true;
    });
