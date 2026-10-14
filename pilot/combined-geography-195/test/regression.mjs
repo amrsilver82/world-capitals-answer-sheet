@@ -91,6 +91,20 @@ async function run(browserType,mobile){
  await page.locator("#resetWorld").click();
  assert.equal(await page.evaluate(()=>__combined195.getWorldView().w),1440);
  await page.locator("#atlas").scrollIntoViewIfNeeded();
+ // A full-world SVG gives ~0.3–0.5 degrees per screen pixel; user must zoom for microstate precision.
+ // Simulate deliberate pointer-centered map-wheel zoom, no automatic country cue.
+ for(let i=0;i<24;i++){
+  const where=await page.evaluate(()=>{
+   const svg=document.getElementById("atlas"),p=svg.createSVGPoint();
+   p.x=(7.05+180)*4;p.y=(90-43.60)*4;
+   const a=p.matrixTransform(svg.getScreenCTM());return {x:a.x,y:a.y};
+  });
+  await page.mouse.move(where.x,where.y);
+  await page.mouse.wheel(0,-300);
+  await page.waitForTimeout(10);
+ }
+ assert.ok((await page.evaluate(()=>__combined195.getWorldView().w))<40,
+   "Microstate test must manually zoom before pin placement");
  const {bx,by}=await page.evaluate(()=>{
   const svg=document.getElementById("atlas"),p=svg.createSVGPoint();
   p.x=(7.05+180)*4;p.y=(90-43.60)*4;
