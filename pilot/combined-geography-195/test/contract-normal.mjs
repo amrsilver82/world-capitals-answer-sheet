@@ -46,7 +46,7 @@ async function normal(browserType,mobile){
   await page.locator("#countryInput").fill("first country draft");
   await page.locator("#capitalInput").fill("first capital draft");
   await page.locator('[data-question="2"] .locateQuestion').click();
-  assert.match(await page.locator("#trialProgress").innerText(),/Q2 selected/);
+  assert.match(await page.locator("#trialProgress").innerText(),/Selected Q2/);
   await page.locator("#countryInput").fill("second country draft");
   await page.locator("#capitalInput").fill("second capital draft");
   await page.locator("#atlas").scrollIntoViewIfNeeded();
