@@ -88,15 +88,23 @@ async function run(browserType,mobile){
  await page.waitForFunction(()=>__combined195.getTarget()?.iso==="MC");
  await second.waitForFunction(()=>__combined195.getTarget()?.iso==="MC");
  // Borderline Monaco: 20–60km may NEVER be shown as an automatic wrong or zero.
+ await page.locator("#resetWorld").click();
+ assert.equal(await page.evaluate(()=>__combined195.getWorldView().w),1440);
  await page.locator("#atlas").scrollIntoViewIfNeeded();
- const mr=await page.locator("#atlas").boundingBox();
- const bx=mr.x+(7.05+180)/360*mr.width,by=mr.y+(90-43.60)/180*mr.height;
+ const {bx,by}=await page.evaluate(()=>{
+  const svg=document.getElementById("atlas"),p=svg.createSVGPoint();
+  p.x=(7.05+180)*4;p.y=(90-43.60)*4;
+  const a=p.matrixTransform(svg.getScreenCTM());
+  return {bx:a.x,by:a.y};
+ });
  if(mobile)await page.touchscreen.tap(bx,by);else await page.mouse.click(bx,by);
  await page.waitForFunction(()=>!document.getElementById("submit").disabled);
  await page.locator("#submit").click();
  await page.waitForFunction(()=>__combined195.getStatus().accepted===2);
  assert.match(await page.locator("#questionStatus").innerText(),/BORDERLINE.*Human referee review required.*NO automatic score/i);
  assert.equal(comments.length,4);
+ const actualPin=JSON.parse(comments[3].body).geography.point;
+ assert.ok(Math.abs(actualPin.lon-7.05)<.3&&Math.abs(actualPin.lat-43.60)<.3,"Geography pin click mismatch: "+JSON.stringify(actualPin));
  assert.deepEqual(errors,[]);
  console.log("PASS "+browserType.name()+" "+(mobile?"mobile":"desktop")+" — two-stage protected metadata, no source leaks, country locked before reveal, geography, restore, stale client");
  }finally{await browser.close()}
