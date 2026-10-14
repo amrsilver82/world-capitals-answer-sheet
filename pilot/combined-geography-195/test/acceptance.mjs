@@ -44,7 +44,7 @@ async function exercise(browserType,mobile){
   await page.waitForFunction(()=>__combined195?.getAtlasReady());
   assert.equal(await page.evaluate(()=>__combined195.getCount()),1);
   assert.equal(await page.evaluate(()=>__combined195.getStatus().acceptance),true);
-  assert.equal(await page.evaluate(()=>__combined195.getCurrent()?.q),67);
+  assert.equal(await page.evaluate(()=>__combined195.getStatus().connected),false,"No active question before authenticated checkpoint");
   assert.equal(await page.locator("#cards .card").count(),1,"Exactly one flag visible");
   assert.equal(await page.locator("#chatHandoff").isHidden(),true);
   assert.equal(requests.filter(x=>x.path.includes("/contents/")).length,0,"Cannot read protected target before identity");
@@ -56,6 +56,7 @@ async function exercise(browserType,mobile){
    await page.waitForFunction(()=>__combined195.getStatus().connected);
   }
   await connect();
+  assert.equal(await page.evaluate(()=>__combined195.getCurrent()?.q),67);
   assert.equal(events.length,1);
   assert.ok(requests.every(x=>!x.path.includes("/issues/5")),"Never touch the general 195 draft issue");
   await page.locator("#countryInput").fill("Lesotho");
