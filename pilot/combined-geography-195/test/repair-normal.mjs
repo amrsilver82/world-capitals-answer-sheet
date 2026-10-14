@@ -188,7 +188,19 @@ async function doRun(engine,mobile){
   // Target for current Q5 is released only after the saved identity + trusted bot receipt.
   assert.equal(await page.evaluate(()=>__combined195.getTarget()),null);
   await page.locator("#lockIdentity").click();
-  await page.waitForFunction(()=>__combined195.getStatus().identitySaved&&__combined195.getTarget()?.q===5);
+  try{
+   await page.waitForFunction(()=>__combined195.getStatus().identitySaved&&__combined195.getTarget()?.q===5,null,{timeout:8000});
+  }catch(e){
+   const probe=await page.evaluate(()=>({
+    state:__combined195.getStatus(),target:__combined195.getTarget(),
+    info:document.querySelector("#questionStatus").textContent,
+    auth:document.querySelector("#authStatus").textContent,
+    lock:{disabled:document.querySelector("#lockIdentity").disabled,hidden:document.querySelector("#lockIdentity").hidden},
+    fields:{country:document.querySelector("#countryInput").value,capital:document.querySelector("#capitalInput").value}
+   }));
+   console.error("REPAIR_Q5_TRANSITION_DIAGNOSTIC",JSON.stringify({probe,postKinds:posts.map(p=>({kind:p.kind,q:p.q})),commentKinds:s.history.comments.map(c=>({id:c.id,kind:JSON.parse(c.body).kind,q:JSON.parse(c.body).q,actor:c.user?.login}))}));
+   throw e;
+  }
   assert.equal(posts.length,expectedCount+1);
   assert.equal(await page.evaluate(()=>__combined195.getTarget().mode),"country_pin");
   await page.locator("#atlas").scrollIntoViewIfNeeded();
