@@ -28,6 +28,8 @@ jobs:
         run: node pilot/combined-geography-195/test/sync-unit.mjs
       - name: Test read-only completed-batch handoff
         run: node pilot/combined-geography-195/test/handoff.test.mjs
+      - name: Check safe GitHub auth diagnostics
+        run: node pilot/combined-geography-195/test/permission-diagnostics.mjs
       - name: Test desktop Chromium and simulated mobile WebKit
         run: node pilot/combined-geography-195/test/regression.mjs
       - name: Test normal 195 page against mandatory UI URL contract

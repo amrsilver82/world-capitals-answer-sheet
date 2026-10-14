@@ -55,11 +55,42 @@ export function githubClient(token,fetchImpl=fetch,issueNumber=ISSUE){
  const endpoint=ROOT+"/issues/"+issueNumber;
  if(!token||!/^(github_pat_[A-Za-z0-9_]+|gh[pousr]_[A-Za-z0-9_]+)$/.test(token))
   throw Error("Use a restricted GitHub fine-grained PAT");
+ const describe=url=>{
+  if(url===endpoint)return "checking experimental Issue #"+issueNumber+" (Issues: read)";
+  if(url.startsWith(endpoint+"/comments"))
+   return "accessing Issue #"+issueNumber+" comments (Issues: read to load; write to save)";
+  if(url.endsWith("/contents/START_HERE.md"))
+   return "reading private START_HERE.md (Contents: read)";
+  if(url.includes("/contents/"))
+   return "reading protected private game files (Contents: read)";
+  return "accessing private GitHub";
+ };
  const get=async(url,opt={})=>{
   const r=await fetchImpl(url,{...opt,cache:"no-store",redirect:"error",headers:{
    "Accept":"application/vnd.github+json","Authorization":"Bearer "+token,
    "X-GitHub-Api-Version":"2022-11-28",...(opt.body?{"Content-Type":"application/json"}:{})}});
-  if(!r.ok)throw Error(r.status===401?"GitHub credential invalid":r.status===403?"GitHub permissions or rate limit":r.status===404?"Private game resource not accessible (requires repository Contents:read and Issues:read/write)":"GitHub HTTP "+r.status);
+  if(!r.ok){
+   const where=describe(url);
+   let githubMessage="";
+   try{const body=await r.clone().json();
+    githubMessage=typeof body?.message==="string"?body.message.toLowerCase():"";
+   }catch{} // Never echo GitHub response body, credentials or private URLs.
+   const remaining=r.headers?.get("x-ratelimit-remaining");
+   const accepted=(r.headers?.get("x-accepted-github-permissions")||"")
+    .replace(/[^a-zA-Z0-9_ =;,\\-]/g,"").slice(0,100);
+   const required=accepted?" Required API permission: "+accepted+".":"";
+   if(remaining==="0"||/api rate limit exceeded|primary rate limit/.test(githubMessage))
+    throw Error("GitHub API rate limit reached while "+where+". Wait until the limit resets; replacing the token does not resolve a rate limit.");
+   if(/secondary rate limit|abuse detection|temporarily blocked/.test(githubMessage))
+    throw Error("GitHub secondary rate limit while "+where+". Wait at least one minute before retrying.");
+   if(r.status===401)
+    throw Error("GitHub 401 while "+where+": credential rejected or revoked. Check the exact token; the displayed expiration date alone does not verify permissions.");
+   if(r.status===403)
+    throw Error("GitHub 403 while "+where+": this token is forbidden for the requested resource. Check the selected repository and its permissions."+required+" Expiration was NOT confirmed.");
+   if(r.status===404)
+    throw Error("GitHub 404 while "+where+": this token cannot access the private resource. Check the selected repository and access rights."+required);
+   throw Error("GitHub HTTP "+r.status+" while "+where+".");
+  }
   return r.json();
  };
  const contents=async(path)=>{
