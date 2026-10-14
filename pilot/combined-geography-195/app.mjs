@@ -94,6 +94,7 @@ function showNext(){
  renderCount();renderCards();renderChatHandoff();
  const q=getCurrent(),shown=q||(ACCEPTANCE&&!connected?manifest?.questions[0]:null);
  identityLocked=false;currentTarget=null;currentDraft=null;temporaryPin=null;
+ $("clearPin").disabled=true;
  if(ACCEPTANCE&&(remote?.pending||connected&&!q))unsentAcceptance={countryText:"",capitalText:""};
  $("countryInput").value=ACCEPTANCE&&shown&&!remote?.pending?unsentAcceptance.countryText:"";
  $("capitalInput").value=ACCEPTANCE&&shown&&!remote?.pending?unsentAcceptance.capitalText:"";
@@ -188,7 +189,7 @@ function zoom(f,p){
 function setPin(e){
  const q=getCurrent();if(!q||currentTarget?.mode!=="country_pin"||!remote?.pending||!identityLocked||!connected||busy)return;
  const p=mapPoint(e);temporaryPin={lon:+normalize(p.x/4-180).toFixed(3),lat:+Math.max(-90,Math.min(90,90-p.y/4)).toFixed(3)};
- drawMap();updateSubmit();
+ drawMap();$("clearPin").disabled=false;updateSubmit();
 }
 function setupMap(){
  const svg=$("atlas");let drag=null,touch=null;
@@ -214,6 +215,7 @@ function setupMap(){
  svg.addEventListener("touchend",e=>{if(touch?.one&&!touch.moved&&e.changedTouches?.length===1)setPin(e.changedTouches[0]);touch=null;e.preventDefault()},{passive:false});
  svg.addEventListener("click",e=>{if(e.detail===0)setPin(e)});
  $("zoomIn").onclick=()=>zoom(.45,temporaryPin?{x:(temporaryPin.lon+180)*4,y:(90-temporaryPin.lat)*4}:undefined);$("zoomOut").onclick=()=>zoom(1.43);$("resetWorld").onclick=worldView;
+ $("clearPin").onclick=()=>{if(!temporaryPin)return;temporaryPin=null;$("clearPin").disabled=true;drawMap();updateSubmit()};
 }
 function beginGeography(){
  const q=currentTarget;
@@ -225,7 +227,7 @@ function beginGeography(){
  $("geoControls").hidden=false;
  $("submit").hidden=false;
  $("geoPrompt").textContent="Place "+q.name+" on the world map, or choose its permitted broad area.";
- $("areaRow").hidden=q.mode!=="broad_area";$("mapInstructions").hidden=q.mode!=="country_pin";
+ $("areaRow").hidden=q.mode!=="broad_area";$("clearPin").hidden=q.mode!=="country_pin";$("clearPin").disabled=true;$("mapInstructions").hidden=q.mode!=="country_pin";
  $("mapInstructions").textContent="Place your own pin for "+q.name+"; pan and zoom manually, with no automatic country prezoom.";
  $("mapStatus").hidden=q.mode!=="country_pin";$("atlas").closest(".mapFrame").hidden=q.mode!=="country_pin";
  $("modeLabel").textContent=modes[q.mode];

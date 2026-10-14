@@ -110,6 +110,12 @@ async function exercise(browserType,mobile){
   });
   if(mobile)await page.touchscreen.tap(pin.x,pin.y);else await page.mouse.click(pin.x,pin.y);
   await page.waitForFunction(()=>!document.getElementById("submit").disabled);
+  assert.ok(await page.locator("#pinLayer circle").count()>0,"Visible pin");
+  await page.locator("#clearPin").click();
+  assert.equal(await page.locator("#pinLayer circle").count(),0,"Clear removes marker");
+  assert.equal(await page.locator("#submit").isDisabled(),true,"Cleared pin cannot be submitted");
+  if(mobile)await page.touchscreen.tap(pin.x,pin.y);else await page.mouse.click(pin.x,pin.y);
+  await page.waitForFunction(()=>!document.getElementById("submit").disabled);
   await page.locator("#submit").click();
   await page.waitForFunction(()=>__combined195.getStatus().accepted===1);
   assert.equal(events.length,3);

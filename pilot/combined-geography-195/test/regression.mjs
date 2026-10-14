@@ -61,6 +61,15 @@ async function run(browserType,mobile){
  const x=rect.x+(47.5+180)/360*rect.width,y=rect.y+(90-29.3)/180*rect.height;
  if(mobile)await page.touchscreen.tap(x,y);else await page.mouse.click(x,y);
  await page.waitForFunction(()=>!document.getElementById("submit").disabled);
+ assert.ok(await page.locator("#pinLayer circle").count()>0,"Selected pin visible");
+ assert.equal(await page.locator("#clearPin").isEnabled(),true);
+ await page.locator("#clearPin").click();
+ assert.equal(await page.locator("#pinLayer circle").count(),0,"Clear removes pin");
+ assert.equal(await page.locator("#clearPin").isDisabled(),true);
+ assert.equal(await page.locator("#submit").isDisabled(),true,"Cannot submit cleared pin");
+ if(mobile)await page.touchscreen.tap(x,y);else await page.mouse.click(x,y);
+ await page.waitForFunction(()=>!document.getElementById("submit").disabled);
+ assert.ok(await page.locator("#pinLayer circle").count()>0,"Pin replacement works");
  await page.locator("#submit").click();
  await page.waitForFunction(()=>__combined195.getStatus().accepted===1);
  assert.equal(comments.length,2);
