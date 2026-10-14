@@ -71,6 +71,31 @@ async function normal(browserType,mobile){
   assert.equal(await page.locator("#clearPin").isEnabled(),true);
   await page.locator("#zoomIn").click();
   assert.ok((await page.evaluate(()=>__combined195.getWorldView().w))<1440);
+  await page.locator("#atlas").scrollIntoViewIfNeeded();
+  const beforePan=await page.evaluate(()=>__combined195.getWorldView());
+  if(mobile){
+   const touchWorked=await page.evaluate(()=>{
+    const svg=document.querySelector("#atlas"),rect=svg.getBoundingClientRect();
+    if(typeof Touch!=="function"||typeof TouchEvent!=="function")return false;
+    const t=(x,y)=>new Touch({identifier:37,target:svg,clientX:x,clientY:y});
+    const start=t(rect.x+rect.width*.5,rect.y+rect.height*.5);
+    const finish=t(rect.x+rect.width*.61,rect.y+rect.height*.59);
+    const fire=(event,active,changed)=>svg.dispatchEvent(new TouchEvent(event,
+      {touches:active,targetTouches:active,changedTouches:changed,bubbles:true,cancelable:true}));
+    fire("touchstart",[start],[start]);fire("touchmove",[finish],[finish]);fire("touchend",[],[finish]);
+    return true;
+   });
+   assert.ok(touchWorked,"Mobile WebKit supports actual TouchEvent handlers");
+  }else{
+   const b=await page.locator("#atlas").boundingBox();
+   await page.mouse.move(b.x+b.width*.5,b.y+b.height*.5);
+   await page.mouse.down();
+   await page.mouse.move(b.x+b.width*.62,b.y+b.height*.6,{steps:6});
+   await page.mouse.up();
+  }
+  const afterPan=await page.evaluate(()=>__combined195.getWorldView());
+  assert.ok(Math.abs(afterPan.x-beforePan.x)>1||Math.abs(afterPan.y-beforePan.y)>1,
+    "Actual desktop mouse / mobile touch pan must change the atlas viewport");
   await page.locator("#resetWorld").click();
   assert.equal((await page.evaluate(()=>__combined195.getWorldView().w)),1440);
 
