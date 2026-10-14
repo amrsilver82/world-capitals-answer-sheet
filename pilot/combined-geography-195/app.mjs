@@ -12,6 +12,8 @@ let manifest=null,questions=[],client=null,remote=null,connected=false,busy=fals
 let pageIndex=0,currentDraft=null,currentTarget=null,identityLocked=false,temporaryPin=null,atlas=null,world=null,hi=null,detail=null;
 let acceptanceFields=null,acceptanceActions=null;
 let unsentAcceptance={countryText:"",capitalText:""}; // Ephemeral page memory only, never GitHub until saved.
+const unsentBatch=new Map(); // Local unsent 10-card answers; never published until explicit GitHub save.
+function draft(q){if(!unsentBatch.has(q))unsentBatch.set(q,{countryText:"",capitalText:""});return unsentBatch.get(q)}
 let view={x:0,y:0,w:1440,h:720},lastDrawn="",activeDrawing=null;
 const HALF=Math.PI/180;
 const modes={country_pin:"Locate actual country",broad_area:"Identify broad area"};
@@ -47,42 +49,54 @@ async function copyChatHandoff(){
  catch(e){output.focus();output.select();$("handoffStatus").textContent="Clipboard not available. The handoff text is selected below; copy it manually. No answers changed."}
 }
 
-function renderCount(){const done=remote?.accepted.length||0;$("count").textContent=done+" / "+questions.length+" experimentally synced";$("stage").textContent=connected?"GitHub draft connected · not official":ACCEPTANCE?"Answers editable · connect only to save":"Read-only until private GitHub connected"}
+function renderCount(){const done=remote?.accepted.length||0;$("count").textContent=done+" / "+questions.length+" experimentally synced";$("stage").textContent=connected?"GitHub draft connected · not official":"Answers editable · connect only to save"}
 function renderCards(){
  if(!questions.length)return;
- const n=Math.ceil(questions.length/10);
- const maxPage=Math.min(n-1,Math.floor((remote?.accepted.length||0)/10));
+ if(!ACCEPTANCE){ // Keep the original answer controls alive while re-rendering the 10 flag cards.
+  const fields=$("identityFields"),actions=$("identityActions"),panel=$("activePanel");
+  if(fields&&fields.parentElement!==panel)panel.insertBefore(fields,$("geoControls"));
+  if(actions&&actions.parentElement!==panel)panel.insertBefore(actions,$("geoControls"));
+ }
+ const n=Math.ceil(questions.length/10),maxPage=Math.min(n-1,Math.floor((remote?.accepted.length||0)/10));
  pageIndex=Math.max(0,Math.min(maxPage,pageIndex));
  $("batchNo").textContent="Batch "+(pageIndex+1)+" / "+n;
  $("batchPrev").disabled=pageIndex===0;$("batchNext").disabled=pageIndex>=maxPage;
  const wrap=$("cards");wrap.replaceChildren();
  for(const q of questions.slice(pageIndex*10,pageIndex*10+10)){
-  const card=document.createElement("article");card.className="card";
+  const card=document.createElement("article");card.className="card";card.dataset.question=String(q.q);
   const done=remote?.accepted.find(x=>x.q===q.q);
-  const current=getCurrent()?.q===q.q||ACCEPTANCE&&!connected&&q.q===ACCEPTANCE_Q;
+  const current=getCurrent()?.q===q.q||!connected&&q.q===questions[0].q;
   if(done)card.classList.add("done");if(current)card.classList.add("current");
   if(ACCEPTANCE)card.classList.add("acceptance-card");
   const top=document.createElement("div");top.className="header";
   const no=document.createElement("strong");no.textContent="Question "+q.q;
   const state=document.createElement("span");
-  state.textContent=done?"Saved to GitHub":getCurrent()?.q===q.q?"Current":ACCEPTANCE?"Ready to type · unsaved":"Upcoming";
+  state.textContent=done?"Saved to GitHub":getCurrent()?.q===q.q?"Current":current?"Ready to type · unsaved":"Editable · not saved";
   top.append(no,state);
   const flag=document.createElement("div");flag.className="flagPic";
   const img=document.createElement("img");img.src=q.flag;img.loading="lazy";img.alt="Flag for question "+q.q;flag.appendChild(img);
   const field=document.createElement("div");field.className="fieldsSmall";
   field.textContent=done?"Country: "+(done.countryText||"—")+" · Capital: "+(done.capitalText||"—"):
-   ACCEPTANCE?"Enter Country and Capital here. They are not transmitted until you connect and press Save.":
-   "Country and Capital fields are below for the active question";
+   "Country and Capital · type here; nothing saved until you confirm";
   if(ACCEPTANCE){
    if(!acceptanceFields||!acceptanceActions)throw Error("Answer fields missing");
    acceptanceFields.hidden=!!done;acceptanceActions.hidden=!!done;
    card.append(top,flag,field,acceptanceFields,acceptanceActions);
+  }else if(done){
+   const button=document.createElement("button");button.type="button";button.textContent="See saved submission";
+   button.onclick=()=>showSaved(done);card.append(top,flag,field,button);
+  }else if(current){
+   const fields=$("identityFields"),actions=$("identityActions");
+   fields.hidden=false;actions.hidden=false;card.append(top,flag,field,fields,actions);
   }else{
-   const button=document.createElement("button");button.type="button";
-   button.textContent=getCurrent()?.q===q.q?"Go to current question":done?"See saved submission":"Not yet available";
-   button.disabled=!done&&getCurrent()?.q!==q.q;
-   button.onclick=()=>{if(done)showSaved(done);else $("activePanel").scrollIntoView({behavior:"smooth"})};
-   card.append(top,flag,field,button);
+   const fields=document.createElement("div");fields.className="fields";
+   for(const [kind,name] of [["countryText","Country"],["capitalText","Capital"]]){
+    const label=document.createElement("label");label.textContent=name;
+    const input=document.createElement("input");input.type="text";input.autocomplete="off";input.spellcheck=false;
+    input.placeholder=name+" answer";input.value=draft(q.q)[kind];
+    input.addEventListener("input",()=>{draft(q.q)[kind]=input.value});label.append(input);fields.append(label);
+   }
+   card.append(top,flag,field,fields);
   }
   wrap.appendChild(card);
  }
@@ -92,40 +106,41 @@ function showSaved(done){
 }
 function showNext(){
  renderCount();renderCards();renderChatHandoff();
- const q=getCurrent(),shown=q||(ACCEPTANCE&&!connected?manifest?.questions[0]:null);
+ const q=getCurrent(),shown=q||(!connected?manifest?.questions[0]:null);
  identityLocked=false;currentTarget=null;currentDraft=null;temporaryPin=null;
  $("clearPin").disabled=true;
  if(ACCEPTANCE&&(remote?.pending||connected&&!q))unsentAcceptance={countryText:"",capitalText:""};
- $("countryInput").value=ACCEPTANCE&&shown&&!remote?.pending?unsentAcceptance.countryText:"";
- $("capitalInput").value=ACCEPTANCE&&shown&&!remote?.pending?unsentAcceptance.capitalText:"";
- const canType=!!shown&&!remote?.pending&&(connected||ACCEPTANCE);
+ if(!ACCEPTANCE)for(const finished of remote?.accepted||[])unsentBatch.delete(finished.q);
+ $("countryInput").value=ACCEPTANCE?shown&&!remote?.pending?unsentAcceptance.countryText:"":
+    shown&&!remote?.pending?draft(shown.q).countryText:"";
+ $("capitalInput").value=ACCEPTANCE?shown&&!remote?.pending?unsentAcceptance.capitalText:"":
+    shown&&!remote?.pending?draft(shown.q).capitalText:"";
+ const canType=!!shown&&!remote?.pending;
  $("countryInput").disabled=!canType;$("capitalInput").disabled=!canType;
  $("lockIdentity").disabled=!connected||!canType;
  $("lockIdentity").hidden=!shown||!!remote?.pending;
- $("lockIdentity").textContent=ACCEPTANCE&&!connected?"Connect GitHub below to enable saving":"Save Country + Capital, then reveal Geography";
+ $("lockIdentity").textContent=!connected?"Connect GitHub to enable saving":"Save Country + Capital, then reveal Geography";
  $("unlockIdentity").hidden=true;
- $("geoControls").hidden=!ACCEPTANCE;
- if(ACCEPTANCE&&!remote?.pending){
-  $("geoPrompt").textContent="Unlabeled shared atlas — navigate freely now. Placement opens after Country and Capital are confirmed in private GitHub.";
-  $("areaRow").hidden=true;
+ $("geoControls").hidden=false;
+ if(!remote?.pending){
+  $("geoPrompt").textContent="Unlabeled world atlas — explore freely. The geography target appears only after Country and Capital are saved to private GitHub.";
+  $("areaRow").hidden=true;$("clearPin").hidden=false;
   $("mapInstructions").hidden=false;
-  $("mapInstructions").textContent="Browse the map and zoom/pan manually. No automatic target prezoom or location clue. You can submit a location only after Country and Capital are privately confirmed.";
-  $("mapStatus").hidden=false;
-  $("atlas").closest(".mapFrame").hidden=false;
+  $("mapInstructions").textContent="Start with the whole world. Zoom and pan manually, without country hints or automatic prezoom. Pin submission unlocks only after private answer confirmation.";
+  $("mapStatus").hidden=false;$("atlas").closest(".mapFrame").hidden=false;
   $("submit").hidden=true;
  }else $("submit").hidden=false;
- $("activePanel").hidden=false; // Same as original V4: keep atlas visible before GitHub login
- $("activeTitle").textContent=ACCEPTANCE?"Geography (after private confirmation)":
-   q?"Q"+q.q+" of 195 — identify the flag":"195-country experiment complete";
+ $("activePanel").hidden=false;
+ $("activeTitle").textContent=ACCEPTANCE?"Shared atlas — Geography":q?"Shared atlas — Question "+q.q:"Shared atlas — World view";
  $("modeLabel").textContent="";
  $("instructions").textContent=remote?.pending?
-   "Country and Capital are saved to GitHub. Retrieving this question's private geography target...":
-   ACCEPTANCE&&!connected?"Type your answers inside the flag card; connect below when ready to save.":
-   q?"Enter Country and Capital, then save those initial answers to GitHub before the target's name is revealed.":
-   "No unsaved work. Your experimental history remains in private GitHub.";
- message(shown?"Experimental draft, not an official scored question.":"");
- pageIndex=ACCEPTANCE?0:q?Math.floor((q.q-1)/10):pageIndex;renderCards();
- renderAcceptanceProof();
+   "Country and Capital saved privately. Loading the Geography target...":
+   !connected?"Type directly on each flag card and browse the atlas. Connect GitHub only when ready to save.":
+   q?"Save the current flag's Country and Capital before its Geography target is revealed.":
+   "Experimental run completed; recorded progress remains in GitHub.";
+ message(shown?"Unscored development draft; official scores unchanged.":"");
+ pageIndex=ACCEPTANCE?0:q?Math.floor((q.q-1)/10):pageIndex;
+ renderCards();renderAcceptanceProof();
  if(remote?.pending&&connected)restorePending();
 }
 function scoreInput(q,g){
@@ -341,8 +356,7 @@ async function init(){
   sheet.querySelector(".batchNav").style.display="none";
   $("cards").classList.add("single-acceptance");
   acceptanceFields=$("identityFields");acceptanceActions=$("identityActions");
-  sheet.after($("activePanel")); // original V4: flag card then always-visible world atlas
-  $("activePanel").after(document.querySelector(".panel.auth")); // authentication only to save
+  // Original flag-card / atlas / authorization order is applied for both modes below.
   $("countryInput").addEventListener("input",()=>{if(!remote?.pending)unsentAcceptance.countryText=$("countryInput").value});
   $("capitalInput").addEventListener("input",()=>{if(!remote?.pending)unsentAcceptance.capitalText=$("capitalInput").value});
  }
@@ -357,6 +371,12 @@ async function init(){
  $("reuse").onclick=()=>{const token=localStorage.getItem(TOKEN_KEY)||"";if(!token){auth("No previously remembered pilot credential in this browser. Enter a restricted token if you decide to try synchronized drafts.");return}connect(token)};
  $("refresh").onclick=()=>refresh(true);$("disconnect").onclick=disconnect;
  window.addEventListener("focus",()=>refresh(false));document.addEventListener("visibilitychange",()=>{if(!document.hidden)refresh(false)});setInterval(()=>refresh(false),60000);
+ if(!ACCEPTANCE){
+  $("countryInput").addEventListener("input",()=>{const q=getCurrent()||(!connected?manifest?.questions[0]:null);if(q&&!remote?.pending)draft(q.q).countryText=$("countryInput").value});
+  $("capitalInput").addEventListener("input",()=>{const q=getCurrent()||(!connected?manifest?.questions[0]:null);if(q&&!remote?.pending)draft(q.q).capitalText=$("capitalInput").value});
+ }
+ const sheet=$("cards").closest(".panel");sheet.after($("activePanel"));
+ $("activePanel").after(document.querySelector(".panel.auth"));
  renderCount();renderCards();showNext();
  fetch("../location/data/world-10m.json").then(x=>x.json()).then(j=>{if(j.features?.length<200)throw Error("Invalid high-resolution atlas");hi=j;atlas=atlasIndex(hi,world,detail);drawMap(true);updateSubmit()}).catch(e=>{$("mapStatus").textContent="Detailed map unavailable: "+e.message});
 }
