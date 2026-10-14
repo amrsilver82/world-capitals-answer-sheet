@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'">
 <title>Geography Fairness — Seven-case Acceptance Test</title>
-<link rel="stylesheet" href="style.css?v=1"><script type="module" src="app.mjs?v=1"></script></head>
+<link rel="stylesheet" href="style.css?v=microstate-triage-1"><script type="module" src="app.mjs?v=microstate-triage-1"></script></head>
 <body><main>
 <header><p class="eyebrow">World Capitals Game · independent geography review</p><h1>Is this location scoring fair?</h1>
 <p>Test 4 disputed islands and 3 microstates. You choose the map location, compare pin versus broad-area placement and judge whether the rule is practical. <strong>No flags, capitals, GitHub token, or official scores involved.</strong></p>
@@ -13,6 +13,7 @@
 <fieldset id="methodGroup"><legend>Placement method to test</legend><label><input type="radio" name="method" value="pin" checked> Locate country with a pin</label><label id="areaMethod"><input type="radio" name="method" value="area"> Choose broad area</label></fieldset>
 <div id="areaControls" hidden><label>Which area?<select id="area"><option value="">Choose…</option><option value="PACIFIC_OCEAN">Pacific Ocean</option><option value="CARIBBEAN">Caribbean</option><option value="INDIAN_OCEAN">Indian Ocean</option></select></label></div>
 <p id="mapHelp">World start. Zoom/pan yourself and tap the map. You do NOT have to hit a tiny island pixel.</p>
+<p class="small" id="microTriageNote">Microstate experiment: up to 20 km = provisional close; 20–60 km = <strong>human review, no automatic score</strong>; beyond 60 km = provisional outside. These limits are NOT official rules.</p>
 <div class="mapbar"><button id="zoomIn">+ Zoom</button><button id="zoomOut">− Zoom</button><button id="resetMap">World view</button><button id="removePin">Clear pin</button><span id="resolution">Loading outlines…</span></div>
 <div class="mapframe"><svg id="atlas" viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid meet" aria-label="Zoomable world map for placing a test pin" role="img"><rect x="-1440" y="0" width="4320" height="720" fill="#dcecf7"/><g id="land"></g><g id="mark"></g></svg></div>
 <p id="pinStatus" class="small">No pin selected</p>

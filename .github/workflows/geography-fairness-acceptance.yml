@@ -26,5 +26,7 @@ jobs:
           sleep 2
       - name: Check JavaScript syntax
         run: node --check pilot/geography-fairness-acceptance/app.mjs
+      - name: Test detailed microstate triage and prior user placements
+        run: node pilot/geography-integrated-v4/test/microstate-triage.mjs
       - name: Test desktop Chromium and mobile WebKit
         run: node pilot/geography-fairness-acceptance/test/regression.mjs

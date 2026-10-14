@@ -1,14 +1,24 @@
 import {atlasIndex,referee} from "../geography-integrated-v4/referee/scorer.mjs";
+import {triageMicrostate} from "../geography-integrated-v4/referee/microstate-triage.mjs";
 const $=id=>document.getElementById(id),STORE="wcg-fairness-seven-20261013";
 const C=[
  {iso:"BB",name:"Barbados",draft:"Pin proposed",area:"CARIBBEAN",default:"pin",desc:"Can you locate this single Caribbean island fairly using a pin? Try broad area too."},
  {iso:"MV",name:"Maldives",draft:"Broad area proposed",area:"INDIAN_OCEAN",default:"area",desc:"Its atolls are scattered. Test whether an exact pin would be fair."},
  {iso:"PW",name:"Palau",draft:"Broad area proposed",area:"PACIFIC_OCEAN",default:"area",desc:"Try whether you can locate the island group, not one arbitrary tiny dot."},
  {iso:"SC",name:"Seychelles",draft:"Broad area proposed",area:"INDIAN_OCEAN",default:"area",desc:"Check the spread-out Indian Ocean islands and whether pin placement is practical."},
- {iso:"MC",name:"Monaco",draft:"20 km microstate tolerance",area:null,default:"pin",desc:"Locate the principality near the French Mediterranean coast; 20 km is a draft, not an official rule."},
+ {iso:"MC",name:"Monaco",draft:"20 km near / 20–60 km human review — trial only",area:null,default:"pin",desc:"Locate the principality near the French Mediterranean coast; 20 km is a draft, not an official rule."},
  {iso:"VA",name:"Vatican City",draft:"20 km microstate tolerance",area:null,default:"pin",desc:"Locate the city-state within Rome; zoom as much as you need."},
  {iso:"SM",name:"San Marino",draft:"20 km microstate tolerance",area:null,default:"pin",desc:"Locate the microstate enclosed by Italy; look at how forgiving 20 km actually is."}
 ];
+function microstateSummary(c,d){
+ if(c.area!==null||!d.pin||!atlas)return null;
+ const out=triageMicrostate({iso:c.iso,point:d.pin,atlas});
+ if(out.result==="manual-review")return "BORDERLINE — NEEDS HUMAN REFEREE: "+out.nearBorderKm+" km from "+c.name+
+   ". Draft 20 km automatic credit does not apply; within 60 km trial manual-review band. No automatic score.";
+ if(out.result==="provisional-near")return "PROVISIONAL NEAR: "+(out.nearBorderKm??0)+" km from detailed border; no official rule approved.";
+ if(out.result==="provisional-outside")return "PROVISIONAL OUTSIDE: "+out.nearBorderKm+" km from detailed border, beyond the draft 60 km review band.";
+ return "Needs referee: unavailable or invalid microstate location.";
+}
 const empty=()=>({pin:null,area:"",method:null,vote:"",revealed:false,score:null});
 let data=C.map(empty),at=0,atlas=null,world=null,hi=null,detail=null,view={x:0,y:0,w:1440,h:720},drawingMode="";
 function save(){try{localStorage.setItem(STORE,JSON.stringify({version:1,at,data}))}catch{}}
@@ -62,6 +72,7 @@ function choose(i){
  document.querySelectorAll('input[name="vote"]').forEach(x=>x.checked=x.value===d.vote);
  $("pinStatus").textContent=d.pin?"Your pin: "+d.pin.lon.toFixed(3)+", "+d.pin.lat.toFixed(3):"No pin selected";
  if((d.method||c.default)==="area"&&!d.area){d.revealed=false;d.score=null}
+ if(c.area===null&&d.revealed&&d.pin&&atlas)d.score=microstateSummary(c,d);
  $("result").hidden=!d.revealed;
  if(d.revealed)$("result").textContent=d.score||"No provisional result";
  $("progress").textContent=C.filter((_,i)=>data[i].vote).length+" / 7 decisions recorded • no official score";
@@ -77,12 +88,18 @@ function evaluate(){
   out=referee({iso:c.iso,mode:"broad_area",areaChoice:d.area,acceptedArea:c.area,atlas});
  }else{
   if(!d.pin){$("result").hidden=false;$("result").textContent="Place a pin before checking.";return}
-  out=referee({iso:c.iso,mode:"country_pin",point:d.pin,atlas});
+  out=c.area===null?triageMicrostate({iso:c.iso,point:d.pin,atlas}):referee({iso:c.iso,mode:"country_pin",point:d.pin,atlas});
  }
  const text=mode()==="area"?(out.points===1?"Chosen broad region matches the proposed region.":"Chosen region differs from the proposed one."):
-  (out.result==="inside"?"Your pin is inside the country border.":out.result==="near-border"?"Your pin is within the draft tolerance.":out.result==="outside"?"Your pin is outside the draft tolerance.":"Further geographic review needed.")+
-  (Number.isFinite(out.nearBorderKm)?" Nearest border: "+out.nearBorderKm+" km.":"")+
-  (Number.isFinite(out.allowedKm)?" Draft tolerance: "+out.allowedKm+" km.":"");
+  (c.area===null?(
+    out.result==="manual-review"?"BORDERLINE — NEEDS HUMAN REFEREE: Your pin is "+out.nearBorderKm+" km from "+c.name+". The draft 20 km near-credit threshold has been exceeded, but the pin is within a proposed 60 km manual-review band. No point awarded or deducted; you decide whether this is fair.":
+    out.result==="provisional-near"?"PROVISIONAL NEAR: "+(out.nearBorderKm??0)+" km from detailed border. The trial treats this as close enough for a candidate point, but no official threshold is approved.":
+    out.result==="provisional-outside"?"PROVISIONAL OUTSIDE: "+out.nearBorderKm+" km from detailed border. Beyond the draft 60 km review band; still not an official score.":
+    "No valid microstate location available for evaluation."
+  ):(
+    out.result==="inside"?"Your pin is inside the country border.":out.result==="near-border"?"Your pin is within the draft tolerance.":out.result==="outside"?"Your pin is outside the draft tolerance.":"Further geographic review needed."
+  )+(Number.isFinite(out.nearBorderKm)?" Nearest border: "+out.nearBorderKm+" km.":"")+
+  (Number.isFinite(out.allowedKm)?" Draft tolerance: "+out.allowedKm+" km.":"")));
  d.revealed=true;d.score=text;save();$("result").hidden=false;$("result").textContent=text;draw(true)
 }
 function summary(){
@@ -118,7 +135,7 @@ function init(){
  s.addEventListener("wheel",e=>{e.preventDefault();zoom(e.deltaY>0?1.35:.74,svgPoint(e))},{passive:false});
  choose(at);
  Promise.all(["../location/data/world.json","../location/data/world-10m.json","../location/data/targets.json"].map(u=>fetch(u).then(r=>{if(!r.ok)throw Error(u+" HTTP "+r.status);return r.json()})))
-  .then(([lo,high,det])=>{world=lo;hi=high;detail=det;atlas=atlasIndex(hi,world,detail);draw(true);$("status").textContent="Atlas ready. Test the 7 cases; no token needed."})
+  .then(([lo,high,det])=>{world=lo;hi=high;detail=det;atlas=atlasIndex(hi,world,detail);choose(at);draw(true);$("status").textContent="Atlas ready. Fairness triage is provisional; no token needed."})
   .catch(e=>{$("resolution").textContent="Map loading error: "+e.message});
 }
 init();
