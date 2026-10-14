@@ -488,8 +488,8 @@ async function init(){
  $("trialClear").onclick=clearLocalTrial;
  window.addEventListener("focus",()=>refresh(false));document.addEventListener("visibilitychange",()=>{if(!document.hidden)refresh(false)});setInterval(()=>refresh(false),60000);
  if(!ACCEPTANCE){
-  $("countryInput").addEventListener("input",()=>{const q=getCurrent()||(!connected?manifest?.questions[0]:null);if(q&&!remote?.pending)draft(q.q).countryText=$("countryInput").value;persistLocal();updateLocalTrial()});
-  $("capitalInput").addEventListener("input",()=>{const q=getCurrent()||(!connected?manifest?.questions[0]:null);if(q&&!remote?.pending)draft(q.q).capitalText=$("capitalInput").value;persistLocal();updateLocalTrial()});
+  $("countryInput").addEventListener("input",()=>{const q=getCurrent()||(!connected?questions.find(x=>x.q===localSelected):null);if(q&&!remote?.pending)draft(q.q).countryText=$("countryInput").value;persistLocal();updateLocalTrial()});
+  $("capitalInput").addEventListener("input",()=>{const q=getCurrent()||(!connected?questions.find(x=>x.q===localSelected):null);if(q&&!remote?.pending)draft(q.q).capitalText=$("capitalInput").value;persistLocal();updateLocalTrial()});
  }
  const sheet=$("cards").closest(".panel");sheet.after($("activePanel"));
  $("activePanel").after($("chatHandoff")); // retained handoff, after atlas
