@@ -38,7 +38,7 @@ const paint=(png,x,y)=>{
 async function capture(page,name,elementSel=null){
  await page.evaluate(()=>{document.querySelectorAll("img").forEach(img=>img.loading="eager")});
  await page.waitForFunction(()=>[...document.querySelectorAll(".flagPic img")].every(i=>i.complete&&i.naturalWidth>0));
- await page.addStyleTag({content:"*,*::before,*::after{animation:none!important;transition:none!important;caret-color:transparent!important}"});
+ // Playwright screenshot({animations:'disabled'}) avoids illegal inline CSS under strict CSP.
  const bytes=await page.screenshot({fullPage:true,animations:"disabled"});
  const png=PNG.sync.read(bytes);
  const vp=page.viewportSize();
