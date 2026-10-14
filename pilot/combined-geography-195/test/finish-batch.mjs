@@ -50,11 +50,15 @@ async function check(engine,mobile){
    const atlas=document.querySelector("#activePanel");
    const finish=document.querySelector("#finishPanel");
    const legacy=document.querySelector("#trialPanel");
-   return document.querySelector("header").contains(document.querySelector("#finishBatch"))&&
+   const heading=document.querySelector("header"),bar=document.querySelector("#finishPrimary");
+   return bar.contains(document.querySelector("#finishBatch"))&&
+    getComputedStyle(bar).position==="sticky"&&
+    !!(heading.compareDocumentPosition(bar)&Node.DOCUMENT_POSITION_FOLLOWING)&&
+    !!(bar.compareDocumentPosition(flagPanel)&Node.DOCUMENT_POSITION_FOLLOWING)&&
     !!(flagPanel.compareDocumentPosition(atlas)&Node.DOCUMENT_POSITION_FOLLOWING)&&
     !!(atlas.querySelector(".mapFrame").compareDocumentPosition(finish)&Node.DOCUMENT_POSITION_FOLLOWING)&&
     !!(finish.compareDocumentPosition(legacy)&Node.DOCUMENT_POSITION_FOLLOWING);
-  }),"Header Finish button, flags -> atlas -> results -> legacy controls must keep original layout");
+  }),"Sticky Finish action, flags -> atlas -> results -> legacy controls must keep original layout");
   assert.equal(await page.locator("#cards .card").count(),10);
   assert.equal(await page.locator("#atlas").isVisible(),true);
   // Incomplete batch must be honestly labeled; all ten Qs must be present.

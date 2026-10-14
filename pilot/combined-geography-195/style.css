@@ -46,7 +46,7 @@ button.primary,#submit,#lockIdentity,#connect{background:#175bc4;color:#fff;bord
 
 /* Prominent single Finish/Copy action in the original header.
    Results are rendered after the atlas, ahead of legacy separate buttons. */
-#finishPrimary{max-width:750px;margin:14px auto 4px;padding:12px;background:#e9f1ff;border:2px solid #175bc4;border-radius:12px;box-shadow:0 2px 7px #173e6e17}
+#finishPrimary{position:sticky;top:0;z-index:15;max-width:750px;margin:14px auto 4px;padding:10px;background:#e9f1ff;border:2px solid #175bc4;border-radius:12px;box-shadow:0 2px 7px #173e6e17}
 #finishEligibility{margin:7px 2px 0;color:#24486f;font-size:13px;font-weight:650}
 @media(max-width:650px){#finishPrimary{padding:9px}#finishEligibility{font-size:12px}}
 /* Mandatory unified batch-result control: atlas first, results after map. */
