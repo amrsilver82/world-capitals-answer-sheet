@@ -92,29 +92,32 @@ async function run(browserType,mobile){
  assert.equal(await page.evaluate(()=>__combined195.getWorldView().w),1440);
  await page.locator("#atlas").scrollIntoViewIfNeeded();
  // A full-world SVG gives ~0.3–0.5 degrees per screen pixel; user must zoom for microstate precision.
- // Simulate deliberate pointer-centered map-wheel zoom, no automatic country cue.
- for(let i=0;i<24;i++){
-  const where=await page.evaluate(()=>{
+ // Desktop exercises pointer-centered wheel zoom. Mobile uses the visible, user-triggered
+ // + Zoom UI after an actual touchscreen tap; neither device receives target prezoom.
+ if(mobile){
+  const initial=await page.evaluate(()=>{
    const svg=document.getElementById("atlas"),p=svg.createSVGPoint();
    p.x=(7.05+180)*4;p.y=(90-43.60)*4;
    const a=p.matrixTransform(svg.getScreenCTM());return {x:a.x,y:a.y};
   });
-  if(mobile){
-   // WebKit's synthetic Touch constructor is unavailable; exercise map-wheel listener
-   // at the same cursor anchor, then verify the real mobile touchscreen tap.
-   await page.evaluate(({x,y})=>{
-    const svg=document.getElementById("atlas");
-    svg.dispatchEvent(new WheelEvent("wheel",{bubbles:true,cancelable:true,
-      clientX:x,clientY:y,deltaY:-300}));
-   },{x:where.x,y:where.y});
-  }else{
+  await page.touchscreen.tap(initial.x,initial.y);
+  await page.waitForFunction(()=>!document.getElementById("submit").disabled);
+  for(let i=0;i<11;i++)await page.locator("#zoomIn").click();
+ }else{
+  for(let i=0;i<24;i++){
+   const where=await page.evaluate(()=>{
+    const svg=document.getElementById("atlas"),p=svg.createSVGPoint();
+    p.x=(7.05+180)*4;p.y=(90-43.60)*4;
+    const a=p.matrixTransform(svg.getScreenCTM());return {x:a.x,y:a.y};
+   });
    await page.mouse.move(where.x,where.y);
    await page.mouse.wheel(0,-300);
+   await page.waitForTimeout(10);
   }
-  await page.waitForTimeout(10);
  }
- assert.ok((await page.evaluate(()=>__combined195.getWorldView().w))<40,
+ assert.ok((await page.evaluate(()=>__combined195.getWorldView().w))<(mobile?1:40),
    "Microstate test must manually zoom before pin placement");
+ await page.locator("#atlas").scrollIntoViewIfNeeded();
  const {bx,by}=await page.evaluate(()=>{
   const svg=document.getElementById("atlas"),p=svg.createSVGPoint();
   p.x=(7.05+180)*4;p.y=(90-43.60)*4;
@@ -127,7 +130,7 @@ async function run(browserType,mobile){
  await page.waitForFunction(()=>__combined195.getStatus().accepted===2);
  assert.equal(comments.length,4);
  const actualPin=JSON.parse(comments[3].body).geography.point;
- assert.ok(Math.abs(actualPin.lon-7.05)<.3&&Math.abs(actualPin.lat-43.60)<.3,"Geography pin click mismatch: "+JSON.stringify(actualPin));
+ assert.ok(Math.abs(actualPin.lon-7.05)<.05&&Math.abs(actualPin.lat-43.60)<.05,"Geography pin click mismatch: "+JSON.stringify(actualPin));
  assert.match(await page.locator("#questionStatus").innerText(),/BORDERLINE.*Human referee review required.*NO automatic score/i);
  assert.deepEqual(errors,[]);
  console.log("PASS "+browserType.name()+" "+(mobile?"mobile":"desktop")+" — two-stage protected metadata, no source leaks, country locked before reveal, geography, restore, stale client");

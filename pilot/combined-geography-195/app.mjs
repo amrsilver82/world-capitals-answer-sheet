@@ -176,7 +176,7 @@ function setupMap(){
  },{passive:false});
  svg.addEventListener("touchend",e=>{if(touch?.one&&!touch.moved&&e.changedTouches?.length===1)setPin(e.changedTouches[0]);touch=null;e.preventDefault()},{passive:false});
  svg.addEventListener("click",e=>{if(e.detail===0)setPin(e)});
- $("zoomIn").onclick=()=>zoom(.45);$("zoomOut").onclick=()=>zoom(1.43);$("resetWorld").onclick=worldView;
+ $("zoomIn").onclick=()=>zoom(.45,temporaryPin?{x:(temporaryPin.lon+180)*4,y:(90-temporaryPin.lat)*4}:undefined);$("zoomOut").onclick=()=>zoom(1.43);$("resetWorld").onclick=worldView;
 }
 function beginGeography(){
  const q=currentTarget;
