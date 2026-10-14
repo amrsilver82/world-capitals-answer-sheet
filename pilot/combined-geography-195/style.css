@@ -28,3 +28,12 @@ button.primary,#submit,#lockIdentity,#connect{background:#175bc4;color:#fff;bord
 .acceptance-card .fields{margin-top:7px;grid-template-columns:repeat(2,minmax(0,1fr))}
 .acceptance-card .fields input{min-width:0}
 @media(max-width:650px){.acceptance-card .fields{grid-template-columns:1fr}}
+
+/* Contracted unscored local trial remains below the shared always-visible atlas. */
+#trialMethodRow{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0}
+#trialMethodRow[hidden],#trialAreaRow[hidden],#trialPanel[hidden]{display:none}
+#trialMethodRow label{min-width:210px;max-width:440px;flex:1}
+#trialPanel{margin-top:16px;padding-top:12px;border-top:1px solid #d8e0eb}
+#trialPanel h3{font-size:16px;margin:0}
+#trialPanel p{font-size:13px;color:#52627b}
+#trialOutput{width:100%;font:12px/1.6 ui-monospace,Consolas,monospace;padding:10px;background:#f8fafc;border:1px solid #c3d0e5;border-radius:8px;resize:vertical}

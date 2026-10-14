@@ -13,6 +13,88 @@ let pageIndex=0,currentDraft=null,currentTarget=null,identityLocked=false,tempor
 let acceptanceFields=null,acceptanceActions=null;
 let unsentAcceptance={countryText:"",capitalText:""}; // Ephemeral page memory only, never GitHub until saved.
 const unsentBatch=new Map(); // Local unsent 10-card answers; never published until explicit GitHub save.
+const LOCAL_KEY="wcg-combined195-unscored-v1", localGeo=new Map();
+let localSelected=1;
+const localMode=()=>!ACCEPTANCE&&!connected;
+const localEntry=q=>localGeo.get(q)||null;
+function persistLocal(){
+ if(ACCEPTANCE)return;
+ try{localStorage.setItem(LOCAL_KEY,JSON.stringify({version:1,selected:localSelected,drafts:[...unsentBatch],geo:[...localGeo]}))}catch{}
+}
+function loadLocal(){
+ if(ACCEPTANCE)return;
+ try{
+  const s=JSON.parse(localStorage.getItem(LOCAL_KEY)||"null");if(s?.version!==1)return;
+  for(const [q,d] of s.drafts||[])if(Number.isInteger(q)&&q>=1&&q<=195&&
+   typeof d?.countryText==="string"&&typeof d?.capitalText==="string")
+   unsentBatch.set(q,{countryText:d.countryText.slice(0,120),capitalText:d.capitalText.slice(0,120)});
+  for(const [q,g] of s.geo||[]){
+   if(!Number.isInteger(q)||q<1||q>195)continue;
+   if(g?.mode==="country_pin"&&(!g.point||(Number.isFinite(g.point.lon)&&
+      Number.isFinite(g.point.lat)&&Math.abs(g.point.lon)<=180&&Math.abs(g.point.lat)<=90)))
+      localGeo.set(q,{mode:"country_pin",point:g.point||null});
+   if(g?.mode==="broad_area"&&(["PACIFIC_OCEAN","CARIBBEAN","INDIAN_OCEAN",""].includes(g.choice)))
+      localGeo.set(q,{mode:"broad_area",choice:g.choice});
+  }
+  if(Number.isInteger(s.selected)&&s.selected>=1&&s.selected<=10)localSelected=s.selected;
+ }catch{}
+}
+function selectLocal(q){
+ if(!localMode()||!questions.slice(pageIndex*10,pageIndex*10+10).some(x=>x.q===q))return;
+ localSelected=q;temporaryPin=localEntry(q)?.point||null;
+ $("countryInput").value=draft(q).countryText;$("capitalInput").value=draft(q).capitalText;
+ renderCards();drawMap();updateLocalTrial();persistLocal();
+}
+function updateLocalTrial(){
+ if(ACCEPTANCE)return;
+ const items=questions.slice(pageIndex*10,pageIndex*10+10),v=localEntry(localSelected);
+ const identified=items.filter(q=>{const d=draft(q.q);return !!(d.countryText.trim()&&d.capitalText.trim())}).length;
+ const geoCount=items.filter(q=>{const g=localEntry(q.q);return g?.point||
+  g?.mode==="broad_area"&&g.choice}).length;
+ $("trialProgress").textContent="Selected Q"+localSelected+" · Country+Capital "+identified+"/"+items.length+
+   " · Geography "+geoCount+"/"+items.length+" · No official scoring";
+ $("trialMethod").value=v?.mode||"country_pin";
+ $("trialAreaRow").hidden=$("trialMethod").value!=="broad_area";
+ $("trialArea").value=v?.mode==="broad_area"?v.choice:"";
+ $("trialPinStatus").textContent=v?.mode==="country_pin"&&v.point?
+   "Q"+localSelected+" pin: "+v.point.lon.toFixed(3)+", "+v.point.lat.toFixed(3):
+   v?.mode==="broad_area"&&v.choice?"Q"+localSelected+" broad area: "+v.choice:
+   "Q"+localSelected+" · Geography not yet selected";
+ if(localMode())$("clearPin").disabled=!(v?.mode==="country_pin"&&v.point);
+}
+function buildLocalTrial(){
+ if(!localMode())return;
+ const items=questions.slice(pageIndex*10,pageIndex*10+10);
+ const out=["World Flags + Capitals + Geography — UNSCORED LOCAL TRIAL",
+ "Browser-local answers only. NOT synced to private GitHub. Official 390/390 unchanged.",
+ "Batch "+(pageIndex+1)+" of 20"];
+ for(const q of items){
+  const d=draft(q.q),g=localEntry(q.q);
+  const geo=g?.mode==="country_pin"&&g.point?
+   "pin "+g.point.lon.toFixed(3)+", "+g.point.lat.toFixed(3):
+   g?.mode==="broad_area"&&g.choice?"area "+g.choice:"not answered";
+  out.push("Q"+q.q+" | Country: "+(d.countryText||"—")+" | Capital: "+(d.capitalText||"—")+" | Geography: "+geo);
+ }
+ $("trialOutput").value=out.join("\n");$("trialCopy").disabled=false;
+ $("trialFeedback").textContent="Local reply prepared. No GitHub write or automatic score.";
+}
+async function copyLocalTrial(){
+ if(!localMode()||!$("trialOutput").value)return;
+ try{await navigator.clipboard.writeText($("trialOutput").value);
+  $("trialFeedback").textContent="Copied. You can paste this into ChatGPT for referee review."}
+ catch{$("trialOutput").focus();$("trialOutput").select();
+  $("trialFeedback").textContent="Select-and-copy fallback ready."}
+}
+function clearLocalTrial(){
+ if(!localMode())return;
+ for(const q of questions.slice(pageIndex*10,pageIndex*10+10)){
+  unsentBatch.delete(q.q);localGeo.delete(q.q);
+ }
+ localSelected=questions[pageIndex*10].q;temporaryPin=null;
+ $("trialOutput").value="";$("trialCopy").disabled=true;
+ persistLocal();showNext();drawMap();
+ $("trialFeedback").textContent="Browser-local fields cleared. No private GitHub data changed.";
+}
 function draft(q){if(!unsentBatch.has(q))unsentBatch.set(q,{countryText:"",capitalText:""});return unsentBatch.get(q)}
 let view={x:0,y:0,w:1440,h:720},lastDrawn="",activeDrawing=null;
 const HALF=Math.PI/180;
@@ -65,7 +147,7 @@ function renderCards(){
  for(const q of questions.slice(pageIndex*10,pageIndex*10+10)){
   const card=document.createElement("article");card.className="card";card.dataset.question=String(q.q);
   const done=remote?.accepted.find(x=>x.q===q.q);
-  const current=getCurrent()?.q===q.q||!connected&&q.q===questions[0].q;
+  const current=getCurrent()?.q===q.q||!connected&&q.q===(ACCEPTANCE?ACCEPTANCE_Q:localSelected);
   if(done)card.classList.add("done");if(current)card.classList.add("current");
   if(ACCEPTANCE)card.classList.add("acceptance-card");
   const top=document.createElement("div");top.className="header";
@@ -94,9 +176,15 @@ function renderCards(){
     const label=document.createElement("label");label.textContent=name;
     const input=document.createElement("input");input.type="text";input.autocomplete="off";input.spellcheck=false;
     input.placeholder=name+" answer";input.value=draft(q.q)[kind];
-    input.addEventListener("input",()=>{draft(q.q)[kind]=input.value});label.append(input);fields.append(label);
+    input.addEventListener("input",()=>{draft(q.q)[kind]=input.value;persistLocal();updateLocalTrial()});label.append(input);fields.append(label);
    }
    card.append(top,flag,field,fields);
+   if(localMode()){
+    const select=document.createElement("button");
+    select.type="button";select.className="locateQuestion";
+    select.textContent="Place Geography for Q"+q.q;
+    select.onclick=()=>selectLocal(q.q);card.append(select);
+   }
   }
   wrap.appendChild(card);
  }
@@ -106,7 +194,7 @@ function showSaved(done){
 }
 function showNext(){
  renderCount();renderCards();renderChatHandoff();
- const q=getCurrent(),shown=q||(!connected?manifest?.questions[0]:null);
+ const q=getCurrent(),shown=q||(!connected?(ACCEPTANCE?manifest?.questions[0]:questions.find(x=>x.q===localSelected)):null);
  identityLocked=false;currentTarget=null;currentDraft=null;temporaryPin=null;
  $("clearPin").disabled=true;
  if(ACCEPTANCE&&(remote?.pending||connected&&!q))unsentAcceptance={countryText:"",capitalText:""};
@@ -122,6 +210,8 @@ function showNext(){
  $("lockIdentity").textContent=!connected?"Connect GitHub to enable saving":"Save Country + Capital, then reveal Geography";
  $("unlockIdentity").hidden=true;
  $("geoControls").hidden=false;
+ $("trialPanel").hidden=!localMode();$("trialMethodRow").hidden=!localMode();
+ if(localMode())temporaryPin=localEntry(localSelected)?.point||null;
  if(!remote?.pending){
   $("geoPrompt").textContent="Unlabeled world atlas — explore freely. The geography target appears only after Country and Capital are saved to private GitHub.";
   $("areaRow").hidden=true;$("clearPin").hidden=false;
@@ -141,6 +231,7 @@ function showNext(){
  message(shown?"Unscored development draft; official scores unchanged.":"");
  pageIndex=ACCEPTANCE?0:q?Math.floor((q.q-1)/10):pageIndex;
  renderCards();renderAcceptanceProof();
+ if(!ACCEPTANCE)updateLocalTrial();
  if(remote?.pending&&connected)restorePending();
 }
 function scoreInput(q,g){
@@ -202,6 +293,12 @@ function zoom(f,p){
  view.w=w*f;view.h=h*f;view.x=a.x-(a.x-view.x)*f;view.y=a.y-(a.y-view.y)*f;clampView();drawMap();
 }
 function setPin(e){
+ if(localMode()){
+  if(busy||$("trialMethod").value!=="country_pin")return;
+  const p=mapPoint(e),point={lon:+normalize(p.x/4-180).toFixed(3),lat:+Math.max(-90,Math.min(90,90-p.y/4)).toFixed(3)};
+  temporaryPin=point;localGeo.set(localSelected,{mode:"country_pin",point});
+  drawMap();persistLocal();updateLocalTrial();return;
+ }
  const q=getCurrent();if(!q||currentTarget?.mode!=="country_pin"||!remote?.pending||!identityLocked||!connected||busy)return;
  const p=mapPoint(e);temporaryPin={lon:+normalize(p.x/4-180).toFixed(3),lat:+Math.max(-90,Math.min(90,90-p.y/4)).toFixed(3)};
  drawMap();$("clearPin").disabled=false;updateSubmit();
@@ -230,7 +327,12 @@ function setupMap(){
  svg.addEventListener("touchend",e=>{if(touch?.one&&!touch.moved&&e.changedTouches?.length===1)setPin(e.changedTouches[0]);touch=null;e.preventDefault()},{passive:false});
  svg.addEventListener("click",e=>{if(e.detail===0)setPin(e)});
  $("zoomIn").onclick=()=>zoom(.45,temporaryPin?{x:(temporaryPin.lon+180)*4,y:(90-temporaryPin.lat)*4}:undefined);$("zoomOut").onclick=()=>zoom(1.43);$("resetWorld").onclick=worldView;
- $("clearPin").onclick=()=>{if(!temporaryPin)return;temporaryPin=null;$("clearPin").disabled=true;drawMap();updateSubmit()};
+ $("clearPin").onclick=()=>{
+  if(!temporaryPin)return;temporaryPin=null;
+  if(localMode()){localGeo.set(localSelected,{mode:"country_pin",point:null});
+   persistLocal();updateLocalTrial()}
+  $("clearPin").disabled=true;drawMap();updateSubmit();
+ };
 }
 function beginGeography(){
  const q=currentTarget;
@@ -242,6 +344,7 @@ function beginGeography(){
  $("geoControls").hidden=false;
  $("submit").hidden=false;
  $("geoPrompt").textContent="Place "+q.name+" on the world map, or choose its permitted broad area.";
+ $("trialPanel").hidden=true;$("trialMethodRow").hidden=true;
  $("areaRow").hidden=q.mode!=="broad_area";$("clearPin").hidden=q.mode!=="country_pin";$("clearPin").disabled=true;$("mapInstructions").hidden=q.mode!=="country_pin";
  $("mapInstructions").textContent="Place your own pin for "+q.name+"; pan and zoom manually, with no automatic country prezoom.";
  $("mapStatus").hidden=q.mode!=="country_pin";$("atlas").closest(".mapFrame").hidden=q.mode!=="country_pin";
@@ -360,7 +463,7 @@ async function init(){
   $("countryInput").addEventListener("input",()=>{if(!remote?.pending)unsentAcceptance.countryText=$("countryInput").value});
   $("capitalInput").addEventListener("input",()=>{if(!remote?.pending)unsentAcceptance.capitalText=$("capitalInput").value});
  }
- questions=manifest.questions;
+ questions=manifest.questions;loadLocal();
  if(questions.length!==(ACCEPTANCE?1:195)||new Set(questions.map(x=>x.q)).size!==questions.length||questions.some(x=>Object.keys(x).some(k=>!["q","flag"].includes(k))))throw Error("Public flag-only manifest verification failed");
  if(manifest.github_event_issue!==ISSUE)throw Error("Dedicated issue mismatch");
  worldView();setupMap();$("batchPrev").onclick=()=>{pageIndex--;renderCards()};$("batchNext").onclick=()=>{pageIndex++;renderCards()};
@@ -370,15 +473,29 @@ async function init(){
  $("connect").onclick=()=>connect($("credential").value.trim());
  $("reuse").onclick=()=>{const token=localStorage.getItem(TOKEN_KEY)||"";if(!token){auth("No previously remembered pilot credential in this browser. Enter a restricted token if you decide to try synchronized drafts.");return}connect(token)};
  $("refresh").onclick=()=>refresh(true);$("disconnect").onclick=disconnect;
+ $("trialMethod").onchange=()=>{
+  if(!localMode())return;
+  const mode=$("trialMethod").value;temporaryPin=null;
+  localGeo.set(localSelected,mode==="broad_area"?{mode,choice:""}:{mode:"country_pin",point:null});
+  drawMap();persistLocal();updateLocalTrial();
+ };
+ $("trialArea").onchange=()=>{
+  if(!localMode())return;
+  localGeo.set(localSelected,{mode:"broad_area",choice:$("trialArea").value});
+  persistLocal();updateLocalTrial();
+ };
+ $("trialBuild").onclick=buildLocalTrial;$("trialCopy").onclick=copyLocalTrial;
+ $("trialClear").onclick=clearLocalTrial;
  window.addEventListener("focus",()=>refresh(false));document.addEventListener("visibilitychange",()=>{if(!document.hidden)refresh(false)});setInterval(()=>refresh(false),60000);
  if(!ACCEPTANCE){
-  $("countryInput").addEventListener("input",()=>{const q=getCurrent()||(!connected?manifest?.questions[0]:null);if(q&&!remote?.pending)draft(q.q).countryText=$("countryInput").value});
-  $("capitalInput").addEventListener("input",()=>{const q=getCurrent()||(!connected?manifest?.questions[0]:null);if(q&&!remote?.pending)draft(q.q).capitalText=$("capitalInput").value});
+  $("countryInput").addEventListener("input",()=>{const q=getCurrent()||(!connected?manifest?.questions[0]:null);if(q&&!remote?.pending)draft(q.q).countryText=$("countryInput").value;persistLocal();updateLocalTrial()});
+  $("capitalInput").addEventListener("input",()=>{const q=getCurrent()||(!connected?manifest?.questions[0]:null);if(q&&!remote?.pending)draft(q.q).capitalText=$("capitalInput").value;persistLocal();updateLocalTrial()});
  }
  const sheet=$("cards").closest(".panel");sheet.after($("activePanel"));
- $("activePanel").after(document.querySelector(".panel.auth"));
+ $("activePanel").after($("chatHandoff")); // retained handoff, after atlas
+ $("chatHandoff").after(document.querySelector(".panel.auth")); // permissioned sync remains optional and secondary
  renderCount();renderCards();showNext();
  fetch("../location/data/world-10m.json").then(x=>x.json()).then(j=>{if(j.features?.length<200)throw Error("Invalid high-resolution atlas");hi=j;atlas=atlasIndex(hi,world,detail);drawMap(true);updateSubmit()}).catch(e=>{$("mapStatus").textContent="Detailed map unavailable: "+e.message});
 }
-window.__combined195={getCount:()=>questions.length,modeCount:()=>({status:"PRIVATE_AFTER_IDENTITY",total:questions.length}),getStatus:()=>({connected,accepted:remote?.accepted.length||0,next:remote?.next?.q??null,identitySaved:!!remote?.pending,acceptance:ACCEPTANCE}),getWorldView:()=>({...view}),getSubmitted:()=>remote?.accepted||[],getCurrent:()=>getCurrent(),getAtlasReady:()=>!!atlas,getTarget:()=>currentTarget,getCompletedHandoffs:()=>remote?completedBatches(remote.accepted).map(x=>x.batch):[],getHandoffPreview:()=>{const batches=remote?completedBatches(remote.accepted):[];return batches.length?batchHandoff(remote.accepted,batches.at(-1).batch):null}};
+window.__combined195={getCount:()=>questions.length,modeCount:()=>({status:"PRIVATE_AFTER_IDENTITY",total:questions.length}),getStatus:()=>({connected,accepted:remote?.accepted.length||0,next:remote?.next?.q??null,identitySaved:!!remote?.pending,acceptance:ACCEPTANCE}),getWorldView:()=>({...view}),getLocalTrial:()=>({selected:localSelected,geography:[...localGeo],drafts:[...unsentBatch]}),getSubmitted:()=>remote?.accepted||[],getCurrent:()=>getCurrent(),getAtlasReady:()=>!!atlas,getTarget:()=>currentTarget,getCompletedHandoffs:()=>remote?completedBatches(remote.accepted).map(x=>x.batch):[],getHandoffPreview:()=>{const batches=remote?completedBatches(remote.accepted):[];return batches.length?batchHandoff(remote.accepted,batches.at(-1).batch):null}};
 init().catch(e=>{$("count").textContent="Could not load game";auth(e.message,"warning")});

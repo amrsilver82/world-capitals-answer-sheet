@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self' https://api.github.com; base-uri 'none'; object-src 'none'; form-action 'none'">
 <title>World Flags + Capitals + Geography — 195 Integration Candidate</title>
-<link rel="stylesheet" href="style.css?v=normal-ux-20261014"><script type="module" src="app.mjs?v=normal-ux-20261014"></script></head>
+<link rel="stylesheet" href="style.css?v=contract-local-20261014"><script type="module" src="app.mjs?v=contract-local-20261014"></script></head>
 <body><main class="wrap">
 <header><h1>World Flags + Capitals + Geography</h1><p class="sub">195-country integrated design · experimental, unapproved scoring · official 390/390 untouched</p>
 <div class="pills"><span id="count" class="pill">195-country manifest loading</span><span id="stage" class="pill">Answers editable · connect only to save</span></div>
@@ -34,6 +34,12 @@
 <label>Capital <input id="capitalInput" type="text" autocomplete="off" spellcheck="false" placeholder="Capital answer"></label></div>
 <div class="actions" id="identityActions"><button id="lockIdentity" disabled>Save Country + Capital, then reveal Geography</button><button id="unlockIdentity" hidden type="button">Edit country/capital</button></div>
 <div id="geoControls" hidden><p id="geoPrompt"></p>
+<div id="trialMethodRow" hidden>
+<label>Local geography method for selected flag
+<select id="trialMethod"><option value="country_pin">Place a pin</option><option value="broad_area">Broad area (only when eligible; referee decides)</option></select></label>
+<label id="trialAreaRow" hidden>Broad area (not a country hint)
+<select id="trialArea"><option value="">Choose area</option><option value="PACIFIC_OCEAN">Pacific Ocean</option><option value="CARIBBEAN">Caribbean</option><option value="INDIAN_OCEAN">Indian Ocean</option></select></label>
+</div>
 <label id="areaRow" hidden>Broad geographical area
 <select id="areaSelect"><option value="">Choose area</option><option value="PACIFIC_OCEAN">Pacific Ocean</option><option value="CARIBBEAN">Caribbean</option><option value="INDIAN_OCEAN">Indian Ocean</option></select></label>
 <p id="mapInstructions">Start at the full world map. For Monaco, Vatican City and San Marino, zoom in near the city BEFORE placing a pin; at world scale each pixel spans many kilometres. Tap your approximate location first, then use + Zoom to magnify that selected spot and refine your pin. Pan or zoom yourself; no automatic country hints or target prezoom.</p>
@@ -41,6 +47,17 @@
 <div class="mapFrame"><svg id="atlas" role="img" aria-label="World atlas: zoom and pan manually, select location of current country" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid meet"><rect x="-1440" y="0" width="4320" height="720" fill="#dbedf9"/><g id="land"></g><g id="pinLayer"></g></svg></div>
 <p id="mapStatus">Map loading…</p>
 <div class="actions"><button id="submit" disabled>Save experimental answer to private GitHub</button></div></div>
+<section id="trialPanel" hidden>
+<h3>Unscored local trial — no GitHub token needed</h3>
+<p id="trialProgress" role="status">Loading local progress…</p>
+<p id="trialPinStatus" role="status">No pin selected</p>
+<div class="actions"><button id="trialBuild" type="button">Build my reply</button>
+<button id="trialCopy" type="button" disabled>Copy reply</button>
+<button id="trialClear" type="button">Clear editable responses</button></div>
+<label>Your local trial feedback (not saved privately)
+<textarea id="trialOutput" readonly rows="7"></textarea></label>
+<p id="trialFeedback" role="status">Unscored browser-local draft, not private GitHub synchronization.</p>
+</section>
 <p id="questionStatus" role="status"></p></section>
 <section class="panel" id="acceptancePanel" hidden><h2>Verified private GitHub recovery</h2><pre id="acceptanceProof" role="status">Connect to inspect the exact one-question checkpoint.</pre><p>After saving both stages, reload this page, reconnect using the same restricted GitHub credential, and verify the entered Country, Capital, pin longitude/latitude and GitHub comment IDs appear unchanged. Never paste your token into chat.</p></section>
 <footer>Candidate referee: full polygons and draft near-border tolerances. Country and Capital fields are recorded for later referee review but not automatically graded. Official Flags + Capitals score remains 390/390.</footer>
