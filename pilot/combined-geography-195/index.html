@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self' https://api.github.com; base-uri 'none'; object-src 'none'; form-action 'none'">
 <title>World Flags + Capitals + Geography — 195 Integration Candidate</title>
-<link rel="stylesheet" href="style.css?v=flag-ratio-20261014"><script type="module" src="app.mjs?v=issues-only-20261014"></script></head>
+<link rel="stylesheet" href="style.css?v=finish-one-click-20261014"><script type="module" src="app.mjs?v=finish-one-click-20261014"></script></head>
 <body><main class="wrap">
 <header><h1>World Flags + Capitals + Geography</h1><p class="sub">195-country integrated design · experimental, unapproved scoring · official 390/390 untouched</p>
 <div class="pills"><span id="count" class="pill">195-country manifest loading</span><span id="stage" class="pill">Answers editable · connect only to save</span></div>
@@ -57,6 +57,14 @@
 <label>Your local trial feedback (not saved privately)
 <textarea id="trialOutput" readonly rows="7"></textarea></label>
 <p id="trialFeedback" role="status">Unscored browser-local draft, not private GitHub synchronization.</p>
+</section>
+<section id="finishPanel" aria-labelledby="finishTitle">
+<h3 id="finishTitle">Batch results — one click</h3>
+<p class="handoffInfo">Reveals only what you entered. Local trial results are <strong>not saved</strong> to GitHub. Verified GitHub batches require every Geography entry; actual correct answers await private referee.</p>
+<button id="finishBatch" type="button">Finish batch — Reveal &amp; Copy results</button>
+<p id="finishStatus" role="status" aria-live="polite">Ready to reveal and copy your batch responses; unfinished fields will be marked clearly.</p>
+<label for="finishOutput">Your Country, Capital and Geography results
+<textarea id="finishOutput" readonly rows="8" aria-label="Batch results, copyable with keyboard or touch"></textarea></label>
 </section>
 <p id="questionStatus" role="status"></p></section>
 <section class="panel" id="acceptancePanel" hidden><h2>Verified private GitHub recovery</h2><pre id="acceptanceProof" role="status">Connect to inspect the exact one-question checkpoint.</pre><p>After saving both stages, reload this page, reconnect using the same restricted GitHub credential, and verify the entered Country, Capital, pin longitude/latitude and GitHub comment IDs appear unchanged. Never paste your token into chat.</p></section>

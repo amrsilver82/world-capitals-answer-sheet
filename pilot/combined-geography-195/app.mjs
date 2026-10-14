@@ -2,6 +2,7 @@ import {atlasIndex,referee} from "../geography-integrated-v4/referee/scorer.mjs"
 import {triageMicrostate} from "../geography-integrated-v4/referee/microstate-triage.mjs";
 import {githubClient,replay,eventFor,ISSUE as GAME_ISSUE} from "./sync.mjs";
 import {completedBatches,batchHandoff} from "./handoff.mjs";
+import {localBatchReport} from "./results.mjs";
 const $=id=>document.getElementById(id);
 const TOKEN_KEY="wcg-location-github-pat-v1"; // prior user opt-in only; never automatically read.
 const ACCEPTANCE=new URLSearchParams(location.search).get("acceptance")==="one";
@@ -130,6 +131,54 @@ async function copyChatHandoff(){
  try{await navigator.clipboard.writeText(value);$("handoffStatus").textContent="Verified batch copied. Paste it into this ChatGPT conversation for private review. No game scores changed."}
  catch(e){output.focus();output.select();$("handoffStatus").textContent="Clipboard not available. The handoff text is selected below; copy it manually. No answers changed."}
 }
+async function finishBatch(){
+ if(ACCEPTANCE||busy)return;
+ const output=$("finishOutput"),status=$("finishStatus"),button=$("finishBatch");
+ let text="",label="";
+ button.disabled=true;
+ try{
+  if(localMode()){
+   const batch=pageIndex+1,items=questions.slice(pageIndex*10,pageIndex*10+10);
+   const result=localBatchReport(items,unsentBatch,localGeo,batch);
+   text=result.text;
+   label=result.complete?
+    "Completed UNSCORED LOCAL batch. Only your own entries are revealed; correct answers await private referee. NOT saved to GitHub.":
+    "INCOMPLETE LOCAL batch: "+result.missing+" unanswered fields are marked [MISSING]. This is not a completed or saved batch.";
+  }else if(connected&&client&&remote){
+   // Fresh replay must confirm all GitHub events; never export a merely pending stage.
+   const fresh=replay(await client.comments(),manifest);
+   const eligible=completedBatches(fresh.accepted);
+   const selected=Number($("handoffBatch").value);
+   const chosen=eligible.find(x=>x.batch===selected)||eligible.at(-1);
+   if(!chosen){
+    status.textContent="Batch not complete in private GitHub. Save and verify all ten Geography entries (five in the final batch) first.";
+    output.value="";return;
+   }
+   text=batchHandoff(fresh.accepted,chosen.batch);
+   label="GitHub VERIFIED draft batch "+chosen.batch+" only — player-entered results, NOT official grades. Correct answers await private referee.";
+   remote=fresh;
+   renderChatHandoff();
+   $("handoffBatch").value=String(chosen.batch);
+   $("handoffPreview").value=text;
+  }else{
+   status.textContent="Reconnect private GitHub to verify a saved batch, or disconnect to export an UNSCORED LOCAL trial.";
+   output.value="";return;
+  }
+  output.value=text;
+  status.textContent=label+" Copying…";
+  try{
+   await navigator.clipboard.writeText(text);
+   status.textContent=label+" Copied in ONE click. Paste into this ChatGPT conversation.";
+  }catch{
+   output.focus();output.select();
+   status.textContent=label+" Clipboard blocked. Results are selected below; use Ctrl+C (or mobile Copy).";
+  }
+ }catch(e){
+  output.value="";
+  status.textContent="No verified batch report created: "+e.message+". Your draft answers were not changed.";
+ }finally{button.disabled=false}
+}
+
 
 function renderCount(){const done=remote?.accepted.length||0;$("count").textContent=done+" / "+questions.length+" experimentally synced";$("stage").textContent=connected?"GitHub draft connected · not official":"Answers editable · connect only to save"}
 function renderCards(){
@@ -453,7 +502,7 @@ async function init(){
   document.querySelector("header .sub").textContent="ONE new unscored question · private Issue #6 only · original 390/390 untouched";
   document.querySelector("header .notice").textContent="This is a restricted browser write/read/reload test. No earlier V3/V4 trial results are reused.";
   document.querySelector(".sectionheading h2").textContent="Single unscored flag card";
-  $("chatHandoff").hidden=true;$("acceptancePanel").hidden=false;
+  $("chatHandoff").hidden=true;$("finishPanel").hidden=true;$("acceptancePanel").hidden=false;
   const sheet=$("cards").closest(".panel");
   sheet.querySelector(".sectionheading span").textContent="One question · unscored";
   sheet.querySelector(".batchNav").style.display="none";
@@ -485,6 +534,7 @@ async function init(){
   persistLocal();updateLocalTrial();
  };
  $("trialBuild").onclick=buildLocalTrial;$("trialCopy").onclick=copyLocalTrial;
+ $("finishBatch").onclick=finishBatch;
  $("trialClear").onclick=clearLocalTrial;
  window.addEventListener("focus",()=>refresh(false));document.addEventListener("visibilitychange",()=>{if(!document.hidden)refresh(false)});setInterval(()=>refresh(false),60000);
   setInterval(()=>{if(connected&&remote?.pending&&!currentTarget)refresh(false)},12000); // Wait for private Action's single-target receipt.
@@ -498,5 +548,5 @@ async function init(){
  renderCount();renderCards();showNext();
  fetch("../location/data/world-10m.json").then(x=>x.json()).then(j=>{if(j.features?.length<200)throw Error("Invalid high-resolution atlas");hi=j;atlas=atlasIndex(hi,world,detail);drawMap(true);updateSubmit()}).catch(e=>{$("mapStatus").textContent="Detailed map unavailable: "+e.message});
 }
-window.__combined195={getCount:()=>questions.length,modeCount:()=>({status:"PRIVATE_AFTER_IDENTITY",total:questions.length}),getStatus:()=>({connected,accepted:remote?.accepted.length||0,next:remote?.next?.q??null,identitySaved:!!remote?.pending,acceptance:ACCEPTANCE}),getWorldView:()=>({...view}),getLocalTrial:()=>({selected:localSelected,geography:[...localGeo],drafts:[...unsentBatch]}),getSubmitted:()=>remote?.accepted||[],getCurrent:()=>getCurrent(),getAtlasReady:()=>!!atlas,getTarget:()=>currentTarget,getCompletedHandoffs:()=>remote?completedBatches(remote.accepted).map(x=>x.batch):[],getHandoffPreview:()=>{const batches=remote?completedBatches(remote.accepted):[];return batches.length?batchHandoff(remote.accepted,batches.at(-1).batch):null}};
+window.__combined195={getCount:()=>questions.length,modeCount:()=>({status:"PRIVATE_AFTER_IDENTITY",total:questions.length}),getStatus:()=>({connected,accepted:remote?.accepted.length||0,next:remote?.next?.q??null,identitySaved:!!remote?.pending,acceptance:ACCEPTANCE}),getWorldView:()=>({...view}),getLocalTrial:()=>({selected:localSelected,geography:[...localGeo],drafts:[...unsentBatch]}),getSubmitted:()=>remote?.accepted||[],getCurrent:()=>getCurrent(),getAtlasReady:()=>!!atlas,getTarget:()=>currentTarget,getCompletedHandoffs:()=>remote?completedBatches(remote.accepted).map(x=>x.batch):[],getHandoffPreview:()=>{const batches=remote?completedBatches(remote.accepted):[];return batches.length?batchHandoff(remote.accepted,batches.at(-1).batch):null},getFinishText:()=>($("finishOutput")?.value||"")};
 init().catch(e=>{$("count").textContent="Could not load game";auth(e.message,"warning")});

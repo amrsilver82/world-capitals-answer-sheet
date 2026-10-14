@@ -43,3 +43,13 @@ button.primary,#submit,#lockIdentity,#connect{background:#175bc4;color:#fff;bord
 #trialPanel h3{font-size:16px;margin:0}
 #trialPanel p{font-size:13px;color:#52627b}
 #trialOutput{width:100%;font:12px/1.6 ui-monospace,Consolas,monospace;padding:10px;background:#f8fafc;border:1px solid #c3d0e5;border-radius:8px;resize:vertical}
+
+/* Mandatory unified batch-result control: atlas first, results after map. */
+#finishPanel{margin-top:20px;padding:16px;border:1px solid #a8bedc;border-radius:12px;background:#f6f9ff}
+#finishPanel h3{margin:0 0 6px;font-size:18px}
+#finishPanel .handoffInfo{font-size:13px;color:#50617c}
+#finishBatch{width:100%;min-height:50px;padding:12px 18px;font-weight:700;font-size:16px;background:#184a86;color:#fff;border:1px solid #173e6e;border-radius:9px;cursor:pointer}
+#finishBatch:disabled{opacity:.65;cursor:wait}
+#finishStatus{font-size:13px;line-height:1.5;white-space:pre-wrap}
+#finishOutput{display:block;width:100%;min-height:165px;background:#fff;border:1px solid #9eb0c8;border-radius:8px;padding:10px;color:#233853;font:12px/1.55 ui-monospace,Consolas,monospace;resize:vertical;white-space:pre-wrap}
+#finishOutput:focus{outline:2px solid #1e64a8}
