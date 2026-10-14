@@ -61,6 +61,7 @@ function choose(i){
  $("areaMethod").hidden=!c.area;$("area").value=d.area||"";
  document.querySelectorAll('input[name="vote"]').forEach(x=>x.checked=x.value===d.vote);
  $("pinStatus").textContent=d.pin?"Your pin: "+d.pin.lon.toFixed(3)+", "+d.pin.lat.toFixed(3):"No pin selected";
+ if((d.method||c.default)==="area"&&!d.area){d.revealed=false;d.score=null}
  $("result").hidden=!d.revealed;
  if(d.revealed)$("result").textContent=d.score||"No provisional result";
  $("progress").textContent=C.filter((_,i)=>data[i].vote).length+" / 7 decisions recorded • no official score";
@@ -89,8 +90,10 @@ function summary(){
  "All cases are provisional. No official scores or previous game sessions changed."];
  C.forEach((c,i)=>{
   const d=data[i];
+  const eligible=!(d.method==="area"&&!d.area);
+  const provisional=eligible?(d.score||"not checked"):"not evaluated — no region selected";
   lines.push((i+1)+". "+c.name+" | tested method: "+(d.method||c.default)+" | pin: "+(d.pin?d.pin.lon.toFixed(3)+","+d.pin.lat.toFixed(3):"none")+
-   " | region: "+(d.area||"none")+" | provisional: "+(d.score||"not checked")+" | preferred rule: "+(d.vote||"not chosen"))
+   " | region: "+(d.area||"none")+" | provisional: "+provisional+" | preferred rule: "+(d.vote||"not chosen"))
  });
  lines.push("My preference is a fairness decision, not a scored geography answer. Please review borderline microstate placements before adopting scoring.");
  return lines.join("\n")
@@ -98,7 +101,7 @@ function summary(){
 function init(){
  load();document.querySelectorAll('input[name="method"]').forEach(x=>x.addEventListener("change",()=>{data[at].revealed=false;data[at].score=null;updateMethod();$("result").hidden=true;draw(true)}));
  document.querySelectorAll('input[name="vote"]').forEach(x=>x.addEventListener("change",()=>{data[at].vote=vote();save();$("progress").textContent=C.filter((_,i)=>data[i].vote).length+" / 7 decisions recorded"}));
- $("area").onchange=()=>{data[at].area=$("area").value;data[at].revealed=false;save();$("result").hidden=true};
+ $("area").onchange=()=>{data[at].area=$("area").value;data[at].revealed=false;data[at].score=null;save();$("result").hidden=true};
  $("zoomIn").onclick=()=>zoom(.55);$("zoomOut").onclick=()=>zoom(1.8);$("resetMap").onclick=reset;
  $("removePin").onclick=()=>{data[at].pin=null;data[at].revealed=false;$("pinStatus").textContent="No pin selected";$("result").hidden=true;draw(true);save()};
  $("evaluate").onclick=evaluate;$("next").onclick=()=>choose(at===6?0:at+1);$("previous").onclick=()=>choose(at-1);

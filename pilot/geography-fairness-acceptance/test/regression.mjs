@@ -44,7 +44,19 @@ async function test(engine,mobile){
   await page.waitForFunction(()=>__fairness7?.ready());
   assert.equal(await page.evaluate(()=>__fairness7.case()),"Maldives");
   assert.equal(await page.locator('input[name="vote"][value="broad_area"]').isChecked(),true);
-  for(let i=0;i<3;i++)await page.locator("#next").click();
+  // Regression: changing a previously wrong broad-area choice to blank must NOT preserve stale "wrong area".
+  await page.locator("#next").click();
+  assert.equal(await page.evaluate(()=>__fairness7.case()),"Palau");
+  await page.locator("#area").selectOption("CARIBBEAN");
+  await page.locator("#evaluate").click();
+  assert.match(await page.locator("#result").innerText(),/differs/);
+  await page.locator("#area").selectOption("");
+  assert.equal(await page.locator("#result").isHidden(),true);
+  await page.locator("#build").click();
+  const palauLine=(await page.locator("#export").inputValue()).split("\n").find(x=>x.includes(". Palau |"));
+  assert.match(palauLine,/provisional: not evaluated — no region selected/);
+  assert.doesNotMatch(palauLine,/differs/);
+  for(let i=0;i<2;i++)await page.locator("#next").click();
   assert.equal(await page.evaluate(()=>__fairness7.case()),"Monaco");
   assert.equal(await page.locator("#areaMethod").isHidden(),true);
   for(let i=0;i<16;i++)await page.locator("#zoomIn").click();
