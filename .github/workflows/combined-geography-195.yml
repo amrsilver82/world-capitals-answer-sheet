@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: '22'
       - name: Install Playwright
-        run: npm install --no-save playwright@1.56.1
+        run: npm install --no-save playwright@1.56.1 pngjs@7.0.0
       - name: Start static preview
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/combined195.log 2>&1 &
@@ -36,5 +36,16 @@ jobs:
         run: node pilot/combined-geography-195/test/contract-normal.mjs
       - name: Test one-click Finish Reveal Copy in normal local and verified modes
         run: node pilot/combined-geography-195/test/finish-batch.mjs
+      - name: Verify real saved-Q atlas and broad-area screenshot contract
+        run: node pilot/combined-geography-195/test/repair-normal.mjs
       - name: Test isolated one-question GitHub browser acceptance mode
         run: node pilot/combined-geography-195/test/acceptance.mjs
+
+      - name: Preserve deterministic sanitized normal-route screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: normal-195-desktop-mobile-repair-screenshots
+          path: pilot/combined-geography-195/test/screenshots/*.png
+          if-no-files-found: warn
+          retention-days: 14
