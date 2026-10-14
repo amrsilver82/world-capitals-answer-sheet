@@ -60,7 +60,7 @@ async function normal(browserType,mobile){
   if(!mobile)assert.ok(flagAppearance.first.w>=380,
     "Desktop flag should use large original V4 size, not old thumbnail");
   const specialAlias=manifest.questions[155].flag;
-  assert.match(specialAlias,/3b7c8fcfd965\\.svg$/,"Second approved special-ratio asset alias");
+  assert.ok(specialAlias.endsWith("3b7c8fcfd965.svg"),"Second approved special-ratio asset alias");
   const secondRatio=await page.evaluate(async src=>{
     const matte=document.createElement("div");matte.className="flagPic";matte.style.width="320px";
     const img=document.createElement("img");img.src=src;img.alt="Ratio verification only";
