@@ -215,6 +215,7 @@ async function doRun(engine,mobile){
   assert.equal(await page.locator("#submit").isEnabled(),true,"Q5 unsent pin preserved after inspection");
   assert.equal(posts.length,expectedCount+1);
   await page.locator("#finishBatch").click();
+  await page.waitForFunction(()=>document.querySelector("#finishStatus").textContent.includes("Batch not complete"),null,{timeout:15000});
   assert.match(await page.locator("#finishStatus").innerText(),/Batch not complete/);
   assert.equal(posts.length,expectedCount+1);
   assert.equal(urls.some(x=>x.includes("/contents/")),false,"Original Issues-only token never reads Contents");
@@ -250,6 +251,7 @@ async function doRun(engine,mobile){
   assert.equal(await page.locator("#areaSelect").inputValue(),"CARIBBEAN");
   await capture(page,kind+"-06-broad-verified-always-visible","#atlas");
   await page.locator("#finishBatch").click();
+  await page.waitForFunction(()=>document.querySelector("#finishStatus").textContent.includes("Batch not complete"),null,{timeout:15000});
   assert.match(await page.locator("#finishStatus").innerText(),/Batch not complete/);
   assert.equal(bctx.posts.length,0,"Browse, inspect and copy must not POST");
   assert.equal(bctx.urls.some(x=>x.includes("/contents/")),false);
