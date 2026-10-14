@@ -22,6 +22,64 @@ async function normal(browserType,mobile){
   assert.equal(await page.evaluate(()=>__combined195.getCount()),195);
   assert.equal(await page.locator("#cards .card").count(),10);
   assert.equal(await page.locator('#cards input[type="text"]').count(),20);
+  // Validate the actual pixels/sizing of canonical SVG aliases on NORMAL 195 cards.
+  // No flag-name answer metadata is imported into the public test.
+  await page.waitForFunction(()=>[...document.querySelectorAll("#cards .flagPic img")]
+    .every(img=>img.complete&&img.naturalWidth>0));
+  const flagAppearance=await page.evaluate(()=>{
+    const sample=q=>{
+      const card=document.querySelector('[data-question="'+q+'"]');
+      const matte=card.querySelector(".flagPic"),img=matte.querySelector("img"),
+        im=getComputedStyle(img),mat=getComputedStyle(matte),
+        ib=img.getBoundingClientRect(),mb=matte.getBoundingClientRect();
+      return {w:ib.width,h:ib.height,matteW:mb.width,matteH:mb.height,
+        naturalWidth:img.naturalWidth,naturalHeight:img.naturalHeight,
+        background:im.backgroundColor,matte:mat.backgroundColor,
+        border:im.borderColor,borderWidth:im.borderTopWidth,padding:mat.paddingTop,
+        fit:im.objectFit,source:img.getAttribute("src")};
+    };
+    const list=document.querySelector("#cards").getBoundingClientRect(),
+      atlas=document.querySelector("#activePanel").getBoundingClientRect();
+    return {first:sample(1),second:sample(2),mapFollowsCards:atlas.top>=list.bottom};
+  });
+  for(const v of [flagAppearance.first,flagAppearance.second]){
+    assert.equal(v.background,"rgb(255, 255, 255)","Flag must be on white background");
+    assert.equal(v.matte,"rgb(226, 232, 240)","Flag matte must be light gray");
+    assert.equal(v.border,"rgb(71, 85, 105)","Flag must have approved dark border");
+    assert.equal(v.borderWidth,"2px");assert.equal(v.padding,"12px");
+    assert.ok(v.w>0&&v.w<=420.5&&v.w<=v.matteW-24+1,"420px maximum and card-width fit");
+    assert.ok(v.h>120,"Old 110px image cap must be removed");
+    assert.ok(v.naturalWidth>0&&v.naturalHeight>0,"Canonical SVG loaded");
+    assert.notEqual(v.fit,"cover","No image cropping");
+  }
+  assert.ok(flagAppearance.mapFollowsCards,"World atlas stays immediately after card grid");
+  assert.equal(flagAppearance.first.source,manifest.questions[0].flag);
+  assert.equal(flagAppearance.second.source,manifest.questions[1].flag);
+  assert.ok(Math.abs(flagAppearance.second.w/flagAppearance.second.h-5/4)<.015,
+    "First special-ratio canonical SVG must render at 5:4");
+  if(!mobile)assert.ok(flagAppearance.first.w>=380,
+    "Desktop flag should use large original V4 size, not old thumbnail");
+  const specialAlias=manifest.questions[155].flag;
+  assert.match(specialAlias,/3b7c8fcfd965\\.svg$/,"Second approved special-ratio asset alias");
+  const secondRatio=await page.evaluate(async src=>{
+    const matte=document.createElement("div");matte.className="flagPic";matte.style.width="320px";
+    const img=document.createElement("img");img.src=src;img.alt="Ratio verification only";
+    matte.append(img);document.body.append(matte);
+    try{
+      await img.decode();
+      const i=img.getBoundingClientRect(),m=getComputedStyle(matte),s=getComputedStyle(img);
+      return {ratio:i.width/i.height,width:i.width,background:s.backgroundColor,
+        matte:m.backgroundColor,border:s.borderColor,borderWidth:s.borderTopWidth,loaded:img.naturalWidth>0};
+    }finally{matte.remove()}
+  },specialAlias);
+  assert.ok(secondRatio.loaded);
+  assert.ok(Math.abs(secondRatio.ratio-3/2)<.015,
+    "Second special-ratio canonical SVG must display at 3:2 despite generic canvas");
+  assert.ok(secondRatio.width<=420);
+  assert.equal(secondRatio.background,"rgb(255, 255, 255)");
+  assert.equal(secondRatio.matte,"rgb(226, 232, 240)");
+  assert.equal(secondRatio.border,"rgb(71, 85, 105)");
+  assert.equal(secondRatio.borderWidth,"2px");
   assert.equal(await page.locator("#countryInput").isEnabled(),true);
   assert.equal(await page.locator("#capitalInput").isEnabled(),true);
   assert.equal(await page.locator("#atlas").isVisible(),true);
