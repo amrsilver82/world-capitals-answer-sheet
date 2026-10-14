@@ -59,3 +59,5 @@ button.primary,#submit,#lockIdentity,#connect{background:#175bc4;color:#fff;bord
 #finishStatus{font-size:13px;line-height:1.5;white-space:pre-wrap}
 #finishOutput{display:block;width:100%;min-height:165px;background:#fff;border:1px solid #9eb0c8;border-radius:8px;padding:10px;color:#233853;font:12px/1.55 ui-monospace,Consolas,monospace;resize:vertical;white-space:pre-wrap}
 #finishOutput:focus{outline:2px solid #1e64a8}
+.savedFields input[readonly]{background:#f3f6fa;color:#31465e;cursor:default}
+#returnToActive{background:#e6f0ff;color:#184a86;border:2px solid #175bc4;font-weight:700}

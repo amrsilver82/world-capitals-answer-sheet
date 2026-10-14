@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self' https://api.github.com; base-uri 'none'; object-src 'none'; form-action 'none'">
 <title>World Flags + Capitals + Geography — 195 Integration Candidate</title>
-<link rel="stylesheet" href="style.css?v=finish-no-overlay-20261014"><script type="module" src="app.mjs?v=visible-finish-20261014"></script></head>
+<link rel="stylesheet" href="style.css?v=shared-atlas-repair-20261014"><script type="module" src="app.mjs?v=shared-atlas-repair-20261014"></script></head>
 <body><main class="wrap">
 <header><h1>World Flags + Capitals + Geography</h1><p class="sub">195-country integrated design · experimental, unapproved scoring · official 390/390 untouched</p>
 <div class="pills"><span id="count" class="pill">195-country manifest loading</span><span id="stage" class="pill">Answers editable · connect only to save</span></div>
@@ -50,7 +50,7 @@
 <div class="mapControls"><button id="zoomIn" type="button">+ Zoom</button><button id="zoomOut" type="button">− Zoom</button><button id="resetWorld" type="button">World view</button><button id="clearPin" type="button" disabled>Clear pin</button></div>
 <div class="mapFrame"><svg id="atlas" role="img" aria-label="World atlas: zoom and pan manually, select location of current country" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid meet"><rect x="-1440" y="0" width="4320" height="720" fill="#dbedf9"/><g id="land"></g><g id="pinLayer"></g></svg></div>
 <p id="mapStatus">Map loading…</p>
-<div class="actions"><button id="submit" disabled>Save experimental answer to private GitHub</button></div></div>
+<div class="actions"><button id="submit" disabled>Save experimental answer to private GitHub</button><button id="returnToActive" type="button" hidden>← Return to active question</button></div></div>
 <section id="finishPanel" aria-labelledby="finishTitle">
 <h3 id="finishTitle">Batch results — one click</h3>
 <p class="handoffInfo">Reveals only what you entered. Local trial results are <strong>not saved</strong> to GitHub. Verified GitHub batches require every Geography entry; actual correct answers await private referee.</p>

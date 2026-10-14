@@ -11,6 +11,7 @@ const ACCEPTANCE_Q=67;
 const ACCEPTANCE_VERSION="live-browser-github-acceptance-one-20261014-v1";
 let manifest=null,questions=[],client=null,remote=null,connected=false,busy=false,refreshing=false;
 let pageIndex=0,currentDraft=null,currentTarget=null,identityLocked=false,temporaryPin=null,atlas=null,world=null,hi=null,detail=null;
+let inspectedSaved=null,inspectionSnapshot=null; // Read-only saved-Q atlas preview; no Issue writes.
 let acceptanceFields=null,acceptanceActions=null;
 let unsentAcceptance={countryText:"",capitalText:""}; // Ephemeral page memory only, never GitHub until saved.
 const unsentBatch=new Map(); // Local unsent 10-card answers; never published until explicit GitHub save.
@@ -216,13 +217,13 @@ function renderCards(){
  for(const q of questions.slice(pageIndex*10,pageIndex*10+10)){
   const card=document.createElement("article");card.className="card";card.dataset.question=String(q.q);
   const done=remote?.accepted.find(x=>x.q===q.q);
-  const current=getCurrent()?.q===q.q||!connected&&q.q===(ACCEPTANCE?ACCEPTANCE_Q:localSelected);
+  const current=inspectedSaved?inspectedSaved.q===q.q:getCurrent()?.q===q.q||!connected&&q.q===(ACCEPTANCE?ACCEPTANCE_Q:localSelected);
   if(done)card.classList.add("done");if(current)card.classList.add("current");
   if(ACCEPTANCE)card.classList.add("acceptance-card");
   const top=document.createElement("div");top.className="header";
   const no=document.createElement("strong");no.textContent="Question "+q.q;
   const state=document.createElement("span");
-  state.textContent=done?"Saved to GitHub":getCurrent()?.q===q.q?"Current":current?"Ready to type · unsaved":"Editable · not saved";
+  state.textContent=done?(current?"Inspecting saved geography":"Saved to GitHub"):getCurrent()?.q===q.q?(inspectedSaved?"Paused while inspecting":"Current"):current?"Ready to type · unsaved":"Editable · not saved";
   top.append(no,state);
   const flag=document.createElement("div");flag.className="flagPic";
   const img=document.createElement("img");img.src=q.flag;img.loading="lazy";img.alt="Flag for question "+q.q;flag.appendChild(img);
@@ -234,8 +235,15 @@ function renderCards(){
    acceptanceFields.hidden=!!done;acceptanceActions.hidden=!!done;
    card.append(top,flag,field,acceptanceFields,acceptanceActions);
   }else if(done){
-   const button=document.createElement("button");button.type="button";button.textContent="See saved submission";
-   button.onclick=()=>showSaved(done);card.append(top,flag,field,button);
+   const savedFields=document.createElement("div");savedFields.className="fields savedFields";
+   for(const [kind,name] of [["countryText","Country"],["capitalText","Capital"]]){
+    const label=document.createElement("label");label.textContent=name+" · GitHub saved";
+    const input=document.createElement("input");input.type="text";input.value=done[kind]||"";
+    input.readOnly=true;input.setAttribute("aria-readonly","true");label.appendChild(input);savedFields.append(label);
+   }
+   const button=document.createElement("button");button.type="button";button.textContent="Inspect saved Geography for Q"+q.q;
+   button.className="inspectSaved";button.onclick=()=>showSaved(done);
+   card.append(top,flag,savedFields,field,button);
   }else if(current){
    const fields=$("identityFields"),actions=$("identityActions");
    fields.hidden=false;actions.hidden=false;card.append(top,flag,field,fields,actions);
@@ -258,10 +266,67 @@ function renderCards(){
   wrap.appendChild(card);
  }
 }
+// Inspect a completed draft only on the SAME shared atlas, without touching
+// the authoritative private event history or the current unsaved question state.
+const INSPECT_IDS=["activeTitle","geoPrompt","instructions","mapInstructions","mapStatus","modeLabel","questionStatus"];
+const INSPECT_HIDDEN=["identityFields","identityActions","geoControls","trialPanel","trialMethodRow","trialAreaRow",
+ "areaRow","mapInstructions","mapStatus","clearPin","submit","returnToActive"];
+const INSPECT_DISABLED=["countryInput","capitalInput","lockIdentity","submit","clearPin","areaSelect"];
 function showSaved(done){
- message("GitHub-confirmed experimental Q"+done.q+": Country and Capital responses and geography recorded. Private referee will grade after full batch.","good");
+ if(!connected||ACCEPTANCE||busy||!remote?.accepted.some(x=>x.q===done.q&&x.githubCommentId===done.githubCommentId))return;
+ if(!inspectionSnapshot){
+  inspectionSnapshot={
+   view:{...view},pin:temporaryPin?{...temporaryPin}:null,
+   texts:Object.fromEntries(INSPECT_IDS.map(id=>[id,$(id).textContent])),
+   hidden:Object.fromEntries(INSPECT_HIDDEN.map(id=>[id,$(id).hidden])),
+   disabled:Object.fromEntries(INSPECT_DISABLED.map(id=>[id,$(id).disabled])),
+   area:$("areaSelect").value, country:$("countryInput").value,capital:$("capitalInput").value
+  };
+ }
+ inspectedSaved=done;
+ const g=done.geography||{},pin=g.mode==="country_pin"&&g.point?
+  {lon:g.point.lon,lat:g.point.lat}:null;
+ temporaryPin=pin;
+ // Saved targets are already known; world view never discloses a FUTURE target.
+ view={x:0,y:0,w:1440,h:720};
+ $("identityFields").hidden=true;$("identityActions").hidden=true;
+ $("geoControls").hidden=false;$("trialPanel").hidden=true;$("trialMethodRow").hidden=true;
+ $("trialAreaRow").hidden=true;$("areaRow").hidden=g.mode!=="broad_area";
+ $("areaSelect").value=g.mode==="broad_area"?g.choice:"";$("areaSelect").disabled=true;
+ $("mapInstructions").hidden=false;$("mapInstructions").textContent=
+  "READ-ONLY saved Geography for Q"+done.q+". Explore this saved pin/area with zoom and pan. Return to active question to continue.";
+ $("mapStatus").hidden=false;$("clearPin").hidden=g.mode!=="country_pin";
+ $("clearPin").disabled=true;$("submit").hidden=true;$("submit").disabled=true;
+ $("returnToActive").hidden=false;
+ $("countryInput").disabled=true;$("capitalInput").disabled=true;$("lockIdentity").disabled=true;
+ $("activeTitle").textContent="Shared atlas — Saved Q"+done.q+" (read-only)";
+ $("modeLabel").textContent=g.mode==="broad_area"?"Saved broad area":"Saved country pin";
+ $("geoPrompt").textContent="Private GitHub saved Q"+done.q+" · Country and Capital confirmed. Geography is read-only.";
+ $("instructions").textContent="Inspecting Q"+done.q+"; active unsent answers and pins are preserved.";
+ drawMap();
+ $("mapStatus").textContent=pin?
+  "Saved Q"+done.q+" pin: "+pin.lon.toFixed(3)+", "+pin.lat.toFixed(3)+" · read-only":
+  "Saved Q"+done.q+" broad area: "+(g.choice||"unselected")+" · read-only; Atlas remains navigable";
+ renderCards();
+ message("Inspecting confirmed GitHub Q"+done.q+". Nothing can be changed or re-sent here. Use Return to active question.","good");
+}
+function returnFromSavedInspection(){
+ if(!inspectedSaved||!inspectionSnapshot)return;
+ const s=inspectionSnapshot;
+ inspectedSaved=null;inspectionSnapshot=null;
+ view={...s.view};temporaryPin=s.pin;
+ renderCards();
+ for(const [id,t] of Object.entries(s.texts))$(id).textContent=t;
+ for(const [id,v] of Object.entries(s.hidden))$(id).hidden=v;
+ for(const [id,v] of Object.entries(s.disabled))$(id).disabled=v;
+ $("areaSelect").value=s.area;
+ $("countryInput").value=s.country;$("capitalInput").value=s.capital;
+ $("returnToActive").hidden=true;
+ drawMap();
+ updateSubmit();
 }
 function showNext(){
+ inspectedSaved=null;inspectionSnapshot=null;$("returnToActive").hidden=true;
  renderCount();renderCards();renderChatHandoff();
  const q=getCurrent(),shown=q||(!connected?(ACCEPTANCE?manifest?.questions[0]:questions.find(x=>x.q===localSelected)):null);
  identityLocked=false;currentTarget=null;currentDraft=null;temporaryPin=null;
@@ -311,7 +376,7 @@ function normalizedGeo(){
  if(q.mode==="broad_area"){const v=$("areaSelect").value;return v?{mode:q.mode,choice:v}:null}
  return temporaryPin?{mode:q.mode,point:{...temporaryPin}}:null;
 }
-function updateSubmit(){const g=normalizedGeo();$("submit").disabled=!connected||busy||!identityLocked||!g||!atlas}
+function updateSubmit(){const g=normalizedGeo();$("submit").disabled=!!inspectedSaved||!connected||busy||!identityLocked||!g||!atlas}
 function path(poly,shift){
  let d="";for(const ring of poly){let prev=null,part="";
   for(const [rawLon,lat] of ring){let lon=rawLon;if(prev!==null){while(lon-prev>180)lon-=360;while(lon-prev< -180)lon+=360}prev=lon;
@@ -362,6 +427,7 @@ function zoom(f,p){
  view.w=w*f;view.h=h*f;view.x=a.x-(a.x-view.x)*f;view.y=a.y-(a.y-view.y)*f;clampView();drawMap();
 }
 function setPin(e){
+ if(inspectedSaved)return; // Never replace or POST a confirmed Q while inspecting it.
  if(localMode()){
   if(busy||$("trialMethod").value!=="country_pin")return;
   const p=mapPoint(e),point={lon:+normalize(p.x/4-180).toFixed(3),lat:+Math.max(-90,Math.min(90,90-p.y/4)).toFixed(3)};
@@ -397,7 +463,7 @@ function setupMap(){
  svg.addEventListener("click",e=>{if(e.detail===0)setPin(e)});
  $("zoomIn").onclick=()=>zoom(.45,temporaryPin?{x:(temporaryPin.lon+180)*4,y:(90-temporaryPin.lat)*4}:undefined);$("zoomOut").onclick=()=>zoom(1.43);$("resetWorld").onclick=worldView;
  $("clearPin").onclick=()=>{
-  if(!temporaryPin)return;temporaryPin=null;
+  if(inspectedSaved||!temporaryPin)return;temporaryPin=null;
   if(localMode()){localGeo.set(localSelected,{mode:"country_pin",point:null});
    persistLocal();updateLocalTrial()}
   $("clearPin").disabled=true;drawMap();updateSubmit();
@@ -412,11 +478,16 @@ function beginGeography(){
  $("lockIdentity").hidden=true;$("unlockIdentity").hidden=true;
  $("geoControls").hidden=false;
  $("submit").hidden=false;
- $("geoPrompt").textContent="Place "+q.name+" on the world map, or choose its permitted broad area.";
+ $("geoPrompt").textContent=q.mode==="broad_area"?
+  "Choose the permitted broad area for "+q.name+"; the shared world atlas remains available for navigation.":
+  "Place your own pin for "+q.name+" on the world map.";
  $("trialPanel").hidden=true;$("trialMethodRow").hidden=true;
- $("areaRow").hidden=q.mode!=="broad_area";$("clearPin").hidden=q.mode!=="country_pin";$("clearPin").disabled=true;$("mapInstructions").hidden=q.mode!=="country_pin";
- $("mapInstructions").textContent="Place your own pin for "+q.name+"; pan and zoom manually, with no automatic country prezoom.";
- $("mapStatus").hidden=q.mode!=="country_pin";$("atlas").closest(".mapFrame").hidden=q.mode!=="country_pin";
+ $("areaRow").hidden=q.mode!=="broad_area";$("clearPin").hidden=q.mode!=="country_pin";$("clearPin").disabled=true;
+ $("mapInstructions").hidden=false;
+ $("mapInstructions").textContent=q.mode==="broad_area"?
+  "Browse, drag and zoom the WORLD atlas freely. This question uses the broad-area dropdown, not a pin.":
+  "Place your own pin for "+q.name+"; pan and zoom manually, with no automatic country prezoom.";
+ $("mapStatus").hidden=false;$("atlas").closest(".mapFrame").hidden=false; // Never hide shared Atlas on broad-area stages.
  $("modeLabel").textContent=modes[q.mode];
  $("instructions").textContent="Your Country and Capital answers are securely recorded; they cannot be edited. Now answer Geography.";
  $("areaSelect").value="";temporaryPin=null;if(!ACCEPTANCE)worldView();updateSubmit();
@@ -442,6 +513,7 @@ async function refresh(force=false){
  finally{refreshing=false}
 }
 async function submit(){
+ if(inspectedSaved)return;
  const q=getCurrent(),geo=normalizedGeo(),waiting=remote?.pending;
  if(!connected||busy||!q||!identityLocked||!geo||!waiting||!currentTarget)return;
  busy=true;$("submit").disabled=true;message("Saving geography to private GitHub...");
@@ -468,6 +540,7 @@ async function submit(){
  finally{busy=false;updateSubmit()}
 }
 async function saveIdentity(){
+ if(inspectedSaved)return;
  const q=getCurrent();
  if(!connected||busy||!q||remote?.pending)return;
  busy=true;$("lockIdentity").disabled=true;
@@ -538,6 +611,7 @@ async function init(){
  worldView();setupMap();$("batchPrev").onclick=()=>{pageIndex--;renderCards()};$("batchNext").onclick=()=>{pageIndex++;renderCards()};
  $("lockIdentity").onclick=saveIdentity;$("unlockIdentity").hidden=true;
  $("areaSelect").onchange=updateSubmit;$("submit").onclick=submit;
+ $("returnToActive").onclick=returnFromSavedInspection;
  $("handoffBatch").onchange=previewChatHandoff;$("copyHandoff").onclick=copyChatHandoff;
  $("connect").onclick=()=>connect($("credential").value.trim());
  $("reuse").onclick=()=>{const token=localStorage.getItem(TOKEN_KEY)||"";if(!token){auth("No previously remembered pilot credential in this browser. Enter a restricted token if you decide to try synchronized drafts.");return}connect(token)};
