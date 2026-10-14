@@ -2,11 +2,11 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self' https://api.github.com; base-uri 'none'; object-src 'none'; form-action 'none'">
 <title>World Flags + Capitals + Geography — 195 Integration Candidate</title>
-<link rel="stylesheet" href="style.css?v=shared-atlas-repair-20261014"><script type="module" src="app.mjs?v=shared-atlas-repair-20261014"></script></head>
+<link rel="stylesheet" href="style.css?v=restored-original-20261014"><script type="module" src="app.mjs?v=restored-original-20261014"></script></head>
 <body><main class="wrap">
 <header><h1>World Flags + Capitals + Geography</h1><p class="sub">195-country integrated design · experimental, unapproved scoring · official 390/390 untouched</p>
 <div class="pills"><span id="count" class="pill">195-country manifest loading</span><span id="stage" class="pill">Answers editable · connect only to save</span></div>
-<p class="notice">195-country experimental game · enter Country and Capital on each flag card, use the world atlas below, and connect GitHub only to save. No official championship has started.</p></header>
+<p class="notice">Answer the flags below, then choose Geography on the <strong>shared world atlas</strong>. You can complete a local practice batch without signing in. Private saving is optional.</p></header>
 <div id="finishPrimary" aria-label="Batch results action">
 <button id="finishBatch" type="button" aria-controls="finishPanel">Finish batch — Reveal &amp; Copy results</button>
 <p id="finishEligibility" role="status">Loading current batch progress…</p>
@@ -19,7 +19,7 @@
 <button id="refresh" disabled>Refresh</button><button id="disconnect" disabled>Disconnect</button></div>
 <p id="authStatus" role="status">You may type without connecting; no answers are saved until GitHub confirms them.</p></section>
 <section class="panel">
-<div class="sectionheading"><h2>Original combined-game flag cards</h2><span>10 per batch · 195 total</span></div>
+<div class="sectionheading"><h2>1. Flags — Country &amp; Capital</h2><span>10 questions per batch · 195 total</span></div>
 <div class="batchNav"><button id="batchPrev" type="button">‹ Previous batch</button><strong id="batchNo"></strong><button id="batchNext" type="button">Next batch ›</button></div>
 <div id="cards" class="cards"></div>
 </section>
@@ -32,7 +32,7 @@
 <textarea id="handoffPreview" readonly rows="5" aria-label="Completed batch handoff preview"></textarea></label>
 <p class="handoffInfo">This is a development handoff, not an official score report. Free retries and clues remain chat-only and the final GitHub score commit remains approval-gated.</p>
 </section>
-<section class="panel" id="activePanel"><div class="sectionheading"><h2 id="activeTitle">Shared atlas — Geography</h2><span id="modeLabel"></span></div>
+<section class="panel" id="activePanel"><div class="sectionheading"><h2 id="activeTitle">2. Shared world atlas — Geography</h2><span id="modeLabel"></span></div>
 <p id="instructions">Connect GitHub before starting an experimental attempt. Browsing flag cards does not change progress.</p>
 <div class="fields" id="identityFields"><label>Country <input id="countryInput" type="text" autocomplete="off" spellcheck="false" placeholder="Country answer"></label>
 <label>Capital <input id="capitalInput" type="text" autocomplete="off" spellcheck="false" placeholder="Capital answer"></label></div>
@@ -52,7 +52,7 @@
 <p id="mapStatus">Map loading…</p>
 <div class="actions"><button id="submit" disabled>Save experimental answer to private GitHub</button><button id="returnToActive" type="button" hidden>← Return to active question</button></div></div>
 <section id="finishPanel" aria-labelledby="finishTitle">
-<h3 id="finishTitle">Batch results — one click</h3>
+<h3 id="finishTitle">3. Your batch results</h3>
 <p class="handoffInfo">Reveals only what you entered. Local trial results are <strong>not saved</strong> to GitHub. Verified GitHub batches require every Geography entry; actual correct answers await private referee.</p>
 <p id="finishStatus" role="status" aria-live="polite">Ready to reveal and copy your batch responses; unfinished fields will be marked clearly.</p>
 <label for="finishOutput">Your Country, Capital and Geography results

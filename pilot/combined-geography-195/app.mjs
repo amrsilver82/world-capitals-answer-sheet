@@ -41,11 +41,12 @@ function loadLocal(){
   if(Number.isInteger(s.selected)&&s.selected>=1&&s.selected<=10)localSelected=s.selected;
  }catch{}
 }
-function selectLocal(q){
+function selectLocal(q,scrollToAtlas=false){
  if(!localMode()||!questions.slice(pageIndex*10,pageIndex*10+10).some(x=>x.q===q))return;
  localSelected=q;temporaryPin=localEntry(q)?.point||null;
  $("countryInput").value=draft(q).countryText;$("capitalInput").value=draft(q).capitalText;
  renderCards();drawMap();updateLocalTrial();persistLocal();
+ if(scrollToAtlas)$("activePanel").scrollIntoView({behavior:"smooth",block:"start"});
 }
 function updateLocalTrial(){
  if(ACCEPTANCE)return;
@@ -229,7 +230,7 @@ function renderCards(){
   const img=document.createElement("img");img.src=q.flag;img.loading="lazy";img.alt="Flag for question "+q.q;flag.appendChild(img);
   const field=document.createElement("div");field.className="fieldsSmall";
   field.textContent=done?"Country: "+(done.countryText||"—")+" · Capital: "+(done.capitalText||"—"):
-   "Country and Capital · type here; nothing saved until you confirm";
+   "Enter both answers below";
   if(ACCEPTANCE){
    if(!acceptanceFields||!acceptanceActions)throw Error("Answer fields missing");
    acceptanceFields.hidden=!!done;acceptanceActions.hidden=!!done;
@@ -243,10 +244,18 @@ function renderCards(){
    }
    const button=document.createElement("button");button.type="button";button.textContent="Inspect saved Geography for Q"+q.q;
    button.className="inspectSaved";button.onclick=()=>showSaved(done);
-   card.append(top,flag,savedFields,field,button);
+   card.append(top,flag,savedFields,button);
   }else if(current){
    const fields=$("identityFields"),actions=$("identityActions");
-   fields.hidden=false;actions.hidden=false;card.append(top,flag,field,fields,actions);
+   fields.hidden=false;actions.hidden=false;card.append(top,flag,fields,actions);
+   if(localMode()){
+    const select=document.createElement("button");select.type="button";
+    select.className="locateQuestion";
+    select.textContent="Place Geography for Q"+q.q+" ↓";
+    select.setAttribute("aria-label","Place Geography for question "+q.q+" on the shared atlas");
+    select.onclick=()=>selectLocal(q.q,true);
+    card.append(select);
+   }
   }else{
    const fields=document.createElement("div");fields.className="fields";
    for(const [kind,name] of [["countryText","Country"],["capitalText","Capital"]]){
@@ -255,12 +264,13 @@ function renderCards(){
     input.placeholder=name+" answer";input.value=draft(q.q)[kind];
     input.addEventListener("input",()=>{draft(q.q)[kind]=input.value;persistLocal();updateLocalTrial()});label.append(input);fields.append(label);
    }
-   card.append(top,flag,field,fields);
+   card.append(top,flag,fields);
    if(localMode()){
     const select=document.createElement("button");
     select.type="button";select.className="locateQuestion";
-    select.textContent="Place Geography for Q"+q.q;
-    select.onclick=()=>selectLocal(q.q);card.append(select);
+    select.textContent="Place Geography for Q"+q.q+" ↓";
+    select.setAttribute("aria-label","Place Geography for question "+q.q+" on the shared atlas");
+    select.onclick=()=>selectLocal(q.q,true);card.append(select);
    }
   }
   wrap.appendChild(card);
@@ -309,6 +319,7 @@ function showSaved(done){
   "Saved Q"+done.q+" broad area: "+(g.choice||"unselected")+" · read-only; Atlas remains navigable";
  renderCards();
  message("Inspecting confirmed GitHub Q"+done.q+". Nothing can be changed or re-sent here. Use Return to active question.","good");
+ $("activePanel").scrollIntoView({behavior:"smooth",block:"start"});
 }
 function returnFromSavedInspection(){
  if(!inspectedSaved||!inspectionSnapshot)return;
