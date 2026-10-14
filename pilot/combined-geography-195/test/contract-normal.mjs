@@ -22,6 +22,12 @@ async function normal(browserType,mobile){
   assert.equal(await page.evaluate(()=>__combined195.getCount()),195);
   assert.equal(await page.locator("#cards .card").count(),10);
   assert.equal(await page.locator('#cards input[type="text"]').count(),20);
+  assert.equal(await page.locator("#cards .locateQuestion").count(),10,
+    "Every unsaved flag—including selected Q1—must have a direct shared-atlas action");
+  for(let q=1;q<=10;q++)
+   assert.match(await page.locator('[data-question="'+q+'"] .locateQuestion').innerText(),
+     new RegExp("Place Geography for Q"+q),"Each link must target its own selected question");
+
   // Validate the actual pixels/sizing of canonical SVG aliases on NORMAL 195 cards.
   // No flag-name answer metadata is imported into the public test.
   await page.waitForFunction(()=>[...document.querySelectorAll("#cards .flagPic img")]
@@ -101,6 +107,9 @@ async function normal(browserType,mobile){
     "Flag cards -> atlas -> handoff -> optional GitHub");
   assert.equal(data.world.w,1440);assert.equal(data.world.h,720);
   assert.equal(calls.length,0,"No token or GitHub calls merely opening the normal page");
+  await page.locator('[data-question="1"] .locateQuestion').click();
+  assert.match(await page.locator("#trialProgress").innerText(),/Selected Q1/);
+  assert.equal(await page.locator("#atlas").isVisible(),true);
   await page.locator("#countryInput").fill("first country draft");
   await page.locator("#capitalInput").fill("first capital draft");
   await page.locator('[data-question="2"] .locateQuestion').click();
