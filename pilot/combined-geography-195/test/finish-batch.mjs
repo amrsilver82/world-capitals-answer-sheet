@@ -81,9 +81,29 @@ async function check(engine,mobile){
   assert.match(await page.locator("#finishStatus").innerText(),/Clipboard blocked/);
   assert.equal(await page.locator("#finishOutput").evaluate(e=>e.selectionEnd-e.selectionStart),
    (await page.locator("#finishOutput").inputValue()).length);
+  // Entire 10-question local batch must complete and copy in ONE click, with zero GitHub traffic.
+  await page.evaluate(()=>{Object.defineProperty(navigator,"clipboard",{configurable:true,
+   value:{writeText:async t=>{window.__copied=t}}})});
+  for(let q=3;q<=10;q++){
+   await page.locator('[data-question="'+q+'"] .locateQuestion').click();
+   await page.locator("#countryInput").fill("local country "+q);
+   await page.locator("#capitalInput").fill("local capital "+q);
+   await page.locator("#atlas").scrollIntoViewIfNeeded();
+   const b=await page.locator("#atlas").boundingBox();
+   if(mobile)await page.touchscreen.tap(b.x+b.width*.55,b.y+b.height*.48);
+   else await page.mouse.click(b.x+b.width*.55,b.y+b.height*.48);
+  }
+  await page.locator("#finishBatch").click();
+  const complete=await page.locator("#finishOutput").inputValue();
+  assert.match(complete,/COMPLETED UNSCORED LOCAL BATCH/);
+  assert.match(complete,/Missing fields: 0/);
+  assert.match(complete,/Q10 \| Country: local country 10 \| Capital: local capital 10 \| Geography: Pin/);
+  assert.equal(await page.evaluate(()=>window.__copied),complete);
+  assert.equal(complete.split("\n").filter(x=>/^Q\d+ \| Country:/.test(x)).length,10);
+  assert.equal(requests.length,0);
   assert.deepEqual(errors,[]);
   console.log("PASS "+engine.name()+" "+(mobile?"mobile":"desktop")+
-   " local one-click: incomplete marked, entered Country/Capital/area/pin, single-copy, reload, fallback, zero private writes");
+   " local one-click: incomplete and complete 10/10, area/pin, single-copy, reload, fallback, zero private writes");
   await ctx.close();
  }finally{await browser.close()}
 }
@@ -113,6 +133,9 @@ async function verified(engine,mobile,accepted=10){
   await page.waitForFunction(n=>__combined195.getStatus().accepted===n,accepted);
   const expectedBatch=Math.floor(accepted/10);
   await page.locator("#finishBatch").click();
+  await page.waitForFunction(n=>n<10?
+   document.querySelector("#finishStatus").textContent.includes("Batch not complete"):
+   document.querySelector("#finishStatus").textContent.includes("GitHub VERIFIED draft batch"),accepted,{timeout:15000});
   const report=await page.locator("#finishOutput").inputValue();
   if(accepted<10){
    assert.equal(report,"","Incomplete GitHub batch must fail closed");
@@ -120,8 +143,13 @@ async function verified(engine,mobile,accepted=10){
    assert.equal(await page.evaluate(()=>window.__copied),null);
   }else{
    assert.ok(report.includes("PRIVATE GitHub Issue #5"));
-   assert.ok(report.includes("Q1 | Country entered: entered 1 | Capital entered: capital 1 | Pin: -27.125,42.250"));
-   assert.ok(report.includes("Q"+(Math.floor(accepted/10)*10)+" | Country entered:"));
+   const beginning=accepted===195?191:1,ending=accepted===195?195:accepted;
+   assert.ok(report.includes("Q"+beginning+" | Country entered: entered "+beginning+
+    " | Capital entered: capital "+beginning+" | Pin: -27.125,42.250"));
+   assert.ok(report.includes("Q"+ending+" | Country entered:"));
+   assert.equal(report.split("\n").filter(x=>/^Q\d+ \| Country entered:/.test(x)).length,
+    accepted===195?5:10);
+   if(accepted===195)assert.ok(!report.includes("Q190 | Country entered:"));
    assert.ok(!report.includes("correctCountry")&&!report.includes("github_pat_"));
    assert.equal(await page.evaluate(()=>window.__copied),report);
    assert.match(await page.locator("#finishStatus").innerText(),/GitHub VERIFIED draft batch/);
@@ -137,3 +165,4 @@ await check(chromium,false);
 await check(webkit,true);
 await verified(chromium,false,9);
 await verified(webkit,true,10);
+await verified(chromium,false,195);
