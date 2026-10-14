@@ -52,7 +52,7 @@ async function check(engine,mobile){
    const legacy=document.querySelector("#trialPanel");
    const heading=document.querySelector("header"),bar=document.querySelector("#finishPrimary");
    return bar.contains(document.querySelector("#finishBatch"))&&
-    getComputedStyle(bar).position==="sticky"&&
+    getComputedStyle(bar).position!=="sticky"&&
     !!(heading.compareDocumentPosition(bar)&Node.DOCUMENT_POSITION_FOLLOWING)&&
     !!(bar.compareDocumentPosition(flagPanel)&Node.DOCUMENT_POSITION_FOLLOWING)&&
     !!(flagPanel.compareDocumentPosition(atlas)&Node.DOCUMENT_POSITION_FOLLOWING)&&
@@ -150,10 +150,11 @@ async function verified(engine,mobile,accepted=10){
   await page.locator("#credential").fill("github_pat_finishMockOnly");
   await page.locator("#connect").click();
   await page.waitForFunction(n=>__combined195.getStatus().accepted===n,accepted);
+  await page.evaluate(()=>scrollTo(0,0));
   assert.ok(await page.locator("#finishBatch").evaluate(btn=>{
    const r=btn.getBoundingClientRect();
    return r.top>=0&&r.bottom<=innerHeight
-  }),"Visible Finish button at top in private mode");
+  }),"Finish button is immediately visible at top in private mode without covering map");
   if(accepted===9)assert.match(await page.locator("#finishEligibility").innerText(),/9\/10 saved; 1 remaining/);
   else assert.match(await page.locator("#finishEligibility").innerText(),/verified completed/);
   const expectedBatch=Math.floor(accepted/10);
