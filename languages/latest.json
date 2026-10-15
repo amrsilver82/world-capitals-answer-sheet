@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "engine": "languages_v1",
+  "edition": 1,
+  "batch": 1,
+  "status": "initial_published",
+  "stage": 1,
+  "state_path": "languages/states/ed1-b01-initial-20261015.json",
+  "version": "lang-ed1-b01-initial-20261015"
+}
