@@ -1,0 +1,392 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_1",
+  "edition": 1,
+  "batch": 1,
+  "questions": "1–10",
+  "status": "completed",
+  "date": "2026-10-15",
+  "records": [
+    {
+      "q": 1,
+      "asset": "../../../flags/canonical/b9cf52894137.svg",
+      "country": "Democratic Republic of the Congo",
+      "capital": "Kinshasa",
+      "correct_languages": "French; Lingala; Swahili; Kikongo; Tshiluba",
+      "original": {
+        "country": "dr congo",
+        "capital": "kinshasa",
+        "language": "french"
+      },
+      "your": {
+        "country": "dr congo",
+        "capital": "kinshasa",
+        "language": "french"
+      },
+      "attempts": {
+        "country": [
+          "dr congo"
+        ],
+        "capital": [
+          "kinshasa"
+        ],
+        "language": [
+          "french"
+        ]
+      },
+      "flag_result": "I",
+      "capital_result": "I",
+      "language_result": "I",
+      "note": null
+    },
+    {
+      "q": 2,
+      "asset": "../../../flags/canonical/b910e24cd229.svg",
+      "country": "Philippines",
+      "capital": "Manila",
+      "correct_languages": "Filipino; English",
+      "original": {
+        "country": "philippines",
+        "capital": "manilla",
+        "language": "filippino"
+      },
+      "your": {
+        "country": "philippines",
+        "capital": "manilla",
+        "language": "filippino"
+      },
+      "attempts": {
+        "country": [
+          "philippines"
+        ],
+        "capital": [
+          "manilla"
+        ],
+        "language": [
+          "filippino"
+        ]
+      },
+      "flag_result": "I",
+      "capital_result": "I",
+      "language_result": "I",
+      "note": null
+    },
+    {
+      "q": 3,
+      "asset": "../../../flags/canonical/7a4d183245c9.svg",
+      "country": "Liechtenstein",
+      "capital": "Vaduz",
+      "correct_languages": "German",
+      "original": {
+        "country": "lichtenshtein",
+        "capital": "vaduz",
+        "language": "german"
+      },
+      "your": {
+        "country": "lichtenshtein",
+        "capital": "vaduz",
+        "language": "german"
+      },
+      "attempts": {
+        "country": [
+          "lichtenshtein"
+        ],
+        "capital": [
+          "vaduz"
+        ],
+        "language": [
+          "german"
+        ]
+      },
+      "flag_result": "I",
+      "capital_result": "I",
+      "language_result": "I",
+      "note": null
+    },
+    {
+      "q": 4,
+      "asset": "../../../flags/canonical/935d8a749d94.svg",
+      "country": "New Zealand",
+      "capital": "Wellington",
+      "correct_languages": "English; Māori; New Zealand Sign Language",
+      "original": {
+        "country": "new zeland",
+        "capital": "wellington",
+        "language": "english"
+      },
+      "your": {
+        "country": "new zeland",
+        "capital": "wellington",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "new zeland"
+        ],
+        "capital": [
+          "wellington"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "I",
+      "capital_result": "I",
+      "language_result": "I",
+      "note": null
+    },
+    {
+      "q": 5,
+      "asset": "../../../flags/canonical/5fa2d2440d5b.svg",
+      "country": "Madagascar",
+      "capital": "Antananarivo",
+      "correct_languages": "Malagasy; French",
+      "original": {
+        "country": "madgascar",
+        "capital": "antnarivo",
+        "language": "malgashi-french"
+      },
+      "your": {
+        "country": "madgascar",
+        "capital": "antnarivo",
+        "language": "malgashi-french"
+      },
+      "attempts": {
+        "country": [
+          "madgascar"
+        ],
+        "capital": [
+          "antnarivo"
+        ],
+        "language": [
+          "malgashi-french"
+        ]
+      },
+      "flag_result": "I",
+      "capital_result": "I",
+      "language_result": "I",
+      "note": null
+    },
+    {
+      "q": 6,
+      "asset": "../../../flags/canonical/243c3d8f9e78.svg",
+      "country": "Antigua and Barbuda",
+      "capital": "Saint John’s",
+      "correct_languages": "English",
+      "original": {
+        "country": "antigua",
+        "capital": "saint jones",
+        "language": "english"
+      },
+      "your": {
+        "country": "antigua",
+        "capital": "saint jones",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "antigua"
+        ],
+        "capital": [
+          "saint jones"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "I",
+      "capital_result": "I",
+      "language_result": "I",
+      "note": "Saint Jones and Antigua accepted by historical phonetic/shorthand precedent."
+    },
+    {
+      "q": 7,
+      "asset": "../../../flags/canonical/20aef3a63b4d.svg",
+      "country": "Bhutan",
+      "capital": "Thimphu",
+      "correct_languages": "Dzongkha",
+      "original": {
+        "country": "bhtutan",
+        "capital": "thimpu",
+        "language": "dzghai"
+      },
+      "your": {
+        "country": "bhtutan",
+        "capital": "thimpu",
+        "language": "dzghkai"
+      },
+      "attempts": {
+        "country": [
+          "bhtutan"
+        ],
+        "capital": [
+          "thimpu"
+        ],
+        "language": [
+          "dzghai",
+          "dzghkai"
+        ]
+      },
+      "flag_result": "I",
+      "capital_result": "I",
+      "language_result": "I",
+      "note": "Final referee: dzghkai accepted as Independent in one no-clue free retry."
+    },
+    {
+      "q": 8,
+      "asset": "../../../flags/canonical/9b00a8205662.svg",
+      "country": "Djibouti",
+      "capital": "Djibouti",
+      "correct_languages": "Arabic; French",
+      "original": {
+        "country": "djebouti",
+        "capital": "djebouti",
+        "language": "arabic"
+      },
+      "your": {
+        "country": "djebouti",
+        "capital": "djebouti",
+        "language": "arabic"
+      },
+      "attempts": {
+        "country": [
+          "djebouti"
+        ],
+        "capital": [
+          "djebouti"
+        ],
+        "language": [
+          "arabic"
+        ]
+      },
+      "flag_result": "I",
+      "capital_result": "I",
+      "language_result": "I",
+      "note": null
+    },
+    {
+      "q": 9,
+      "asset": "../../../flags/canonical/804451474adb.svg",
+      "country": "Iraq",
+      "capital": "Baghdad",
+      "correct_languages": "Arabic; Kurdish",
+      "original": {
+        "country": "iraq",
+        "capital": "baghdad",
+        "language": "arabic"
+      },
+      "your": {
+        "country": "iraq",
+        "capital": "baghdad",
+        "language": "arabic"
+      },
+      "attempts": {
+        "country": [
+          "iraq"
+        ],
+        "capital": [
+          "baghdad"
+        ],
+        "language": [
+          "arabic"
+        ]
+      },
+      "flag_result": "I",
+      "capital_result": "I",
+      "language_result": "I",
+      "note": null
+    },
+    {
+      "q": 10,
+      "asset": "../../../flags/canonical/3dd89e9962e6.svg",
+      "country": "Kuwait",
+      "capital": "Kuwait City",
+      "correct_languages": "Arabic",
+      "original": {
+        "country": "kuwait",
+        "capital": "kuwait",
+        "language": "arabic"
+      },
+      "your": {
+        "country": "kuwait",
+        "capital": "kuwait",
+        "language": "arabic"
+      },
+      "attempts": {
+        "country": [
+          "kuwait"
+        ],
+        "capital": [
+          "kuwait"
+        ],
+        "language": [
+          "arabic"
+        ]
+      },
+      "flag_result": "I",
+      "capital_result": "I",
+      "language_result": "I",
+      "note": "Kuwait accepted for Kuwait City under City-suffix policy."
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 10,
+  "remaining_questions": 185
+}
