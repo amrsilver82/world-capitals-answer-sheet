@@ -1,0 +1,358 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_1",
+  "edition": 1,
+  "batch": 4,
+  "questions": "31–40",
+  "status": "completed",
+  "date": "2026-10-15",
+  "records": [
+    {
+      "q": 31,
+      "country": "Nepal",
+      "capital": "Kathmandu",
+      "correct_languages": "Nepali",
+      "asset": "flags/canonical/624285684531.svg",
+      "your": {
+        "country": "Nepal",
+        "capital": "Kathmindu",
+        "language": "Nepalese"
+      },
+      "attempts": {
+        "country": [
+          "Nepal"
+        ],
+        "capital": [
+          "Kathmindu"
+        ],
+        "language": [
+          "Nepalese"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Kathmindu and Nepalese accepted phonetic/common variants."
+    },
+    {
+      "q": 32,
+      "country": "Albania",
+      "capital": "Tirana",
+      "correct_languages": "Albanian",
+      "asset": "flags/canonical/e85d95f0f0a6.svg",
+      "your": {
+        "country": "Albania",
+        "capital": "Tirana",
+        "language": "Albanian"
+      },
+      "attempts": {
+        "country": [
+          "Albania"
+        ],
+        "capital": [
+          "Tirana"
+        ],
+        "language": [
+          "Albanian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 33,
+      "country": "Angola",
+      "capital": "Luanda",
+      "correct_languages": "Portuguese",
+      "asset": "flags/canonical/b73b1ec5e450.svg",
+      "your": {
+        "country": "Angola",
+        "capital": "Luanda",
+        "language": "Portgues4"
+      },
+      "attempts": {
+        "country": [
+          "Angola"
+        ],
+        "capital": [
+          "Luanda"
+        ],
+        "language": [
+          "Portgues4"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Portgues4 accepted as clear typo for Portuguese."
+    },
+    {
+      "q": 34,
+      "country": "Zambia",
+      "capital": "Lusaka",
+      "correct_languages": "English",
+      "asset": "flags/canonical/360f37aa19db.svg",
+      "your": {
+        "country": "Zambia",
+        "capital": "Lusaka",
+        "language": "English"
+      },
+      "attempts": {
+        "country": [
+          "Zambia"
+        ],
+        "capital": [
+          "Lusaka"
+        ],
+        "language": [
+          "English"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 35,
+      "country": "Chile",
+      "capital": "Santiago",
+      "correct_languages": "Spanish",
+      "asset": "flags/canonical/5b3c72fa7c26.svg",
+      "your": {
+        "country": "Chile",
+        "capital": "Santiago",
+        "language": "Spanish"
+      },
+      "attempts": {
+        "country": [
+          "Chile"
+        ],
+        "capital": [
+          "Santiago"
+        ],
+        "language": [
+          "Spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 36,
+      "country": "Saint Lucia",
+      "capital": "Castries",
+      "correct_languages": "English; Saint Lucian Creole (spoken)",
+      "asset": "flags/canonical/bb256541c6ed.svg",
+      "your": {
+        "country": "St lucia",
+        "capital": "Castries",
+        "language": "English"
+      },
+      "attempts": {
+        "country": [
+          "St lucia"
+        ],
+        "capital": [
+          "Castries"
+        ],
+        "language": [
+          "English"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 37,
+      "country": "Montenegro",
+      "capital": "Podgorica / Cetinje (historic royal)",
+      "correct_languages": "Montenegrin; Serbian; Bosnian; Albanian; Croatian (official use)",
+      "asset": "flags/canonical/297888c7be5f.svg",
+      "your": {
+        "country": "Montinigro",
+        "capital": "Citinje",
+        "language": "Montengran"
+      },
+      "attempts": {
+        "country": [
+          "Montinigro"
+        ],
+        "capital": [
+          "Citinje"
+        ],
+        "language": [
+          "Montengran"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Citinje accepted phonetic historical royal capital Cetinje; historical precedent Q194 Cijne/Cisinje. Montengran recognized Montenegrin."
+    },
+    {
+      "q": 38,
+      "country": "China",
+      "capital": "Beijing",
+      "correct_languages": "Mandarin Chinese",
+      "asset": "flags/canonical/10d3489a0e60.svg",
+      "your": {
+        "country": "China",
+        "capital": "Beijing",
+        "language": "Mandrin"
+      },
+      "attempts": {
+        "country": [
+          "China"
+        ],
+        "capital": [
+          "Beijing"
+        ],
+        "language": [
+          "Mandrin"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Mandrin accepted Mandarin. Future Chinese or Mandarin Chinese accepted for China."
+    },
+    {
+      "q": 39,
+      "country": "United Kingdom",
+      "capital": "London",
+      "correct_languages": "English (de facto); Welsh; Scottish Gaelic; Irish (regional)",
+      "asset": "flags/canonical/799138319d84.svg",
+      "your": {
+        "country": "Uk",
+        "capital": "London",
+        "language": "English"
+      },
+      "attempts": {
+        "country": [
+          "Uk"
+        ],
+        "capital": [
+          "London"
+        ],
+        "language": [
+          "English"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 40,
+      "country": "Mauritius",
+      "capital": "Port Louis",
+      "correct_languages": "English (parliament); French; Mauritian Creole (spoken)",
+      "asset": "flags/canonical/82d7a3bec553.svg",
+      "your": {
+        "country": "Maurituis",
+        "capital": "Port louis",
+        "language": "French"
+      },
+      "attempts": {
+        "country": [
+          "Maurituis"
+        ],
+        "capital": [
+          "Port louis"
+        ],
+        "language": [
+          "French"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 40,
+      "pure": 40,
+      "pure_plus_assisted": 40,
+      "independent": 40,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 40,
+      "pure": 40,
+      "pure_plus_assisted": 40,
+      "independent": 40,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 40,
+      "pure": 40,
+      "pure_plus_assisted": 40,
+      "independent": 40,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 40,
+  "remaining_questions": 155,
+  "referee": {
+    "capital37": {
+      "attempt": "Citinje",
+      "canonical": "Cetinje",
+      "reason": "phonetic of project-approved Montenegro historical royal capital",
+      "result": "independent"
+    },
+    "language38": {
+      "attempt": "Mandrin",
+      "accepted": "Mandarin",
+      "future_forms": [
+        "Chinese",
+        "Mandarin Chinese"
+      ],
+      "rule": "common language name accepted in China"
+    }
+  }
+}
