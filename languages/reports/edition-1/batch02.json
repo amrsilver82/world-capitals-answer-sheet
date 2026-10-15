@@ -1,0 +1,351 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_1",
+  "edition": 1,
+  "batch": 2,
+  "questions": "11–20",
+  "status": "completed",
+  "date": "2026-10-15",
+  "records": [
+    {
+      "q": 11,
+      "asset": "flags/canonical/9d6ea6c5d488.svg",
+      "country": "Togo",
+      "correct_capital": "Lomé",
+      "correct_languages": "French; Ewe; Kabiyé (national)",
+      "original": {
+        "country": "togo",
+        "capital": "lomi",
+        "language": "french"
+      },
+      "attempts": {
+        "country": [
+          "togo"
+        ],
+        "capital": [
+          "lomi"
+        ],
+        "language": [
+          "french"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "lomi accepted phonetic Lomé"
+    },
+    {
+      "q": 12,
+      "asset": "flags/canonical/6f6b71695cbb.svg",
+      "country": "Mali",
+      "correct_capital": "Bamako",
+      "correct_languages": "Bambara; Fulfulde; Songhay; Tamasheq and other national official languages; French (working)",
+      "original": {
+        "country": "mali",
+        "capital": "bamako",
+        "language": "french"
+      },
+      "attempts": {
+        "country": [
+          "mali"
+        ],
+        "capital": [
+          "bamako"
+        ],
+        "language": [
+          "french"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 13,
+      "asset": "flags/canonical/8ba745acaf22.svg",
+      "country": "Sweden",
+      "correct_capital": "Stockholm",
+      "correct_languages": "Swedish",
+      "original": {
+        "country": "sweden",
+        "capital": "stokholm",
+        "language": "swedish"
+      },
+      "attempts": {
+        "country": [
+          "sweden"
+        ],
+        "capital": [
+          "stokholm"
+        ],
+        "language": [
+          "swedish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 14,
+      "asset": "flags/canonical/599741eec82f.svg",
+      "country": "Greece",
+      "correct_capital": "Athens",
+      "correct_languages": "Greek",
+      "original": {
+        "country": "greece",
+        "capital": "athens",
+        "language": "greek"
+      },
+      "attempts": {
+        "country": [
+          "greece"
+        ],
+        "capital": [
+          "athens"
+        ],
+        "language": [
+          "greek"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 15,
+      "asset": "flags/canonical/a4434a955fbc.svg",
+      "country": "Burundi",
+      "correct_capital": "Gitega / Bujumbura",
+      "correct_languages": "Kirundi; French; English",
+      "original": {
+        "country": "burundi",
+        "capital": "bujumbura",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "burundi"
+        ],
+        "capital": [
+          "bujumbura"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Bujumbura historical capital accepted"
+    },
+    {
+      "q": 16,
+      "asset": "flags/canonical/cbc674a6e7c4.svg",
+      "country": "El Salvador",
+      "correct_capital": "San Salvador",
+      "correct_languages": "Spanish",
+      "original": {
+        "country": "salvador",
+        "capital": "san salvador",
+        "language": "spanish"
+      },
+      "attempts": {
+        "country": [
+          "salvador"
+        ],
+        "capital": [
+          "san salvador"
+        ],
+        "language": [
+          "spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "salvador shortened name accepted"
+    },
+    {
+      "q": 17,
+      "asset": "flags/canonical/8e8efc46b9a9.svg",
+      "country": "Haiti",
+      "correct_capital": "Port-au-Prince",
+      "correct_languages": "Haitian Creole; French",
+      "original": {
+        "country": "haiti",
+        "capital": "port au prince",
+        "language": "french"
+      },
+      "attempts": {
+        "country": [
+          "haiti"
+        ],
+        "capital": [
+          "port au prince"
+        ],
+        "language": [
+          "french"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 18,
+      "asset": "flags/canonical/e4861f5abaaf.svg",
+      "country": "Nicaragua",
+      "correct_capital": "Managua",
+      "correct_languages": "Spanish; Caribbean Coast languages (regional)",
+      "original": {
+        "country": "nicaragua",
+        "capital": "managua",
+        "language": "spanish"
+      },
+      "attempts": {
+        "country": [
+          "nicaragua"
+        ],
+        "capital": [
+          "managua"
+        ],
+        "language": [
+          "spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 19,
+      "asset": "flags/canonical/11fde67db930.svg",
+      "country": "Honduras",
+      "correct_capital": "Tegucigalpa",
+      "correct_languages": "Spanish",
+      "original": {
+        "country": "honduras",
+        "capital": "taglipaca",
+        "language": "spanish"
+      },
+      "attempts": {
+        "country": [
+          "honduras"
+        ],
+        "capital": [
+          "taglipaca"
+        ],
+        "language": [
+          "spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "taglipaca independently accepted: previous user-referee form Tagliapaca in Full Test 3 Batch 16 Q157"
+    },
+    {
+      "q": 20,
+      "asset": "flags/canonical/e682b9002021.svg",
+      "country": "France",
+      "correct_capital": "Paris",
+      "correct_languages": "French",
+      "original": {
+        "country": "france",
+        "capital": "paris",
+        "language": "french"
+      },
+      "attempts": {
+        "country": [
+          "france"
+        ],
+        "capital": [
+          "paris"
+        ],
+        "language": [
+          "french"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 20,
+      "pure": 20,
+      "pure_plus_assisted": 20,
+      "independent": 20,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 20,
+      "pure": 20,
+      "pure_plus_assisted": 20,
+      "independent": 20,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 20,
+      "pure": 20,
+      "pure_plus_assisted": 20,
+      "independent": 20,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 20,
+  "remaining_questions": 175,
+  "referee": {
+    "country": "Honduras",
+    "q": 19,
+    "accepted_form": "taglipaca",
+    "precedent_form": "Tagliapaca",
+    "precedent_event": "Full Test 3 Batch 16 Q157",
+    "precedent_path": "data/test_11_full195_forward_batch16.json",
+    "result": "Independent",
+    "clue_used": false
+  }
+}
