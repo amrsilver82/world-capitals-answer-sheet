@@ -1,0 +1,401 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_1",
+  "edition": 1,
+  "batch": 5,
+  "questions": "41–50",
+  "status": "completed",
+  "date": "2026-10-17",
+  "records": [
+    {
+      "q": 41,
+      "country": "Grenada",
+      "correct_capital": "St. George's",
+      "correct_languages": "English",
+      "asset": "flags/canonical/b3d250db99cf.svg",
+      "your": {
+        "country": "Grenada",
+        "capital": "Saint george",
+        "language": "Englsih"
+      },
+      "original": {
+        "country": "Grenada",
+        "capital": "Georgetown",
+        "language": "Englsih"
+      },
+      "attempts": {
+        "country": [
+          "Grenada"
+        ],
+        "capital": [
+          "Georgetown",
+          "Saint george"
+        ],
+        "language": [
+          "Englsih"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Georgetown wrong; Saint george accepted unassisted as St. George's"
+    },
+    {
+      "q": 42,
+      "country": "Australia",
+      "correct_capital": "Canberra",
+      "correct_languages": "English (de facto)",
+      "asset": "flags/canonical/96e80768bb70.svg",
+      "your": {
+        "country": "Australia",
+        "capital": "Canbirra",
+        "language": "English"
+      },
+      "original": {
+        "country": "Australia",
+        "capital": "Canbirra",
+        "language": "English"
+      },
+      "attempts": {
+        "country": [
+          "Australia"
+        ],
+        "capital": [
+          "Canbirra"
+        ],
+        "language": [
+          "English"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 43,
+      "country": "Senegal",
+      "correct_capital": "Dakar",
+      "correct_languages": "French (official); Wolof (spoken)",
+      "asset": "flags/canonical/7c0673d6d66d.svg",
+      "your": {
+        "country": "Senegal",
+        "capital": "Dakar",
+        "language": "French"
+      },
+      "original": {
+        "country": "Senegal",
+        "capital": "Dakar",
+        "language": "French"
+      },
+      "attempts": {
+        "country": [
+          "Senegal"
+        ],
+        "capital": [
+          "Dakar"
+        ],
+        "language": [
+          "French"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 44,
+      "country": "Myanmar",
+      "correct_capital": "Naypyidaw / Yangon / Rangoon",
+      "correct_languages": "Burmese",
+      "asset": "flags/canonical/42b4dee2b8cc.svg",
+      "your": {
+        "country": "Myanmaar",
+        "capital": "Rangoon",
+        "language": "Bormese"
+      },
+      "original": {
+        "country": "Myanmaar",
+        "capital": "Rangoon",
+        "language": "Bormese"
+      },
+      "attempts": {
+        "country": [
+          "Myanmaar"
+        ],
+        "capital": [
+          "Rangoon"
+        ],
+        "language": [
+          "Bormese"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Rangoon accepted historical capital"
+    },
+    {
+      "q": 45,
+      "country": "Ethiopia",
+      "correct_capital": "Addis Ababa",
+      "correct_languages": "Amharic; Oromo; Somali; Tigrinya; Afar (federal working)",
+      "asset": "flags/canonical/3f99be486098.svg",
+      "your": {
+        "country": "Ethiopia",
+        "capital": "Adis ababa",
+        "language": "Amheric"
+      },
+      "original": {
+        "country": "Ethiopia",
+        "capital": "Adis ababa",
+        "language": "Amheric"
+      },
+      "attempts": {
+        "country": [
+          "Ethiopia"
+        ],
+        "capital": [
+          "Adis ababa"
+        ],
+        "language": [
+          "Amheric"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 46,
+      "country": "Rwanda",
+      "correct_capital": "Kigali",
+      "correct_languages": "Kinyarwanda; English; French; Swahili",
+      "asset": "flags/canonical/06e26ae44e4e.svg",
+      "your": {
+        "country": "Rowanda",
+        "capital": "Kigali",
+        "language": "English"
+      },
+      "original": {
+        "country": "Rowanda",
+        "capital": "Kigali",
+        "language": "English"
+      },
+      "attempts": {
+        "country": [
+          "Rowanda"
+        ],
+        "capital": [
+          "Kigali"
+        ],
+        "language": [
+          "English"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 47,
+      "country": "Sierra Leone",
+      "correct_capital": "Freetown",
+      "correct_languages": "English; Krio (spoken)",
+      "asset": "flags/canonical/a07baf75b40f.svg",
+      "your": {
+        "country": "Sierra leone",
+        "capital": "Freetown",
+        "language": "English"
+      },
+      "original": {
+        "country": "Sierra leone",
+        "capital": "Freetown",
+        "language": "English"
+      },
+      "attempts": {
+        "country": [
+          "Sierra leone"
+        ],
+        "capital": [
+          "Freetown"
+        ],
+        "language": [
+          "English"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 48,
+      "country": "Cuba",
+      "correct_capital": "Havana",
+      "correct_languages": "Spanish",
+      "asset": "flags/canonical/053c9ee3a029.svg",
+      "your": {
+        "country": "Cuba",
+        "capital": "Havana",
+        "language": "Spanish"
+      },
+      "original": {
+        "country": "Cuba",
+        "capital": "Havana",
+        "language": "Spanish"
+      },
+      "attempts": {
+        "country": [
+          "Cuba"
+        ],
+        "capital": [
+          "Havana"
+        ],
+        "language": [
+          "Spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 49,
+      "country": "South Sudan",
+      "correct_capital": "Juba",
+      "correct_languages": "English",
+      "asset": "flags/canonical/b257aa0b3e50.svg",
+      "your": {
+        "country": "South sudan",
+        "capital": "Juba",
+        "language": "English"
+      },
+      "original": {
+        "country": "South sudan",
+        "capital": "Juba",
+        "language": "English"
+      },
+      "attempts": {
+        "country": [
+          "South sudan"
+        ],
+        "capital": [
+          "Juba"
+        ],
+        "language": [
+          "English"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 50,
+      "country": "Latvia",
+      "correct_capital": "Riga",
+      "correct_languages": "Latvian",
+      "asset": "flags/canonical/f6dececab891.svg",
+      "your": {
+        "country": "Latvia",
+        "capital": "Riga",
+        "language": "Latvian"
+      },
+      "original": {
+        "country": "Latvia",
+        "capital": "Riga",
+        "language": "Latvian"
+      },
+      "attempts": {
+        "country": [
+          "Latvia"
+        ],
+        "capital": [
+          "Riga"
+        ],
+        "language": [
+          "Latvian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 50,
+      "pure": 50,
+      "pure_plus_assisted": 50,
+      "independent": 50,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 50,
+      "pure": 50,
+      "pure_plus_assisted": 50,
+      "independent": 50,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 50,
+      "pure": 50,
+      "pure_plus_assisted": 50,
+      "independent": 50,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 50,
+  "remaining_questions": 145,
+  "referee": {
+    "q41": {
+      "original": "Georgetown",
+      "retry": "Saint george",
+      "canonical": "St. George's",
+      "clue_used": false,
+      "result": "independent"
+    }
+  }
+}
