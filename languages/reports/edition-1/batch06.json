@@ -1,0 +1,403 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_1",
+  "edition": 1,
+  "batch": 6,
+  "questions": "51–60",
+  "status": "completed",
+  "date": "2026-10-18",
+  "records": [
+    {
+      "q": 51,
+      "country": "Guatemala",
+      "correct_capital": "Guatemala City",
+      "correct_languages": "Spanish; Mayan languages (recognized)",
+      "asset": "flags/canonical/7df9df579267.svg",
+      "your": {
+        "country": "guatemala",
+        "capital": "guatelama",
+        "language": "spanish"
+      },
+      "original": {
+        "country": "guatemala",
+        "capital": "guatelama",
+        "language": "spanish"
+      },
+      "attempts": {
+        "country": [
+          "guatemala"
+        ],
+        "capital": [
+          "guatelama"
+        ],
+        "language": [
+          "spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 52,
+      "country": "Central African Republic",
+      "correct_capital": "Bangui",
+      "correct_languages": "Sango; French",
+      "asset": "flags/canonical/a6cd3670f272.svg",
+      "your": {
+        "country": "central africa",
+        "capital": "bangui",
+        "language": "french"
+      },
+      "original": {
+        "country": "central africa",
+        "capital": "bangui",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "central africa"
+        ],
+        "capital": [
+          "bangui"
+        ],
+        "language": [
+          "english",
+          "french"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "English initially rejected; French accepted on free no-clue retry; Independent."
+    },
+    {
+      "q": 53,
+      "country": "Colombia",
+      "correct_capital": "Bogotá",
+      "correct_languages": "Spanish",
+      "asset": "flags/canonical/ebd0a0fb2d4b.svg",
+      "your": {
+        "country": "colombia",
+        "capital": "bogoto",
+        "language": "spanish"
+      },
+      "original": {
+        "country": "colombia",
+        "capital": "bogoto",
+        "language": "spanish"
+      },
+      "attempts": {
+        "country": [
+          "colombia"
+        ],
+        "capital": [
+          "bogoto"
+        ],
+        "language": [
+          "spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 54,
+      "country": "Libya",
+      "correct_capital": "Tripoli",
+      "correct_languages": "Arabic",
+      "asset": "flags/canonical/1eaa51e468b7.svg",
+      "your": {
+        "country": "libya",
+        "capital": "tripoli",
+        "language": "arabic"
+      },
+      "original": {
+        "country": "libya",
+        "capital": "tripoli",
+        "language": "arabic"
+      },
+      "attempts": {
+        "country": [
+          "libya"
+        ],
+        "capital": [
+          "tripoli"
+        ],
+        "language": [
+          "arabic"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 55,
+      "country": "Morocco",
+      "correct_capital": "Rabat",
+      "correct_languages": "Arabic; Amazigh",
+      "asset": "flags/canonical/7ce56eff707c.svg",
+      "your": {
+        "country": "morroco",
+        "capital": "rabat",
+        "language": "arabic"
+      },
+      "original": {
+        "country": "morroco",
+        "capital": "rabat",
+        "language": "arabic"
+      },
+      "attempts": {
+        "country": [
+          "morroco"
+        ],
+        "capital": [
+          "rabat"
+        ],
+        "language": [
+          "arabic"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 56,
+      "country": "Lesotho",
+      "correct_capital": "Maseru",
+      "correct_languages": "Sesotho; English",
+      "asset": "flags/canonical/a7c01a98ffc7.svg",
+      "your": {
+        "country": "leshoto",
+        "capital": "masreau",
+        "language": "english"
+      },
+      "original": {
+        "country": "leshoto",
+        "capital": "masreau",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "leshoto"
+        ],
+        "capital": [
+          "masreau"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 57,
+      "country": "Tajikistan",
+      "correct_capital": "Dushanbe",
+      "correct_languages": "Tajik; Russian (interethnic)",
+      "asset": "flags/canonical/f8c9a0371cb0.svg",
+      "your": {
+        "country": "tajikistan",
+        "capital": "dushanbe",
+        "language": "tajiki-russian"
+      },
+      "original": {
+        "country": "tajikistan",
+        "capital": "dushanbe",
+        "language": "tajiki-russian"
+      },
+      "attempts": {
+        "country": [
+          "tajikistan"
+        ],
+        "capital": [
+          "dushanbe"
+        ],
+        "language": [
+          "tajiki-russian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 58,
+      "country": "Moldova",
+      "correct_capital": "Chișinău",
+      "correct_languages": "Romanian",
+      "asset": "flags/canonical/e9ba506a2ba8.svg",
+      "your": {
+        "country": "moldova",
+        "capital": "cisnau",
+        "language": "romanian-moldavian"
+      },
+      "original": {
+        "country": "moldova",
+        "capital": "cisnau",
+        "language": "romanian-moldavian"
+      },
+      "attempts": {
+        "country": [
+          "moldova"
+        ],
+        "capital": [
+          "cisnau"
+        ],
+        "language": [
+          "romanian-moldavian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 59,
+      "country": "Azerbaijan",
+      "correct_capital": "Baku",
+      "correct_languages": "Azerbaijani",
+      "asset": "flags/canonical/35575221104f.svg",
+      "your": {
+        "country": "azrbaijan",
+        "capital": "baju",
+        "language": "russian-azrabijani"
+      },
+      "original": {
+        "country": "azrbaijan",
+        "capital": "baju",
+        "language": "russian-azrabijani"
+      },
+      "attempts": {
+        "country": [
+          "azrbaijan"
+        ],
+        "capital": [
+          "baju"
+        ],
+        "language": [
+          "russian-azrabijani"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 60,
+      "country": "Argentina",
+      "correct_capital": "Buenos Aires",
+      "correct_languages": "Spanish",
+      "asset": "flags/canonical/c753da103f3c.svg",
+      "your": {
+        "country": "argentina",
+        "capital": "buenos airos",
+        "language": "spanish"
+      },
+      "original": {
+        "country": "argentina",
+        "capital": "buenos airos",
+        "language": "spanish"
+      },
+      "attempts": {
+        "country": [
+          "argentina"
+        ],
+        "capital": [
+          "buenos airos"
+        ],
+        "language": [
+          "spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 60,
+      "pure": 60,
+      "pure_plus_assisted": 60,
+      "independent": 60,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 60,
+      "pure": 60,
+      "pure_plus_assisted": 60,
+      "independent": 60,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 60,
+      "pure": 60,
+      "pure_plus_assisted": 60,
+      "independent": 60,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 60,
+  "remaining_questions": 135,
+  "referee": {
+    "q52": {
+      "attempts": [
+        "english",
+        "french"
+      ],
+      "canonical": "French",
+      "clue_used": false,
+      "result": "independent"
+    }
+  }
+}
