@@ -1,0 +1,409 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_1",
+  "edition": 1,
+  "batch": 8,
+  "questions": "71–80",
+  "status": "completed",
+  "date": "2026-10-18",
+  "records": [
+    {
+      "q": 71,
+      "country": "Dominica",
+      "correct_capital": "Roseau",
+      "correct_languages": "English",
+      "asset": "flags/canonical/5aa9cea5f519.svg",
+      "your": {
+        "country": "Dominica",
+        "capital": "Rosseau",
+        "language": "English"
+      },
+      "original": {
+        "country": "Dominica",
+        "capital": "Rosseau",
+        "language": "English"
+      },
+      "attempts": {
+        "country": [
+          "Dominica"
+        ],
+        "capital": [
+          "Rosseau"
+        ],
+        "language": [
+          "English"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 72,
+      "country": "Eswatini",
+      "correct_capital": "Mbabane / Lobamba",
+      "correct_languages": "Swati; English",
+      "asset": "flags/canonical/eb538e447635.svg",
+      "your": {
+        "country": "Eswatini",
+        "capital": "Mbabane",
+        "language": "English"
+      },
+      "original": {
+        "country": "Eswatini",
+        "capital": "Mbabane",
+        "language": "English"
+      },
+      "attempts": {
+        "country": [
+          "Eswatini"
+        ],
+        "capital": [
+          "Mbabane"
+        ],
+        "language": [
+          "English"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 73,
+      "country": "Burkina Faso",
+      "correct_capital": "Ouagadougou",
+      "correct_languages": "Mooré; Dioula; Fulfulde (national); French (working)",
+      "asset": "flags/canonical/471382258410.svg",
+      "your": {
+        "country": "Burkina faso",
+        "capital": "Ougadogou",
+        "language": "French"
+      },
+      "original": {
+        "country": "Burkina faso",
+        "capital": "Ougadogou",
+        "language": "French"
+      },
+      "attempts": {
+        "country": [
+          "Burkina faso"
+        ],
+        "capital": [
+          "Ougadogou"
+        ],
+        "language": [
+          "French"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "French accepted as a working language of Burkina Faso."
+    },
+    {
+      "q": 74,
+      "country": "Malta",
+      "correct_capital": "Valletta",
+      "correct_languages": "Maltese; English",
+      "asset": "flags/canonical/5d5d7c80af64.svg",
+      "your": {
+        "country": "Malta",
+        "capital": "Valleta",
+        "language": "Maltese"
+      },
+      "original": {
+        "country": "Malta",
+        "capital": "Valleta",
+        "language": "Maltese"
+      },
+      "attempts": {
+        "country": [
+          "Malta"
+        ],
+        "capital": [
+          "Valleta"
+        ],
+        "language": [
+          "Maltese"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 75,
+      "country": "Paraguay",
+      "correct_capital": "Asunción",
+      "correct_languages": "Spanish; Guaraní",
+      "asset": "flags/canonical/abccd87994c0.svg",
+      "your": {
+        "country": "Paraguay",
+        "capital": "Asoncion",
+        "language": "Spanish"
+      },
+      "original": {
+        "country": "Paraguay",
+        "capital": "Asoncion",
+        "language": "Spanish"
+      },
+      "attempts": {
+        "country": [
+          "Paraguay"
+        ],
+        "capital": [
+          "Asoncion"
+        ],
+        "language": [
+          "Spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 76,
+      "country": "Panama",
+      "correct_capital": "Panama City",
+      "correct_languages": "Spanish",
+      "asset": "flags/canonical/9ab733f4b548.svg",
+      "your": {
+        "country": "Panama",
+        "capital": "Panama",
+        "language": "Spanish"
+      },
+      "original": {
+        "country": "Panama",
+        "capital": "Panama",
+        "language": "Spanish"
+      },
+      "attempts": {
+        "country": [
+          "Panama"
+        ],
+        "capital": [
+          "Panama"
+        ],
+        "language": [
+          "Spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Panama accepted as Panama City shorthand under prior rule."
+    },
+    {
+      "q": 77,
+      "country": "Kyrgyzstan",
+      "correct_capital": "Bishkek",
+      "correct_languages": "Kyrgyz; Russian",
+      "asset": "flags/canonical/e26db95356b6.svg",
+      "your": {
+        "country": "Krgystan",
+        "capital": "Beshkek",
+        "language": "Krgyzi-russian"
+      },
+      "original": {
+        "country": "Krgystan",
+        "capital": "Beshkek",
+        "language": "Krgyzi-russian"
+      },
+      "attempts": {
+        "country": [
+          "Krgystan"
+        ],
+        "capital": [
+          "Beshkek"
+        ],
+        "language": [
+          "Krgyzi-russian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Kyrgyz and Russian independently qualify, spoken compound accepted."
+    },
+    {
+      "q": 78,
+      "country": "Ukraine",
+      "correct_capital": "Kyiv",
+      "correct_languages": "Ukrainian",
+      "asset": "flags/canonical/03daa196837a.svg",
+      "your": {
+        "country": "Ukraine",
+        "capital": "Kyiv",
+        "language": "Ukranian"
+      },
+      "original": {
+        "country": "Ukraine",
+        "capital": "Kyiv",
+        "language": "Ukranian"
+      },
+      "attempts": {
+        "country": [
+          "Ukraine"
+        ],
+        "capital": [
+          "Kyiv"
+        ],
+        "language": [
+          "Ukranian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 79,
+      "country": "Mozambique",
+      "correct_capital": "Maputo",
+      "correct_languages": "Portuguese",
+      "asset": "flags/canonical/0f94c3a1aaa2.svg",
+      "your": {
+        "country": "Mozambique",
+        "capital": "Mpouto",
+        "language": "Portguese"
+      },
+      "original": {
+        "country": "Mozambique",
+        "capital": "Mpouto",
+        "language": "Portguese"
+      },
+      "attempts": {
+        "country": [
+          "Mozambique"
+        ],
+        "capital": [
+          "Mpouto"
+        ],
+        "language": [
+          "Portguese"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 80,
+      "country": "Malaysia",
+      "correct_capital": "Kuala Lumpur",
+      "correct_languages": "Malay",
+      "asset": "flags/canonical/115f864d8acf.svg",
+      "your": {
+        "country": "Malaysia",
+        "capital": "Kula lumpur",
+        "language": "Malay"
+      },
+      "original": {
+        "country": "Malaysia",
+        "capital": "Kula lumpur",
+        "language": "Malay"
+      },
+      "attempts": {
+        "country": [
+          "Malaysia"
+        ],
+        "capital": [
+          "Kula lumpur"
+        ],
+        "language": [
+          "Malay"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 80,
+      "pure": 80,
+      "pure_plus_assisted": 80,
+      "independent": 80,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 80,
+      "pure": 80,
+      "pure_plus_assisted": 80,
+      "independent": 80,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 80,
+      "pure": 80,
+      "pure_plus_assisted": 80,
+      "independent": 80,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 80,
+  "remaining_questions": 115,
+  "referee": {
+    "q73": {
+      "capital": "Ougadogou",
+      "accepted": "Ouagadougou",
+      "language": "French",
+      "basis": "phonetic capital; French working language"
+    },
+    "q76": {
+      "capital": "Panama",
+      "accepted": "Panama City",
+      "basis": "prior shorthand precedent"
+    },
+    "q79": {
+      "capital": "Mpouto",
+      "accepted": "Maputo",
+      "basis": "phonetic spelling"
+    }
+  }
+}

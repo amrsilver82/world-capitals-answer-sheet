@@ -2,11 +2,11 @@
   "schema_version": 1,
   "engine": "languages_v1",
   "edition": 1,
-  "batch": 8,
+  "batch": 9,
   "stage": 1,
   "status": "initial_published",
-  "state_path": "languages/states/ed1-b08-initial-20261018.json",
-  "completed_batch": 7,
-  "report_path": "languages/reports/edition-1/batch07.html",
-  "version": "lang-ed1-b08-initial-20261018"
+  "state_path": "languages/states/ed1-b09-initial-20261018.json",
+  "completed_batch": 8,
+  "report_path": "languages/reports/edition-1/batch08.html",
+  "version": "lang-ed1-b09-initial-20261018"
 }
