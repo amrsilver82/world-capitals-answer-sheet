@@ -1,0 +1,413 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_1",
+  "edition": 1,
+  "batch": 7,
+  "questions": "61–70",
+  "status": "completed",
+  "date": "2026-10-18",
+  "records": [
+    {
+      "q": 61,
+      "country": "Bangladesh",
+      "correct_capital": "Dhaka",
+      "correct_languages": "Bengali",
+      "asset": "flags/canonical/16b794debd08.svg",
+      "your": {
+        "country": "bangladish",
+        "capital": "daka",
+        "language": "bangladishian"
+      },
+      "original": {
+        "country": "bangladish",
+        "capital": "daka",
+        "language": "tamil"
+      },
+      "attempts": {
+        "country": [
+          "bangladish"
+        ],
+        "capital": [
+          "daka"
+        ],
+        "language": [
+          "tamil",
+          "bangladishian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Tamil rejected; bangladishian accepted as informal reference to Bengali/Bangla, not standard language label, no clues"
+    },
+    {
+      "q": 62,
+      "country": "Oman",
+      "correct_capital": "Muscat",
+      "correct_languages": "Arabic",
+      "asset": "flags/canonical/4f1461a000c8.svg",
+      "your": {
+        "country": "oman",
+        "capital": "muscat",
+        "language": "arabic"
+      },
+      "original": {
+        "country": "oman",
+        "capital": "muscat",
+        "language": "arabic"
+      },
+      "attempts": {
+        "country": [
+          "oman"
+        ],
+        "capital": [
+          "muscat"
+        ],
+        "language": [
+          "arabic"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 63,
+      "country": "Norway",
+      "correct_capital": "Oslo",
+      "correct_languages": "Norwegian; Sami (recognized)",
+      "asset": "flags/canonical/a5f2a152a932.svg",
+      "your": {
+        "country": "norway",
+        "capital": "oslo",
+        "language": "norwigian"
+      },
+      "original": {
+        "country": "norway",
+        "capital": "oslo",
+        "language": "norwigian"
+      },
+      "attempts": {
+        "country": [
+          "norway"
+        ],
+        "capital": [
+          "oslo"
+        ],
+        "language": [
+          "norwigian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 64,
+      "country": "Papua New Guinea",
+      "correct_capital": "Port Moresby",
+      "correct_languages": "English; Tok Pisin; Hiri Motu",
+      "asset": "flags/canonical/7b7e77aad4a5.svg",
+      "your": {
+        "country": "papua new guinea",
+        "capital": "port moresby",
+        "language": "english"
+      },
+      "original": {
+        "country": "papua new guinea",
+        "capital": "port moresby",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "papua new guinea"
+        ],
+        "capital": [
+          "port moresby"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 65,
+      "country": "North Macedonia",
+      "correct_capital": "Skopje",
+      "correct_languages": "Macedonian; Albanian",
+      "asset": "flags/canonical/4f5cae77ed60.svg",
+      "your": {
+        "country": "macedonia",
+        "capital": "skjobe",
+        "language": "macedonian"
+      },
+      "original": {
+        "country": "macedonia",
+        "capital": "skjobe",
+        "language": "macedonian"
+      },
+      "attempts": {
+        "country": [
+          "macedonia"
+        ],
+        "capital": [
+          "skjobe"
+        ],
+        "language": [
+          "macedonian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 66,
+      "country": "United Arab Emirates",
+      "correct_capital": "Abu Dhabi",
+      "correct_languages": "Arabic",
+      "asset": "flags/canonical/651ac8523d3d.svg",
+      "your": {
+        "country": "uae",
+        "capital": "abu dhabi",
+        "language": "arabic"
+      },
+      "original": {
+        "country": "uae",
+        "capital": "abu dhabi",
+        "language": "arabic"
+      },
+      "attempts": {
+        "country": [
+          "uae"
+        ],
+        "capital": [
+          "abu dhabi"
+        ],
+        "language": [
+          "arabic"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 67,
+      "country": "Solomon Islands",
+      "correct_capital": "Honiara",
+      "correct_languages": "English; Solomon Islands Pijin (spoken)",
+      "asset": "flags/canonical/6066f94cd117.svg",
+      "your": {
+        "country": "solomon islands",
+        "capital": "honaria",
+        "language": "english"
+      },
+      "original": {
+        "country": "solomon islands",
+        "capital": "honaria",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "solomon islands"
+        ],
+        "capital": [
+          "honaria"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 68,
+      "country": "Eritrea",
+      "correct_capital": "Asmara",
+      "correct_languages": "Tigrinya; Arabic; English (de facto working)",
+      "asset": "flags/canonical/48a13b47fe6a.svg",
+      "your": {
+        "country": "eritrria",
+        "capital": "asmara",
+        "language": "english"
+      },
+      "original": {
+        "country": "eritrria",
+        "capital": "asmara",
+        "language": "amheric"
+      },
+      "attempts": {
+        "country": [
+          "eritrria"
+        ],
+        "capital": [
+          "asmara"
+        ],
+        "language": [
+          "amheric",
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Amheric rejected; English accepted working language of Eritrea, no clues"
+    },
+    {
+      "q": 69,
+      "country": "Mongolia",
+      "correct_capital": "Ulaanbaatar",
+      "correct_languages": "Mongolian",
+      "asset": "flags/canonical/6a38a71fcf6c.svg",
+      "your": {
+        "country": "mongolia",
+        "capital": "ulnbataar",
+        "language": "mangolian"
+      },
+      "original": {
+        "country": "mongolia",
+        "capital": "ulnbataar",
+        "language": "mangolian"
+      },
+      "attempts": {
+        "country": [
+          "mongolia"
+        ],
+        "capital": [
+          "ulnbataar"
+        ],
+        "language": [
+          "mangolian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    },
+    {
+      "q": 70,
+      "country": "Turkmenistan",
+      "correct_capital": "Ashgabat",
+      "correct_languages": "Turkmen",
+      "asset": "flags/canonical/4154ed765cfc.svg",
+      "your": {
+        "country": "turkministan",
+        "capital": "ashgabat",
+        "language": "russian-turkminstanian"
+      },
+      "original": {
+        "country": "turkministan",
+        "capital": "ashgabat",
+        "language": "russian-turkminstanian"
+      },
+      "attempts": {
+        "country": [
+          "turkministan"
+        ],
+        "capital": [
+          "ashgabat"
+        ],
+        "language": [
+          "russian-turkminstanian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": null
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 70,
+      "pure": 70,
+      "pure_plus_assisted": 70,
+      "independent": 70,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 70,
+      "pure": 70,
+      "pure_plus_assisted": 70,
+      "independent": 70,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 70,
+      "pure": 70,
+      "pure_plus_assisted": 70,
+      "independent": 70,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 70,
+  "remaining_questions": 125,
+  "referee": {
+    "q61": {
+      "attempts": [
+        "tamil",
+        "bangladishian"
+      ],
+      "accepted": "bangladishian",
+      "canonical": "Bengali/Bangla",
+      "decision": "Informal country-derived descriptor accepted case-specifically, not official name",
+      "result": "independent"
+    },
+    "q68": {
+      "attempts": [
+        "amheric",
+        "english"
+      ],
+      "accepted": "English",
+      "result": "independent"
+    }
+  }
+}
