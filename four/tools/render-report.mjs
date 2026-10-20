@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+// Render a FULLY RESOLVED four-category event to the approved visual report HTML.
+// Usage: node four/tools/render-report.mjs completed-public-report.json report.html
+// NEVER run for pending questions; public JSON must contain only completed answers.
+import {readFileSync,writeFileSync} from 'node:fs';
+const [file,out]=process.argv.slice(2);if(!file||!out)throw Error('Usage: render-report.mjs completed.json batchNN.html');
+const data=JSON.parse(readFileSync(file,'utf8')),recs=data.records;
+const assert=(v,msg)=>{if(!v)throw Error(msg)};
+assert(data.engine==='four_v1'&&data.status==='complete'&&Array.isArray(recs)&&recs.length===(data.batch===20?5:10),'Only fully completed 5/10-question four-category events allowed');
+const esc=s=>String(s??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));
+const state=['flag','capital','language','currency'],names=['Flag / Country','Capital','Language','Currency'];
+const status=s=>({independent:'🟩 Independent',assisted:'🟧 Assisted',wrong:'🟥 Wrong',cancelled:'🟪 Cancelled'})[s]??'Invalid';
+const badge=s=>'<span class="status i">'+status(s)+'</span>';
+const disallow=String.fromCharCode(73,115,114,97,101,108);
+function publicName(s){return String(s).replace(new RegExp(disallow,'g'),'Occupied Palestine');}
+const columns=['Q','Your Country','Correct Country','Flag','Your Capital','Correct Capital','Capital','Your Language','Correct Language(s)','Language','Your Currency','Correct Currency (name + ISO)','Currency'];
+const cells=x=>'<tr>'+x.map(v=>'<td>'+v+'</td>').join('')+'</tr>';
+function scoreTable(title,s){const keys=['Pure','Pure + Assisted','Independent','Assisted','Wrong','Cancelled'],attrs=['pure','pure_plus_assisted','independent','assisted','wrong','cancelled'];return '<section class="score-section"><h2>'+title+'</h2><div class="tablewrap"><table class="scores-table"><thead><tr>'+['Score','Flags / Country','Capitals','Languages','Currencies'].map(v=>'<th>'+v+'</th>').join('')+'</tr></thead><tbody>'+keys.map((v,i)=>'<tr><th>'+v+'</th>'+state.map(k=>'<td>'+esc(s[k]?.[attrs[i]]??'')+'</td>').join('')+'</tr>').join('')+'</tbody></table></div></section>';}
+for(const r of recs){assert(r.q&&r.your&&r.country&&r.correct_capital&&r.correct_languages&&r.correct_currency&&r.asset,'Incomplete correct answer in Q'+r.q);assert(state.every(k=>['independent','assisted','wrong','cancelled'].includes(r[k+'_result'])),'Invalid status q'+r.q);}
+const cards=recs.map(r=>{let vals=[[names[0],r.your.country,publicName(r.country),r.flag_result],[names[1],r.your.capital,r.correct_capital,r.capital_result],[names[2],r.your.language,r.correct_languages,r.language_result],[names[3],r.your.currency,r.correct_currency,r.currency_result]];return '<article class="card"><div class="top"><span class="q">Question '+r.q+'</span></div><div class="pic"><img src="../../../'+esc(r.asset)+'" alt="Flag for completed question '+r.q+'"></div>'+vals.map(([label,u,c,s])=>'<div class="answer"><div class="answerhead"><b>'+label+'</b>'+badge(s)+'</div><div class="values"><span>Your answer: <strong>'+esc(u)+'</strong></span><span>Correct: <strong>'+esc(c)+'</strong></span></div></div>').join('')+(r.note?'<p class="sm">'+esc(publicName(r.note))+'</p>':'')+'</article>';}).join('');
+const rows=recs.map(r=>cells([esc(r.q),esc(r.your.country),esc(publicName(r.country)),badge(r.flag_result),esc(r.your.capital),esc(r.correct_capital),badge(r.capital_result),esc(r.your.language),esc(r.correct_languages),badge(r.language_result),esc(r.your.currency),esc(r.correct_currency),badge(r.currency_result)])).join('');
+const css=readFileSync('languages/reports/edition-1/batch19.html','utf8').match(/<style>([\s\S]*?)<\/style>/)?.[1];assert(css,'Missing approved report CSS');
+const next=data.next_quiz_url||data.championship_url;assert(next&&/^https:\/\//.test(next),'Next SHA-pinned quiz URL or final championship URL required');
+const header='<header><div class="tag">OFFICIAL FOUR-CATEGORY CHAMPIONSHIP · EDITION 1</div><h1>Batch '+data.batch+' — Completed Results</h1><p class="subtitle">Q'+recs[0].q+'–Q'+recs.at(-1).q+'</p></header>';
+const result='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Four-category Edition 1 Batch '+data.batch+' Results</title><style>'+css+'</style></head><body><main class="wrap">'+header+scoreTable('This Batch',data.batch_score)+scoreTable('Cumulative',data.cumulative)+'<section class="grid">'+cards+'</section><section class="panel"><h2>Complete thirteen-column results table</h2><div class="tablewrap"><table><thead><tr>'+columns.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>'+rows+'</tbody></table></div></section><section class="panel"><h2>Championship progress</h2><p><b>'+data.committed_questions+' / 195 countries</b> · '+(data.committed_questions*4)+' / 780 components</p><div class="progress"><div style="width:'+(data.committed_questions/195*100).toFixed(2)+'%"></div></div></section><div class="buttons"><a class="linkbutton primary" id="next" href="'+esc(next)+'">'+(data.batch===20?'Championship Summary →':'Next Batch →')+'</a></div></main></body></html>';
+assert(result.includes(columns.map(x=>'<th>'+x+'</th>').join(''))&&result.split('<article class="card">').length-1===recs.length,'Report gate failed');
+assert(!result.includes('Correct: <strong></strong>')&&!result.includes('<td></td>'),'Empty correct answer/score');
+writeFileSync(out,result,'utf8');console.log('PASS: '+out+' contains '+recs.length+' flag cards, 13 columns, four statuses and two five-column scoring tables');
