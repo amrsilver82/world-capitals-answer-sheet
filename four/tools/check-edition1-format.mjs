@@ -57,9 +57,9 @@ const renderer=read(join(root,"four/tools/render-report.mjs"));
 for(const mustContain of ["four/templates/approved-report.css",'id="next"',"Next Batch →","Championship Summary →","four-v1.html?sha="])must(renderer.includes(mustContain),"Renderer missing permanent production feature "+mustContain);
 const fixture=JSON.parse(read(join(root,"four/tests/format-fixture-not-real-scores.json")));
 must(fixture.TEST_FIXTURE_UNSCORED===true&&fixture.records.length===10,"Clearly unscored demo fixture required");
-const dir=mkdtempSync(join(tmpdir(),"four-report-"));
+const temporaryRenderDirectory=mkdtempSync(join(tmpdir(),"four-report-"));
 try{
- const out=join(dir,"rendered.html");
+ const out=join(temporaryRenderDirectory,"rendered.html");
  execFileSync("node",["four/tools/render-report.mjs","four/tests/format-fixture-not-real-scores.json",out],{cwd:root,stdio:"pipe"});
  const html=read(out);
  must(count(html,'<article class="card">')===10&&count(html,'<table class="scores-table">')===2,"Generated real report structure drift");
@@ -67,6 +67,6 @@ try{
  must(html.includes('id="next" class="linkbutton primary"')&&html.includes("Next Batch →")&&html.includes("four-v1.html?sha="),"Production Next Batch SHA-pinned navigation missing");
  must(html.includes('<b>Currency</b>')&&html.includes("Demonstration unit (TST)"),"Production fourth-category output missing");
  must(!html.includes("fake-flag")&&!html.includes("height:170px"),"Generated layout contains fictional flag framing");
-}finally{rmSync(dir,{recursive:true,force:true});}
+}finally{rmSync(temporaryRenderDirectory,{recursive:true,force:true});}
 
 console.log('PASS four_v1: four fields, Build/Copy/Clear, flag style, no-answer states, batch 10/final 5, 13 review columns and two 5-column scoring tables');
