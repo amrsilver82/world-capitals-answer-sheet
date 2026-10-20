@@ -21,3 +21,20 @@ The public question JSON contains opaque flag SVG paths only; **no answers, curr
 A future batch URL is NOT live until published/verified. At a completed batch, private scoring is atomically committed first, then current completed report plus next frozen quiz published together at a pinned SHA, then the private presentation pointer activated. Final Batch 20 has a championship summary instead of a next quiz. Public CI: `four/tools/check-edition1-format.mjs` and `.github/workflows/four-edition1-format-guard.yml`. Complete binding design and all twenty numbered path definitions are in the private `docs/FOUR_CATEGORY_CHAMPIONSHIP_CONTRACT_2026-10-20.md`.
 
 This README does not present or initiate any quiz.
+
+## APPROVED WEBSITE IMPLEMENTATION — immutable visual source
+
+On 20 October 2026, the player approved the **exact previous-championship flag size/card layout** and the new labels **Country** (card) and **Countries** (score table). The official implementation is stored as ACTUAL website files, not merely instructions:
+
+- **Production approved stylesheet:** `four/templates/approved-report.css` (same original responsive card/flag CSS, flags use their canonical SVG and natural aspect ratio, max width 420px; one mobile score-table overflow accommodation).
+- **Executable production HTML renderer:** `four/tools/render-report.mjs` — the ONLY authorized batch-results page generator. Reads the approved stylesheet, renders all ten cards (five on Batch 20), four statuses, all 13 detail columns, and TWO five-column six-metric scoring tables.
+- **Approved full-sized ten-card website:** `four/pilot/approved-results-layout.html` — full real flag SVG images at exact original ratio, but all sample text fictional and unscored. Not the former synthetic 170px flag example.
+- **Always-visible NEXT navigation:** On completed Batches 1–19, a working `Next Batch →` anchor uses the CURRENT report's verified 40-character `?sha=` to open the exact next frozen `four-v1.html?sha=<SHA>&state=four%2Fstates%2Fed1-bNN-initial-20261020.json`. The final Batch 20 uses `Championship Summary →` instead (no fictional Batch 21).
+- **Preview navigation click test:** `four/pilot/navigation-demo-next.html`; the demonstration's live `Next Batch →` goes to this informational demo page, NEVER to a live pending quiz.
+- **Regression fixture and CI:** `four/tests/format-fixture-not-real-scores.json` (fictional answers only), `four/tools/check-edition1-format.mjs` and `.github/workflows/four-edition1-format-guard.yml`. Workflow runs the real renderer on the fixture and tests HTML, original CSS, labels, button, ten cards and public anti-leak.
+- **Questions remain governed by:** `four-v1.html` and frozen `four/states/ed1-bNN-initial-20261020.json`. Four fields Country/Capital/Language/Currency with Build my reply, Copy reply, Clear all. The current Batch 1 is FROZEN, presented, and paused for study; this approval does not change it.
+
+**Do not improvise:** New chats MUST run/modify the committed report renderer/templates, never hand-author a replacement design. Any deviation must be approved before commit and pass the format guard.
+
+**Pending currency-answer policy:** The user has not yet approved whether a generic currency-family word (e.g. "franc" rather than "Congolese franc") earns full independent credit. Currency PDF study-guide format and that broad-vs-specific scoring policy are ON HOLD pending explicit decision. The existing private reference remains a draft until then; DO NOT silently impose new generic-name acceptance.
+

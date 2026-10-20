@@ -1,0 +1,308 @@
+{
+  "engine": "four_v1",
+  "edition": 1,
+  "batch": 1,
+  "status": "complete",
+  "committed_questions": 10,
+  "TEST_FIXTURE_UNSCORED": true,
+  "TEST_DATA_FICTIONAL": true,
+  "description": "Purely fictional answers; canonical SVGs are used ONLY to verify display sizes. Never treat these as actual quiz answers.",
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 8,
+      "pure_plus_assisted": 8.5,
+      "independent": 8,
+      "assisted": 1,
+      "wrong": 1,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 9,
+      "pure_plus_assisted": 9.5,
+      "independent": 9,
+      "assisted": 1,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "currency": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 8,
+      "pure_plus_assisted": 8.5,
+      "independent": 8,
+      "assisted": 1,
+      "wrong": 1,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 9,
+      "pure_plus_assisted": 9.5,
+      "independent": 9,
+      "assisted": 1,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "currency": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "records": [
+    {
+      "q": 1,
+      "asset": "flags/canonical/8fe9d669204c.svg",
+      "country": "Practice Country 1",
+      "correct_capital": "Practice Capital 1",
+      "correct_languages": "Practice Language 1",
+      "correct_currency": {
+        "name": "Practice Unit 1",
+        "iso": "TST"
+      },
+      "your": {
+        "country": "Practice Country 1",
+        "capital": "Practice Capital 1",
+        "language": "Practice Language 1",
+        "currency": "Practice Unit"
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "currency_result": "independent",
+      "note": "FICTIONAL TEST DATA. Official flag artwork tests aspect ratio only."
+    },
+    {
+      "q": 2,
+      "asset": "flags/canonical/76edab429c29.svg",
+      "country": "Practice Country 2",
+      "correct_capital": "Practice Capital 2",
+      "correct_languages": "Practice Language 2",
+      "correct_currency": {
+        "name": "Practice Unit 2",
+        "iso": "TST"
+      },
+      "your": {
+        "country": "Practice Country 2",
+        "capital": "Practice Capital 2",
+        "language": "Practice Language 2",
+        "currency": "Practice Unit"
+      },
+      "flag_result": "independent",
+      "capital_result": "assisted",
+      "language_result": "independent",
+      "currency_result": "independent",
+      "note": "FICTIONAL TEST DATA. Official flag artwork tests aspect ratio only."
+    },
+    {
+      "q": 3,
+      "asset": "flags/canonical/9d2775c08328.svg",
+      "country": "Practice Country 3",
+      "correct_capital": "Practice Capital 3",
+      "correct_languages": "Practice Language 3",
+      "correct_currency": {
+        "name": "Practice Unit 3",
+        "iso": "TST"
+      },
+      "your": {
+        "country": "Practice Country 3",
+        "capital": "Unscored practice guess",
+        "language": "Practice Language 3",
+        "currency": "Practice Unit"
+      },
+      "flag_result": "independent",
+      "capital_result": "wrong",
+      "language_result": "assisted",
+      "currency_result": "independent",
+      "note": "FICTIONAL TEST DATA. Official flag artwork tests aspect ratio only."
+    },
+    {
+      "q": 4,
+      "asset": "flags/canonical/7b9f49075518.svg",
+      "country": "Practice Country 4",
+      "correct_capital": "Practice Capital 4",
+      "correct_languages": "Practice Language 4",
+      "correct_currency": {
+        "name": "Practice Unit 4",
+        "iso": "TST"
+      },
+      "your": {
+        "country": "Practice Country 4",
+        "capital": "Practice Capital 4",
+        "language": "Practice Language 4",
+        "currency": "Practice Unit"
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "currency_result": "independent",
+      "note": "FICTIONAL TEST DATA. Official flag artwork tests aspect ratio only."
+    },
+    {
+      "q": 5,
+      "asset": "flags/canonical/af2d0d07c31e.svg",
+      "country": "Practice Country 5",
+      "correct_capital": "Practice Capital 5",
+      "correct_languages": "Practice Language 5",
+      "correct_currency": {
+        "name": "Practice Unit 5",
+        "iso": "TST"
+      },
+      "your": {
+        "country": "Practice Country 5",
+        "capital": "Practice Capital 5",
+        "language": "Practice Language 5",
+        "currency": "Practice Unit"
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "currency_result": "independent",
+      "note": "FICTIONAL TEST DATA. Official flag artwork tests aspect ratio only."
+    },
+    {
+      "q": 6,
+      "asset": "flags/canonical/cc1c181ce9b2.svg",
+      "country": "Practice Country 6",
+      "correct_capital": "Practice Capital 6",
+      "correct_languages": "Practice Language 6",
+      "correct_currency": {
+        "name": "Practice Unit 6",
+        "iso": "TST"
+      },
+      "your": {
+        "country": "Practice Country 6",
+        "capital": "Practice Capital 6",
+        "language": "Practice Language 6",
+        "currency": "Practice Unit"
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "currency_result": "independent",
+      "note": "FICTIONAL TEST DATA. Official flag artwork tests aspect ratio only."
+    },
+    {
+      "q": 7,
+      "asset": "flags/canonical/8b98c2c429bc.svg",
+      "country": "Practice Country 7",
+      "correct_capital": "Practice Capital 7",
+      "correct_languages": "Practice Language 7",
+      "correct_currency": {
+        "name": "Practice Unit 7",
+        "iso": "TST"
+      },
+      "your": {
+        "country": "Practice Country 7",
+        "capital": "Practice Capital 7",
+        "language": "Practice Language 7",
+        "currency": "Practice Unit"
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "currency_result": "independent",
+      "note": "FICTIONAL TEST DATA. Official flag artwork tests aspect ratio only."
+    },
+    {
+      "q": 8,
+      "asset": "flags/canonical/ad1b713f16ec.svg",
+      "country": "Practice Country 8",
+      "correct_capital": "Practice Capital 8",
+      "correct_languages": "Practice Language 8",
+      "correct_currency": {
+        "name": "Practice Unit 8",
+        "iso": "TST"
+      },
+      "your": {
+        "country": "Practice Country 8",
+        "capital": "Practice Capital 8",
+        "language": "Practice Language 8",
+        "currency": "Practice Unit"
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "currency_result": "independent",
+      "note": "FICTIONAL TEST DATA. Official flag artwork tests aspect ratio only."
+    },
+    {
+      "q": 9,
+      "asset": "flags/canonical/4ddc19f8eaa8.svg",
+      "country": "Practice Country 9",
+      "correct_capital": "Practice Capital 9",
+      "correct_languages": "Practice Language 9",
+      "correct_currency": {
+        "name": "Practice Unit 9",
+        "iso": "TST"
+      },
+      "your": {
+        "country": "Practice Country 9",
+        "capital": "Practice Capital 9",
+        "language": "Practice Language 9",
+        "currency": "Practice Unit"
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "currency_result": "independent",
+      "note": "FICTIONAL TEST DATA. Official flag artwork tests aspect ratio only."
+    },
+    {
+      "q": 10,
+      "asset": "flags/canonical/d859972c5d61.svg",
+      "country": "Practice Country 10",
+      "correct_capital": "Practice Capital 10",
+      "correct_languages": "Practice Language 10",
+      "correct_currency": {
+        "name": "Practice Unit 10",
+        "iso": "TST"
+      },
+      "your": {
+        "country": "Practice Country 10",
+        "capital": "Practice Capital 10",
+        "language": "Practice Language 10",
+        "currency": "Practice Unit"
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "currency_result": "independent",
+      "note": "FICTIONAL TEST DATA. Official flag artwork tests aspect ratio only."
+    }
+  ]
+}

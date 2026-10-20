@@ -2,9 +2,9 @@ name: Four-Category Edition 1 Format Guard
 on:
   push:
     branches: [main]
-    paths: ['four-v1.html','four/states/**','four/reports/edition-1/**','four/tools/**','.github/workflows/four-edition1-format-guard.yml']
+    paths: ['four-v1.html','four/states/**','four/reports/edition-1/**','four/tools/**','four/tests/**','four/pilot/**','four/templates/**','.github/workflows/four-edition1-format-guard.yml']
   pull_request:
-    paths: ['four-v1.html','four/states/**','four/reports/edition-1/**','four/tools/**','.github/workflows/four-edition1-format-guard.yml']
+    paths: ['four-v1.html','four/states/**','four/reports/edition-1/**','four/tools/**','four/tests/**','four/pilot/**','four/templates/**','.github/workflows/four-edition1-format-guard.yml']
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -14,4 +14,6 @@ jobs:
         with:
           node-version: '22'
       - name: Validate official four-category quiz, secure frozen states and complete reports
-        run: node four/tools/check-edition1-format.mjs
+        run: |
+          node --check four/tools/render-report.mjs
+          node four/tools/check-edition1-format.mjs

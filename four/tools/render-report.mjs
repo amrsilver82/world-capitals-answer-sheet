@@ -1,28 +1,41 @@
 #!/usr/bin/env node
-// Render a FULLY RESOLVED four-category event to the approved visual report HTML.
-// Usage: node four/tools/render-report.mjs completed-public-report.json report.html
-// NEVER run for pending questions; public JSON must contain only completed answers.
-import {readFileSync,writeFileSync} from 'node:fs';
-const [file,out]=process.argv.slice(2);if(!file||!out)throw Error('Usage: render-report.mjs completed.json batchNN.html');
-const data=JSON.parse(readFileSync(file,'utf8')),recs=data.records;
-const assert=(v,msg)=>{if(!v)throw Error(msg)};
-assert(data.engine==='four_v1'&&data.status==='complete'&&Array.isArray(recs)&&recs.length===(data.batch===20?5:10),'Only fully completed 5/10-question four-category events allowed');
-const esc=s=>String(s??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));
-const state=['flag','capital','language','currency'],names=['Flag / Country','Capital','Language','Currency'];
-const status=s=>({independent:'🟩 Independent',assisted:'🟧 Assisted',wrong:'🟥 Wrong',cancelled:'🟪 Cancelled'})[s]??'Invalid';
-const badge=s=>'<span class="status i">'+status(s)+'</span>';
-const disallow=String.fromCharCode(73,115,114,97,101,108);
-function publicName(s){return String(s).replace(new RegExp(disallow,'g'),'Occupied Palestine');}
-const columns=['Q','Your Country','Correct Country','Flag','Your Capital','Correct Capital','Capital','Your Language','Correct Language(s)','Language','Your Currency','Correct Currency (name + ISO)','Currency'];
-const cells=x=>'<tr>'+x.map(v=>'<td>'+v+'</td>').join('')+'</tr>';
-function scoreTable(title,s){const keys=['Pure','Pure + Assisted','Independent','Assisted','Wrong','Cancelled'],attrs=['pure','pure_plus_assisted','independent','assisted','wrong','cancelled'];return '<section class="score-section"><h2>'+title+'</h2><div class="tablewrap"><table class="scores-table"><thead><tr>'+['Score','Flags / Country','Capitals','Languages','Currencies'].map(v=>'<th>'+v+'</th>').join('')+'</tr></thead><tbody>'+keys.map((v,i)=>'<tr><th>'+v+'</th>'+state.map(k=>'<td>'+esc(s[k]?.[attrs[i]]??'')+'</td>').join('')+'</tr>').join('')+'</tbody></table></div></section>';}
-for(const r of recs){assert(r.q&&r.your&&r.country&&r.correct_capital&&r.correct_languages&&r.correct_currency&&r.asset,'Incomplete correct answer in Q'+r.q);assert(state.every(k=>['independent','assisted','wrong','cancelled'].includes(r[k+'_result'])),'Invalid status q'+r.q);}
-const cards=recs.map(r=>{let vals=[[names[0],r.your.country,publicName(r.country),r.flag_result],[names[1],r.your.capital,r.correct_capital,r.capital_result],[names[2],r.your.language,r.correct_languages,r.language_result],[names[3],r.your.currency,r.correct_currency,r.currency_result]];return '<article class="card"><div class="top"><span class="q">Question '+r.q+'</span></div><div class="pic"><img src="../../../'+esc(r.asset)+'" alt="Flag for completed question '+r.q+'"></div>'+vals.map(([label,u,c,s])=>'<div class="answer"><div class="answerhead"><b>'+label+'</b>'+badge(s)+'</div><div class="values"><span>Your answer: <strong>'+esc(u)+'</strong></span><span>Correct: <strong>'+esc(c)+'</strong></span></div></div>').join('')+(r.note?'<p class="sm">'+esc(publicName(r.note))+'</p>':'')+'</article>';}).join('');
-const rows=recs.map(r=>cells([esc(r.q),esc(r.your.country),esc(publicName(r.country)),badge(r.flag_result),esc(r.your.capital),esc(r.correct_capital),badge(r.capital_result),esc(r.your.language),esc(r.correct_languages),badge(r.language_result),esc(r.your.currency),esc(r.correct_currency),badge(r.currency_result)])).join('');
-const css=readFileSync('languages/reports/edition-1/batch19.html','utf8').match(/<style>([\s\S]*?)<\/style>/)?.[1];assert(css,'Missing approved report CSS');
-const next=data.next_quiz_url||data.championship_url;assert(next&&/^https:\/\//.test(next),'Next SHA-pinned quiz URL or final championship URL required');
-const header='<header><div class="tag">OFFICIAL FOUR-CATEGORY CHAMPIONSHIP · EDITION 1</div><h1>Batch '+data.batch+' — Completed Results</h1><p class="subtitle">Q'+recs[0].q+'–Q'+recs.at(-1).q+'</p></header>';
-const result='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Four-category Edition 1 Batch '+data.batch+' Results</title><style>'+css+'</style></head><body><main class="wrap">'+header+scoreTable('This Batch',data.batch_score)+scoreTable('Cumulative',data.cumulative)+'<section class="grid">'+cards+'</section><section class="panel"><h2>Complete thirteen-column results table</h2><div class="tablewrap"><table><thead><tr>'+columns.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>'+rows+'</tbody></table></div></section><section class="panel"><h2>Championship progress</h2><p><b>'+data.committed_questions+' / 195 countries</b> · '+(data.committed_questions*4)+' / 780 components</p><div class="progress"><div style="width:'+(data.committed_questions/195*100).toFixed(2)+'%"></div></div></section><div class="buttons"><a class="linkbutton primary" id="next" href="'+esc(next)+'">'+(data.batch===20?'Championship Summary →':'Next Batch →')+'</a></div></main></body></html>';
-assert(result.includes(columns.map(x=>'<th>'+x+'</th>').join(''))&&result.split('<article class="card">').length-1===recs.length,'Report gate failed');
-assert(!result.includes('Correct: <strong></strong>')&&!result.includes('<td></td>'),'Empty correct answer/score');
-writeFileSync(out,result,'utf8');console.log('PASS: '+out+' contains '+recs.length+' flag cards, 13 columns, four statuses and two five-column scoring tables');
+// Approved four-category report generator. Only run on FULLY RESOLVED scoring events.
+import {readFileSync,writeFileSync} from "node:fs";
+const [input,output]=process.argv.slice(2);
+if(!input||!output)throw Error("Usage: node four/tools/render-report.mjs completed-event.json output.html");
+const d=JSON.parse(readFileSync(input,"utf8")),css=readFileSync("four/templates/approved-report.css","utf8");
+const check=(v,m)=>{if(!v)throw Error(m);};
+const n=d.batch===20?5:10;
+check(d.engine==="four_v1"&&d.edition===1&&d.status==="complete"&&d.batch>=1&&d.batch<=20&&d.records?.length===n&&d.committed_questions===Math.min(d.batch*10,195),"Only completely scored edition batches may be published");
+const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const blocked=String.fromCharCode(73,115,114,97,101,108),publicName=s=>String(s).replace(new RegExp(blocked,"gi"),"Occupied Palestine");
+const fields=[["flag","Countries"],["capital","Capitals"],["language","Languages"],["currency","Currencies"]];
+const metrics=[["Pure","pure"],["Pure + Assisted","pure_plus_assisted"],["Independent","independent"],["Assisted","assisted"],["Wrong","wrong"],["Cancelled","cancelled"]];
+const statuses={independent:["i","🟩 Independent"],assisted:["a","🟨 Assisted"],wrong:["w","🟥 Wrong"],cancelled:["x","🟪 Cancelled"]};
+const badge=s=>{check(statuses[s],"Unknown scoring status");return '<span class="status '+statuses[s][0]+'">'+statuses[s][1]+"</span>";};
+const currency=r=>{const v=r.correct_currency;if(typeof v==="string"){check(/\([A-Z]{3}\)/.test(v),"Currency must give name and ISO");return v;}check(v&&typeof v.name==="string"&&v.name.trim()&&/^[A-Z]{3}$/.test(v.iso),"Currency name and ISO mandatory");return v.name+" ("+v.iso+")";};
+function scoreTable(title,obj){
+ const head="<tr>"+["Score",...fields.map(x=>x[1])].map(x=>"<th>"+x+"</th>").join("")+"</tr>";
+ const body=metrics.map(([label,key])=>"<tr><th>"+label+"</th>"+fields.map(([field])=>{const a=obj?.[field];check(a&&Number.isFinite(a.denominator)&&Number.isFinite(a[key]),"Missing "+title+" "+field+" "+key);return "<td>"+safe((key==="pure"||key==="pure_plus_assisted")?a[key]+"/"+a.denominator:a[key])+"</td>";}).join("")+"</tr>").join("");
+ return '<section class="score-section"><h2>'+title+'</h2><div class="tablewrap"><table class="scores-table"><thead>'+head+"</thead><tbody>"+body+"</tbody></table></div></section>";
+}
+const headers=["Q","Your Country","Correct Country","Flag","Your Capital","Correct Capital","Capital","Your Language","Correct Language(s)","Language","Your Currency","Correct Currency (name + ISO)","Currency"];
+let cards="",rows="";
+for(const r of d.records){
+ check(Number.isInteger(r.q)&&/^flags\/canonical\/[a-f0-9]{12}\.svg$/.test(r.asset),"Flag path invalid");
+ check(r.your&&["country","capital","language","currency"].every(k=>typeof r.your[k]==="string"),"All submitted fields required");
+ check(r.country&&r.correct_capital&&r.correct_languages&&r.correct_currency,"Missing correct field");
+ const blocks=[["Country",r.your.country,publicName(r.country),r.flag_result],["Capital",r.your.capital,r.correct_capital,r.capital_result],["Language",r.your.language,r.correct_languages,r.language_result],["Currency",r.your.currency,currency(r),r.currency_result]];
+ cards+='<article class="card"><div class="top"><span class="q">Question '+r.q+'</span><span class="sm">Verified completed result</span></div><div class="pic"><img src="../../../'+safe(r.asset)+'" alt="Flag for completed question '+r.q+'"></div>'+blocks.map(([label,user,correct,state])=>'<div class="answer"><div class="answerhead"><b>'+label+"</b>"+badge(state)+'</div><div class="values"><span>Your answer: <strong>'+safe(publicName(user))+'</strong></span><span>Correct: <strong>'+safe(publicName(correct))+"</strong></span></div></div>").join("")+(r.note?'<p class="sm">'+safe(publicName(r.note))+"</p>":"")+"</article>";
+ const values=[r.q,r.your.country,r.country,badge(r.flag_result),r.your.capital,r.correct_capital,badge(r.capital_result),r.your.language,r.correct_languages,badge(r.language_result),r.your.currency,currency(r),badge(r.currency_result)];
+ rows+="<tr>"+values.map(x=>"<td>"+(String(x).startsWith('<span class="status')?x:safe(publicName(x)))+"</td>").join("")+"</tr>";
+}
+check(css.includes(".pic img{width:min(420px,100%)")&&!css.includes("height:170px"),"Approved natural-size flag CSS missing");
+const last=d.batch===20,next=String(d.batch+1).padStart(2,"0");
+const script=last?
+ 'const s=new URLSearchParams(location.search).get("sha"),a=document.getElementById("next");if(s&&/^[a-f0-9]{40}$/.test(s))a.href="championship.html?sha="+s;':
+ 'const s=new URLSearchParams(location.search).get("sha"),a=document.getElementById("next");if(s&&/^[a-f0-9]{40}$/.test(s))a.href="../../../four-v1.html?sha="+s+"&state=four%2Fstates%2Fed1-b'+next+'-initial-20261020.json";';
+const reviewTitle="Full batch visual review · "+n+" questions";
+const html='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Four-Category Edition 1 Batch '+d.batch+' Results</title><style>'+css+'</style></head><body><main class="wrap"><header><div class="tag">World Flags + Capitals + Languages + Currencies</div><h1>Batch '+d.batch+' — Complete Results</h1><p class="subtitle">Edition 1 · Q'+d.records[0].q+'–Q'+d.records.at(-1).q+'</p></header>'+scoreTable("This Batch",d.batch_score)+scoreTable("Cumulative",d.cumulative)+'<section class="panel"><h2>'+reviewTitle+'</h2></section><section class="grid">'+cards+'</section><section class="panel"><h2>Complete thirteen-column results table</h2><div class="tablewrap"><table><thead><tr>'+headers.map(x=>"<th>"+safe(x)+"</th>").join("")+"</tr></thead><tbody>"+rows+'</tbody></table></div><div class="legend">🟩 Independent · 🟨 Assisted · 🟥 Wrong · 🟪 Cancelled</div></section><section class="panel"><h2>Championship progress</h2><p>'+d.committed_questions+' / 195 countries · '+d.committed_questions*4+' / 780 scored components</p><div class="progress"><div style="width:'+(d.committed_questions/195*100).toFixed(4)+'%"></div></div></section><div class="buttons"><a id="next" class="linkbutton primary" href="'+(last?"championship.html":"../../../four-v1.html")+'">'+(last?"Championship Summary →":"Next Batch →")+'</a></div></main><script>'+script+'</script></body></html>';
+check((html.match(/<article class="card">/g)||[]).length===n&&headers.length===13&&!html.includes("Correct: <strong></strong>"),"Report validation failed");
+writeFileSync(output,html,"utf8");console.log("APPROVED report generated: "+output);
