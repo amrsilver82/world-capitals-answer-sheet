@@ -65,7 +65,7 @@ try{
  must(count(html,'<article class="card">')===10&&count(html,'<table class="scores-table">')===2,"Generated real report structure drift");
  must(html.includes(reviewHeaders.map(x=>'<th>'+x+'</th>').join(''))&&html.includes('<th>Countries</th>'),"Generated country naming/13-column headers drift");
  must(html.includes('id="next" class="linkbutton primary"')&&html.includes("Next Batch →")&&html.includes("four-v1.html?sha="),"Production Next Batch SHA-pinned navigation missing");
- must(html.includes('<b>Currency</b>')&&html.includes("Demonstration unit (TST)"),"Production fourth-category output missing");
+ must(html.includes('<b>Currency</b>')&&html.includes("Practice Unit 1 (TST)"),"Production fourth-category output missing");
  must(!html.includes("fake-flag")&&!html.includes("height:170px"),"Generated layout contains fictional flag framing");
 }finally{rmSync(temporaryRenderDirectory,{recursive:true,force:true});}
 
