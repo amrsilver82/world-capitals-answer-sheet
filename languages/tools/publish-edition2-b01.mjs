@@ -4,10 +4,11 @@ import {render} from "./render-edition2-b01.mjs";
 const fail=x=>{throw Error("PUBLIC CHECKPOINT REFUSED: "+x)};
 const git=(...args)=>execFileSync("git",args,{encoding:"utf8"}).trim();
 const evt=JSON.parse(fs.readFileSync(process.env.GITHUB_EVENT_PATH,"utf8"));
-if(evt.action!=="opened"||evt.issue?.user?.login!=="amrsilver82"||evt.issue?.author_association!=="OWNER"||evt.repository?.full_name!=="amrsilver82/world-capitals-answer-sheet")fail("Untrusted issue");
-if(evt.issue.title!=="[Capitals Report Gateway] Edition 2 Batch 1")fail("Wrong request");
-const p=JSON.parse(evt.issue.body||"null"),head=git("rev-parse","HEAD");
-if(!p||p.expected_public_head!==head||p.private_scoring_commit!=="977d5226ba13cf85c70984d19c4087614db75a01"||p.edition!==2||p.batch!==1)fail("Wrong checkpoint");
+if(evt.ref!=="refs/heads/main"||evt.repository?.full_name!=="amrsilver82/world-capitals-answer-sheet")fail("Not an authorized main-branch publication");
+const p=JSON.parse(fs.readFileSync("languages/publish/ed2-b01-payload.json","utf8"));
+const head=git("rev-parse","HEAD"),parent=git("rev-parse","HEAD^");
+if(!p||p.expected_public_head!==parent||p.private_scoring_commit!=="977d5226ba13cf85c70984d19c4087614db75a01"||p.edition!==2||p.batch!==1)fail("Wrong private/public checkpoint");
+if(fs.existsSync("languages/reports/edition-2/batch01.html"))fail("Duplicate publication");
 if(!Array.isArray(p.records)||p.records.length!==10||!Array.isArray(p.next_assets)||p.next_assets.length!==10)fail("Missing batch records");
 const seen=new Set();
 const rows=p.records.map((r,i)=>{
