@@ -2,11 +2,24 @@
   "schema_version": 1,
   "engine": "languages_v1",
   "edition": 1,
-  "batch": 9,
+  "batch": 20,
   "stage": 1,
-  "status": "initial_published",
-  "state_path": "languages/states/ed1-b09-initial-20261018.json",
-  "completed_batch": 8,
-  "report_path": "languages/reports/edition-1/batch08.html",
-  "version": "lang-ed1-b09-initial-20261018"
+  "status": "edition_completed",
+  "completed_batch": 20,
+  "completed_questions": 195,
+  "pending_batch": null,
+  "state_path": "languages/states/ed1-b20-initial-20261020.json",
+  "report_path": "languages/reports/edition-1/batch20.html",
+  "championship_path": "languages/reports/edition-1/championship.html",
+  "final_report_url": "https://amrsilver82.github.io/world-capitals-answer-sheet/languages/reports/edition-1/batch20.html?sha=2626f9d27dbbddae7e85970416e8a0d22c83bfc0",
+  "championship_url": "https://amrsilver82.github.io/world-capitals-answer-sheet/languages/reports/edition-1/championship.html?sha=2626f9d27dbbddae7e85970416e8a0d22c83bfc0",
+  "score": {
+    "flag_pure": 195,
+    "capital_pure": 195,
+    "language_pure": 195,
+    "total_pure": 585,
+    "max_pure": 585
+  },
+  "version": "languages-edition1-completed-20261020",
+  "next_url": null
 }
