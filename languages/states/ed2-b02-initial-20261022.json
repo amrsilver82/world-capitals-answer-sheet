@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "engine": "languages_v1",
+  "edition": 2,
+  "round_id": "world_flags_capitals_languages_edition_2",
+  "title": "World Flags + Capitals + Languages — Edition 2",
+  "batch": 2,
+  "start_question": 11,
+  "end_question": 20,
+  "question_count": 10,
+  "stage": "initial",
+  "stage_label": "Initial answers",
+  "version": "lang-ed2-b02-initial-20261022",
+  "validator_private": "languages/edition2-b02-validator.json",
+  "questions": [
+    {
+      "n": 11,
+      "asset": "./flags/canonical/799138319d84.svg",
+      "country_mode": "input",
+      "capital_mode": "input",
+      "language_mode": "input"
+    },
+    {
+      "n": 12,
+      "asset": "./flags/canonical/12818b4110db.svg",
+      "country_mode": "input",
+      "capital_mode": "input",
+      "language_mode": "input"
+    },
+    {
+      "n": 13,
+      "asset": "./flags/canonical/3435608d6c0d.svg",
+      "country_mode": "input",
+      "capital_mode": "input",
+      "language_mode": "input"
+    },
+    {
+      "n": 14,
+      "asset": "./flags/canonical/3a67ca3ccd48.svg",
+      "country_mode": "input",
+      "capital_mode": "input",
+      "language_mode": "input"
+    },
+    {
+      "n": 15,
+      "asset": "./flags/canonical/297888c7be5f.svg",
+      "country_mode": "input",
+      "capital_mode": "input",
+      "language_mode": "input"
+    },
+    {
+      "n": 16,
+      "asset": "./flags/canonical/a2cfbca42aa2.svg",
+      "country_mode": "input",
+      "capital_mode": "input",
+      "language_mode": "input"
+    },
+    {
+      "n": 17,
+      "asset": "./flags/canonical/bc24938cf8ea.svg",
+      "country_mode": "input",
+      "capital_mode": "input",
+      "language_mode": "input"
+    },
+    {
+      "n": 18,
+      "asset": "./flags/canonical/6de2b268d034.svg",
+      "country_mode": "input",
+      "capital_mode": "input",
+      "language_mode": "input"
+    },
+    {
+      "n": 19,
+      "asset": "./flags/canonical/9b00a8205662.svg",
+      "country_mode": "input",
+      "capital_mode": "input",
+      "language_mode": "input"
+    },
+    {
+      "n": 20,
+      "asset": "./flags/canonical/7a4d183245c9.svg",
+      "country_mode": "input",
+      "capital_mode": "input",
+      "language_mode": "input"
+    }
+  ]
+}

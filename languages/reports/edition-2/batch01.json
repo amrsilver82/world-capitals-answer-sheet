@@ -1,0 +1,342 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_2",
+  "edition": 2,
+  "batch": 1,
+  "questions": "1–10",
+  "status": "completed",
+  "date": "2026-10-22",
+  "records": [
+    {
+      "q": 1,
+      "country": "Bolivia",
+      "capital": "La Paz",
+      "correct_languages": "Spanish; Quechua; Aymara (plus other Indigenous official languages)",
+      "asset": "flags/canonical/7658e3f6c26d.svg",
+      "your": {
+        "country": "Bolivia",
+        "capital": "La paz",
+        "language": "Spanish"
+      },
+      "attempts": {
+        "country": [
+          "Bolivia"
+        ],
+        "capital": [
+          "La paz"
+        ],
+        "language": [
+          "Spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "La Paz accepted as Bolivia's seat of government."
+    },
+    {
+      "q": 2,
+      "country": "Cabo Verde",
+      "capital": "Praia",
+      "correct_languages": "Portuguese; Cape Verdean Creole (spoken)",
+      "asset": "flags/canonical/aec8994902cc.svg",
+      "your": {
+        "country": "Cabi verde",
+        "capital": "Praia",
+        "language": "Portguese"
+      },
+      "attempts": {
+        "country": [
+          "Cabi verde"
+        ],
+        "capital": [
+          "Praia"
+        ],
+        "language": [
+          "Portguese"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Cabi verde and Portguese accepted as spelling variants."
+    },
+    {
+      "q": 3,
+      "country": "Kuwait",
+      "capital": "Kuwait City",
+      "correct_languages": "Arabic",
+      "asset": "flags/canonical/3dd89e9962e6.svg",
+      "your": {
+        "country": "Kuwait",
+        "capital": "Kuwait",
+        "language": "Arabic"
+      },
+      "attempts": {
+        "country": [
+          "Kuwait"
+        ],
+        "capital": [
+          "Kuwait"
+        ],
+        "language": [
+          "Arabic"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Kuwait accepted as short form of Kuwait City."
+    },
+    {
+      "q": 4,
+      "country": "China",
+      "capital": "Beijing",
+      "correct_languages": "Mandarin Chinese",
+      "asset": "flags/canonical/10d3489a0e60.svg",
+      "your": {
+        "country": "China",
+        "capital": "Beijing",
+        "language": "Chinese"
+      },
+      "attempts": {
+        "country": [
+          "China"
+        ],
+        "capital": [
+          "Beijing"
+        ],
+        "language": [
+          "Chinese"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Chinese accepted for Mandarin Chinese."
+    },
+    {
+      "q": 5,
+      "country": "Fiji",
+      "capital": "Suva",
+      "correct_languages": "English; Fijian; Fiji Hindi",
+      "asset": "flags/canonical/332ae61d0b8a.svg",
+      "your": {
+        "country": "Fiji",
+        "capital": "Suva",
+        "language": "English"
+      },
+      "attempts": {
+        "country": [
+          "Fiji"
+        ],
+        "capital": [
+          "Suva"
+        ],
+        "language": [
+          "English"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "All three independent."
+    },
+    {
+      "q": 6,
+      "country": "Latvia",
+      "capital": "Riga",
+      "correct_languages": "Latvian",
+      "asset": "flags/canonical/f6dececab891.svg",
+      "your": {
+        "country": "Latvia",
+        "capital": "Riga",
+        "language": "Latvian"
+      },
+      "attempts": {
+        "country": [
+          "Latvia"
+        ],
+        "capital": [
+          "Riga"
+        ],
+        "language": [
+          "Latvian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "All three independent."
+    },
+    {
+      "q": 7,
+      "country": "Zambia",
+      "capital": "Lusaka",
+      "correct_languages": "English",
+      "asset": "flags/canonical/360f37aa19db.svg",
+      "your": {
+        "country": "Zambia",
+        "capital": "Lusaka",
+        "language": "English"
+      },
+      "attempts": {
+        "country": [
+          "Zambia"
+        ],
+        "capital": [
+          "Lusaka"
+        ],
+        "language": [
+          "English"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "All three independent."
+    },
+    {
+      "q": 8,
+      "country": "Ireland",
+      "capital": "Dublin",
+      "correct_languages": "Irish; English",
+      "asset": "flags/canonical/049be14de14f.svg",
+      "your": {
+        "country": "Ireland",
+        "capital": "Dublin",
+        "language": "English"
+      },
+      "attempts": {
+        "country": [
+          "Ireland"
+        ],
+        "capital": [
+          "Dublin"
+        ],
+        "language": [
+          "English"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "English is an official language of Ireland."
+    },
+    {
+      "q": 9,
+      "country": "Turkmenistan",
+      "capital": "Ashgabat",
+      "correct_languages": "Turkmen",
+      "asset": "flags/canonical/4154ed765cfc.svg",
+      "your": {
+        "country": "Turkministan",
+        "capital": "Asghbat",
+        "language": "Turministani- russian"
+      },
+      "attempts": {
+        "country": [
+          "Turkministan"
+        ],
+        "capital": [
+          "Asghbat"
+        ],
+        "language": [
+          "Turministani- russian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Spelling and Turkmenistani-Russian language naming accepted contextually."
+    },
+    {
+      "q": 10,
+      "country": "Republic of the Congo",
+      "capital": "Brazzaville",
+      "correct_languages": "French (official); Lingala; Kituba (national)",
+      "asset": "flags/canonical/f5a0e42d4595.svg",
+      "your": {
+        "country": "Congo",
+        "capital": "Brazaville",
+        "language": "French"
+      },
+      "attempts": {
+        "country": [
+          "Congo"
+        ],
+        "capital": [
+          "Brazaville"
+        ],
+        "language": [
+          "French"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Congo with Brazzaville is Republic of the Congo; Brazaville accepted."
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 10,
+  "remaining_questions": 185,
+  "referee": "All independently correct, phonetic and language variants accepted."
+}
