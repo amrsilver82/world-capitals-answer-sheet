@@ -1,0 +1,21 @@
+name: Three Category Report Publisher
+on:
+  issues:
+    types: [opened]
+permissions:
+  contents: write
+  issues: read
+jobs:
+  publish:
+    if: github.event.issue.title == '[Capitals Report Gateway] Edition 2 Batch 1' && github.event.issue.user.login == 'amrsilver82'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Publish completed private checkpoint
+        run: node languages/tools/publish-edition2-b01.mjs
