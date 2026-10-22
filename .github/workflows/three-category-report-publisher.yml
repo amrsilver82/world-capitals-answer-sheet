@@ -1,14 +1,18 @@
 name: Three Category Report Publisher
 on:
-  issues:
-    types: [opened]
+  push:
+    branches: [main]
+    paths:
+      - 'languages/publish/ed2-b01-payload.json'
 permissions:
   contents: write
-  issues: read
+concurrency:
+  group: three-category-edition2-report
+  cancel-in-progress: false
 jobs:
   publish:
-    if: github.event.issue.title == '[Capitals Report Gateway] Edition 2 Batch 1' && github.event.issue.user.login == 'amrsilver82'
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
         with:
@@ -17,5 +21,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Publish completed private checkpoint
+      - name: Publish verified completed edition 2 batch and frozen next flags
+        env:
+          TZ: Africa/Cairo
         run: node languages/tools/publish-edition2-b01.mjs
