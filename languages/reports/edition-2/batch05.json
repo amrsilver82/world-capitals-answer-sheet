@@ -1,0 +1,344 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_2",
+  "edition": 2,
+  "batch": 5,
+  "questions": "41–50",
+  "status": "completed",
+  "date": "2026-10-23",
+  "records": [
+    {
+      "q": 41,
+      "country": "Burkina Faso",
+      "capital": "Ouagadougou",
+      "correct_languages": "Mooré; Dioula; Fulfulde (national); French (working)",
+      "asset": "flags/canonical/471382258410.svg",
+      "your": {
+        "country": "burkina faso",
+        "capital": "ougadogu",
+        "language": "french"
+      },
+      "attempts": {
+        "country": [
+          "burkina faso"
+        ],
+        "capital": [
+          "ougadogu"
+        ],
+        "language": [
+          "french"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Ougadogu recognized as a phonetic approximation of Ouagadougou."
+    },
+    {
+      "q": 42,
+      "country": "New Zealand",
+      "capital": "Wellington",
+      "correct_languages": "English (de facto); Māori; New Zealand Sign Language",
+      "asset": "flags/canonical/935d8a749d94.svg",
+      "your": {
+        "country": "new zeland",
+        "capital": "wellington",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "new zeland"
+        ],
+        "capital": [
+          "wellington"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "New zeland recognized as a clear spelling of New Zealand."
+    },
+    {
+      "q": 43,
+      "country": "Thailand",
+      "capital": "Bangkok",
+      "correct_languages": "Thai",
+      "asset": "flags/canonical/1e93a61e95bf.svg",
+      "your": {
+        "country": "thailand",
+        "capital": "bangkok",
+        "language": "thai"
+      },
+      "attempts": {
+        "country": [
+          "thailand"
+        ],
+        "capital": [
+          "bangkok"
+        ],
+        "language": [
+          "thai"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "All three answers Independent."
+    },
+    {
+      "q": 44,
+      "country": "Saint Lucia",
+      "capital": "Castries",
+      "correct_languages": "English; Saint Lucian Creole (spoken)",
+      "asset": "flags/canonical/bb256541c6ed.svg",
+      "your": {
+        "country": "st lucia",
+        "capital": "castries",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "st lucia"
+        ],
+        "capital": [
+          "castries"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "St lucia is a recognized short form of Saint Lucia."
+    },
+    {
+      "q": 45,
+      "country": "Afghanistan",
+      "capital": "Kabul",
+      "correct_languages": "Dari; Pashto",
+      "asset": "flags/canonical/4dbe4556e12f.svg",
+      "your": {
+        "country": "afghanistan",
+        "capital": "kabouk",
+        "language": "afghani-bashto"
+      },
+      "attempts": {
+        "country": [
+          "afghanistan"
+        ],
+        "capital": [
+          "kabouk"
+        ],
+        "language": [
+          "afghani-bashto"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Kabouk and afghani-bashto identify Kabul and Pashto; unassisted prior precedent."
+    },
+    {
+      "q": 46,
+      "country": "Malaysia",
+      "capital": "Kuala Lumpur",
+      "correct_languages": "Malay",
+      "asset": "flags/canonical/115f864d8acf.svg",
+      "your": {
+        "country": "malaysia",
+        "capital": "kula lumpur",
+        "language": "malay"
+      },
+      "attempts": {
+        "country": [
+          "malaysia"
+        ],
+        "capital": [
+          "kula lumpur"
+        ],
+        "language": [
+          "malay"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Kula lumpur accepted as an unambiguous Kuala Lumpur spelling."
+    },
+    {
+      "q": 47,
+      "country": "Chile",
+      "capital": "Santiago",
+      "correct_languages": "Spanish",
+      "asset": "flags/canonical/5b3c72fa7c26.svg",
+      "your": {
+        "country": "chile",
+        "capital": "santiago",
+        "language": "spanish"
+      },
+      "attempts": {
+        "country": [
+          "chile"
+        ],
+        "capital": [
+          "santiago"
+        ],
+        "language": [
+          "spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "All three answers independently correct."
+    },
+    {
+      "q": 48,
+      "country": "United States",
+      "capital": "Washington, D.C.",
+      "correct_languages": "English (2025 federal executive order)",
+      "asset": "flags/canonical/9cfd0c927f97.svg",
+      "your": {
+        "country": "usa",
+        "capital": "wasghington dc",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "usa"
+        ],
+        "capital": [
+          "wasghington dc"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "USA is recognized; wasghington dc clearly identifies Washington, D.C."
+    },
+    {
+      "q": 49,
+      "country": "Bhutan",
+      "capital": "Thimphu",
+      "correct_languages": "Dzongkha (national); English (widely spoken and school medium — referee accepted)",
+      "asset": "flags/canonical/20aef3a63b4d.svg",
+      "your": {
+        "country": "bhutan",
+        "capital": "thimpu",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "bhutan"
+        ],
+        "capital": [
+          "thimpu"
+        ],
+        "language": [
+          "chinese-mandrin",
+          "malay-tamil",
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Bhutan language attempts: chinese-mandrin → malay-tamil → english. English accepted as a widely spoken school/working language in Bhutan, not its national language; no clue."
+    },
+    {
+      "q": 50,
+      "country": "Bosnia and Herzegovina",
+      "capital": "Sarajevo",
+      "correct_languages": "Bosnian; Croatian; Serbian",
+      "asset": "flags/canonical/93bd9cf93784.svg",
+      "your": {
+        "country": "BOSNIA herzaghovina",
+        "capital": "sarajivo",
+        "language": "bosnian"
+      },
+      "attempts": {
+        "country": [
+          "BOSNIA herzaghovina"
+        ],
+        "capital": [
+          "sarajivo"
+        ],
+        "language": [
+          "bosnian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Bosnia herzaghovina and sarajivo recognized under established Bosnia/Sarajevo phonetic precedents."
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 50,
+      "pure": 50,
+      "pure_plus_assisted": 50,
+      "independent": 50,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 50,
+      "pure": 50,
+      "pure_plus_assisted": 50,
+      "independent": 50,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 50,
+      "pure": 50,
+      "pure_plus_assisted": 50,
+      "independent": 50,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 50,
+  "remaining_questions": 145,
+  "referee": "All 30 correct independently. Bhutan English accepted as an educational working and widely spoken language; no clue. The complete Q49 guesses are preserved."
+}
