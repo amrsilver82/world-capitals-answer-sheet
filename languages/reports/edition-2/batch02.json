@@ -1,0 +1,342 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_2",
+  "edition": 2,
+  "batch": 2,
+  "questions": "11–20",
+  "status": "completed",
+  "date": "2026-10-23",
+  "records": [
+    {
+      "q": 11,
+      "country": "United Kingdom",
+      "capital": "London",
+      "correct_languages": "English (de facto); Welsh; Scottish Gaelic; Irish (regional)",
+      "asset": "flags/canonical/799138319d84.svg",
+      "your": {
+        "country": "uk",
+        "capital": "london",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "uk"
+        ],
+        "capital": [
+          "london"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "UK accepted as a standard abbreviation for the United Kingdom."
+    },
+    {
+      "q": 12,
+      "country": "Sudan",
+      "capital": "Khartoum",
+      "correct_languages": "Arabic; English",
+      "asset": "flags/canonical/12818b4110db.svg",
+      "your": {
+        "country": "sudan",
+        "capital": "khartoum",
+        "language": "arabic"
+      },
+      "attempts": {
+        "country": [
+          "sudan"
+        ],
+        "capital": [
+          "khartoum"
+        ],
+        "language": [
+          "arabic"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "All three answers Independent."
+    },
+    {
+      "q": 13,
+      "country": "Botswana",
+      "capital": "Gaborone",
+      "correct_languages": "English; Setswana (national)",
+      "asset": "flags/canonical/3435608d6c0d.svg",
+      "your": {
+        "country": "botswana",
+        "capital": "gaboroni",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "botswana"
+        ],
+        "capital": [
+          "gaboroni"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Gaboroni accepted as an unmistakable spelling of Gaborone."
+    },
+    {
+      "q": 14,
+      "country": "Kenya",
+      "capital": "Nairobi",
+      "correct_languages": "Swahili; English",
+      "asset": "flags/canonical/3a67ca3ccd48.svg",
+      "your": {
+        "country": "kenya",
+        "capital": "nairobi",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "kenya"
+        ],
+        "capital": [
+          "nairobi"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "All three answers Independent."
+    },
+    {
+      "q": 15,
+      "country": "Montenegro",
+      "capital": "Cetinje (former royal capital)",
+      "correct_languages": "Montenegrin; Serbian; Bosnian; Albanian; Croatian (official use)",
+      "asset": "flags/canonical/297888c7be5f.svg",
+      "your": {
+        "country": "montenegro",
+        "capital": "citijne",
+        "language": "montinegran"
+      },
+      "attempts": {
+        "country": [
+          "montenegro"
+        ],
+        "capital": [
+          "citijne"
+        ],
+        "language": [
+          "montinegran"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Citijne accepted for the former royal capital Cetinje; Montinegran accepted for Montenegrin."
+    },
+    {
+      "q": 16,
+      "country": "Tanzania",
+      "capital": "Dar es Salaam (former capital)",
+      "correct_languages": "Swahili; English",
+      "asset": "flags/canonical/a2cfbca42aa2.svg",
+      "your": {
+        "country": "tanzania",
+        "capital": "dar el salam",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "tanzania"
+        ],
+        "capital": [
+          "dar el salam"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Dar el salam accepted under the previously established historical Dar es Salaam capital precedent."
+    },
+    {
+      "q": 17,
+      "country": "Trinidad and Tobago",
+      "capital": "Port of Spain",
+      "correct_languages": "English",
+      "asset": "flags/canonical/bc24938cf8ea.svg",
+      "your": {
+        "country": "trinidad and tobago",
+        "capital": "port of spain",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "trinidad and tobago"
+        ],
+        "capital": [
+          "port of spain"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "All three answers Independent."
+    },
+    {
+      "q": 18,
+      "country": "Dominican Republic",
+      "capital": "Santo Domingo",
+      "correct_languages": "Spanish",
+      "asset": "flags/canonical/6de2b268d034.svg",
+      "your": {
+        "country": "domincan",
+        "capital": "santo domingo",
+        "language": "spanish"
+      },
+      "attempts": {
+        "country": [
+          "domincan"
+        ],
+        "capital": [
+          "santo domingo"
+        ],
+        "language": [
+          "spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Domincan accepted as recognizable shorthand for Dominican Republic, in Santo Domingo context."
+    },
+    {
+      "q": 19,
+      "country": "Djibouti",
+      "capital": "Djibouti",
+      "correct_languages": "Arabic; French",
+      "asset": "flags/canonical/9b00a8205662.svg",
+      "your": {
+        "country": "djibouti",
+        "capital": "djibouti",
+        "language": "arabic"
+      },
+      "attempts": {
+        "country": [
+          "djibouti"
+        ],
+        "capital": [
+          "djibouti"
+        ],
+        "language": [
+          "arabic"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Arabic accepted as an official language of Djibouti."
+    },
+    {
+      "q": 20,
+      "country": "Liechtenstein",
+      "capital": "Vaduz",
+      "correct_languages": "German",
+      "asset": "flags/canonical/7a4d183245c9.svg",
+      "your": {
+        "country": "lictnchtein",
+        "capital": "vaduz",
+        "language": "german"
+      },
+      "attempts": {
+        "country": [
+          "lictnchtein"
+        ],
+        "capital": [
+          "vaduz"
+        ],
+        "language": [
+          "german"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Lictnchtein accepted as an identifiable phonetic spelling of Liechtenstein."
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 20,
+      "pure": 20,
+      "pure_plus_assisted": 20,
+      "independent": 20,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 20,
+      "pure": 20,
+      "pure_plus_assisted": 20,
+      "independent": 20,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 20,
+      "pure": 20,
+      "pure_plus_assisted": 20,
+      "independent": 20,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 20,
+  "remaining_questions": 175,
+  "referee": "Seven independently accepted non-hash-matching but recognizable abbreviations/phonetic/historical-capital variants. No clues."
+}
