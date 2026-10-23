@@ -1,0 +1,342 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_2",
+  "edition": 2,
+  "batch": 3,
+  "questions": "21–30",
+  "status": "completed",
+  "date": "2026-10-23",
+  "records": [
+    {
+      "q": 21,
+      "country": "Singapore",
+      "capital": "Singapore",
+      "correct_languages": "English; Malay; Mandarin; Tamil",
+      "asset": "flags/canonical/c4dd4ac9ebe6.svg",
+      "your": {
+        "country": "singapore",
+        "capital": "singapore",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "singapore"
+        ],
+        "capital": [
+          "singapore"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Singapore was named correctly in all three fields."
+    },
+    {
+      "q": 22,
+      "country": "Argentina",
+      "capital": "Buenos Aires",
+      "correct_languages": "Spanish",
+      "asset": "flags/canonical/c753da103f3c.svg",
+      "your": {
+        "country": "argentina",
+        "capital": "buenos airos",
+        "language": "spanish"
+      },
+      "attempts": {
+        "country": [
+          "argentina"
+        ],
+        "capital": [
+          "buenos airos"
+        ],
+        "language": [
+          "spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Buenos airos accepted as a phonetic spelling of Buenos Aires."
+    },
+    {
+      "q": 23,
+      "country": "Togo",
+      "capital": "Lomé",
+      "correct_languages": "French; Ewe; Kabiyé (national)",
+      "asset": "flags/canonical/9d6ea6c5d488.svg",
+      "your": {
+        "country": "togo",
+        "capital": "lomi",
+        "language": "french"
+      },
+      "attempts": {
+        "country": [
+          "togo"
+        ],
+        "capital": [
+          "lomi"
+        ],
+        "language": [
+          "french"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Lomi accepted under the established Lomé phonetic precedent."
+    },
+    {
+      "q": 24,
+      "country": "Slovenia",
+      "capital": "Ljubljana",
+      "correct_languages": "Slovene; Italian; Hungarian (regional)",
+      "asset": "flags/canonical/1bbdd94fd254.svg",
+      "your": {
+        "country": "slovenia",
+        "capital": "lujibliana",
+        "language": "slovene"
+      },
+      "attempts": {
+        "country": [
+          "slovenia"
+        ],
+        "capital": [
+          "lujibliana"
+        ],
+        "language": [
+          "slovene"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Lujibliana accepted as a clear phonetic approximation of Ljubljana."
+    },
+    {
+      "q": 25,
+      "country": "Kazakhstan",
+      "capital": "Astana",
+      "correct_languages": "Kazakh; Russian (official use)",
+      "asset": "flags/canonical/2fac45bda64a.svg",
+      "your": {
+        "country": "kazakhistan",
+        "capital": "astana",
+        "language": "kazakhi"
+      },
+      "attempts": {
+        "country": [
+          "kazakhistan"
+        ],
+        "capital": [
+          "astana"
+        ],
+        "language": [
+          "kazakhi"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Kazakhistan and kazakhi accepted under established spelling precedents."
+    },
+    {
+      "q": 26,
+      "country": "Iceland",
+      "capital": "Reykjavík",
+      "correct_languages": "Icelandic",
+      "asset": "flags/canonical/a6588afaefd0.svg",
+      "your": {
+        "country": "iceland",
+        "capital": "rjkyvyk",
+        "language": "icelandic"
+      },
+      "attempts": {
+        "country": [
+          "iceland"
+        ],
+        "capital": [
+          "rjkyvyk"
+        ],
+        "language": [
+          "icelandic"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Rjkyvyk accepted under the previously approved Reykjavík referee precedent."
+    },
+    {
+      "q": 27,
+      "country": "Kyrgyzstan",
+      "capital": "Bishkek",
+      "correct_languages": "Kyrgyz; Russian",
+      "asset": "flags/canonical/e26db95356b6.svg",
+      "your": {
+        "country": "krgystan",
+        "capital": "beshkek",
+        "language": "krgyzi"
+      },
+      "attempts": {
+        "country": [
+          "krgystan"
+        ],
+        "capital": [
+          "beshkek"
+        ],
+        "language": [
+          "krgyzi"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "The Q27 flag failed to display on the user's browser; krgystan, beshkek and krgyzi accepted independently, with no deduction."
+    },
+    {
+      "q": 28,
+      "country": "Bangladesh",
+      "capital": "Dhaka",
+      "correct_languages": "Bengali",
+      "asset": "flags/canonical/16b794debd08.svg",
+      "your": {
+        "country": "bangladish",
+        "capital": "dhaka",
+        "language": "bangali"
+      },
+      "attempts": {
+        "country": [
+          "bangladish"
+        ],
+        "capital": [
+          "dhaka"
+        ],
+        "language": [
+          "bangali"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Bangladish and bangali accepted as recognizable phonetic variants."
+    },
+    {
+      "q": 29,
+      "country": "Austria",
+      "capital": "Vienna",
+      "correct_languages": "German",
+      "asset": "flags/canonical/9d2775c08328.svg",
+      "your": {
+        "country": "austria",
+        "capital": "vienna",
+        "language": "german"
+      },
+      "attempts": {
+        "country": [
+          "austria"
+        ],
+        "capital": [
+          "vienna"
+        ],
+        "language": [
+          "german"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "All three answers independently correct."
+    },
+    {
+      "q": 30,
+      "country": "Belize",
+      "capital": "Belmopan",
+      "correct_languages": "English",
+      "asset": "flags/canonical/d81b16c23d44.svg",
+      "your": {
+        "country": "belize",
+        "capital": "balompan",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "belize"
+        ],
+        "capital": [
+          "balompan"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Balompan accepted under the established Belmopan spelling precedent."
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 30,
+      "pure": 30,
+      "pure_plus_assisted": 30,
+      "independent": 30,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 30,
+      "pure": 30,
+      "pure_plus_assisted": 30,
+      "independent": 30,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 30,
+      "pure": 30,
+      "pure_plus_assisted": 30,
+      "independent": 30,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 30,
+  "remaining_questions": 165,
+  "referee": "Unassisted recognizably phonetic answers accepted per previous referee precedents. Q27 broken flag did not reduce score."
+}
