@@ -1,0 +1,346 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_2",
+  "edition": 2,
+  "batch": 6,
+  "questions": "51–60",
+  "status": "completed",
+  "date": "2026-10-24",
+  "records": [
+    {
+      "q": 51,
+      "country": "Colombia",
+      "capital": "Bogotá",
+      "correct_languages": "Spanish",
+      "asset": "flags/canonical/ebd0a0fb2d4b.svg",
+      "your": {
+        "country": "colombia",
+        "capital": "bogota",
+        "language": "spanish"
+      },
+      "attempts": {
+        "country": [
+          "colombia"
+        ],
+        "capital": [
+          "bogota"
+        ],
+        "language": [
+          "spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Accepted independently"
+    },
+    {
+      "q": 52,
+      "country": "Armenia",
+      "capital": "Yerevan",
+      "correct_languages": "Armenian",
+      "asset": "flags/canonical/99fa4dc5979a.svg",
+      "your": {
+        "country": "armenia",
+        "capital": "yeravan",
+        "language": "armenian"
+      },
+      "attempts": {
+        "country": [
+          "armenia"
+        ],
+        "capital": [
+          "yeravan"
+        ],
+        "language": [
+          "armenian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Accepted independently"
+    },
+    {
+      "q": 53,
+      "country": "Morocco",
+      "capital": "Rabat",
+      "correct_languages": "Arabic; Amazigh",
+      "asset": "flags/canonical/7ce56eff707c.svg",
+      "your": {
+        "country": "morroco",
+        "capital": "rabat",
+        "language": "arabic"
+      },
+      "attempts": {
+        "country": [
+          "morroco"
+        ],
+        "capital": [
+          "rabat"
+        ],
+        "language": [
+          "arabic"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Accepted independently"
+    },
+    {
+      "q": 54,
+      "country": "Lesotho",
+      "capital": "Maseru",
+      "correct_languages": "Sesotho; English",
+      "asset": "flags/canonical/a7c01a98ffc7.svg",
+      "your": {
+        "country": "leshoto",
+        "capital": "masreau",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "leshoto"
+        ],
+        "capital": [
+          "masreau"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Accepted independently"
+    },
+    {
+      "q": 55,
+      "country": "Belarus",
+      "capital": "Minsk",
+      "correct_languages": "Belarusian; Russian",
+      "asset": "flags/canonical/948784ff1707.svg",
+      "your": {
+        "country": "belarus",
+        "capital": "minsk",
+        "language": "russian"
+      },
+      "attempts": {
+        "country": [
+          "belarus"
+        ],
+        "capital": [
+          "minsk"
+        ],
+        "language": [
+          "russian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Capital and language fields entered in reverse order; use clear semantic mapping",
+      "original_input": {
+        "country": "belarus",
+        "capital": "russian",
+        "language": "minsk"
+      }
+    },
+    {
+      "q": 56,
+      "country": "Norway",
+      "capital": "Oslo",
+      "correct_languages": "Norwegian; Sami (recognized)",
+      "asset": "flags/canonical/a5f2a152a932.svg",
+      "your": {
+        "country": "norway",
+        "capital": "oslo",
+        "language": "nowigian"
+      },
+      "attempts": {
+        "country": [
+          "norway"
+        ],
+        "capital": [
+          "oslo"
+        ],
+        "language": [
+          "nowigian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Accepted independently"
+    },
+    {
+      "q": 57,
+      "country": "Qatar",
+      "capital": "Doha",
+      "correct_languages": "Arabic",
+      "asset": "flags/canonical/901f3fa761a3.svg",
+      "your": {
+        "country": "qatar",
+        "capital": "doha",
+        "language": "arabic"
+      },
+      "attempts": {
+        "country": [
+          "qatar"
+        ],
+        "capital": [
+          "doha"
+        ],
+        "language": [
+          "arabic"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Accepted independently"
+    },
+    {
+      "q": 58,
+      "country": "Costa Rica",
+      "capital": "San José",
+      "correct_languages": "Spanish",
+      "asset": "flags/canonical/5a409eebb25d.svg",
+      "your": {
+        "country": "costarica",
+        "capital": "san jose",
+        "language": "spanish"
+      },
+      "attempts": {
+        "country": [
+          "costarica"
+        ],
+        "capital": [
+          "san jose"
+        ],
+        "language": [
+          "spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Accepted independently"
+    },
+    {
+      "q": 59,
+      "country": "Venezuela",
+      "capital": "Caracas",
+      "correct_languages": "Spanish; Indigenous languages (recognized)",
+      "asset": "flags/canonical/314e7f5f7f53.svg",
+      "your": {
+        "country": "venzuela",
+        "capital": "caracas",
+        "language": "spanish"
+      },
+      "attempts": {
+        "country": [
+          "venzuela"
+        ],
+        "capital": [
+          "caracas"
+        ],
+        "language": [
+          "spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Accepted independently"
+    },
+    {
+      "q": 60,
+      "country": "Finland",
+      "capital": "Helsinki",
+      "correct_languages": "Finnish; Swedish",
+      "asset": "flags/canonical/470be2d07c9d.svg",
+      "your": {
+        "country": "finland",
+        "capital": "helsinki",
+        "language": "finnish"
+      },
+      "attempts": {
+        "country": [
+          "finland"
+        ],
+        "capital": [
+          "helsinki"
+        ],
+        "language": [
+          "finnish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Accepted independently"
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 60,
+      "pure": 60,
+      "pure_plus_assisted": 60,
+      "independent": 60,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 60,
+      "pure": 60,
+      "pure_plus_assisted": 60,
+      "independent": 60,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 60,
+      "pure": 60,
+      "pure_plus_assisted": 60,
+      "independent": 60,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 60,
+  "remaining_questions": 135
+}
