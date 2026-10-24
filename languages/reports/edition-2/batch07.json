@@ -1,0 +1,342 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_2",
+  "edition": 2,
+  "batch": 7,
+  "questions": "61–70",
+  "status": "completed",
+  "date": "2026-10-24",
+  "records": [
+    {
+      "q": 61,
+      "country": "Occupied Palestine",
+      "capital": "Tel Aviv",
+      "correct_languages": "Hebrew; Arabic (special status)",
+      "asset": "flags/canonical/f43be7e8ed7a.svg",
+      "your": {
+        "country": "Occupied palestine",
+        "capital": "Tel aviv",
+        "language": "Hebrew"
+      },
+      "attempts": {
+        "country": [
+          "Occupied palestine"
+        ],
+        "capital": [
+          "Tel aviv"
+        ],
+        "language": [
+          "Hebrew"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Project-specific naming/answer precedent, Independent"
+    },
+    {
+      "q": 62,
+      "country": "Suriname",
+      "capital": "Paramaribo",
+      "correct_languages": "Dutch",
+      "asset": "flags/canonical/5e71c400262b.svg",
+      "your": {
+        "country": "Suriname",
+        "capital": "Parmaribo",
+        "language": "Dutch"
+      },
+      "attempts": {
+        "country": [
+          "Suriname"
+        ],
+        "capital": [
+          "Parmaribo"
+        ],
+        "language": [
+          "Dutch"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Parmaribo recognizable spelling, Independent"
+    },
+    {
+      "q": 63,
+      "country": "Côte d'Ivoire",
+      "capital": "Yamoussoukro; Abidjan (former)",
+      "correct_languages": "French",
+      "asset": "flags/canonical/e400f0c1cd40.svg",
+      "your": {
+        "country": "Ivory coast",
+        "capital": "Abidjan",
+        "language": "French"
+      },
+      "attempts": {
+        "country": [
+          "Ivory coast"
+        ],
+        "capital": [
+          "Abidjan"
+        ],
+        "language": [
+          "French"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Ivory Coast synonym and Abidjan former capital accepted"
+    },
+    {
+      "q": 64,
+      "country": "Poland",
+      "capital": "Warsaw",
+      "correct_languages": "Polish",
+      "asset": "flags/canonical/42d2b0ce1916.svg",
+      "your": {
+        "country": "Poland",
+        "capital": "Warsaw",
+        "language": "Polish"
+      },
+      "attempts": {
+        "country": [
+          "Poland"
+        ],
+        "capital": [
+          "Warsaw"
+        ],
+        "language": [
+          "Polish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Accepted independently"
+    },
+    {
+      "q": 65,
+      "country": "Ethiopia",
+      "capital": "Addis Ababa",
+      "correct_languages": "Amharic; Oromo; Somali; Tigrinya; Afar (federal working)",
+      "asset": "flags/canonical/3f99be486098.svg",
+      "your": {
+        "country": "Ethiopia",
+        "capital": "Adis ababa",
+        "language": "Amheric"
+      },
+      "attempts": {
+        "country": [
+          "Ethiopia"
+        ],
+        "capital": [
+          "Adis ababa"
+        ],
+        "language": [
+          "Amheric"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Addis Ababa / Amharic phonetic spellings accepted"
+    },
+    {
+      "q": 66,
+      "country": "South Sudan",
+      "capital": "Juba",
+      "correct_languages": "English",
+      "asset": "flags/canonical/b257aa0b3e50.svg",
+      "your": {
+        "country": "South sudan",
+        "capital": "Juba",
+        "language": "English"
+      },
+      "attempts": {
+        "country": [
+          "South sudan"
+        ],
+        "capital": [
+          "Juba"
+        ],
+        "language": [
+          "English"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Accepted independently"
+    },
+    {
+      "q": 67,
+      "country": "Myanmar",
+      "capital": "Naypyidaw; Yangon / Rangoon (former)",
+      "correct_languages": "Burmese",
+      "asset": "flags/canonical/42b4dee2b8cc.svg",
+      "your": {
+        "country": "Myanmar",
+        "capital": "Rangoon",
+        "language": "Vietnamese-burmese-chinese"
+      },
+      "attempts": {
+        "country": [
+          "Myanmar"
+        ],
+        "capital": [
+          "Rangoon"
+        ],
+        "language": [
+          "Vietnamese-burmese-chinese"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Rangoon accepted as former capital; Burmese expressly identified in compound language answer"
+    },
+    {
+      "q": 68,
+      "country": "Equatorial Guinea",
+      "capital": "Malabo",
+      "correct_languages": "Spanish; French; Portuguese",
+      "asset": "flags/canonical/64c8eb220a30.svg",
+      "your": {
+        "country": "Equatorial quinea",
+        "capital": "Malabo",
+        "language": "Spanish"
+      },
+      "attempts": {
+        "country": [
+          "Equatorial quinea"
+        ],
+        "capital": [
+          "Maribo",
+          "Malabo"
+        ],
+        "language": [
+          "Spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "First capital Maribo incorrect; independent unassisted retry Malabo accepted, no clue"
+    },
+    {
+      "q": 69,
+      "country": "Paraguay",
+      "capital": "Asunción",
+      "correct_languages": "Spanish; Guaraní",
+      "asset": "flags/canonical/abccd87994c0.svg",
+      "your": {
+        "country": "Paraguay",
+        "capital": "Assuncion",
+        "language": "Spanish"
+      },
+      "attempts": {
+        "country": [
+          "Paraguay"
+        ],
+        "capital": [
+          "Assuncion"
+        ],
+        "language": [
+          "Spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Accepted independently"
+    },
+    {
+      "q": 70,
+      "country": "Panama",
+      "capital": "Panama City",
+      "correct_languages": "Spanish",
+      "asset": "flags/canonical/9ab733f4b548.svg",
+      "your": {
+        "country": "Panama",
+        "capital": "Panama",
+        "language": "Spanish"
+      },
+      "attempts": {
+        "country": [
+          "Panama"
+        ],
+        "capital": [
+          "Panama"
+        ],
+        "language": [
+          "Spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Panama without City suffix accepted"
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 70,
+      "pure": 70,
+      "pure_plus_assisted": 70,
+      "independent": 70,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 70,
+      "pure": 70,
+      "pure_plus_assisted": 70,
+      "independent": 70,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 70,
+      "pure": 70,
+      "pure_plus_assisted": 70,
+      "independent": 70,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 70,
+  "remaining_questions": 125
+}
