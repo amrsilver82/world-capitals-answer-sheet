@@ -1,0 +1,341 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_2",
+  "edition": 2,
+  "batch": 13,
+  "questions": "121–130",
+  "status": "completed",
+  "date": "2026-10-25",
+  "records": [
+    {
+      "q": 121,
+      "country": "Japan",
+      "capital": "Tokyo",
+      "correct_languages": "Japanese",
+      "asset": "flags/canonical/cc1c181ce9b2.svg",
+      "your": {
+        "country": "japan",
+        "capital": "tokyo",
+        "language": "japoanese"
+      },
+      "attempts": {
+        "country": [
+          "japan"
+        ],
+        "capital": [
+          "tokyo"
+        ],
+        "language": [
+          "japoanese"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Japanese spelling accepted."
+    },
+    {
+      "q": 122,
+      "country": "Malawi",
+      "capital": "Lilongwe",
+      "correct_languages": "English; Chichewa (national)",
+      "asset": "flags/canonical/137ff87893c7.svg",
+      "your": {
+        "country": "malawi",
+        "capital": "lilingwi",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "malawi"
+        ],
+        "capital": [
+          "lilingwi"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "lilingwi accepted as Lilongwe phonetic spelling."
+    },
+    {
+      "q": 123,
+      "country": "Somalia",
+      "capital": "Mogadishu (Muqdisho)",
+      "correct_languages": "Somali; Arabic",
+      "asset": "flags/canonical/a581ac63cfaf.svg",
+      "your": {
+        "country": "somalia",
+        "capital": "magadeshou",
+        "language": "arabic"
+      },
+      "attempts": {
+        "country": [
+          "somalia"
+        ],
+        "capital": [
+          "magadeshou"
+        ],
+        "language": [
+          "arabic"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "magadeshou accepted as Mogadishu/Muqdisho phonetic; Arabic official."
+    },
+    {
+      "q": 124,
+      "country": "Mauritius",
+      "capital": "Port Louis",
+      "correct_languages": "English (parliament); French; Mauritian Creole (spoken)",
+      "asset": "flags/canonical/82d7a3bec553.svg",
+      "your": {
+        "country": "maurituis",
+        "capital": "port louis",
+        "language": "french"
+      },
+      "attempts": {
+        "country": [
+          "maurituis"
+        ],
+        "capital": [
+          "port louis"
+        ],
+        "language": [
+          "french"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Mauritius country spelling; French widely used/recognized."
+    },
+    {
+      "q": 125,
+      "country": "Netherlands",
+      "capital": "Amsterdam",
+      "correct_languages": "Dutch",
+      "asset": "flags/canonical/e90f5b03511f.svg",
+      "your": {
+        "country": "netherlands",
+        "capital": "amsterdam",
+        "language": "dutch"
+      },
+      "attempts": {
+        "country": [
+          "netherlands"
+        ],
+        "capital": [
+          "amsterdam"
+        ],
+        "language": [
+          "dutch"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct first attempt."
+    },
+    {
+      "q": 126,
+      "country": "Andorra",
+      "capital": "Andorra la Vella / Andorra",
+      "correct_languages": "Catalan",
+      "asset": "flags/canonical/199ff198e7e4.svg",
+      "your": {
+        "country": "andorra",
+        "capital": "andorra",
+        "language": "catalan"
+      },
+      "attempts": {
+        "country": [
+          "andorra"
+        ],
+        "capital": [
+          "andorra"
+        ],
+        "language": [
+          "catalan"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Andorra capital accepted as Andorra la Vella by explicit permanent project shorthand rule."
+    },
+    {
+      "q": 127,
+      "country": "Haiti",
+      "capital": "Port-au-Prince",
+      "correct_languages": "Haitian Creole; French",
+      "asset": "flags/canonical/8e8efc46b9a9.svg",
+      "your": {
+        "country": "haiti",
+        "capital": "port au prince",
+        "language": "french"
+      },
+      "attempts": {
+        "country": [
+          "haiti"
+        ],
+        "capital": [
+          "port au prince"
+        ],
+        "language": [
+          "french"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct first attempt."
+    },
+    {
+      "q": 128,
+      "country": "Sweden",
+      "capital": "Stockholm",
+      "correct_languages": "Swedish",
+      "asset": "flags/canonical/8ba745acaf22.svg",
+      "your": {
+        "country": "sweden",
+        "capital": "stokholm",
+        "language": "swedish"
+      },
+      "attempts": {
+        "country": [
+          "sweden"
+        ],
+        "capital": [
+          "stokholm"
+        ],
+        "language": [
+          "swedish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "stokholm accepted recognizable Stockholm spelling."
+    },
+    {
+      "q": 129,
+      "country": "Germany",
+      "capital": "Berlin",
+      "correct_languages": "German",
+      "asset": "flags/canonical/71aa2d2c30f5.svg",
+      "your": {
+        "country": "germany",
+        "capital": "berlin",
+        "language": "german"
+      },
+      "attempts": {
+        "country": [
+          "germany"
+        ],
+        "capital": [
+          "berlin"
+        ],
+        "language": [
+          "german"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct first attempt."
+    },
+    {
+      "q": 130,
+      "country": "Peru",
+      "capital": "Lima",
+      "correct_languages": "Spanish; Quechua; Aymara (regional)",
+      "asset": "flags/canonical/33e6cfd41781.svg",
+      "your": {
+        "country": "peru",
+        "capital": "lima",
+        "language": "spanish"
+      },
+      "attempts": {
+        "country": [
+          "peru"
+        ],
+        "capital": [
+          "lima"
+        ],
+        "language": [
+          "spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct first attempt."
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 130,
+      "pure": 130,
+      "pure_plus_assisted": 130,
+      "independent": 130,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 130,
+      "pure": 130,
+      "pure_plus_assisted": 130,
+      "independent": 130,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 130,
+      "pure": 130,
+      "pure_plus_assisted": 130,
+      "independent": 130,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 130,
+  "remaining_questions": 65
+}
