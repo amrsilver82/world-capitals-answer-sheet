@@ -1,0 +1,345 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_2",
+  "edition": 2,
+  "batch": 11,
+  "questions": "101–110",
+  "status": "completed",
+  "date": "2026-10-25",
+  "records": [
+    {
+      "q": 101,
+      "country": "Sri Lanka",
+      "capital": "Sri Jayawardenepura Kotte / Colombo",
+      "correct_languages": "Sinhala; Tamil",
+      "asset": "flags/canonical/cbd660a54ac6.svg",
+      "your": {
+        "country": "srilanka",
+        "capital": "colombo",
+        "language": "english-tamil"
+      },
+      "attempts": {
+        "country": [
+          "srilanka"
+        ],
+        "capital": [
+          "colombo"
+        ],
+        "language": [
+          "bormese-chinese",
+          "malay",
+          "english-tamil"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Colombo accepted under historical capital rule. Tamil in English-Tamil accepted as official language after two unassisted attempts."
+    },
+    {
+      "q": 102,
+      "country": "Namibia",
+      "capital": "Windhoek",
+      "correct_languages": "English",
+      "asset": "flags/canonical/35b9f783e155.svg",
+      "your": {
+        "country": "namibia",
+        "capital": "windhok",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "namibia"
+        ],
+        "capital": [
+          "windhok"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Windhok accepted as recognizable Windhoek spelling."
+    },
+    {
+      "q": 103,
+      "country": "India",
+      "capital": "New Delhi",
+      "correct_languages": "Hindi; English (Union); 22 scheduled languages",
+      "asset": "flags/canonical/bc47d74911bb.svg",
+      "your": {
+        "country": "india",
+        "capital": "new delhi",
+        "language": "hindi"
+      },
+      "attempts": {
+        "country": [
+          "india"
+        ],
+        "capital": [
+          "new delhi"
+        ],
+        "language": [
+          "hindi"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct first attempt."
+    },
+    {
+      "q": 104,
+      "country": "Grenada",
+      "capital": "St. George's",
+      "correct_languages": "English",
+      "asset": "flags/canonical/b3d250db99cf.svg",
+      "your": {
+        "country": "grenada",
+        "capital": "st george",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "grenada"
+        ],
+        "capital": [
+          "georgetown",
+          "st george"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Grenada's capital first attempt Georgetown, corrected to St George independently."
+    },
+    {
+      "q": 105,
+      "country": "Guyana",
+      "capital": "Georgetown",
+      "correct_languages": "English",
+      "asset": "flags/canonical/569fb562759e.svg",
+      "your": {
+        "country": "guyana",
+        "capital": "georgetown",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "guyana"
+        ],
+        "capital": [
+          "parmaribo",
+          "georgetown"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Guyana's capital first attempt parmaribo, corrected to Georgetown independently."
+    },
+    {
+      "q": 106,
+      "country": "Lebanon",
+      "capital": "Beirut",
+      "correct_languages": "Arabic",
+      "asset": "flags/canonical/bde2581d2b1e.svg",
+      "your": {
+        "country": "lebanon",
+        "capital": "beuirit",
+        "language": "arabic"
+      },
+      "attempts": {
+        "country": [
+          "lebanon"
+        ],
+        "capital": [
+          "beuirit"
+        ],
+        "language": [
+          "arabic"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Beuirit accepted as recognizable Beirut spelling."
+    },
+    {
+      "q": 107,
+      "country": "Ghana",
+      "capital": "Accra",
+      "correct_languages": "English",
+      "asset": "flags/canonical/5c3e3e69abef.svg",
+      "your": {
+        "country": "ghana",
+        "capital": "accara",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "ghana"
+        ],
+        "capital": [
+          "accara"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Accara accepted as recognizable Accra spelling."
+    },
+    {
+      "q": 108,
+      "country": "Mozambique",
+      "capital": "Maputo",
+      "correct_languages": "Portuguese",
+      "asset": "flags/canonical/0f94c3a1aaa2.svg",
+      "your": {
+        "country": "mozambique",
+        "capital": "mapoto",
+        "language": "portguese"
+      },
+      "attempts": {
+        "country": [
+          "mozambique"
+        ],
+        "capital": [
+          "mapoto"
+        ],
+        "language": [
+          "portguese"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Mapoto and portguese accepted as phonetic and spelling variants."
+    },
+    {
+      "q": 109,
+      "country": "Russia",
+      "capital": "Moscow",
+      "correct_languages": "Russian",
+      "asset": "flags/canonical/cf243011ae99.svg",
+      "your": {
+        "country": "russia",
+        "capital": "moscow",
+        "language": "russian"
+      },
+      "attempts": {
+        "country": [
+          "russia"
+        ],
+        "capital": [
+          "moscow"
+        ],
+        "language": [
+          "russian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct first attempt."
+    },
+    {
+      "q": 110,
+      "country": "Chad",
+      "capital": "N'Djamena",
+      "correct_languages": "Arabic; French",
+      "asset": "flags/canonical/fa3bd927c158.svg",
+      "your": {
+        "country": "chad",
+        "capital": "ndjamina",
+        "language": "french"
+      },
+      "attempts": {
+        "country": [
+          "chad"
+        ],
+        "capital": [
+          "ndjamina"
+        ],
+        "language": [
+          "french"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Ndjamina accepted as recognizable N'Djamena spelling; French official."
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 110,
+      "pure": 110,
+      "pure_plus_assisted": 110,
+      "independent": 110,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 110,
+      "pure": 110,
+      "pure_plus_assisted": 110,
+      "independent": 110,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 110,
+      "pure": 110,
+      "pure_plus_assisted": 110,
+      "independent": 110,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 110,
+  "remaining_questions": 85
+}
