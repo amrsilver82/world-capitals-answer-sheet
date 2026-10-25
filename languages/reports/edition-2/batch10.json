@@ -1,0 +1,344 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_2",
+  "edition": 2,
+  "batch": 10,
+  "questions": "91–100",
+  "status": "completed",
+  "date": "2026-10-25",
+  "records": [
+    {
+      "q": 91,
+      "country": "Estonia",
+      "capital": "Tallinn",
+      "correct_languages": "Estonian",
+      "asset": "flags/canonical/8b98c2c429bc.svg",
+      "your": {
+        "country": "estonia",
+        "capital": "tallin",
+        "language": "estonian"
+      },
+      "attempts": {
+        "country": [
+          "estonia"
+        ],
+        "capital": [
+          "tallin"
+        ],
+        "language": [
+          "estonian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "tallin accepted as Tallinn spelling"
+    },
+    {
+      "q": 92,
+      "country": "Micronesia",
+      "capital": "Palikir",
+      "correct_languages": "English; Chuukese; Pohnpeian; Kosraean; Yapese (local)",
+      "asset": "flags/canonical/c1b7c9778436.svg",
+      "your": {
+        "country": "micronesia",
+        "capital": "palikir",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "micronesia"
+        ],
+        "capital": [
+          "palikir"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Accepted independently"
+    },
+    {
+      "q": 93,
+      "country": "Greece",
+      "capital": "Athens",
+      "correct_languages": "Greek",
+      "asset": "flags/canonical/599741eec82f.svg",
+      "your": {
+        "country": "greece",
+        "capital": "athens",
+        "language": "greek"
+      },
+      "attempts": {
+        "country": [
+          "greece"
+        ],
+        "capital": [
+          "athens"
+        ],
+        "language": [
+          "greek"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Accepted independently"
+    },
+    {
+      "q": 94,
+      "country": "Guinea",
+      "capital": "Conakry",
+      "correct_languages": "French",
+      "asset": "flags/canonical/40d6ad4f03db.svg",
+      "your": {
+        "country": "guinea",
+        "capital": "konakry",
+        "language": "french"
+      },
+      "attempts": {
+        "country": [
+          "mali",
+          "guinea"
+        ],
+        "capital": [
+          "bamako",
+          "konakry"
+        ],
+        "language": [
+          "french"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Initial Mali/Bamako corrected to Guinea/konakry without help; Conakry phonetic accepted"
+    },
+    {
+      "q": 95,
+      "country": "Papua New Guinea",
+      "capital": "Port Moresby",
+      "correct_languages": "English; Tok Pisin; Hiri Motu",
+      "asset": "flags/canonical/7b7e77aad4a5.svg",
+      "your": {
+        "country": "papua new guinea",
+        "capital": "port moresby",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "papua new guinea"
+        ],
+        "capital": [
+          "port moresby"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Accepted independently"
+    },
+    {
+      "q": 96,
+      "country": "Central African Republic",
+      "capital": "Bangui",
+      "correct_languages": "Sango; French",
+      "asset": "flags/canonical/a6cd3670f272.svg",
+      "your": {
+        "country": "central africa",
+        "capital": "banguai",
+        "language": "french"
+      },
+      "attempts": {
+        "country": [
+          "central africa"
+        ],
+        "capital": [
+          "banguai"
+        ],
+        "language": [
+          "english",
+          "french"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "English corrected to French without help; central africa/banguai accepted"
+    },
+    {
+      "q": 97,
+      "country": "Laos",
+      "capital": "Vientiane",
+      "correct_languages": "Lao",
+      "asset": "flags/canonical/6aea6b72b405.svg",
+      "your": {
+        "country": "laos",
+        "capital": "vientiane",
+        "language": "laotian"
+      },
+      "attempts": {
+        "country": [
+          "laos"
+        ],
+        "capital": [
+          "vientiane"
+        ],
+        "language": [
+          "laotian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "laotian accepted for Lao"
+    },
+    {
+      "q": 98,
+      "country": "Bahamas",
+      "capital": "Nassau",
+      "correct_languages": "English",
+      "asset": "flags/canonical/5cc918e5ad40.svg",
+      "your": {
+        "country": "bahmas",
+        "capital": "nassau",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "bahmas"
+        ],
+        "capital": [
+          "nassau"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "bahmas accepted as recognizable Bahamas spelling"
+    },
+    {
+      "q": 99,
+      "country": "Jamaica",
+      "capital": "Kingston",
+      "correct_languages": "English; Jamaican Patois (spoken)",
+      "asset": "flags/canonical/269df0383684.svg",
+      "your": {
+        "country": "jamaica",
+        "capital": "kingston",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "jamaica"
+        ],
+        "capital": [
+          "kingston"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Accepted independently"
+    },
+    {
+      "q": 100,
+      "country": "Bulgaria",
+      "capital": "Sofia",
+      "correct_languages": "Bulgarian",
+      "asset": "flags/canonical/af2d0d07c31e.svg",
+      "your": {
+        "country": "bulgaria",
+        "capital": "sofia",
+        "language": "bulgarian"
+      },
+      "attempts": {
+        "country": [
+          "bulgaria"
+        ],
+        "capital": [
+          "sofia"
+        ],
+        "language": [
+          "bulgarian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Accepted independently"
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 100,
+      "pure": 100,
+      "pure_plus_assisted": 100,
+      "independent": 100,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 100,
+      "pure": 100,
+      "pure_plus_assisted": 100,
+      "independent": 100,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 100,
+      "pure": 100,
+      "pure_plus_assisted": 100,
+      "independent": 100,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 100,
+  "remaining_questions": 95
+}
