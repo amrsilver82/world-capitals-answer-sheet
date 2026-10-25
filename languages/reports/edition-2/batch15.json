@@ -1,0 +1,341 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_2",
+  "edition": 2,
+  "batch": 15,
+  "questions": "141–150",
+  "status": "completed",
+  "date": "2026-10-25",
+  "records": [
+    {
+      "q": 141,
+      "country": "Albania",
+      "capital": "Tirana",
+      "correct_languages": "Albanian",
+      "asset": "flags/canonical/e85d95f0f0a6.svg",
+      "your": {
+        "country": "albania",
+        "capital": "tirana",
+        "language": "albanian"
+      },
+      "attempts": {
+        "country": [
+          "albania"
+        ],
+        "capital": [
+          "tirana"
+        ],
+        "language": [
+          "albanian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct independently."
+    },
+    {
+      "q": 142,
+      "country": "Samoa",
+      "capital": "Apia",
+      "correct_languages": "Samoan; English",
+      "asset": "flags/canonical/0e758a7a95c0.svg",
+      "your": {
+        "country": "samoa",
+        "capital": "apia",
+        "language": "samoan"
+      },
+      "attempts": {
+        "country": [
+          "samoa"
+        ],
+        "capital": [
+          "apia"
+        ],
+        "language": [
+          "samoan"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct independently."
+    },
+    {
+      "q": 143,
+      "country": "Algeria",
+      "capital": "Algiers",
+      "correct_languages": "Arabic; Tamazight",
+      "asset": "flags/canonical/5ff29a74a00b.svg",
+      "your": {
+        "country": "algeria",
+        "capital": "algiers",
+        "language": "arabic"
+      },
+      "attempts": {
+        "country": [
+          "algeria"
+        ],
+        "capital": [
+          "algiers"
+        ],
+        "language": [
+          "arabic"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct independently."
+    },
+    {
+      "q": 144,
+      "country": "Palau",
+      "capital": "Ngerulmud",
+      "correct_languages": "Palauan; English",
+      "asset": "flags/canonical/9f89c5f1483c.svg",
+      "your": {
+        "country": "palau",
+        "capital": "ngermuland",
+        "language": "palauan-english"
+      },
+      "attempts": {
+        "country": [
+          "palau"
+        ],
+        "capital": [
+          "ngermuland"
+        ],
+        "language": [
+          "palauan-english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "ngermuland is a documented phonetic precedent. Both Palauan and English qualify."
+    },
+    {
+      "q": 145,
+      "country": "North Macedonia",
+      "capital": "Skopje",
+      "correct_languages": "Macedonian; Albanian",
+      "asset": "flags/canonical/4f5cae77ed60.svg",
+      "your": {
+        "country": "macedonia",
+        "capital": "skjope",
+        "language": "macedonian"
+      },
+      "attempts": {
+        "country": [
+          "macedonia"
+        ],
+        "capital": [
+          "skjope"
+        ],
+        "language": [
+          "macedonian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Macedonia shorthand and recognizable skjope spelling accepted."
+    },
+    {
+      "q": 146,
+      "country": "Cameroon",
+      "capital": "Yaoundé",
+      "correct_languages": "French; English",
+      "asset": "flags/canonical/70adc8b6818f.svg",
+      "your": {
+        "country": "cameroon",
+        "capital": "yaounde",
+        "language": "french"
+      },
+      "attempts": {
+        "country": [
+          "cameroon"
+        ],
+        "capital": [
+          "yaounde"
+        ],
+        "language": [
+          "french"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Yaounde is accepted without accent."
+    },
+    {
+      "q": 147,
+      "country": "Belgium",
+      "capital": "Brussels",
+      "correct_languages": "Dutch; French; German",
+      "asset": "flags/canonical/ac706a0b5a14.svg",
+      "your": {
+        "country": "belgium",
+        "capital": "brussels",
+        "language": "french"
+      },
+      "attempts": {
+        "country": [
+          "belgium"
+        ],
+        "capital": [
+          "brussels"
+        ],
+        "language": [
+          "french"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "French is an official language."
+    },
+    {
+      "q": 148,
+      "country": "Barbados",
+      "capital": "Bridgetown",
+      "correct_languages": "English",
+      "asset": "flags/canonical/cecd5cc33439.svg",
+      "your": {
+        "country": "barbados",
+        "capital": "bridgtown",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "barbados"
+        ],
+        "capital": [
+          "bridgtown"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Bridgtown is a recognizable spelling of Bridgetown."
+    },
+    {
+      "q": 149,
+      "country": "Seychelles",
+      "capital": "Victoria",
+      "correct_languages": "Seychellois Creole; English; French",
+      "asset": "flags/canonical/9a46b369b3ff.svg",
+      "your": {
+        "country": "sycelles",
+        "capital": "victoria",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "sycelles"
+        ],
+        "capital": [
+          "victoria"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Sycelles is recognized as phonetic Seychelles."
+    },
+    {
+      "q": 150,
+      "country": "El Salvador",
+      "capital": "San Salvador",
+      "correct_languages": "Spanish",
+      "asset": "flags/canonical/cbc674a6e7c4.svg",
+      "your": {
+        "country": "slavador",
+        "capital": "san salvador",
+        "language": "spanish"
+      },
+      "attempts": {
+        "country": [
+          "slavador"
+        ],
+        "capital": [
+          "san salvador"
+        ],
+        "language": [
+          "spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Slavador recognized as shorthand for El Salvador."
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 150,
+      "pure": 150,
+      "pure_plus_assisted": 150,
+      "independent": 150,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 150,
+      "pure": 150,
+      "pure_plus_assisted": 150,
+      "independent": 150,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 150,
+      "pure": 150,
+      "pure_plus_assisted": 150,
+      "independent": 150,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 150,
+  "remaining_questions": 45
+}
