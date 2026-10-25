@@ -1,0 +1,341 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_2",
+  "edition": 2,
+  "batch": 14,
+  "questions": "131–140",
+  "status": "completed",
+  "date": "2026-10-25",
+  "records": [
+    {
+      "q": 131,
+      "country": "Hungary",
+      "capital": "Budapest",
+      "correct_languages": "Hungarian",
+      "asset": "flags/canonical/24fbfb965888.svg",
+      "your": {
+        "country": "Hungary",
+        "capital": "Budapest",
+        "language": "Hungarian"
+      },
+      "attempts": {
+        "country": [
+          "Hungary"
+        ],
+        "capital": [
+          "Budapest"
+        ],
+        "language": [
+          "Hungarian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct independently."
+    },
+    {
+      "q": 132,
+      "country": "Czech Republic",
+      "capital": "Prague",
+      "correct_languages": "Czech",
+      "asset": "flags/canonical/7913de3895e8.svg",
+      "your": {
+        "country": "Czechia",
+        "capital": "Prague",
+        "language": "Czech"
+      },
+      "attempts": {
+        "country": [
+          "Czechia"
+        ],
+        "capital": [
+          "Prague"
+        ],
+        "language": [
+          "Czech"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Czechia recognized as modern synonym for Czech Republic."
+    },
+    {
+      "q": 133,
+      "country": "Ukraine",
+      "capital": "Kyiv",
+      "correct_languages": "Ukrainian",
+      "asset": "flags/canonical/03daa196837a.svg",
+      "your": {
+        "country": "Ukraine",
+        "capital": "Kyiv",
+        "language": "Ukranian"
+      },
+      "attempts": {
+        "country": [
+          "Ukraine"
+        ],
+        "capital": [
+          "Kyiv"
+        ],
+        "language": [
+          "Ukranian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Ukranian accepted recognizable Ukrainian spelling."
+    },
+    {
+      "q": 134,
+      "country": "Brazil",
+      "capital": "Brasília",
+      "correct_languages": "Portuguese",
+      "asset": "flags/canonical/719a763caaf7.svg",
+      "your": {
+        "country": "Brazil",
+        "capital": "Brasilia",
+        "language": "Portguese"
+      },
+      "attempts": {
+        "country": [
+          "Brazil"
+        ],
+        "capital": [
+          "Brasilia"
+        ],
+        "language": [
+          "Portguese"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Brasilia unaccented and Portguese spelling accepted."
+    },
+    {
+      "q": 135,
+      "country": "Antigua and Barbuda",
+      "capital": "St. John's",
+      "correct_languages": "English",
+      "asset": "flags/canonical/243c3d8f9e78.svg",
+      "your": {
+        "country": "Antigua",
+        "capital": "St jones",
+        "language": "English"
+      },
+      "attempts": {
+        "country": [
+          "Antigua"
+        ],
+        "capital": [
+          "St jones"
+        ],
+        "language": [
+          "English"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Antigua shorthand; St jones established accepted contextual rendering of St. John's."
+    },
+    {
+      "q": 136,
+      "country": "Gabon",
+      "capital": "Libreville",
+      "correct_languages": "French",
+      "asset": "flags/canonical/76edab429c29.svg",
+      "your": {
+        "country": "Gabon",
+        "capital": "Libreville",
+        "language": "French"
+      },
+      "attempts": {
+        "country": [
+          "Gabon"
+        ],
+        "capital": [
+          "Libreville"
+        ],
+        "language": [
+          "French"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct independently."
+    },
+    {
+      "q": 137,
+      "country": "United Arab Emirates",
+      "capital": "Abu Dhabi",
+      "correct_languages": "Arabic",
+      "asset": "flags/canonical/651ac8523d3d.svg",
+      "your": {
+        "country": "Uae",
+        "capital": "Abu dhabi",
+        "language": "Arabic"
+      },
+      "attempts": {
+        "country": [
+          "Uae"
+        ],
+        "capital": [
+          "Abu dhabi"
+        ],
+        "language": [
+          "Arabic"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "UAE recognized abbreviation."
+    },
+    {
+      "q": 138,
+      "country": "North Korea",
+      "capital": "Pyongyang",
+      "correct_languages": "Korean",
+      "asset": "flags/canonical/ad1b713f16ec.svg",
+      "your": {
+        "country": "North korea",
+        "capital": "Byong yang",
+        "language": "Korean"
+      },
+      "attempts": {
+        "country": [
+          "North korea"
+        ],
+        "capital": [
+          "Byong yang"
+        ],
+        "language": [
+          "Korean"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Byong yang explicitly accepted under existing Pyongyang transliteration precedent."
+    },
+    {
+      "q": 139,
+      "country": "Cuba",
+      "capital": "Havana",
+      "correct_languages": "Spanish",
+      "asset": "flags/canonical/053c9ee3a029.svg",
+      "your": {
+        "country": "Cuba",
+        "capital": "Havana",
+        "language": "Spanish"
+      },
+      "attempts": {
+        "country": [
+          "Cuba"
+        ],
+        "capital": [
+          "Havana"
+        ],
+        "language": [
+          "Spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct independently."
+    },
+    {
+      "q": 140,
+      "country": "Sierra Leone",
+      "capital": "Freetown",
+      "correct_languages": "English; Krio (spoken)",
+      "asset": "flags/canonical/a07baf75b40f.svg",
+      "your": {
+        "country": "Sierra leone",
+        "capital": "Free town",
+        "language": "English"
+      },
+      "attempts": {
+        "country": [
+          "Sierra leone"
+        ],
+        "capital": [
+          "Free town"
+        ],
+        "language": [
+          "English"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Free town accepted as Freetown (spacing)."
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 140,
+      "pure": 140,
+      "pure_plus_assisted": 140,
+      "independent": 140,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 140,
+      "pure": 140,
+      "pure_plus_assisted": 140,
+      "independent": 140,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 140,
+      "pure": 140,
+      "pure_plus_assisted": 140,
+      "independent": 140,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 140,
+  "remaining_questions": 55
+}
