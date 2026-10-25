@@ -1,0 +1,344 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_2",
+  "edition": 2,
+  "batch": 12,
+  "questions": "111–120",
+  "status": "completed",
+  "date": "2026-10-25",
+  "records": [
+    {
+      "q": 111,
+      "country": "Switzerland",
+      "capital": "Bern",
+      "correct_languages": "German; French; Italian; Romansh",
+      "asset": "flags/canonical/b42d6709cfaf.svg",
+      "your": {
+        "country": "switzerland",
+        "capital": "bern",
+        "language": "german"
+      },
+      "attempts": {
+        "country": [
+          "switzerland"
+        ],
+        "capital": [
+          "bern"
+        ],
+        "language": [
+          "german"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Bern accepted; German official."
+    },
+    {
+      "q": 112,
+      "country": "Canada",
+      "capital": "Ottawa",
+      "correct_languages": "English; French",
+      "asset": "flags/canonical/c9b23b4988b3.svg",
+      "your": {
+        "country": "canada",
+        "capital": "ottawa",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "canada"
+        ],
+        "capital": [
+          "ottawa"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "All accepted."
+    },
+    {
+      "q": 113,
+      "country": "Vietnam",
+      "capital": "Hanoi",
+      "correct_languages": "Vietnamese",
+      "asset": "flags/canonical/7e4bac8f4acf.svg",
+      "your": {
+        "country": "vietname",
+        "capital": "hanoi",
+        "language": "vietnamese"
+      },
+      "attempts": {
+        "country": [
+          "vietname"
+        ],
+        "capital": [
+          "hanoi"
+        ],
+        "language": [
+          "vietnamese"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Vietname recognized Vietnam spelling."
+    },
+    {
+      "q": 114,
+      "country": "Maldives",
+      "capital": "Malé",
+      "correct_languages": "Dhivehi",
+      "asset": "flags/canonical/10450f984585.svg",
+      "your": {
+        "country": "maldives",
+        "capital": "male",
+        "language": "maldivian maldivi"
+      },
+      "attempts": {
+        "country": [
+          "maldives"
+        ],
+        "capital": [
+          "male"
+        ],
+        "language": [
+          "english",
+          "tamil",
+          "chinese",
+          "maldivian maldivi"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "English, Tamil and Chinese not accepted; 'maldivian maldivi' accepted as clear Maldivian/Dhivehi under established no-clue referee precedent. No hints supplied."
+    },
+    {
+      "q": 115,
+      "country": "Iraq",
+      "capital": "Baghdad",
+      "correct_languages": "Arabic; Kurdish",
+      "asset": "flags/canonical/804451474adb.svg",
+      "your": {
+        "country": "iraq",
+        "capital": "baghdad",
+        "language": "arabic"
+      },
+      "attempts": {
+        "country": [
+          "iraq"
+        ],
+        "capital": [
+          "baghdad"
+        ],
+        "language": [
+          "arabic"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "All accepted."
+    },
+    {
+      "q": 116,
+      "country": "Turkey",
+      "capital": "Ankara",
+      "correct_languages": "Turkish",
+      "asset": "flags/canonical/b96da21f0e98.svg",
+      "your": {
+        "country": "turkey",
+        "capital": "ankara",
+        "language": "turkish"
+      },
+      "attempts": {
+        "country": [
+          "turkey"
+        ],
+        "capital": [
+          "ankara"
+        ],
+        "language": [
+          "turkish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Turkey accepted country wording."
+    },
+    {
+      "q": 117,
+      "country": "Uruguay",
+      "capital": "Montevideo",
+      "correct_languages": "Spanish",
+      "asset": "flags/canonical/62c36f8e5e68.svg",
+      "your": {
+        "country": "uruguay",
+        "capital": "montivideo",
+        "language": "spanish"
+      },
+      "attempts": {
+        "country": [
+          "uruguay"
+        ],
+        "capital": [
+          "montivideo"
+        ],
+        "language": [
+          "spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Montivideo accepted phonetic/spelling variant of Montevideo."
+    },
+    {
+      "q": 118,
+      "country": "Philippines",
+      "capital": "Manila",
+      "correct_languages": "Filipino; English",
+      "asset": "flags/canonical/b910e24cd229.svg",
+      "your": {
+        "country": "philippines",
+        "capital": "manilla",
+        "language": "filipino"
+      },
+      "attempts": {
+        "country": [
+          "philippines"
+        ],
+        "capital": [
+          "manilla"
+        ],
+        "language": [
+          "filipino"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Manilla accepted Manila spelling."
+    },
+    {
+      "q": 119,
+      "country": "Timor-Leste",
+      "capital": "Dili",
+      "correct_languages": "Tetum; Portuguese",
+      "asset": "flags/canonical/3d0701a2c8c8.svg",
+      "your": {
+        "country": "timor liste",
+        "capital": "dilli",
+        "language": "portguese"
+      },
+      "attempts": {
+        "country": [
+          "timor liste"
+        ],
+        "capital": [
+          "dilli"
+        ],
+        "language": [
+          "portguese"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Timor liste recognized Timor-Leste; dilli/Dili and portguese/Portuguese accepted."
+    },
+    {
+      "q": 120,
+      "country": "Zimbabwe",
+      "capital": "Harare",
+      "correct_languages": "Shona; Ndebele; English (among 16 official languages)",
+      "asset": "flags/canonical/93aac4f6cf2d.svg",
+      "your": {
+        "country": "zimbabwe",
+        "capital": "harrari",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "zimbabwe"
+        ],
+        "capital": [
+          "harrari"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Harrari accepted recognizable Harare phonetic spelling; English official."
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 120,
+      "pure": 120,
+      "pure_plus_assisted": 120,
+      "independent": 120,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 120,
+      "pure": 120,
+      "pure_plus_assisted": 120,
+      "independent": 120,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 120,
+      "pure": 120,
+      "pure_plus_assisted": 120,
+      "independent": 120,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 120,
+  "remaining_questions": 75
+}
