@@ -1,0 +1,341 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_2",
+  "edition": 2,
+  "batch": 16,
+  "questions": "151–160",
+  "status": "completed",
+  "date": "2026-10-27",
+  "records": [
+    {
+      "q": 151,
+      "country": "Burundi",
+      "capital": "Gitega / Bujumbura",
+      "correct_languages": "Kirundi; French; English",
+      "asset": "flags/canonical/a4434a955fbc.svg",
+      "your": {
+        "country": "Burundi",
+        "capital": "Bujumbura",
+        "language": "English"
+      },
+      "attempts": {
+        "country": [
+          "Burundi"
+        ],
+        "capital": [
+          "Bujumbura"
+        ],
+        "language": [
+          "English"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Canonical Gitega / Bujumbura accepts historical Bujumbura. English is accepted official language."
+    },
+    {
+      "q": 152,
+      "country": "Ecuador",
+      "capital": "Quito",
+      "correct_languages": "Spanish; Kichwa; Shuar (regional recognition)",
+      "asset": "flags/canonical/88c50bf61656.svg",
+      "your": {
+        "country": "Ecaudor",
+        "capital": "Quoto",
+        "language": "Spanish"
+      },
+      "attempts": {
+        "country": [
+          "Ecaudor"
+        ],
+        "capital": [
+          "Quoto"
+        ],
+        "language": [
+          "Spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Ecaudor recognizable typo; Quoto expressly established Quito variant."
+    },
+    {
+      "q": 153,
+      "country": "Iran",
+      "capital": "Tehran",
+      "correct_languages": "Persian (Farsi)",
+      "asset": "flags/canonical/8c6d51621699.svg",
+      "your": {
+        "country": "Iran",
+        "capital": "Tahran",
+        "language": "Persian"
+      },
+      "attempts": {
+        "country": [
+          "Iran"
+        ],
+        "capital": [
+          "Tahran"
+        ],
+        "language": [
+          "Persian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Tahran recognized phonetic Tehran spelling."
+    },
+    {
+      "q": 154,
+      "country": "Guinea-Bissau",
+      "capital": "Bissau",
+      "correct_languages": "Portuguese; Guinea-Bissau Creole (spoken)",
+      "asset": "flags/canonical/d470bac9f71b.svg",
+      "your": {
+        "country": "Guinea bissau",
+        "capital": "Bissau",
+        "language": "Portguese"
+      },
+      "attempts": {
+        "country": [
+          "Guinea bissau"
+        ],
+        "capital": [
+          "Bissau"
+        ],
+        "language": [
+          "Portguese"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Guinea bissau is recognizable country name; Portguese accepted Portuguese spelling."
+    },
+    {
+      "q": 155,
+      "country": "Democratic Republic of the Congo",
+      "capital": "Kinshasa",
+      "correct_languages": "French (official); Lingala; Swahili; Kikongo; Tshiluba (national)",
+      "asset": "flags/canonical/b9cf52894137.svg",
+      "your": {
+        "country": "Dr congo",
+        "capital": "Kinshasa",
+        "language": "French"
+      },
+      "attempts": {
+        "country": [
+          "Dr congo"
+        ],
+        "capital": [
+          "Kinshasa"
+        ],
+        "language": [
+          "French"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "DR Congo is accepted name abbreviation."
+    },
+    {
+      "q": 156,
+      "country": "Uzbekistan",
+      "capital": "Tashkent",
+      "correct_languages": "Uzbek; Karakalpak (regional)",
+      "asset": "flags/canonical/0ccca1b1b4aa.svg",
+      "your": {
+        "country": "Uzbakistan",
+        "capital": "Tashkand",
+        "language": "Uzbaki"
+      },
+      "attempts": {
+        "country": [
+          "Uzbakistan"
+        ],
+        "capital": [
+          "Tashkand"
+        ],
+        "language": [
+          "Uzbaki"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Recognizable Uzbekistan, Tashkent and Uzbek phonetic forms."
+    },
+    {
+      "q": 157,
+      "country": "Azerbaijan",
+      "capital": "Baku",
+      "correct_languages": "Azerbaijani",
+      "asset": "flags/canonical/35575221104f.svg",
+      "your": {
+        "country": "Azrabijan",
+        "capital": "Baku",
+        "language": "Azrabijani"
+      },
+      "attempts": {
+        "country": [
+          "Azrabijan"
+        ],
+        "capital": [
+          "Baku"
+        ],
+        "language": [
+          "Azrabijani"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Recognizable Azerbaijan and Azerbaijani phonetic spellings."
+    },
+    {
+      "q": 158,
+      "country": "San Marino",
+      "capital": "San Marino",
+      "correct_languages": "Italian",
+      "asset": "flags/canonical/e41d2f776cc9.svg",
+      "your": {
+        "country": "San marino",
+        "capital": "San marino",
+        "language": "Italian"
+      },
+      "attempts": {
+        "country": [
+          "San marino"
+        ],
+        "capital": [
+          "San marino"
+        ],
+        "language": [
+          "Italian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct independently."
+    },
+    {
+      "q": 159,
+      "country": "Italy",
+      "capital": "Rome",
+      "correct_languages": "Italian",
+      "asset": "flags/canonical/20a8bfdcc802.svg",
+      "your": {
+        "country": "Italy",
+        "capital": "Rome",
+        "language": "Italian"
+      },
+      "attempts": {
+        "country": [
+          "Italy"
+        ],
+        "capital": [
+          "Rome"
+        ],
+        "language": [
+          "Italian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct independently."
+    },
+    {
+      "q": 160,
+      "country": "Nepal",
+      "capital": "Kathmandu",
+      "correct_languages": "Nepali",
+      "asset": "flags/canonical/624285684531.svg",
+      "your": {
+        "country": "Nepal",
+        "capital": "Kathmandu",
+        "language": "Nepalese"
+      },
+      "attempts": {
+        "country": [
+          "Nepal"
+        ],
+        "capital": [
+          "Kathmandu"
+        ],
+        "language": [
+          "Nepalese"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Nepalese is recognizable English term for Nepali."
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 160,
+      "pure": 160,
+      "pure_plus_assisted": 160,
+      "independent": 160,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 160,
+      "pure": 160,
+      "pure_plus_assisted": 160,
+      "independent": 160,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 160,
+      "pure": 160,
+      "pure_plus_assisted": 160,
+      "independent": 160,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 160,
+  "remaining_questions": 35
+}
