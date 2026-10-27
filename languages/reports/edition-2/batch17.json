@@ -1,0 +1,341 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_2",
+  "edition": 2,
+  "batch": 17,
+  "questions": "161–170",
+  "status": "completed",
+  "date": "2026-10-27",
+  "records": [
+    {
+      "q": 161,
+      "country": "Moldova",
+      "capital": "Chișinău",
+      "correct_languages": "Romanian",
+      "asset": "flags/canonical/e9ba506a2ba8.svg",
+      "your": {
+        "country": "Moldova",
+        "capital": "Cisnau",
+        "language": "Romanian"
+      },
+      "attempts": {
+        "country": [
+          "Moldova"
+        ],
+        "capital": [
+          "Cisnau"
+        ],
+        "language": [
+          "Romanian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Established `cisnau` accepted as Chișinău."
+    },
+    {
+      "q": 162,
+      "country": "Pakistan",
+      "capital": "Islamabad",
+      "correct_languages": "Urdu; English",
+      "asset": "flags/canonical/4ddc19f8eaa8.svg",
+      "your": {
+        "country": "Pakistan",
+        "capital": "Islamabad",
+        "language": "Urdu"
+      },
+      "attempts": {
+        "country": [
+          "Pakistan"
+        ],
+        "capital": [
+          "Islamabad"
+        ],
+        "language": [
+          "Urdu"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct independently."
+    },
+    {
+      "q": 163,
+      "country": "Indonesia",
+      "capital": "Jakarta",
+      "correct_languages": "Indonesian",
+      "asset": "flags/canonical/3b7c8fcfd965.svg",
+      "your": {
+        "country": "Indonesia",
+        "capital": "Jakarta",
+        "language": "Indonesian-bahasa"
+      },
+      "attempts": {
+        "country": [
+          "Indonesia"
+        ],
+        "capital": [
+          "Jakarta"
+        ],
+        "language": [
+          "Indonesian-bahasa"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Identifies Bahasa Indonesia/Indonesian."
+    },
+    {
+      "q": 164,
+      "country": "Yemen",
+      "capital": "Sanaa",
+      "correct_languages": "Arabic",
+      "asset": "flags/canonical/1c9e6d6392f8.svg",
+      "your": {
+        "country": "Yemen",
+        "capital": "Sanaa",
+        "language": "Arabic"
+      },
+      "attempts": {
+        "country": [
+          "Yemen"
+        ],
+        "capital": [
+          "Sanaa"
+        ],
+        "language": [
+          "Arabic"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Sanaa accepted without apostrophe."
+    },
+    {
+      "q": 165,
+      "country": "South Africa",
+      "capital": "Pretoria / Cape Town / Bloemfontein",
+      "correct_languages": "Zulu; Xhosa; Afrikaans; English; Northern Sotho; Southern Sotho; Tswana; Tsonga; Swati; Venda; Ndebele; South African Sign Language",
+      "asset": "flags/canonical/d563adb90c0c.svg",
+      "your": {
+        "country": "South Africa",
+        "capital": "Cape town-blonfontin-johansburg",
+        "language": "English-afrikaans"
+      },
+      "attempts": {
+        "country": [
+          "South Africa"
+        ],
+        "capital": [
+          "Cape town-blonfontin-johansburg"
+        ],
+        "language": [
+          "English-afrikaans"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Cape Town and a recognizable Bloemfontein spelling are correct capitals. Johannesburg is not a capital; valid answers already provided. English and Afrikaans both official."
+    },
+    {
+      "q": 166,
+      "country": "Brunei",
+      "capital": "Bandar Seri Begawan",
+      "correct_languages": "Malay",
+      "asset": "flags/canonical/f544c25e2272.svg",
+      "your": {
+        "country": "Brunei",
+        "capital": "Bandar seri",
+        "language": "Malay"
+      },
+      "attempts": {
+        "country": [
+          "Brunei"
+        ],
+        "capital": [
+          "Bandar seri"
+        ],
+        "language": [
+          "Malay"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Bandar shorthand expressly accepted for Bandar Seri Begawan by existing project rule."
+    },
+    {
+      "q": 167,
+      "country": "Libya",
+      "capital": "Tripoli",
+      "correct_languages": "Arabic",
+      "asset": "flags/canonical/1eaa51e468b7.svg",
+      "your": {
+        "country": "Libya",
+        "capital": "Tripoli",
+        "language": "Arabic"
+      },
+      "attempts": {
+        "country": [
+          "Libya"
+        ],
+        "capital": [
+          "Tripoli"
+        ],
+        "language": [
+          "Arabic"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct independently."
+    },
+    {
+      "q": 168,
+      "country": "Mexico",
+      "capital": "Mexico City",
+      "correct_languages": "Spanish; recognized Indigenous national languages",
+      "asset": "flags/canonical/e3ec2bc596c0.svg",
+      "your": {
+        "country": "Mexico",
+        "capital": "Mexico city",
+        "language": "Spanish"
+      },
+      "attempts": {
+        "country": [
+          "Mexico"
+        ],
+        "capital": [
+          "Mexico city"
+        ],
+        "language": [
+          "Spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct independently."
+    },
+    {
+      "q": 169,
+      "country": "Denmark",
+      "capital": "Copenhagen",
+      "correct_languages": "Danish",
+      "asset": "flags/canonical/563277f81d90.svg",
+      "your": {
+        "country": "Denmark",
+        "capital": "Copenhagen",
+        "language": "Danish"
+      },
+      "attempts": {
+        "country": [
+          "Denmark"
+        ],
+        "capital": [
+          "Copenhagen"
+        ],
+        "language": [
+          "Danish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct independently."
+    },
+    {
+      "q": 170,
+      "country": "Lithuania",
+      "capital": "Vilnius",
+      "correct_languages": "Lithuanian",
+      "asset": "flags/canonical/90ec5d240e5e.svg",
+      "your": {
+        "country": "Lithuania",
+        "capital": "Villnus",
+        "language": "Lithuanian"
+      },
+      "attempts": {
+        "country": [
+          "Lithuania"
+        ],
+        "capital": [
+          "Villnus"
+        ],
+        "language": [
+          "Lithuanian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Villnus recognizable spelling variant of Vilnius."
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 170,
+      "pure": 170,
+      "pure_plus_assisted": 170,
+      "independent": 170,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 170,
+      "pure": 170,
+      "pure_plus_assisted": 170,
+      "independent": 170,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 170,
+      "pure": 170,
+      "pure_plus_assisted": 170,
+      "independent": 170,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 170,
+  "remaining_questions": 25
+}
