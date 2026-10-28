@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "engine": "four_v1",
+  "edition": 1,
+  "title": "World Flags + Capitals + Languages + Currencies — Edition 1",
+  "status": "presented_unresolved",
+  "batch": 1,
+  "start_question": 1,
+  "end_question": 10,
+  "question_count": 10,
+  "fields": [
+    "country",
+    "capital",
+    "language",
+    "currency"
+  ],
+  "state_path": "four/states/ed1-b01-initial-20261020.json",
+  "page_path": "four-v1.html",
+  "frozen_state_sha": "ed630fac0110bfd1b4c1a25127646e1c8d64d09f",
+  "committed_questions": 0,
+  "total_questions": 195,
+  "total_components": 780,
+  "completed_batches": 0,
+  "source_of_truth": "amrsilver82/World-Capitals-Game:ACTIVE_TEST.json",
+  "no_answer_data": true,
+  "restore_three_category": {
+    "archive_private": "archive/three-category-edition2-poststudy-20261028",
+    "archive_public": "archive/three-category-edition2-poststudy-20261028",
+    "completed_score": "585/585 Pure"
+  },
+  "policy": "No auto clues. No replacement/reshuffle of frozen Batch1. Complete full batch and commit private score before a new question batch."
+}

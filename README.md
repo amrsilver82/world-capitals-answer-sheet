@@ -1,3 +1,9 @@
+## ACTIVE — Four-category championship, Edition 1 (28-Oct-2026)
+
+The current game is **World Flags + Capitals + Languages + Currencies — Edition 1**, original frozen **Batch 1 Q1–Q10**, **0/780 Pure**, all ten questions currently unanswered. Four fields per original flag: **Country | Capital | Language | Currency**. **Do not shuffle, regenerate, show answers, or automatically supply clues.** The source of truth is the private `amrsilver82/World-Capitals-Game` repository `ACTIVE_TEST.json` and `four/runtime.json` once activation checkpoint is committed. The public state is unchanged `four/states/ed1-b01-initial-20261020.json`, original blob `ed630fac0110bfd1b4c1a25127646e1c8d64d09f`.
+
+The two prior three-category editions are both COMPLETE at **585/585 Pure**, and the latest full private and public archives `archive/three-category-edition2-poststudy-20261028` are separately verified. The restoration and competition switch instructions are stored in the private `docs/COMPETITION_SWITCHBOARD_2026-10-28.md`. The public archives preserve every previous page, flag, quiz state, approved layout, 195-country result and public URL. The preceding three-category scores must never be mixed with the new 0/780 ledger.
+
 # World Capitals Answer Sheet
 
 Public, answer-free frontend and approved visual/report designs for the World Capitals & Flags Game. The **private GitHub repository** `amrsilver82/World-Capitals-Game` remains the sole authoritative live game checkpoint.
