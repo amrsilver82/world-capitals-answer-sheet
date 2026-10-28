@@ -1,0 +1,341 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_2",
+  "edition": 2,
+  "batch": 19,
+  "questions": "181–190",
+  "status": "completed",
+  "date": "2026-10-28",
+  "records": [
+    {
+      "q": 181,
+      "country": "Marshall Islands",
+      "capital": "Majuro",
+      "correct_languages": "Marshallese; English",
+      "asset": "flags/canonical/7b9f49075518.svg",
+      "your": {
+        "country": "marshall islands",
+        "capital": "majorou",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "marshall islands"
+        ],
+        "capital": [
+          "majorou"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Recognizable phonetic Majuro spelling."
+    },
+    {
+      "q": 182,
+      "country": "South Korea",
+      "capital": "Seoul",
+      "correct_languages": "Korean",
+      "asset": "flags/canonical/6947eab2b390.svg",
+      "your": {
+        "country": "south korea",
+        "capital": "seoul",
+        "language": "korean"
+      },
+      "attempts": {
+        "country": [
+          "south korea"
+        ],
+        "capital": [
+          "seoul"
+        ],
+        "language": [
+          "korean"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct independently."
+    },
+    {
+      "q": 183,
+      "country": "Nauru",
+      "capital": "No official capital; Yaren District is the de facto government seat",
+      "correct_languages": "Nauruan; English",
+      "asset": "flags/canonical/ff394c411211.svg",
+      "your": {
+        "country": "nauru",
+        "capital": "no capoital",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "nauru"
+        ],
+        "capital": [
+          "no capoital"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Accepted spelling of 'no capital', Nauru's correct capital response."
+    },
+    {
+      "q": 184,
+      "country": "Vatican City",
+      "capital": "Vatican City",
+      "correct_languages": "Italian (Vatican City admin); Latin (Holy See)",
+      "asset": "flags/canonical/3e297d638a94.svg",
+      "your": {
+        "country": "vatican",
+        "capital": "vatican",
+        "language": "italian"
+      },
+      "attempts": {
+        "country": [
+          "vatican"
+        ],
+        "capital": [
+          "vatican"
+        ],
+        "language": [
+          "italian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Vatican is an accepted short form of Vatican City."
+    },
+    {
+      "q": 185,
+      "country": "Slovakia",
+      "capital": "Bratislava",
+      "correct_languages": "Slovak",
+      "asset": "flags/canonical/676018e6284f.svg",
+      "your": {
+        "country": "slovakia",
+        "capital": "bratislava",
+        "language": "slovak"
+      },
+      "attempts": {
+        "country": [
+          "slovakia"
+        ],
+        "capital": [
+          "bratislava"
+        ],
+        "language": [
+          "slovak"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct independently."
+    },
+    {
+      "q": 186,
+      "country": "Eritrea",
+      "capital": "Asmara",
+      "correct_languages": "Tigrinya; Arabic; English (de facto working)",
+      "asset": "flags/canonical/48a13b47fe6a.svg",
+      "your": {
+        "country": "eritria",
+        "capital": "asmara",
+        "language": "arabic"
+      },
+      "attempts": {
+        "country": [
+          "eritria"
+        ],
+        "capital": [
+          "asmara"
+        ],
+        "language": [
+          "arabic"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Eritria is a recognizable Eritrea spelling."
+    },
+    {
+      "q": 187,
+      "country": "Mongolia",
+      "capital": "Ulaanbaatar",
+      "correct_languages": "Mongolian",
+      "asset": "flags/canonical/6a38a71fcf6c.svg",
+      "your": {
+        "country": "mangolia",
+        "capital": "ulanbataar",
+        "language": "mangolian"
+      },
+      "attempts": {
+        "country": [
+          "mangolia"
+        ],
+        "capital": [
+          "ulanbataar"
+        ],
+        "language": [
+          "mangolian"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Recognizable phonetic variants for Mongolia, Ulaanbaatar and Mongolian."
+    },
+    {
+      "q": 188,
+      "country": "Monaco",
+      "capital": "Monaco",
+      "correct_languages": "French",
+      "asset": "flags/canonical/9cb6c9e8a0ea.svg",
+      "your": {
+        "country": "monaco",
+        "capital": "monaco",
+        "language": "french"
+      },
+      "attempts": {
+        "country": [
+          "monaco"
+        ],
+        "capital": [
+          "monaco"
+        ],
+        "language": [
+          "french"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct independently."
+    },
+    {
+      "q": 189,
+      "country": "Rwanda",
+      "capital": "Kigali",
+      "correct_languages": "Kinyarwanda; English; French; Swahili",
+      "asset": "flags/canonical/06e26ae44e4e.svg",
+      "your": {
+        "country": "rwanada",
+        "capital": "kigali",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "rwanada"
+        ],
+        "capital": [
+          "kigali"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Rwanada is a recognizable Rwanda spelling."
+    },
+    {
+      "q": 190,
+      "country": "Eswatini",
+      "capital": "Mbabane / Lobamba",
+      "correct_languages": "Swati; English",
+      "asset": "flags/canonical/eb538e447635.svg",
+      "your": {
+        "country": "eswatini",
+        "capital": "mbabane",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "eswatini"
+        ],
+        "capital": [
+          "mbabane"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Mbabane accepted alongside Lobamba; English accepted."
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 190,
+      "pure": 190,
+      "pure_plus_assisted": 190,
+      "independent": 190,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 190,
+      "pure": 190,
+      "pure_plus_assisted": 190,
+      "independent": 190,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 190,
+      "pure": 190,
+      "pure_plus_assisted": 190,
+      "independent": 190,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 190,
+  "remaining_questions": 5
+}
