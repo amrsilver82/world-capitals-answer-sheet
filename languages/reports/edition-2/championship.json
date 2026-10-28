@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_2",
+  "edition": 2,
+  "status": "completed",
+  "date": "2026-10-28",
+  "countries": 195,
+  "batches_completed": 20,
+  "maximum_pure": 585,
+  "pure": 585,
+  "pure_plus_assisted": 585,
+  "independent": 585,
+  "assisted": 0,
+  "wrong": 0,
+  "cancelled": 0,
+  "score": {
+    "flag": {
+      "denominator": 195,
+      "pure": 195,
+      "pure_plus_assisted": 195,
+      "independent": 195,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 195,
+      "pure": 195,
+      "pure_plus_assisted": 195,
+      "independent": 195,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 195,
+      "pure": 195,
+      "pure_plus_assisted": 195,
+      "independent": 195,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "final_batch": {
+    "batch": 20,
+    "questions": 5,
+    "pure": 15
+  },
+  "no_next_batch": true,
+  "original_edition_1_score": "585/585 Pure (previously completed)",
+  "earlier_two_category_record": "Edition 3 390/390 Pure"
+}

@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_2",
+  "edition": 2,
+  "batch": 20,
+  "questions": "191–195",
+  "status": "completed_final_batch",
+  "date": "2026-10-28",
+  "records": [
+    {
+      "q": 191,
+      "country": "Syria",
+      "capital": "Damascus",
+      "correct_languages": "Arabic",
+      "asset": "flags/canonical/97c05cfc93b1.svg",
+      "your": {
+        "country": "syria",
+        "capital": "damascua",
+        "language": "arabic"
+      },
+      "attempts": {
+        "country": [
+          "syria"
+        ],
+        "capital": [
+          "damascua"
+        ],
+        "language": [
+          "arabic"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "damascua is a recognizable phonetic spelling of Damascus."
+    },
+    {
+      "q": 192,
+      "country": "Dominica",
+      "capital": "Roseau",
+      "correct_languages": "English",
+      "asset": "flags/canonical/5aa9cea5f519.svg",
+      "your": {
+        "country": "dominica",
+        "capital": "rosseau",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "dominica"
+        ],
+        "capital": [
+          "rosseau"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "rosseau is a recognizable Roseau spelling."
+    },
+    {
+      "q": 193,
+      "country": "Niger",
+      "capital": "Niamey",
+      "correct_languages": "Hausa (national); French; English (working)",
+      "asset": "flags/canonical/39a82b827744.svg",
+      "your": {
+        "country": "niger",
+        "capital": "niamy",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "niger"
+        ],
+        "capital": [
+          "niamy"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "niamy is a recognizable spelling of Niamey; English is a qualifying working language in the edition's canonical list."
+    },
+    {
+      "q": 194,
+      "country": "Senegal",
+      "capital": "Dakar",
+      "correct_languages": "French (official); Wolof (spoken)",
+      "asset": "flags/canonical/7c0673d6d66d.svg",
+      "your": {
+        "country": "senegal",
+        "capital": "dakar",
+        "language": "french"
+      },
+      "attempts": {
+        "country": [
+          "senegal"
+        ],
+        "capital": [
+          "dakar"
+        ],
+        "language": [
+          "french"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct independently."
+    },
+    {
+      "q": 195,
+      "country": "Uganda",
+      "capital": "Kampala",
+      "correct_languages": "English; Swahili",
+      "asset": "flags/canonical/520eee5c7c1f.svg",
+      "your": {
+        "country": "uganda",
+        "capital": "kampala",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "uganda"
+        ],
+        "capital": [
+          "kampala"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct independently."
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 5,
+      "pure": 5,
+      "pure_plus_assisted": 5,
+      "independent": 5,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 5,
+      "pure": 5,
+      "pure_plus_assisted": 5,
+      "independent": 5,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 5,
+      "pure": 5,
+      "pure_plus_assisted": 5,
+      "independent": 5,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 195,
+      "pure": 195,
+      "pure_plus_assisted": 195,
+      "independent": 195,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 195,
+      "pure": 195,
+      "pure_plus_assisted": 195,
+      "independent": 195,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 195,
+      "pure": 195,
+      "pure_plus_assisted": 195,
+      "independent": 195,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 195,
+  "remaining_questions": 0,
+  "edition_complete": true,
+  "championship_report": "languages/reports/edition-2/championship.html"
+}

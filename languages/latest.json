@@ -3,10 +3,11 @@
   "engine": "languages_v1",
   "edition": 2,
   "batch": 20,
-  "stage": 1,
-  "status": "initial_published",
-  "state_path": "languages/states/ed2-b20-initial-20261028.json",
-  "completed_batch": 19,
-  "report_path": "languages/reports/edition-2/batch19.html",
-  "version": "lang-ed2-b20-initial-20261028"
+  "stage": null,
+  "status": "edition_complete",
+  "state_path": null,
+  "completed_batch": 20,
+  "report_path": "languages/reports/edition-2/batch20.html",
+  "championship_path": "languages/reports/edition-2/championship.html",
+  "version": "lang-ed2-complete-20261028"
 }
