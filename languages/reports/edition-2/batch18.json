@@ -1,0 +1,344 @@
+{
+  "schema_version": 1,
+  "round_id": "world_flags_capitals_languages_edition_2",
+  "edition": 2,
+  "batch": 18,
+  "questions": "171–180",
+  "status": "completed",
+  "date": "2026-10-28",
+  "records": [
+    {
+      "q": 171,
+      "country": "Luxembourg",
+      "capital": "Luxembourg",
+      "correct_languages": "Luxembourgish; French; German",
+      "asset": "flags/canonical/cc122068125c.svg",
+      "your": {
+        "country": "luxembourg",
+        "capital": "luxembourg",
+        "language": "luxembourgish"
+      },
+      "attempts": {
+        "country": [
+          "luxembourg"
+        ],
+        "capital": [
+          "luxembourg"
+        ],
+        "language": [
+          "luxembourgish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct independently."
+    },
+    {
+      "q": 172,
+      "country": "Vanuatu",
+      "capital": "Port Vila",
+      "correct_languages": "Bislama; English; French",
+      "asset": "flags/canonical/326d29e9dc94.svg",
+      "your": {
+        "country": "vanutu",
+        "capital": "port vila",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "vanutu"
+        ],
+        "capital": [
+          "port vila"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Vanutu recognizable for Vanuatu."
+    },
+    {
+      "q": 173,
+      "country": "Tajikistan",
+      "capital": "Dushanbe",
+      "correct_languages": "Tajik; Russian (interethnic)",
+      "asset": "flags/canonical/f8c9a0371cb0.svg",
+      "your": {
+        "country": "tajikistan",
+        "capital": "dushanbe",
+        "language": "tajiki"
+      },
+      "attempts": {
+        "country": [
+          "tajikistan"
+        ],
+        "capital": [
+          "dushanbe"
+        ],
+        "language": [
+          "tajiki"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Tajiki recognized as Tajik."
+    },
+    {
+      "q": 174,
+      "country": "Comoros",
+      "capital": "Moroni",
+      "correct_languages": "Comorian; Arabic; French",
+      "asset": "flags/canonical/414d65e47fd1.svg",
+      "your": {
+        "country": "comoros",
+        "capital": "moroni",
+        "language": "arabic"
+      },
+      "attempts": {
+        "country": [
+          "comoros"
+        ],
+        "capital": [
+          "moroni"
+        ],
+        "language": [
+          "arabic"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Correct independently."
+    },
+    {
+      "q": 175,
+      "country": "Spain",
+      "capital": "Madrid",
+      "correct_languages": "Spanish; Catalan; Galician; Basque (regional)",
+      "asset": "flags/canonical/a296ebf7e186.svg",
+      "your": {
+        "country": "spain",
+        "capital": "madrid",
+        "language": "spansih"
+      },
+      "attempts": {
+        "country": [
+          "spain"
+        ],
+        "capital": [
+          "madrid"
+        ],
+        "language": [
+          "spansih"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "spansih recognized as Spanish."
+    },
+    {
+      "q": 176,
+      "country": "Cambodia",
+      "capital": "Phnom Penh",
+      "correct_languages": "Khmer",
+      "asset": "flags/canonical/a7d52f2cb41c.svg",
+      "your": {
+        "country": "cambodia",
+        "capital": "bnom bnah",
+        "language": "khmer"
+      },
+      "attempts": {
+        "country": [
+          "cambodia"
+        ],
+        "capital": [
+          "bnom bnah"
+        ],
+        "language": [
+          "khmer"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "bnom bnah explicitly accepted as phonetic Phnom Penh."
+    },
+    {
+      "q": 177,
+      "country": "Australia",
+      "capital": "Canberra",
+      "correct_languages": "English (de facto)",
+      "asset": "flags/canonical/96e80768bb70.svg",
+      "your": {
+        "country": "australia",
+        "capital": "canbirra",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "australia"
+        ],
+        "capital": [
+          "canbirra"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "canbirra recognizable Canberra variant."
+    },
+    {
+      "q": 178,
+      "country": "Mali",
+      "capital": "Bamako",
+      "correct_languages": "Bambara; Fulfulde; Songhay; Tamasheq and other national official languages; French (working)",
+      "asset": "flags/canonical/6f6b71695cbb.svg",
+      "your": {
+        "country": "mali",
+        "capital": "bamako",
+        "language": "french"
+      },
+      "attempts": {
+        "country": [
+          "mali"
+        ],
+        "capital": [
+          "bamako"
+        ],
+        "language": [
+          "french"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "French qualifies as working language under game rules."
+    },
+    {
+      "q": 179,
+      "country": "Saint Kitts and Nevis",
+      "capital": "Basseterre",
+      "correct_languages": "English",
+      "asset": "flags/canonical/47fe64d617ab.svg",
+      "your": {
+        "country": "saint kitts",
+        "capital": "bassetre",
+        "language": "english"
+      },
+      "attempts": {
+        "country": [
+          "saint kitts"
+        ],
+        "capital": [
+          "bassetre"
+        ],
+        "language": [
+          "english"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Recognizable Saint Kitts shorthand and Basseterre phonetic spelling."
+    },
+    {
+      "q": 180,
+      "country": "Honduras",
+      "capital": "Tegucigalpa",
+      "correct_languages": "Spanish",
+      "asset": "flags/canonical/11fde67db930.svg",
+      "your": {
+        "country": "honduras",
+        "capital": "taglipaca",
+        "language": "spanish"
+      },
+      "attempts": {
+        "country": [
+          "guatemala",
+          "honduras"
+        ],
+        "capital": [
+          "guatemala",
+          "taglipaca"
+        ],
+        "language": [
+          "spanish",
+          "spanish"
+        ]
+      },
+      "flag_result": "independent",
+      "capital_result": "independent",
+      "language_result": "independent",
+      "note": "Country corrected from Guatemala without clues; taglipaca is explicitly accepted by historic Tegucigalpa referee precedent. Earlier capital attempt was provisional during wrong-country phase; Q180 preserved exactly the light turquoise flag originally presented. Future navy correction is separate."
+    }
+  ],
+  "batch_score": {
+    "flag": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 10,
+      "pure": 10,
+      "pure_plus_assisted": 10,
+      "independent": 10,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "cumulative": {
+    "flag": {
+      "denominator": 180,
+      "pure": 180,
+      "pure_plus_assisted": 180,
+      "independent": 180,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "capital": {
+      "denominator": 180,
+      "pure": 180,
+      "pure_plus_assisted": 180,
+      "independent": 180,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    },
+    "language": {
+      "denominator": 180,
+      "pure": 180,
+      "pure_plus_assisted": 180,
+      "independent": 180,
+      "assisted": 0,
+      "wrong": 0,
+      "cancelled": 0
+    }
+  },
+  "completed_questions": 180,
+  "remaining_questions": 15
+}
