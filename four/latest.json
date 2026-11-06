@@ -4,9 +4,9 @@
   "edition": 1,
   "title": "World Flags + Capitals + Languages + Currencies — Edition 1",
   "status": "presented_unresolved",
-  "batch": 14,
-  "start_question": 131,
-  "end_question": 140,
+  "batch": 15,
+  "start_question": 141,
+  "end_question": 150,
   "question_count": 10,
   "fields": [
     "country",
@@ -14,13 +14,13 @@
     "language",
     "currency"
   ],
-  "state_path": "four/states/ed1-b14-initial-20261020.json",
+  "state_path": "four/states/ed1-b15-initial-20261020.json",
   "page_path": "four-v1.html",
-  "frozen_state_sha": "19ca29056d3db40ce8c3f8030a91bef41e267af2",
-  "committed_questions": 130,
+  "frozen_state_sha": "92c28089b50ba9dccd8a9098aa3f34bac7baff51",
+  "committed_questions": 140,
   "total_questions": 195,
   "total_components": 780,
-  "completed_batches": 13,
+  "completed_batches": 14,
   "source_of_truth": "amrsilver82/World-Capitals-Game:ACTIVE_TEST.json",
   "no_answer_data": true,
   "restore_three_category": {
@@ -28,5 +28,5 @@
     "archive_public": "archive/three-category-edition2-poststudy-20261028",
     "completed_score": "585/585 Pure"
   },
-  "policy": "Batch14 frozen original Q131–Q140, no unrequested clues; no scoring before all questions resolved."
+  "policy": "Batch15 frozen original Q141–Q150, no unrequested clues; only score after all components resolved."
 }
