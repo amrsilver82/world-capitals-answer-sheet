@@ -4,23 +4,23 @@
   "edition": 1,
   "title": "World Flags + Capitals + Languages + Currencies — Edition 1",
   "status": "presented_unresolved",
-  "batch": 19,
-  "start_question": 181,
-  "end_question": 190,
-  "question_count": 10,
+  "batch": 20,
+  "start_question": 191,
+  "end_question": 195,
+  "question_count": 5,
   "fields": [
     "country",
     "capital",
     "language",
     "currency"
   ],
-  "state_path": "four/states/ed1-b19-initial-20261020.json",
+  "state_path": "four/states/ed1-b20-initial-20261020.json",
   "page_path": "four-v1.html",
-  "frozen_state_sha": "1453f39a8511d97e0beea14b123650909c5bb714",
-  "committed_questions": 180,
+  "frozen_state_sha": "014a56742da4d9187b8fbd2234625d72c6896831",
+  "committed_questions": 190,
   "total_questions": 195,
   "total_components": 780,
-  "completed_batches": 18,
+  "completed_batches": 19,
   "source_of_truth": "amrsilver82/World-Capitals-Game:ACTIVE_TEST.json",
   "no_answer_data": true,
   "restore_three_category": {
@@ -28,5 +28,5 @@
     "archive_public": "archive/three-category-edition2-poststudy-20261028",
     "completed_score": "585/585 Pure"
   },
-  "policy": "Frozen Batch19 Q181–Q190, preserve original assets/order, no automatic clues, no partial commits, old-chat retry form for unresolved components."
+  "policy": "Final frozen Batch20 Q191–Q195. No automatic clues, no partial commits. After final batch completed publish championship summary, not a new quiz."
 }

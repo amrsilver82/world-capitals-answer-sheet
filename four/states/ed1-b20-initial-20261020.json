@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "engine": "four_v1",
+  "edition": 1,
+  "round_id": "world_flags_capitals_languages_currencies_edition_1",
+  "title": "World Flags + Capitals + Languages + Currencies — Edition 1",
+  "batch": 20,
+  "start_question": 191,
+  "end_question": 195,
+  "question_count": 5,
+  "stage": "initial",
+  "stage_label": "Initial answers",
+  "version": "four-ed1-b20-initial-20261020",
+  "validator_private": "four/validators/ed1-b20.json",
+  "questions": [
+    {
+      "n": 191,
+      "asset": "./flags/canonical/39a82b827744.svg",
+      "country_mode": "input",
+      "capital_mode": "input",
+      "language_mode": "input",
+      "currency_mode": "input"
+    },
+    {
+      "n": 192,
+      "asset": "./flags/canonical/76edab429c29.svg",
+      "country_mode": "input",
+      "capital_mode": "input",
+      "language_mode": "input",
+      "currency_mode": "input"
+    },
+    {
+      "n": 193,
+      "asset": "./flags/canonical/948784ff1707.svg",
+      "country_mode": "input",
+      "capital_mode": "input",
+      "language_mode": "input",
+      "currency_mode": "input"
+    },
+    {
+      "n": 194,
+      "asset": "./flags/canonical/cbc674a6e7c4.svg",
+      "country_mode": "input",
+      "capital_mode": "input",
+      "language_mode": "input",
+      "currency_mode": "input"
+    },
+    {
+      "n": 195,
+      "asset": "./flags/canonical/3e297d638a94.svg",
+      "country_mode": "input",
+      "capital_mode": "input",
+      "language_mode": "input",
+      "currency_mode": "input"
+    }
+  ]
+}
