@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "engine": "currency_only_preview_v1",
+  "edition": 1,
+  "preview_only": true,
+  "scoring_enabled": false,
+  "github_sync_enabled": false,
+  "official_order": false,
+  "title": "World Currencies Only — Championship Edition 1",
+  "batch": 20,
+  "total_batches": 20,
+  "total_countries": 195,
+  "question_count": 5,
+  "start_question": 191,
+  "end_question": 195,
+  "questions": [
+    {
+      "n": 191,
+      "country": "Niger"
+    },
+    {
+      "n": 192,
+      "country": "Gabon"
+    },
+    {
+      "n": 193,
+      "country": "Belarus"
+    },
+    {
+      "n": 194,
+      "country": "El Salvador"
+    },
+    {
+      "n": 195,
+      "country": "Vatican City"
+    }
+  ]
+}

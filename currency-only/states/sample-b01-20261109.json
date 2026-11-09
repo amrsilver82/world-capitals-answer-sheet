@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "engine": "currency_only_preview_v1",
+  "edition": 1,
+  "preview_only": true,
+  "scoring_enabled": false,
+  "github_sync_enabled": false,
+  "official_order": false,
+  "title": "World Currencies Only — Championship Edition 1",
+  "batch": 1,
+  "total_batches": 20,
+  "total_countries": 195,
+  "question_count": 10,
+  "start_question": 1,
+  "end_question": 10,
+  "questions": [
+    {
+      "n": 1,
+      "country": "Egypt"
+    },
+    {
+      "n": 2,
+      "country": "Japan"
+    },
+    {
+      "n": 3,
+      "country": "Brazil"
+    },
+    {
+      "n": 4,
+      "country": "Hungary"
+    },
+    {
+      "n": 5,
+      "country": "Ghana"
+    },
+    {
+      "n": 6,
+      "country": "South Africa"
+    },
+    {
+      "n": 7,
+      "country": "Nepal"
+    },
+    {
+      "n": 8,
+      "country": "Chile"
+    },
+    {
+      "n": 9,
+      "country": "Indonesia"
+    },
+    {
+      "n": 10,
+      "country": "Sao Tome and Principe"
+    }
+  ]
+}
