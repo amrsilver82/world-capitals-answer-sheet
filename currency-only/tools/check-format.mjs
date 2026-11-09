@@ -41,7 +41,7 @@ for(const stateFile of states){
  }
 }
 const runner="currency-only/tools/render-report.mjs";
-new Script(read(runner).replace(/^#!/,"//"),{filename:runner}); // syntax check via Node still done separately
+// ES-module syntax is verified by `node --check currency-only/tools/render-report.mjs` in CI.
 const dir=mkdtempSync(join(tmpdir(),"currency-only-format-"));
 try{
  for(const batch of [1,20]){
