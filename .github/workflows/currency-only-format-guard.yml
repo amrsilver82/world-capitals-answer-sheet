@@ -1,0 +1,24 @@
+name: Currency Only Edition 1 Independent Format Guard
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'currency-only/**'
+      - '.github/workflows/currency-only-format-guard.yml'
+  pull_request:
+    paths:
+      - 'currency-only/**'
+      - '.github/workflows/currency-only-format-guard.yml'
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate new flag-only Currency championship and verify original four-category SHA
+        run: |
+          node --check currency-only/tools/render-report.mjs
+          node --check currency-only/tools/check-format.mjs
+          node currency-only/tools/check-format.mjs
