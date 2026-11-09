@@ -4,28 +4,24 @@
 .ready{background:#eff6ff;border:1px solid #bfdbfe;padding:13px 16px;border-radius:10px;margin:18px 0;color:#1e40af;font-weight:700}
 #quizGrid:empty:before{content:"Loading the frozen batch…";display:block;padding:25px;text-align:center;color:#64748b}
 
-/* Currency-only preview additions; original four-category CSS copied without edits. */
-.country-matte{display:flex;justify-content:center;align-items:center;min-height:170px;padding:12px;margin-bottom:13px;background:#e2e8f0;border:1px solid #cbd5e1;border-radius:10px}
-.country-face{width:min(420px,100%);min-height:138px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:9px;padding:18px 15px;background:white;border:2px solid #475569;border-radius:4px}
-.country-kicker{font-size:11px;letter-spacing:1.4px;font-weight:800;color:#64748b;text-transform:uppercase}
-.country-name{font-size:clamp(20px,2.9vw,30px);font-weight:800;line-height:1.18;overflow-wrap:anywhere}
+/* Isolated preview-only styles; official four-category flag/card CSS retained above. */
 .fields.one{grid-template-columns:1fr}
 .preview-stamp{color:#713f12;background:#fef3c7;border:1px solid #f59e0b;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.3px;padding:6px 11px;display:inline-block}
 .preview-warning{background:#fff7ed;border:1px solid #fdba74;color:#9a3412;padding:14px 16px;border-radius:10px;line-height:1.55;margin:17px 0;font-size:14px}
 .sample-nav{justify-content:center;margin:13px 0 6px}
 .sample-nav .linkbutton[aria-current="page"]{background:#dbeafe;border-color:#2563eb;color:#1d4ed8}
 .helptext{color:#64748b;font-size:14px;line-height:1.5}
-#quizGrid:empty:before{content:"Loading the frozen preview batch…"}
+#quizGrid:empty:before{content:"Loading the frozen flag preview batch…"}
 </style></head><body><main class="wrap">
 <header><div class="tag">WORLD CAPITALS GAME · EDITION 1</div><h1 id="title">Currencies Only — Championship Design Preview</h1><p class="subtitle" id="stage">Loading sample questions…</p><span class="preview-stamp">DESIGN PREVIEW · UNSCORED</span></header>
-<div class="preview-warning"><strong>Preview only:</strong> this page shows the proposed Currencies Only layout using sample country questions. It does <strong>not</strong> start the championship, submit results, change the completed four-category game, or write to GitHub. The country order shown here is not the official future test order.</div>
+<div class="preview-warning"><strong>Preview only:</strong> this page shows the proposed Currencies Only layout using original-style national flags. Identify the country from the flag, then provide only its currency. It does <strong>not</strong> start the championship, submit results, change the completed four-category game, or write to GitHub. The sample flags are not the official future test order.</div>
 <div class="buttons sample-nav"><a class="linkbutton" id="sample10" href="#">Sample 10-country batch</a><a class="linkbutton" id="sample5" href="#">Sample final 5-country batch</a></div>
-<div class="ready">Read the country name, then enter <strong>one currency answer</strong>. The future championship will have <strong>195 countries in 20 batches</strong> (19 × 10, final batch × 5). Only currency is tested; there are no flag, capital, or language answer fields. Spelling/phonetic and established historic-currency referee rules remain in effect unless you request a change.</div>
+<div class="ready">Identify the flag and enter <strong>one currency answer</strong> — you do not type or see the country name. The future championship will have <strong>195 countries in 20 batches</strong> (19 × 10, final batch × 5). Flag recognition is part of the challenge, but only your currency entry is scored. There is no Country, Capital, or Language input. Spelling/phonetic and established historic-currency referee rules remain in effect unless you request a change.</div>
 <p class="counter" id="progress" aria-live="polite">Loading questions…</p>
 <section class="grid" id="quizGrid" aria-label="Currency-only preview questions"></section>
 <div class="buttons"><button class="primary" id="build" disabled>Build my reply</button><button id="copy" disabled>Copy reply</button><button id="clear" disabled>Clear all</button></div>
-<section class="panel"><h2>My batch reply</h2><p class="subtitle">Use <strong>Build my reply</strong>, then <strong>Copy reply</strong> to test how submissions will look. For this preview, the text is labeled as a design sample and is <strong>not official or scored</strong>.</p><textarea id="output" readonly placeholder="Your numbered Country | Currency preview answers will appear here."></textarea><p id="status" role="status"></p></section>
-<section class="panel"><h2>How the real championship will work</h2><p>Each country has <strong>one</strong> currency field. Independent correct: <strong>+1 Pure / +1 Pure + Assisted</strong>. Correct after a requested clue: <strong>+0 Pure / +0.5 Pure + Assisted</strong>. Wrong: <strong>0</strong>. Unassisted retries remain eligible for Independent credit. Clues are never automatic.</p><p>After every fully resolved batch, the real championship will save one atomic GitHub scoring commit, show the full original-answer review, category scores and cumulative totals, and provide <strong>Full Results</strong> and <strong>Next Batch</strong> links (or the final championship report after Batch 20). As in the old game, partial batch answers are never committed.</p><p class="helptext">No GitHub login or token is required to use this preview. Draft entries stay only in your browser, and are separate from the four-category championship.</p></section>
+<section class="panel"><h2>My batch reply</h2><p class="subtitle">Use <strong>Build my reply</strong>, then <strong>Copy reply</strong> to test how submissions will look. For this preview, the text is labeled as a design sample and is <strong>not official or scored</strong>.</p><textarea id="output" readonly placeholder="Your numbered Currency answers will appear here (country names stay hidden)."></textarea><p id="status" role="status"></p></section>
+<section class="panel"><h2>How the real championship will work</h2><p>Each flag has <strong>one</strong> currency answer field. Country names remain hidden, including in the copied reply. Independent correct: <strong>+1 Pure / +1 Pure + Assisted</strong>. Correct after a requested clue: <strong>+0 Pure / +0.5 Pure + Assisted</strong>. Wrong: <strong>0</strong>. Unassisted retries remain eligible for Independent credit. Clues are never automatic.</p><p>After every fully resolved batch, the real championship will save one atomic GitHub scoring commit, show the full original-answer review, category scores and cumulative totals, and provide <strong>Full Results</strong> and <strong>Next Batch</strong> links (or the final championship report after Batch 20). As in the old game, partial batch answers are never committed.</p><p class="helptext">No GitHub login or token is required to use this preview. Draft entries stay only in your browser, and are separate from the four-category championship.</p></section>
 </main>
 <script>
 (function(){
@@ -49,7 +45,7 @@ if(!payload)return "";
 const lines=["DESIGN PREVIEW ONLY — UNSCORED — do not commit or grade",payload.title+" — Sample Batch "+payload.batch+" — Q"+payload.start_question+"–Q"+payload.end_question];
 for(const q of payload.questions){
 const field=fields.find(x=>Number(x.dataset.i)===q.n);
-lines.push(q.n+". Country: "+q.country+" | Currency: "+(field?.value.trim()||"[blank]"));
+lines.push(q.n+". Currency: "+(field?.value.trim()||"[blank]"));
 }
 output.value=lines.join("\n");
 status.textContent="Preview text ready. This is NOT an official scored attempt.";
@@ -73,7 +69,7 @@ const expected=data.batch===20?5:10;
 if(data.engine!=="currency_only_preview_v1"||data.preview_only!==true||data.edition!==1||data.question_count!==expected||data.questions?.length!==expected||data.total_countries!==195||data.total_batches!==20||![1,20].includes(data.batch)||data.start_question!==(data.batch===20?191:1)||data.end_question!==data.start_question+expected-1)throw Error("Invalid preview questions.");
 const seen=new Set();
 for(const q of data.questions){
-if(!Number.isInteger(q.n)||seen.has(q.n)||typeof q.country!=="string"||!q.country.trim()||q.currency!==undefined||q.answer!==undefined||q.iso!==undefined||q.correct_answer!==undefined)throw Error("Unsafe preview question.");
+if(!Number.isInteger(q.n)||seen.has(q.n)||!/^\.\/flags\/canonical\/[a-f0-9]{12}\.svg$/.test(q.asset)||q.country!==undefined||q.currency!==undefined||q.answer!==undefined||q.iso!==undefined||q.correct_answer!==undefined)throw Error("Unsafe preview question.");
 seen.add(q.n);
 }
 if([...seen].some((n,i)=>n!==data.start_question+i))throw Error("Question order invalid.");
@@ -86,7 +82,9 @@ document.getElementById("stage").textContent="Preview: Batch "+data.batch+" of 2
 grid.innerHTML="";
 for(const q of data.questions){
 const card=document.createElement("article");card.className="card";
-card.innerHTML='<div class="top"><span class="q">Question '+q.n+'</span><span class="sm">Country → Currency</span></div><div class="country-matte"><div class="country-face"><span class="country-kicker">Country</span><span class="country-name">'+esc(q.country)+'</span></div></div><div class="fields one"><label class="field"><span>Currency</span><input id="currency'+q.n+'" data-i="'+q.n+'" placeholder="Enter currency or leave blank" autocomplete="off" spellcheck="false" aria-label="Currency for '+esc(q.country)+'"></label></div>';
+const displayAsset=q.asset==="./flags/canonical/11fde67db930.svg"?"./flags/canonical/015a7442e386.svg":q.asset;
+const img=q.display_ratio?'<div class="ratioframe" style="aspect-ratio:'+esc(q.display_ratio)+'"><img src="'+esc(displayAsset)+'" alt="Flag for question '+q.n+'"></div>':'<img src="'+esc(displayAsset)+'" alt="Flag for question '+q.n+'">';
+card.innerHTML='<div class="top"><span class="q">Question '+q.n+'</span><span class="sm">Flag → Currency</span></div><div class="pic">'+img+'</div><div class="fields one"><label class="field"><span>Currency</span><input id="currency'+q.n+'" data-i="'+q.n+'" placeholder="Enter currency or leave blank" autocomplete="off" spellcheck="false" aria-label="Currency for question '+q.n+'"></label></div>';
 grid.appendChild(card);
 }
 fields=[...document.querySelectorAll("input[data-i]")];

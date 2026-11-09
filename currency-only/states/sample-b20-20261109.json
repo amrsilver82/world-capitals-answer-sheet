@@ -16,23 +16,25 @@
   "questions": [
     {
       "n": 191,
-      "country": "Niger"
+      "asset": "./flags/canonical/39a82b827744.svg"
     },
     {
       "n": 192,
-      "country": "Gabon"
+      "asset": "./flags/canonical/76edab429c29.svg"
     },
     {
       "n": 193,
-      "country": "Belarus"
+      "asset": "./flags/canonical/948784ff1707.svg"
     },
     {
       "n": 194,
-      "country": "El Salvador"
+      "asset": "./flags/canonical/cbc674a6e7c4.svg"
     },
     {
       "n": 195,
-      "country": "Vatican City"
+      "asset": "./flags/canonical/3e297d638a94.svg"
     }
-  ]
+  ],
+  "presentation": "flag_to_currency_only",
+  "country_names_publicly_hidden": true
 }

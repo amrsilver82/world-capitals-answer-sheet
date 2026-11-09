@@ -16,43 +16,45 @@
   "questions": [
     {
       "n": 1,
-      "country": "Egypt"
+      "asset": "./flags/canonical/88e32b3ae666.svg"
     },
     {
       "n": 2,
-      "country": "Japan"
+      "asset": "./flags/canonical/cc1c181ce9b2.svg"
     },
     {
       "n": 3,
-      "country": "Brazil"
+      "asset": "./flags/canonical/719a763caaf7.svg"
     },
     {
       "n": 4,
-      "country": "Hungary"
+      "asset": "./flags/canonical/24fbfb965888.svg"
     },
     {
       "n": 5,
-      "country": "Ghana"
+      "asset": "./flags/canonical/5c3e3e69abef.svg"
     },
     {
       "n": 6,
-      "country": "South Africa"
+      "asset": "./flags/canonical/d563adb90c0c.svg"
     },
     {
       "n": 7,
-      "country": "Nepal"
+      "asset": "./flags/canonical/624285684531.svg"
     },
     {
       "n": 8,
-      "country": "Chile"
+      "asset": "./flags/canonical/5b3c72fa7c26.svg"
     },
     {
       "n": 9,
-      "country": "Indonesia"
+      "asset": "./flags/canonical/3b7c8fcfd965.svg"
     },
     {
       "n": 10,
-      "country": "Sao Tome and Principe"
+      "asset": "./flags/canonical/1294bcb70e87.svg"
     }
-  ]
+  ],
+  "presentation": "flag_to_currency_only",
+  "country_names_publicly_hidden": true
 }
