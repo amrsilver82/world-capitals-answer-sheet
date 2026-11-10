@@ -25,6 +25,15 @@ check(page.includes("Flag → Currency")&&page.includes("id=\"quizGrid\"")&&page
 check(page.includes('lines.push(q.n+". Currency: "')&& !page.includes("lines.push(q.n+\". Country:")&&!page.includes("q.country+"),"Reply MUST contain only numbered currency answers");
 check(page.includes('"../"+q.asset.slice(2)')&&!page.includes("country-face")&&!page.includes("country-name"),"Original SVG display not retained or country shown");
 check(page.includes('data.stage!=="initial"')&&page.includes('data.engine!=="currency_only_v1"'),"Frozen official state loader not safe");
+
+const groups=[
+["Dollar","Dollar"],["Euro","Euro"],["Franc","Franc"],["Peso","Peso"],["Pound","Pound"],
+["Dinar","Dinar"],["Rupee","Rupee"],["Shilling","Shilling"],["Rial","Riyal / Rial"],["Krone","Krone / Krona"]];
+for(const [value,label] of groups)check(page.includes('value:"'+value+'",label:"'+label+'"'),"Missing recurring current-currency family "+label);
+check(page.includes('Other — type currency')&&page.includes('data-custom=')&&page.includes('data-i=')&&page.includes('function answerFor(n)')&&page.includes("currency-only-official-ed1-family-select-"),"Other typed answer + retained old attempts required");
+check(page.includes('Only <strong>current</strong> currencies count')&&!page.includes('historically valid currencies also count'),"Historical currencies must be excluded in this mode");
+check(page.includes('lines.push(q.n+". Currency: "')&&!page.includes("q.country+"),"Reply must contain only currency, no country");
+
 const script=page.slice(page.lastIndexOf("<script>")+8,page.lastIndexOf("</script>"));
 new Script(script,{filename:"currency-only/edition1.html.inline.js"});
 const states=readdirSync("currency-only/states").filter(x=>/^ed1-b(?:0[1-9]|1[0-9]|20)-initial-20261109\.json$/.test(x));
