@@ -24,7 +24,7 @@ check(css===read("four/templates/approved-report.css"),"Original report CSS must
 check(page.includes("Flag → Currency")&&page.includes("id=\"quizGrid\"")&&page.includes('id="build"')&&page.includes('id="copy"')&&page.includes('id="clear"'),"UI and functional controls missing");
 check(page.includes('lines.push(q.n+". Currency: "')&& !page.includes("lines.push(q.n+\". Country:")&&!page.includes("q.country+"),"Reply MUST contain only numbered currency answers");
 check(page.includes('"../"+q.asset.slice(2)')&&!page.includes("country-face")&&!page.includes("country-name"),"Original SVG display not retained or country shown");
-check(page.includes('data.stage!=="initial"')&&page.includes('data.engine!=="currency_only_v1"'),"Frozen official state loader not safe");
+check(page.includes('d.stage!=="initial"')&&page.includes('d.engine!=="currency_only_v1"'),"Frozen official state loader not safe");
 
 const groups=[
 ["Dollar","Dollar"],["Euro","Euro"],["Franc","Franc"],["Peso","Peso"],["Pound","Pound"],
