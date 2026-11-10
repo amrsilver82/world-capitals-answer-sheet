@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "engine": "currency_only_v1",
+  "edition": 1,
+  "round_id": "world_flags_to_currencies_only_edition_1",
+  "status": "batch2_published_pending_private_presentation",
+  "committed_questions": 10,
+  "completed_batches": 1,
+  "batch": 2,
+  "start_question": 11,
+  "end_question": 20,
+  "question_count": 10,
+  "question_state": "currency-only/states/ed1-b02-initial-20261109.json",
+  "last_completed_report": "currency-only/reports/edition-1/batch01.html",
+  "pure": 9,
+  "pure_plus_assisted": 9,
+  "independent": 9,
+  "assisted": 0,
+  "wrong": 1,
+  "cancelled": 0,
+  "current_currencies_only": true,
+  "original_four_category_untouched": true
+}
