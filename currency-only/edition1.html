@@ -25,12 +25,12 @@
 
 
 <div class="ready">Identify each country by its <strong>national flag</strong>, then enter only <strong>one Currency</strong> answer. Country names are hidden and not entered. All 195 flags appear in 20 frozen batches (19 × 10; final × 5). Choose a common <strong>current currency family</strong> from the list, or choose <strong>Other — type currency</strong> for less common currencies. Families shared by only one or two countries are not listed. Only <strong>current</strong> currencies count; historical currencies no longer qualify in this championship. No hints unless you explicitly request them.</div>
-<p class="helptext">The same options appear for every flag and do not identify any country. For a clue request, choose <strong>Other</strong> and type <code>clue</code>.</p>
+<p class="helptext">The same options appear for every flag and do not identify any country. Select <strong>Clue</strong> to request a hint, or <strong>Don't know</strong> to give up that question (0 points). Neither reveals the answer in the pending question sheet. You can also type either term under Other.</p>
 <p class="counter" id="progress" aria-live="polite">Loading questions…</p>
 <section class="grid" id="quizGrid" aria-label="Frozen currency championship question flags"></section>
 <div class="buttons"><button class="primary" id="build" disabled>Build my reply</button><button id="copy" disabled>Copy reply</button><button id="clear" disabled>Clear all</button></div>
 <section class="panel"><h2>My batch reply</h2><p class="subtitle">Click <strong>Build my reply</strong>, then <strong>Copy reply</strong> and paste your numbered currency answers into our ChatGPT World Capitals Game conversation. All positions are preserved, including blanks or explicit <code>clue</code> entries. No score is saved until the complete batch is resolved.</p><textarea id="output" readonly placeholder="Your numbered Currency answers will appear here (country names stay hidden)."></textarea><p id="status" role="status"></p></section>
-<section class="panel"><h2>How scoring works</h2><p>Each flag has <strong>one</strong> currency answer, selected from a repeated-family list or entered via <strong>Other</strong>. The country names remain hidden, including in the copied reply. Only today’s accepted currencies count; historical currencies do not. Independent correct: <strong>+1 Pure / +1 Pure + Assisted</strong>. Correct after a requested clue: <strong>+0 Pure / +0.5 Pure + Assisted</strong>. Wrong: <strong>0</strong>. Unassisted retries remain eligible for Independent credit. Clues are never automatic.</p><p>After every fully resolved batch, the championship will save one atomic private GitHub scoring commit, show the full original-answer review, category scores and cumulative totals, and provide <strong>Full Results</strong> and <strong>Next Batch</strong> links (or the final championship report after Batch 20). As in the old game, partial batch answers are never committed.</p><p class="helptext">No GitHub login or token is needed to fill this sheet. Browser drafts are separate from private GitHub scoring and the completed four-category championship.</p></section>
+<section class="panel"><h2>How scoring works</h2><p>Each flag has <strong>one</strong> selection: a repeated currency family, <strong>Other</strong> for typing, <strong>Clue</strong> for a hint, or <strong>Don't know</strong> to concede for 0 points. Only the currency is scored. The country names remain hidden, including in the copied reply. Only today’s accepted currencies count; historical currencies do not. Independent correct: <strong>+1 Pure / +1 Pure + Assisted</strong>. Correct after a requested clue: <strong>+0 Pure / +0.5 Pure + Assisted</strong>. Wrong: <strong>0</strong>. Unassisted retries remain eligible for Independent credit. Clues are never automatic.</p><p>After every fully resolved batch, the championship will save one atomic private GitHub scoring commit, show the full original-answer review, category scores and cumulative totals, and provide <strong>Full Results</strong> and <strong>Next Batch</strong> links (or the final championship report after Batch 20). As in the old game, partial batch answers are never committed.</p><p class="helptext">No GitHub login or token is needed to fill this sheet. Browser drafts are separate from private GitHub scoring and the completed four-category championship.</p></section>
 </main>
 <script>
 (function(){
@@ -69,7 +69,7 @@ function showOther(s){
 function update(){
  if(!payload)return;
  const count=payload.questions.filter(q=>answerFor(q.n)).length;
- progress.textContent=count+" / "+payload.questions.length+" currency answers filled · "+(payload.questions.length-count)+" left";
+ progress.textContent=count+" / "+payload.questions.length+" responses selected · "+(payload.questions.length-count)+" left";
  const draft=fields.map(s=>({choice:s.value,typed:custom(Number(s.dataset.i)).value}));
  try{localStorage.setItem(storageKey,JSON.stringify(draft))}catch(e){}
 }
@@ -108,7 +108,7 @@ function restoreDraft(){
    if(option)s.value=option.value;
    else if(v.trim()){s.value="__other__";typed.value=v;}
   }else if(v&&typeof v==="object"){
-   if(families.some(f=>f.value===v.choice)||v.choice==="__other__")s.value=v.choice;
+   if(families.some(f=>f.value===v.choice)||["__other__","clue","don't know"].includes(v.choice))s.value=v.choice;
    if(typeof v.typed==="string")typed.value=v.typed;
   }
   showOther(s);
@@ -132,12 +132,12 @@ async function initialize(){
   storageKey="currency-only-official-ed1-family-select-"+statePath;
   document.getElementById("stage").textContent="Batch "+d.batch+" of 20 · Q"+d.start_question+"–Q"+d.end_question+" · "+expected+" flags · "+expected+" currency answers";
   grid.innerHTML="";
-  const options='<option value="">Select current currency…</option>'+families.map(f=>'<option value="'+esc(f.value)+'">'+esc(f.label)+'</option>').join("")+'<option value="__other__">Other — type currency</option>';
+  const options='<option value="">Select current currency…</option>'+families.map(f=>'<option value="'+esc(f.value)+'">'+esc(f.label)+'</option>').join("")+'<option value="__other__">Other — type currency</option>'+'<option value="clue">Clue — request a hint</option>'+'<option value="don\'t know">Don\'t know — give up (0 points)</option>';
   for(const q of d.questions){
    const card=document.createElement("article");card.className="card";
    const displayAsset=q.asset==="./flags/canonical/11fde67db930.svg"?"../flags/canonical/015a7442e386.svg":"../"+q.asset.slice(2);
    const img=q.display_ratio?'<div class="ratioframe" style="aspect-ratio:'+esc(q.display_ratio)+'"><img src="'+esc(displayAsset)+'" alt="Flag for question '+q.n+'"></div>':'<img src="'+esc(displayAsset)+'" alt="Flag for question '+q.n+'">';
-   card.innerHTML='<div class="top"><span class="q">Question '+q.n+'</span><span class="sm">Flag → Currency</span></div><div class="pic">'+img+'</div><div class="fields one"><label class="field"><span>Currency</span><select data-i="'+q.n+'" id="currency'+q.n+'" aria-label="Currency for question '+q.n+'">'+options+'</select></label><label class="field currency-other" hidden><span>Other currency</span><input id="currencyCustom'+q.n+'" data-custom="'+q.n+'" placeholder="Type current currency or clue" spellcheck="false" autocomplete="off" aria-label="Other currency for question '+q.n+'"></label></div>';
+   card.innerHTML='<div class="top"><span class="q">Question '+q.n+'</span><span class="sm">Flag → Currency</span></div><div class="pic">'+img+'</div><div class="fields one"><label class="field"><span>Currency</span><select data-i="'+q.n+'" id="currency'+q.n+'" aria-label="Currency for question '+q.n+'">'+options+'</select></label><label class="field currency-other" hidden><span>Other currency</span><input id="currencyCustom'+q.n+'" data-custom="'+q.n+'" placeholder="Type current currency, clue or don\'t know" spellcheck="false" autocomplete="off" aria-label="Other currency for question '+q.n+'"></label></div>';
    grid.appendChild(card);
   }
   fields=[...document.querySelectorAll("select[data-i]")];
@@ -148,7 +148,7 @@ async function initialize(){
   }
   buildButton.disabled=copyButton.disabled=clearButton.disabled=false;
   update();
-  status.textContent="Frozen Batch "+d.batch+" loaded. Choose a current currency family or Other; no historical answers accepted.";
+  status.textContent="Frozen Batch "+d.batch+" loaded. Choose a current currency, Clue, or Don\'t know. No historical currency answers accepted.";
  }catch(e){grid.innerHTML='<div class="err">'+esc(e.message)+'</div>';progress.textContent="Unable to load frozen official batch";status.textContent=e.message;}
 }
 initialize();
