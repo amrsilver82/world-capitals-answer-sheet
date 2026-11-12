@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "engine": "currency_only_v1",
+  "edition": 1,
+  "round_id": "world_flags_to_currencies_only_edition_1",
+  "title": "World Flags → Currencies Only — Edition 1",
+  "preview_only": false,
+  "scoring_enabled": true,
+  "stage": "initial",
+  "batch": 3,
+  "total_batches": 20,
+  "total_countries": 195,
+  "question_count": 10,
+  "start_question": 21,
+  "end_question": 30,
+  "questions": [
+    {
+      "n": 21,
+      "asset": "./flags/canonical/a6cd3670f272.svg"
+    },
+    {
+      "n": 22,
+      "asset": "./flags/canonical/c9b23b4988b3.svg"
+    },
+    {
+      "n": 23,
+      "asset": "./flags/canonical/7ce56eff707c.svg"
+    },
+    {
+      "n": 24,
+      "asset": "./flags/canonical/362d4359ba9e.svg"
+    },
+    {
+      "n": 25,
+      "asset": "./flags/canonical/8ba745acaf22.svg"
+    },
+    {
+      "n": 26,
+      "asset": "./flags/canonical/199ff198e7e4.svg"
+    },
+    {
+      "n": 27,
+      "asset": "./flags/canonical/35b9f783e155.svg"
+    },
+    {
+      "n": 28,
+      "asset": "./flags/canonical/6a38a71fcf6c.svg"
+    },
+    {
+      "n": 29,
+      "asset": "./flags/canonical/abccd87994c0.svg"
+    },
+    {
+      "n": 30,
+      "asset": "./flags/canonical/7b7e77aad4a5.svg"
+    }
+  ]
+}
