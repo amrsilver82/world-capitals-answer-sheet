@@ -50,6 +50,33 @@ for(const stateFile of states){
  previousQ.add(q.n);
  }
 }
+// Permanent fail-closed country-flag confusion checks after the Q57 Indonesia/Monaco defect.
+// The two approved source SVGs were fetched from the PINNED audited native-geometry
+// hampusborgos/country-flags@c09927e63705529bbf59ca6684cd9b23225dddad.
+// Never accept 4:3 normalization for this pair. The old Q57 asset path is now
+// a byte-identical compatibility alias for the proper 3:2 native flag.
+const approvedIndonesia="flags/canonical/dadcc9be41ad.svg";
+const oldIndonesiaAlias="flags/canonical/3b7c8fcfd965.svg";
+const approvedMonaco="flags/canonical/231ec9ba3c7b.svg";
+check(gitBlob(read(approvedIndonesia))==="dadcc9be41adba9792c667146f3a247d4e4dfe6f","Approved native Indonesia SVG has been changed");
+check(gitBlob(read(approvedMonaco))==="231ec9ba3c7be4c3d5fc8ba842aed53ece7f338c","Approved native Monaco SVG has been changed");
+check(read(oldIndonesiaAlias)===read(approvedIndonesia),"Q57 4:3 Indonesia artwork has returned in its original live path");
+check(read("flags/canonical/11fde67db930.svg")===read("flags/canonical/015a7442e386.svg"),"Legacy Honduras cyan flag has returned");
+const requiredRatio=new Map([["id",1.5],["mc",1.25],["hn",2]]);
+for(const stateFile of states){
+ const d=JSON.parse(read("currency-only/states/"+stateFile));
+ for(const q of d.questions){
+  const assetPath=q.asset.slice(2),svg=read(assetPath);
+  const code=svg.match(/\bid=["']flag-icons-([a-z]{2})["']/)?.[1];
+  const expected=requiredRatio.get(code);
+  if(expected!==undefined){
+   const v=svg.match(/\bviewBox=["']\s*([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s*["']/);
+   check(v!==null&&Math.abs(Number(v[3])/Number(v[4])-expected)<0.00001,"Unfair normalized flag aspect ratio: "+stateFile+" Q"+q.n+" ("+code+")");
+  }
+  if(assetPath===oldIndonesiaAlias)check(svg===read(approvedIndonesia),"Presented Q57 is not exact audited native geometry");
+ }
+}
+
 const runner="currency-only/tools/render-report.mjs";
 // ES-module syntax is verified by `node --check currency-only/tools/render-report.mjs` in CI.
 const dir=mkdtempSync(join(tmpdir(),"currency-only-format-"));
