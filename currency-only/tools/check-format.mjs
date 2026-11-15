@@ -77,6 +77,83 @@ for(const stateFile of states){
  }
 }
 
+// Currency Only Batch7 mandatory native-country flag certification. Original native artwork
+// sourced from pinned hampusborgos/country-flags@c09927e63705529bbf59ca6684cd9b23225dddad.
+// Only inert ISO flag ID was added; image geometry, palette, symbol and paths unchanged.
+const batch7Native= [
+ [
+  "flags/canonical/1eeda9f6de99.svg",
+  "1eeda9f6de99833f211893f5ab0dd6114b279d7a",
+  "md",
+  2
+ ],
+ [
+  "flags/canonical/0cc87d4185f8.svg",
+  "0cc87d4185f89dd1c2d611fe8f2829a6f7ff471e",
+  "st",
+  2
+ ],
+ [
+  "flags/canonical/b3a8deae1f4b.svg",
+  "b3a8deae1f4b65408c62431f9a2fc3b0d369a330",
+  "tn",
+  1.5
+ ],
+ [
+  "flags/canonical/bd532cc95767.svg",
+  "bd532cc95767d7ac0ef4a4fb0a420f34781b68e1",
+  "et",
+  2
+ ],
+ [
+  "flags/canonical/54fe356449b8.svg",
+  "54fe356449b8d83278540a03b22f80ab2cb4a89b",
+  "cd",
+  1.3333333333333333
+ ],
+ [
+  "flags/canonical/9083df9c4801.svg",
+  "9083df9c48019b097c797df7d96f6625f25d2250",
+  "mr",
+  1.5
+ ],
+ [
+  "flags/canonical/63294280c0bd.svg",
+  "63294280c0bd9da044a7b12730cf5727a9cb8a98",
+  "pk",
+  1.5
+ ],
+ [
+  "flags/canonical/47a0be9df6fd.svg",
+  "47a0be9df6fdd8f4ee251fa54a6ed890c01bb85b",
+  "jp",
+  1.5
+ ],
+ [
+  "flags/canonical/65c4880886e0.svg",
+  "65c4880886e04db6a5506deb92c0e18ca43da148",
+  "bh",
+  1.6666666666666667
+ ],
+ [
+  "flags/canonical/81e8d465a55d.svg",
+  "81e8d465a55dd4b32b21938c5330d269b5c60227",
+  "kw",
+  2
+ ]
+];
+const batch7Actual=JSON.parse(read("currency-only/states/ed1-b07-initial-20261109.json")).questions;
+check(batch7Actual.length===10,"Batch7 flag audit requires ten exact assets");
+for(let i=0;i<batch7Native.length;i++){
+ const [path,sha,code,ratio]=batch7Native[i],q=batch7Actual[i];
+ check(q.n===61+i&&q.asset==="./"+path,"Batch7 quiz flag order or vetted asset changed");
+ const svg=read(path);
+ check(gitBlob(svg)===sha,"Batch7 vetted SVG bytes changed: "+path);
+ check(svg.includes('id="flag-icons-'+code+'"'),"Batch7 flag country identity incorrect: "+path);
+ const v=svg.match(/viewBox="\s*([\d.-]+)\s+([\d.-]+)\s+([\d.]+)\s+([\d.]+)\s*"/);
+ check(v&&Math.abs(Number(v[3])/Number(v[4])-ratio)<0.00001,"Batch7 native proportions invalid: "+path);
+}
+
 const runner="currency-only/tools/render-report.mjs";
 // ES-module syntax is verified by `node --check currency-only/tools/render-report.mjs` in CI.
 const dir=mkdtempSync(join(tmpdir(),"currency-only-format-"));
