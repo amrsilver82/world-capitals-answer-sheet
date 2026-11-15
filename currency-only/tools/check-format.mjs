@@ -154,6 +154,82 @@ for(let i=0;i<batch7Native.length;i++){
  check(v&&Math.abs(Number(v[3])/Number(v[4])-ratio)<0.00001,"Batch7 native proportions invalid: "+path);
 }
 
+// Mandatory exact native flag release certification for Batch8 (Q71–Q80).
+// Each audited vector from pinned hampusborgos/country-flags@c09927e63705529bbf59ca6684cd9b23225dddad,
+// unchanged except harmless id="flag-icons-XX" identity metadata.
+const batch8Native=[
+ [
+  "flags/canonical/6a288339017b.svg",
+  "6a288339017b772705a90ccd5d0b76ce89fa3604",
+  "gq",
+  1.5
+ ],
+ [
+  "flags/canonical/953646f933ed.svg",
+  "953646f933edb473e2e65d352fd237b242c87d13",
+  "bd",
+  1.6666666666666667
+ ],
+ [
+  "flags/canonical/0c3c42fc7f4d.svg",
+  "0c3c42fc7f4ddc7a318c262b601fb599e5a39a78",
+  "in",
+  1.5
+ ],
+ [
+  "flags/canonical/277033a3c63a.svg",
+  "277033a3c63a7fab8a2138d618d02d76f5e57005",
+  "th",
+  1.5
+ ],
+ [
+  "flags/canonical/aacef25aa0e4.svg",
+  "aacef25aa0e4f7a764e77476ee7af129d7a0f3e2",
+  "ge",
+  1.5
+ ],
+ [
+  "flags/canonical/250aa5fb8e23.svg",
+  "250aa5fb8e235941bb4884a10a218cfd78e1d060",
+  "lu",
+  1.6666666666666667
+ ],
+ [
+  "flags/canonical/eaa2257469aa.svg",
+  "eaa2257469aac6de1774e8908c8ac84574f90d8b",
+  "rs",
+  1.4999900811363052
+ ],
+ [
+  "flags/canonical/982d20df8596.svg",
+  "982d20df8596dc5913161737a082543ee6f198b6",
+  "lr",
+  1.9
+ ],
+ [
+  "flags/canonical/f7ade74c4493.svg",
+  "f7ade74c4493e896dc0e3f6f4138f2a84637b657",
+  "tl",
+  2
+ ],
+ [
+  "flags/canonical/c46d2027719a.svg",
+  "c46d2027719af3fe21fd3a21a72d51d92dd5eae9",
+  "ba",
+  2
+ ]
+];
+const batch8State=JSON.parse(read("currency-only/states/ed1-b08-initial-20261109.json")).questions;
+check(batch8State.length===10,"Batch8 must display exactly 10 certified flags");
+for(let i=0;i<batch8Native.length;i++){
+ const [path,sha,code,ratio]=batch8Native[i],q=batch8State[i],svg=read(path);
+ check(q.n===71+i&&q.asset==="./"+path,"Batch8 original country/flag order or source asset changed");
+ check(gitBlob(svg)===sha,"Batch8 flag source content has changed: "+path);
+ check(svg.includes('id="flag-icons-'+code+'"'),"Batch8 flag country code mismatch: "+path);
+ const box=svg.match(/viewBox="\s*([\d.-]+)\s+([\d.-]+)\s+([\d.]+)\s+([\d.]+)\s*"/);
+ check(box&&Math.abs(Number(box[3])/Number(box[4])-ratio)<0.00001,"Batch8 native geometry wrong: "+path);
+}
+
 const runner="currency-only/tools/render-report.mjs";
 // ES-module syntax is verified by `node --check currency-only/tools/render-report.mjs` in CI.
 const dir=mkdtempSync(join(tmpdir(),"currency-only-format-"));
