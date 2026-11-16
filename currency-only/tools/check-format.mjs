@@ -256,6 +256,20 @@ for(let i=0;i<10;i++){
  check(v&&Math.abs(Number(v[3])/Number(v[4])-ratio)<0.00001,"Batch9 selected flag native ratio mismatch");
 }
 
+// Mobile-safe Batch9: the answer-free frozen questions are embedded in a unique
+// query-free document; this avoids stale / stripped in-app-browser URL parameters
+// and third-party raw.githubusercontent.com fetch failures.
+const batch09Direct=read("currency-only/batch09.html");
+const embeddedMatch=batch09Direct.match(/<script id="officialBatchState" type="application\/json">([\s\S]*?)<\/script>/);
+check(!!embeddedMatch,"Mobile-safe Batch9 lacks embedded frozen state");
+const embedded=JSON.parse(embeddedMatch[1]),officialBatch9=JSON.parse(read("currency-only/states/ed1-b09-initial-20261116.json"));
+check(JSON.stringify(embedded)===JSON.stringify(officialBatch9),"Mobile-safe Batch9 must exactly match original frozen Q81–Q90 JSON");
+check(embedded.batch===9&&embedded.questions.length===10&&embedded.questions.every((q,i)=>q.n===81+i&&Object.keys(q).sort().join(",")==="asset,n"),"Mobile-safe Batch9 sequence or spoilers invalid");
+check(batch09Direct.includes('const statePath="currency-only/states/ed1-b09-initial-20261116.json"')&&batch09Direct.includes('JSON.parse(document.getElementById("officialBatchState").textContent)'),"Mobile-safe page does not load embedded state");
+check(!batch09Direct.includes("Invalid official pinned batch URL.")&&!batch09Direct.includes("fetch(url")&&!batch09Direct.includes('sha=params.get("sha")'),"Mobile-safe Batch9 still depends on URL params or remote fetch");
+check(batch09Direct.includes('id="quizGrid"')&&batch09Direct.includes('id="build"')&&batch09Direct.includes('id="copy"')&&batch09Direct.includes('id="clear"'),"Mobile-safe Batch9 interaction controls missing");
+check(read("currency-only/reports/edition-1/batch08.html").includes('href="../../../currency-only/batch09.html"'),"Batch8 next-link must point to working query-free Batch9");
+
 const runner="currency-only/tools/render-report.mjs";
 // ES-module syntax is verified by `node --check currency-only/tools/render-report.mjs` in CI.
 const dir=mkdtempSync(join(tmpdir(),"currency-only-format-"));
