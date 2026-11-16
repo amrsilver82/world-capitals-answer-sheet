@@ -292,6 +292,27 @@ for(let i=0;i<b10Data.length;i++){
 check(read("currency-only/reports/edition-1/batch09.html").includes('href="../../../currency-only/batch10.html"'),"Batch9 review next-link must be direct mobile page");
 check((read("currency-only/reports/edition-1/batch09.html").match(/<article class="card">/g)||[]).length===10,"Batch9 ten card review");
 
+// Source-art audited mobile-direct Batch11: original source order Q101–Q110, no answers.
+const b11Data=[["flags/canonical/a61df2468442.svg","a61df24684424f9b4a433f8e7b1463b41054f430","cn",1.5],["flags/canonical/d437e93137a9.svg","d437e93137a9ef4989aae3eb058eea7bba708edf","cz",1.5],["flags/canonical/6b3f0a4fbed9.svg","6b3f0a4fbed93016cac8bb10eb710c27de77ee9c","is",1.3888888888888888],["flags/canonical/e4496f8a1519.svg","e4496f8a15195278407b1e889ff0027cbb9987d7","il",1.375],["flags/canonical/18f5e56a74fe.svg","18f5e56a74feae3dbf7cbd40e07a64a43ceead93","jm",2],["flags/canonical/1c8c684a21de.svg","1c8c684a21dea69e4ba3b9932c453c976fc3926a","my",2],["flags/canonical/be54ef21dcf8.svg","be54ef21dcf8feabeb6b65cc7f3225f495967512","er",2],["flags/canonical/d76cef89a97c.svg","d76cef89a97c2a701d849d2c37b0ae4fe05c5e94","vc",1.5],["flags/canonical/20373dc92aaf.svg","20373dc92aafdaca46a75fbb3cf1974c907ee9db","ki",2],["flags/canonical/64b056639a1c.svg","64b056639a1c5b841299cba87a062316169a944d","mt",1.5]];
+const b11Frozen=JSON.parse(read("currency-only/states/ed1-b11-initial-20261116.json"));
+check(b11Frozen.batch===11&&b11Frozen.start_question===101&&b11Frozen.end_question===110&&b11Frozen.questions.length===10,"Batch11 frozen range");
+const b11Html=read("currency-only/batch11.html");
+const b11Match=b11Html.match(/<script id="officialBatchState" type="application\/json">([\s\S]*?)<\/script>/);
+check(!!b11Match,"Batch11 direct HTML must embed same frozen state");
+const b11Inline=JSON.parse(b11Match[1]);
+check(JSON.stringify(b11Frozen)===JSON.stringify(b11Inline),"Batch11 direct HTML and official state differ");
+check(b11Inline.questions.every((q,i)=>q.n===101+i&&Object.keys(q).sort().join(",")==="asset,n"),"Batch11 spoiler or sequence error");
+check(b11Html.includes('const statePath="currency-only/states/ed1-b11-initial-20261116.json"')&&!b11Html.includes('fetch(url')&&!b11Html.includes("Invalid official pinned batch URL.")&&!b11Html.includes('sha=params.get("sha")'),"Batch11 iOS page incorrectly needs query params or remote fetch");
+for(let i=0;i<b11Data.length;i++){
+ const [path,sha,code,ratio]=b11Data[i],q=b11Inline.questions[i],svg=read(path);
+ check(q.asset==="./"+path&&gitBlob(svg)===sha,"Batch11 approved flag source differs "+path);
+ check(svg.includes('id="flag-icons-'+code+'"'),"Batch11 source country ID mismatch "+path);
+ const v=svg.match(/viewBox="\s*([\d.-]+)\s+([\d.-]+)\s+([\d.]+)\s+([\d.]+)\s*"/);
+ check(v&&Math.abs(Number(v[3])/Number(v[4])-ratio)<0.00001,"Batch11 native flag ratio mismatch "+path);
+}
+check(read("currency-only/reports/edition-1/batch10.html").includes('href="../../../currency-only/batch11.html"'),"Batch10 direct next button missing");
+check((read("currency-only/reports/edition-1/batch10.html").match(/<article class="card">/g)||[]).length===10,"Batch10 report ten cards missing");
+
 const runner="currency-only/tools/render-report.mjs";
 // ES-module syntax is verified by `node --check currency-only/tools/render-report.mjs` in CI.
 const dir=mkdtempSync(join(tmpdir(),"currency-only-format-"));
