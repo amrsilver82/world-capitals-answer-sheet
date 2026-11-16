@@ -230,6 +230,20 @@ for(let i=0;i<batch8Native.length;i++){
  check(box&&Math.abs(Number(box[3])/Number(box[4])-ratio)<0.00001,"Batch8 native geometry wrong: "+path);
 }
 
+// Batch9 source-pinned native flag audit. Artifact identity and exact native proportions
+// must match the source-selected flag-only Q81–Q90 before publication.
+const batch9Native=[["flags/canonical/345a2acbca3b.svg","345a2acbca3b8d085ae5a149a95c31070412ef76","gm",1.5],["flags/canonical/668eaa13f61f.svg","668eaa13f61f6b08e35d3823c5ae1d48d2ddec22","tz",1.5],["flags/canonical/48e220d5794d.svg","48e220d5794d4aa73401d5d8e865c74f1e731cfd","fj",2],["flags/canonical/f7899ce1231f.svg","f7899ce1231fd38ca3c447c12e8a7aacdb5eac7e","td",1.5],["flags/canonical/8891451493b8.svg","8891451493b8e44b6929ee45fe96dcef605f4bf3","la",1.5],["flags/canonical/439f52520f47.svg","439f52520f47bd0ff1c0bac5838a6425efa8d088","mz",1.5],["flags/canonical/d88e6b10e376.svg","d88e6b10e376b91f23b7a6052f031e921294f4de","cu",2],["flags/canonical/d78481062af5.svg","d78481062af54ee4a8c56e2558aa789f92ed854b","de",1.6666666666666667],["flags/canonical/1ac7f0c41bae.svg","1ac7f0c41bae27de3a4e1556e1b466d667ee3dca","bt",1.5],["flags/canonical/8bae73e30ebe.svg","8bae73e30ebea33c31b64336076e6baa90fe600a","tg",1.618]];
+const batch9Frozen=JSON.parse(read("currency-only/states/ed1-b09-initial-20261116.json"));
+check(batch9Frozen.batch===9&&batch9Frozen.question_count===10&&batch9Frozen.questions.length===10&&batch9Frozen.stage==="initial","Batch9 state schema/metadata");
+for(let i=0;i<10;i++){
+ const [path,sha,code,ratio]=batch9Native[i],q=batch9Frozen.questions[i],svg=read(path);
+ check(q.n===81+i&&q.asset==="./"+path&&Object.keys(q).sort().join(",")==="asset,n","Batch9 asset order/spoiler");
+ check(gitBlob(svg)===sha,"Batch9 native source SVG changed "+path);
+ check(svg.includes('id="flag-icons-'+code+'"'),"Batch9 country flag source identity mismatch");
+ const v=svg.match(/viewBox="\s*([\d.-]+)\s+([\d.-]+)\s+([\d.]+)\s+([\d.]+)\s*"/);
+ check(v&&Math.abs(Number(v[3])/Number(v[4])-ratio)<0.00001,"Batch9 selected flag native ratio mismatch");
+}
+
 const runner="currency-only/tools/render-report.mjs";
 // ES-module syntax is verified by `node --check currency-only/tools/render-report.mjs` in CI.
 const dir=mkdtempSync(join(tmpdir(),"currency-only-format-"));
