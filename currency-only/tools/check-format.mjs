@@ -270,6 +270,28 @@ check(!batch09Direct.includes("Invalid official pinned batch URL.")&&!batch09Dir
 check(batch09Direct.includes('id="quizGrid"')&&batch09Direct.includes('id="build"')&&batch09Direct.includes('id="copy"')&&batch09Direct.includes('id="clear"'),"Mobile-safe Batch9 interaction controls missing");
 check(read("currency-only/reports/edition-1/batch08.html").includes('href="../../../currency-only/batch09.html"'),"Batch8 next-link must point to working query-free Batch9");
 
+// Batch10 mobile-safe direct HTML + original country-native flag art QA.
+// The answer-free embedded JSON must exactly match the immutable frozen state.
+const b10Data=[["flags/canonical/9c27e32de24a.svg","9c27e32de24a2b5c3b930b1e399174d0cfb6a812","ru",1.5],["flags/canonical/13cdfff1a7a0.svg","13cdfff1a7a051d73ed10d07e18e0b0373cd55ad","bo",1.4666646509237142],["flags/canonical/b65d70c32ac5.svg","b65d70c32ac5e1a00885f95f7a7a577e1158579f","cg",1.5],["flags/canonical/1143c15d91c2.svg","1143c15d91c200bf0b06b922a2deb554c14617de","sc",2],["flags/canonical/7b9b8a107a7d.svg","7b9b8a107a7d8f42f866cf6c57d31bf29cc3143c","ag",1.5],["flags/canonical/48f9fa55c8ba.svg","48f9fa55c8bad13d1bdadf4f23a3c53b5b9f001d","jo",2],["flags/canonical/918228add1ef.svg","918228add1ef8fc56d7a21ca5ce16f34fa73bbb1","cy",1.5],["flags/canonical/bd110983913b.svg","bd110983913bd31e4236125a0d80a943ac4a55b8","lb",1.5],["flags/canonical/a99ab47b06cb.svg","a99ab47b06cb9ddef2efcde57c129bc6043f125a","me",2],["flags/canonical/6b2c6cc3a467.svg","6b2c6cc3a4675a8f408a1e0a86beab0ccaac448d","bi",1.6666666666666667]];
+const b10Frozen=JSON.parse(read("currency-only/states/ed1-b10-initial-20261116.json"));
+check(b10Frozen.batch===10&&b10Frozen.start_question===91&&b10Frozen.end_question===100&&b10Frozen.questions.length===10,"Batch10 frozen Q range");
+const b10Html=read("currency-only/batch10.html");
+const b10Match=b10Html.match(/<script id="officialBatchState" type="application\/json">([\s\S]*?)<\/script>/);
+check(!!b10Match,"Batch10 direct page missing embedded questions");
+const b10Inline=JSON.parse(b10Match[1]);
+check(JSON.stringify(b10Frozen)===JSON.stringify(b10Inline),"Batch10 direct page must exactly equal frozen original Q91–Q100 state");
+check(b10Inline.questions.every((q,i)=>q.n===91+i&&Object.keys(q).sort().join(",")==="asset,n"),"Batch10 source order or spoilers");
+check(b10Html.includes('const statePath="currency-only/states/ed1-b10-initial-20261116.json"')&&!b10Html.includes('fetch(url')&&!b10Html.includes("Invalid official pinned batch URL.")&&!b10Html.includes('sha=params.get("sha")'),"Batch10 mobile page must not need URL parameters/network JSON");
+for(let i=0;i<b10Data.length;i++){
+ const [path,sha,code,ratio]=b10Data[i],q=b10Inline.questions[i],svg=read(path);
+ check(q.asset==="./"+path&&gitBlob(svg)===sha,"Batch10 source art changed or out of order: "+path);
+ check(svg.includes('id="flag-icons-'+code+'"'),"Batch10 country flag mismatch: "+path);
+ const view=svg.match(/viewBox="\s*([\d.-]+)\s+([\d.-]+)\s+([\d.]+)\s+([\d.]+)\s*"/);
+ check(view&&Math.abs(Number(view[3])/Number(view[4])-ratio)<0.00001,"Batch10 flag native geometry mismatch: "+path);
+}
+check(read("currency-only/reports/edition-1/batch09.html").includes('href="../../../currency-only/batch10.html"'),"Batch9 review next-link must be direct mobile page");
+check((read("currency-only/reports/edition-1/batch09.html").match(/<article class="card">/g)||[]).length===10,"Batch9 ten card review");
+
 const runner="currency-only/tools/render-report.mjs";
 // ES-module syntax is verified by `node --check currency-only/tools/render-report.mjs` in CI.
 const dir=mkdtempSync(join(tmpdir(),"currency-only-format-"));
