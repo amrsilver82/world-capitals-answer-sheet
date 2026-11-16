@@ -37,8 +37,20 @@ check(page.includes('lines.push(q.n+". Currency: "')&&!page.includes("q.country+
 
 const script=page.slice(page.lastIndexOf("<script>")+8,page.lastIndexOf("</script>"));
 new Script(script,{filename:"currency-only/edition1.html.inline.js"});
-const states=readdirSync("currency-only/states").filter(x=>/^ed1-b(?:0[1-9]|1[0-9]|20)-initial-20261109\.json$/.test(x));
+const states=readdirSync("currency-only/states").filter(x=>/^ed1-b(?:0[1-9]|1[0-9]|20)-initial-20\d{6}\.json$/.test(x));
 check(states.length>=1,"No official frozen batch present");
+// Regression: official state URLs may have any valid 20YYMMDD release suffix,
+// not just the initial 20261109 rollout. The strict batch and path prefix stay.
+const officialFilename=/^currency-only\/states\/ed1-b(?:0[1-9]|1[0-9]|20)-initial-20\d{6}\.json$/;
+for(const valid of ["currency-only/states/ed1-b08-initial-20261109.json","currency-only/states/ed1-b09-initial-20261116.json","currency-only/states/ed1-b20-initial-20270108.json"]){
+ check(officialFilename.test(valid),"Official frozen batch URL wrongly rejected: "+valid);
+}
+for(const invalid of ["currency-only/states/ed1-b00-initial-20261116.json","currency-only/states/ed1-b21-initial-20261116.json","currency-only/states/../ed1-b09-initial-20261116.json","currency-only/states/ed1-b09-initial-20261116.json?tamper=yes","currency-only/states/ed1-b09-initial-20261116.txt"]){
+ check(!officialFilename.test(invalid),"Unsafe batch URL accepted: "+invalid);
+}
+check(page.includes("-initial-20\\d{6}\\.json$"),"Official page still rejects newer pinned release dates");
+check(states.includes("ed1-b09-initial-20261116.json"),"Newer Batch9 not covered by standard frozen-state CI audit");
+
 let previousQ=new Set();
 for(const stateFile of states){
  const d=JSON.parse(read("currency-only/states/"+stateFile)),n=d.batch===20?5:10,first=d.batch===20?191:(d.batch-1)*10+1;

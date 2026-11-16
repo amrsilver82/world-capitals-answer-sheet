@@ -116,7 +116,7 @@ function restoreDraft(){
 }
 async function initialize(){
  try{
-  if(!sha||!/^[a-f0-9]{40}$/.test(sha)||!statePath||!/^currency-only\/states\/ed1-b(?:0[1-9]|1[0-9]|20)-initial-20261109\.json$/.test(statePath))throw Error("Invalid official pinned batch URL.");
+  if(!sha||!/^[a-f0-9]{40}$/.test(sha)||!statePath||!/^currency-only\/states\/ed1-b(?:0[1-9]|1[0-9]|20)-initial-20\d{6}\.json$/.test(statePath))throw Error("Invalid official pinned batch URL.");
   const url="https://raw.githubusercontent.com/"+owner+"/"+repo+"/"+sha+"/"+statePath;
   const response=await fetch(url,{cache:"no-store"});
   if(!response.ok)throw Error("Frozen official state could not load (HTTP "+response.status+").");
