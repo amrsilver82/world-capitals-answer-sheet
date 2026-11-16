@@ -313,6 +313,27 @@ for(let i=0;i<b11Data.length;i++){
 check(read("currency-only/reports/edition-1/batch10.html").includes('href="../../../currency-only/batch11.html"'),"Batch10 direct next button missing");
 check((read("currency-only/reports/edition-1/batch10.html").match(/<article class="card">/g)||[]).length===10,"Batch10 report ten cards missing");
 
+// Batch12 ten source-pinned native flags, original order, and mobile-safe answer-free source.
+const b12Data=[["flags/canonical/676fbbfdd013.svg","676fbbfdd0131a99166387a7069ebbef53807bfc","hu",2],["flags/canonical/683e5e0526f9.svg","683e5e0526f9728c3b1914510a080fc379781fed","lc",2],["flags/canonical/808dd4442f9b.svg","808dd4442f9be60fc9daf6fb539bbd593cbf18ff","nl",1.5],["flags/canonical/ff75eebc62ca.svg","ff75eebc62cae14b41d40420da87ff4ac22fd9fe","to",2],["flags/canonical/a1c3ee4830aa.svg","a1c3ee4830aa427f8aae4f5b532836aa749729d5","ht",1.6666666666666667],["flags/canonical/f6961fe07191.svg","f6961fe07191b8772ce3ee0db45b3dba78492c83","sb",2],["flags/canonical/e9d810b24299.svg","e9d810b2429938ff175bfcbab74b436103ec7e0f","us",1.9],["flags/canonical/3fa44bd09d3a.svg","3fa44bd09d3aa8b6d315d96836c0f5d7b8c983f9","gy",1.6666666666666667],["flags/canonical/6403dcfb034c.svg","6403dcfb034ce8417a44f3a0859665f32577ed67","cr",1.6666666666666667],["flags/canonical/b0de0a66401f.svg","b0de0a66401fe81f76a73ae7a285a6ab2437e5ab","gw",2]];
+const b12Frozen=JSON.parse(read("currency-only/states/ed1-b12-initial-20261116.json"));
+check(b12Frozen.batch===12&&b12Frozen.start_question===111&&b12Frozen.end_question===120&&b12Frozen.questions.length===10,"Batch12 question range");
+const b12Html=read("currency-only/batch12.html");
+const b12Match=b12Html.match(/<script id="officialBatchState" type="application\/json">([\s\S]*?)<\/script>/);
+check(!!b12Match,"Batch12 self-contained page missing embedded frozen JSON");
+const b12Inline=JSON.parse(b12Match[1]);
+check(JSON.stringify(b12Frozen)===JSON.stringify(b12Inline),"Batch12 direct page must equal frozen state");
+check(b12Inline.questions.every((q,i)=>q.n===111+i&&Object.keys(q).sort().join(",")==="asset,n"),"Batch12 spoiler or order");
+check(b12Html.includes('const statePath="currency-only/states/ed1-b12-initial-20261116.json"')&&!b12Html.includes('fetch(url')&&!b12Html.includes("Invalid official pinned batch URL.")&&!b12Html.includes('sha=params.get("sha")'),"Batch12 mobile page still URL dependent");
+for(let i=0;i<b12Data.length;i++){
+ const [path,sha,code,ratio]=b12Data[i],q=b12Inline.questions[i],svg=read(path);
+ check(q.asset==="./"+path&&gitBlob(svg)===sha,"Batch12 approved flag source different "+path);
+ check(svg.includes('id="flag-icons-'+code+'"'),"Batch12 source country identity mismatch "+path);
+ const v=svg.match(/viewBox="\s*([-\d.]+)\s+([-\d.]+)\s+([\d.]+)\s+([\d.]+)\s*"/);
+ check(v&&Math.abs(Number(v[3])/Number(v[4])-ratio)<0.00001,"Batch12 native flag ratio mismatch "+path);
+}
+check(read("currency-only/reports/edition-1/batch11.html").includes('href="../../../currency-only/batch12.html"'),"Batch11 review direct next link");
+check((read("currency-only/reports/edition-1/batch11.html").match(/<article class="card">/g)||[]).length===10,"Batch11 report complete");
+
 const runner="currency-only/tools/render-report.mjs";
 // ES-module syntax is verified by `node --check currency-only/tools/render-report.mjs` in CI.
 const dir=mkdtempSync(join(tmpdir(),"currency-only-format-"));
