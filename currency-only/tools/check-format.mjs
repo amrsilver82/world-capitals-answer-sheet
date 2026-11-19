@@ -334,6 +334,27 @@ for(let i=0;i<b12Data.length;i++){
 check(read("currency-only/reports/edition-1/batch11.html").includes('href="../../../currency-only/batch12.html"'),"Batch11 review direct next link");
 check((read("currency-only/reports/edition-1/batch11.html").match(/<article class="card">/g)||[]).length===10,"Batch11 report complete");
 
+// Batch13 Q121–Q130 ten pinned source-native flags, standalone answer-free frozen quiz.
+const b13Data=[["flags/canonical/db89a3505bc1.svg","db89a3505bc1faf0a7a9aa270531c83279d88dca","bb",1.5],["flags/canonical/e2b8e89aa447.svg","e2b8e89aa4473f27d37efeae39677bca19b91e77","pa",1.5],["flags/canonical/30e78c116f91.svg","30e78c116f91f38b7c5198d2b7e7ab7acdb18a2f","sy",1.5],["flags/canonical/cb83d9c69163.svg","cb83d9c69163c167bdf30fe096ddecfe1d883668","ke",1.5],["flags/canonical/5ed4f898912f.svg","5ed4f898912f4a2078e80372f611c327635627ff","dm",2],["flags/canonical/9513db2bdb77.svg","9513db2bdb776e18f473fe69c3566ccce88ef827","az",2],["flags/canonical/e11b225a2713.svg","e11b225a27139193671345f1537a2e841d4d854a","cm",1.5],["flags/canonical/3b0b4a5a4f50.svg","3b0b4a5a4f50cf3f416a901c57ea1156e5a40d4a","fr",1.5],["flags/canonical/fa554bf93b48.svg","fa554bf93b48f44d801c1265a6a8dfe7c883f605","gh",1.5],["flags/canonical/31975f095ff2.svg","31975f095ff2902b63c5da540934f893c5642ed3","kn",1.5]];
+const b13Frozen=JSON.parse(read("currency-only/states/ed1-b13-initial-20261119.json"));
+check(b13Frozen.batch===13&&b13Frozen.start_question===121&&b13Frozen.end_question===130&&b13Frozen.questions.length===10,"Batch13 frozen Q range");
+const b13Html=read("currency-only/batch13.html");
+const b13Match=b13Html.match(/<script id="officialBatchState" type="application\/json">([\s\S]*?)<\/script>/);
+check(!!b13Match,"Batch13 direct page must embed frozen state");
+const b13Inline=JSON.parse(b13Match[1]);
+check(JSON.stringify(b13Frozen)===JSON.stringify(b13Inline),"Batch13 direct page differs from frozen source");
+check(b13Inline.questions.every((q,i)=>q.n===121+i&&Object.keys(q).sort().join(",")==="asset,n"),"Batch13 spoiler or question reorder");
+check(b13Html.includes('const statePath="currency-only/states/ed1-b13-initial-20261119.json"')&&!b13Html.includes('fetch(url')&&!b13Html.includes("Invalid official pinned batch URL.")&&!b13Html.includes('sha=params.get("sha")'),"Batch13 requires URL parameters, remote fetch or unpinned state");
+for(let i=0;i<b13Data.length;i++){
+ const [path,sha,code,ratio]=b13Data[i],q=b13Inline.questions[i],svg=read(path);
+ check(q.asset==="./"+path&&gitBlob(svg)===sha,"Batch13 source flag mismatched "+path);
+ check(svg.includes('id="flag-icons-'+code+'"'),"Batch13 original country identity mismatched "+path);
+ const v=svg.match(/viewBox="\s*([-\d.]+)\s+([-\d.]+)\s+([\d.]+)\s+([\d.]+)\s*"/);
+ check(v&&Math.abs(Number(v[3])/Number(v[4])-ratio)<0.00001,"Batch13 native ratio mismatch "+path);
+}
+check(read("currency-only/reports/edition-1/batch12.html").includes('href="../../../currency-only/batch13.html"'),"Batch12 review next direct link missing");
+check((read("currency-only/reports/edition-1/batch12.html").match(/<article class="card">/g)||[]).length===10,"Batch12 report all ten cards");
+
 const runner="currency-only/tools/render-report.mjs";
 // ES-module syntax is verified by `node --check currency-only/tools/render-report.mjs` in CI.
 const dir=mkdtempSync(join(tmpdir(),"currency-only-format-"));
