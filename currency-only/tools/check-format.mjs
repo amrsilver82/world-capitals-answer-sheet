@@ -376,6 +376,27 @@ for(let i=0;i<b14Data.length;i++){
 check((read("currency-only/reports/edition-1/batch13.html").match(/<article class="card">/g)||[]).length===10,"Batch13 report cards");
 check(read("currency-only/reports/edition-1/batch13.html").includes('href="../../../currency-only/batch14.html"'),"Batch13 next button");
 
+// Batch15 pinned native source flag proportions, identity, immutable direct quiz.
+const b15Data=[["flags/canonical/80060ca58bb7.svg","80060ca58bb70ddcf72285894122948d0f93bd81","bn",2],["flags/canonical/95fb4b040fa4.svg","95fb4b040fa4c8b6a7d73498f9a54a284ebf7da8","br",1.4285714285714286],["flags/canonical/640237947144.svg","640237947144bb275420068be112bb73557b1746","mu",1.5],["flags/canonical/301b553fd1b1.svg","301b553fd1b1793328df45bcc85c257b14f941d6","sz",1.5],["flags/canonical/5f6aae5677c1.svg","5f6aae5677c1f5bd1d8aa3221e5b99d266dee899","be",1.1538461538461537],["flags/canonical/e152ca3b7caf.svg","e152ca3b7caf0ddc0f74ffe2d684b4017c2a4dff","ie",2],["flags/canonical/614e54e95f3a.svg","614e54e95f3ac6017e40558f227182e4bf0c3b2e","ly",2],["flags/canonical/42567b97e5fd.svg","42567b97e5fd3dcbfd29f78349ad92c22b287760","es",1.5],["flags/canonical/c0236c6a9b1a.svg","c0236c6a9b1adf5608de497e04f20f891e8cb500","pl",1.6],["flags/canonical/a48c8e88a1a1.svg","a48c8e88a1a1d1a2d8c14af7cf061704b3d820d8","ng",2]];
+const b15Frozen=JSON.parse(read("currency-only/states/ed1-b15-initial-20261124.json"));
+check(b15Frozen.batch===15&&b15Frozen.start_question===141&&b15Frozen.end_question===150&&b15Frozen.questions.length===10,"Batch15 range");
+const b15Html=read("currency-only/batch15.html");
+const b15Match=b15Html.match(/<script id="officialBatchState" type="application\/json">([\s\S]*?)<\/script>/);
+check(!!b15Match,"Batch15 embedded state");
+const b15Inline=JSON.parse(b15Match[1]);
+check(JSON.stringify(b15Frozen)===JSON.stringify(b15Inline),"Batch15 direct page state");
+check(b15Inline.questions.every((q,i)=>q.n===141+i&&Object.keys(q).sort().join(",")==="asset,n"),"Batch15 order and no answers");
+check(b15Html.includes('const statePath="currency-only/states/ed1-b15-initial-20261124.json"')&&!b15Html.includes('fetch(url')&&!b15Html.includes("Invalid official pinned batch URL."),"Batch15 direct URL");
+for(let i=0;i<b15Data.length;i++){
+ const [path,sha,code,ratio]=b15Data[i],q=b15Inline.questions[i],svg=read(path);
+ check(q.asset==="./"+path&&gitBlob(svg)===sha,"Batch15 source SHA "+path);
+ check(svg.includes('id="flag-icons-'+code+'"'),"Batch15 source identity "+path);
+ const v=svg.match(/viewBox="\s*([-\d.]+)\s+([-\d.]+)\s+([\d.]+)\s+([\d.]+)\s*"/);
+ check(v&&Math.abs(Number(v[3])/Number(v[4])-ratio)<0.00001,"Batch15 geometry "+path);
+}
+check((read("currency-only/reports/edition-1/batch14.html").match(/<article class="card">/g)||[]).length===10,"Batch14 report cards");
+check(read("currency-only/reports/edition-1/batch14.html").includes('href="../../../currency-only/batch15.html"'),"Batch14 next button");
+
 const runner="currency-only/tools/render-report.mjs";
 // ES-module syntax is verified by `node --check currency-only/tools/render-report.mjs` in CI.
 const dir=mkdtempSync(join(tmpdir(),"currency-only-format-"));
