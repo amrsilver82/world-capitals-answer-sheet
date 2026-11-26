@@ -440,6 +440,28 @@ for(let i=0;i<b17Data.length;i++){
 check((read("currency-only/reports/edition-1/batch16.html").match(/<article class="card">/g)||[]).length===10,"Batch16 report cards");
 check(read("currency-only/reports/edition-1/batch16.html").includes('href="../../../currency-only/batch17.html"'),"Batch16 next button");
 
+
+ // Batch18 pinned native flags and immutable direct quiz.
+const b18Data=[["flags/canonical/68fc6a8ffa13.svg","68fc6a8ffa13cf90f26690487ee844ffac717d36","mv",1.5],["flags/canonical/9b63c0a494ce.svg","9b63c0a494ce767d26d4b6ad1bef43a812635086","zw",2],["flags/canonical/fd6d7865d417.svg","fd6d7865d4174dac65c787f6a26923ce4402807c","tr",1.5],["flags/canonical/98419c86a93c.svg","98419c86a93c98585c8ba372ac96b0e056970431","ss",2],["flags/canonical/2df04a720ebc.svg","2df04a720ebc2689efde1cfc24e71d52b7f05a7d","lt",1.6666666666666667],["flags/canonical/ce2513ed9b9e.svg","ce2513ed9b9e2ab0620dfd761d3143669731d085","ir",1.75],["flags/canonical/5859339fb06a.svg","5859339fb06a5e78a2a60ec18f517723ccc503ed","iq",1.5],["flags/canonical/712960f498fa.svg","712960f498fae8fe79516e57004a847e0190d4bb","km",1.6666666666666667],["flags/canonical/4cfa0ccae0cc.svg","4cfa0ccae0ccc0ec3c42f1d6e6cf1aa790c49667","ao",1.5],["flags/canonical/bab95f2ae6e9.svg","bab95f2ae6e95d7f3e5ca5cb50f528a8c9cf2a65","np",0.8203356027783509]];
+const b18Frozen=JSON.parse(read("currency-only/states/ed1-b18-initial-20261126.json"));
+check(b18Frozen.batch===18&&b18Frozen.start_question===171&&b18Frozen.end_question===180&&b18Frozen.questions.length===10,"Batch18 range");
+const b18Html=read("currency-only/batch18.html");
+const b18Match=b18Html.match(/<script id="officialBatchState" type="application\/json">([\s\S]*?)<\/script>/);
+check(!!b18Match,"Batch18 embedded state");
+const b18Inline=JSON.parse(b18Match[1]);
+check(JSON.stringify(b18Frozen)===JSON.stringify(b18Inline),"Batch18 direct page state");
+check(b18Inline.questions.every((q,i)=>q.n===171+i&&Object.keys(q).sort().join(",")==="asset,n"),"Batch18 order and no answers");
+check(b18Html.includes('const statePath="currency-only/states/ed1-b18-initial-20261126.json"')&&!b18Html.includes('fetch(url')&&!b18Html.includes("Invalid official pinned batch URL."),"Batch18 direct URL");
+for(let i=0;i<b18Data.length;i++){
+ const [path,sha,code,ratio]=b18Data[i],q=b18Inline.questions[i],svg=read(path);
+ check(q.asset==="./"+path&&gitBlob(svg)===sha,"Batch18 source SHA "+path);
+ check(svg.includes('id="flag-icons-'+code+'"'),"Batch18 source identity "+path);
+ const v=svg.match(/viewBox="\s*([-\d.]+)\s+([-\d.]+)\s+([\d.]+)\s+([\d.]+)\s*"/);
+ check(v&&Math.abs(Number(v[3])/Number(v[4])-ratio)<0.00001,"Batch18 geometry "+path);
+}
+check((read("currency-only/reports/edition-1/batch17.html").match(/<article class="card">/g)||[]).length===10,"Batch17 report cards");
+check(read("currency-only/reports/edition-1/batch17.html").includes('href="../../../currency-only/batch18.html"'),"Batch17 next button");
+
 const runner="currency-only/tools/render-report.mjs";
 // ES-module syntax is verified by `node --check currency-only/tools/render-report.mjs` in CI.
 const dir=mkdtempSync(join(tmpdir(),"currency-only-format-"));
